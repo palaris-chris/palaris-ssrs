@@ -70,12 +70,31 @@ SELECT
       STUFF((SELECT '|' + job.No_ 
             FROM [Palaris Europe Limited$Job] job
             WHERE [Project Status] = 'ACTIVE'
-          FOR XML PATH('')), 1, 1, '') [ActiveJobs]</CommandText>
+          FOR XML PATH('')), 1, 1, '') [ActiveJobsPEL]</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
-        <Field Name="ActiveJobs">
-          <DataField>ActiveJobs</DataField>
+        <Field Name="ActiveJobsPEL">
+          <DataField>ActiveJobsPEL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="NonActiveJobs">
+      <Query>
+        <DataSourceName>PalarisNAV</DataSourceName>
+        <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+SELECT
+      REPLACE(REPLACE(REPLACE(REPLACE(STUFF((SELECT '&amp;&lt;&gt;' + job.No_
+            FROM Palaris$Job job
+            WHERE [Project Status] = 'ACTIVE'
+          FOR XML PATH('')), 1, 4, ''),'&amp;amp','&amp;'),'&amp;lt','&lt;'),'&amp;gt','&gt;'),';','') [NonActiveJobs]</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="NonActiveJobs">
+          <DataField>NonActiveJobs</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -502,7 +521,7 @@ SELECT
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ActiveJobs.Value</Value>
+                                  <Value>=Fields!ActiveJobsPEL.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -543,11 +562,120 @@ SELECT
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>ActiveJobsPEL</DataSetName>
-            <Top>63.18854mm</Top>
+            <Top>69.62528mm</Top>
             <Left>0mm</Left>
             <Height>12mm</Height>
             <Width>347.2625mm</Width>
             <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+          <Tablix Name="Tablix5">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>347.2625mm</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>6mm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox7">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>All Non-Active Jobs</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox3</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>6mm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="ActiveJobs5">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!NonActiveJobs.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>ActiveJobs</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <KeepWithGroup>After</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Details5" />
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>NonActiveJobs</DataSetName>
+            <Top>55.86139mm</Top>
+            <Left>0mm</Left>
+            <Height>12mm</Height>
+            <Width>347.2625mm</Width>
+            <ZIndex>5</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -619,6 +747,6 @@ SELECT
     </ReportSection>
   </ReportSections>
   <rd:ReportUnitType>Mm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>2bbba68c-01c4-462c-8d8b-de4a7872dd54</rd:ReportID>
 </Report>

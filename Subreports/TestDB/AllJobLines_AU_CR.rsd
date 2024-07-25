@@ -13,6 +13,8 @@
         </DataSetParameter>
       </DataSetParameters>
       <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+/*DECLARE @JobNo AS NVARCHAR(11)
+SET @JobNo = '';*/
 
 WITH 
 InvoiceCurrency AS
@@ -52,8 +54,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 
 FROM dbo.[Palaris$Job Task] 
 WHERE 
@@ -68,8 +70,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 
 FROM dbo.[Palaris$Job Task] 
 WHERE 
@@ -84,8 +86,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 FROM dbo.[Palaris$Job Task] 
 WHERE 
 [Job No_] = @JobNo
@@ -99,8 +101,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 FROM dbo.[Palaris$Job Task] 
 WHERE 
 [Job No_] = @JobNo
@@ -114,8 +116,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 FROM dbo.[Palaris$Job Task] 
 WHERE 
 [Job No_] = @JobNo
@@ -129,8 +131,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 FROM dbo.[Palaris$Job Task] 
 WHERE 
 [Job No_] = @JobNo
@@ -163,13 +165,14 @@ END AS [Job Task Type]
 ,jt4.[Job Task No_] AS Indent4No
 ,jt5.name AS Indent5Cat
 ,jt5.[Job Task No_] AS Indent5No
+
 FROM dbo.[Palaris$Job Task] jt
-LEFT JOIN jt0 ON jt.[Job No_] = jt0.[Job No_] AND jt.[Job Task No_] BETWEEN jt0.TotalStart AND jt0.TotalEnd
-LEFT JOIN jt1 ON jt.[Job No_] = jt1.[Job No_] AND jt.[Job Task No_] BETWEEN jt1.TotalStart AND jt1.TotalEnd
-LEFT JOIN jt2 ON jt.[Job No_] = jt2.[Job No_] AND jt.[Job Task No_] BETWEEN jt2.TotalStart AND jt2.TotalEnd
-LEFT JOIN jt3 ON jt.[Job No_] = jt3.[Job No_] AND jt.[Job Task No_] BETWEEN jt3.TotalStart AND jt3.TotalEnd
-LEFT JOIN jt4 ON jt.[Job No_] = jt4.[Job No_] AND jt.[Job Task No_] BETWEEN jt4.TotalStart AND jt4.TotalEnd
-LEFT JOIN jt5 ON jt.[Job No_] = jt5.[Job No_] AND jt.[Job Task No_] BETWEEN jt5.TotalStart AND jt5.TotalEnd
+LEFT JOIN jt0 ON jt.[Job No_] = jt0.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt0.TotalStart,'-','') AND REPLACE(jt0.TotalEnd,'-','')
+LEFT JOIN jt1 ON jt.[Job No_] = jt1.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt1.TotalStart,'-','') AND REPLACE(jt1.TotalEnd,'-','')
+LEFT JOIN jt2 ON jt.[Job No_] = jt2.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt2.TotalStart,'-','') AND REPLACE(jt2.TotalEnd,'-','')
+LEFT JOIN jt3 ON jt.[Job No_] = jt3.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt3.TotalStart,'-','') AND REPLACE(jt3.TotalEnd,'-','')
+LEFT JOIN jt4 ON jt.[Job No_] = jt4.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt4.TotalStart,'-','') AND REPLACE(jt4.TotalEnd,'-','')
+LEFT JOIN jt5 ON jt.[Job No_] = jt5.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt5.TotalStart,'-','') AND REPLACE(jt5.TotalEnd,'-','')
 WHERE jt.[Job No_] = @JobNo
 AND jt.[Job Task Type] = 0 
 ),
@@ -271,11 +274,11 @@ END AS [Qty_ to Invoice]
 FROM dbo.[Palaris$Job Planning Line] jpl
 
 
-  LEFT JOIN [DynamicsNAVPalaris].dbo.[Palaris$Resource] res ON jpl.[No_] = res.[No_]  
-  LEFT JOIN [DynamicsNAVPalaris].dbo.[Palaris$G_L Account] ac ON jpl.[Expense No_ Allocation] = ac.No_  
+  LEFT JOIN dbo.[Palaris$Resource] res ON jpl.[No_] = res.[No_]  
+  LEFT JOIN dbo.[Palaris$G_L Account] ac ON jpl.[Expense No_ Allocation] = ac.No_  
   LEFT JOIN JobTasks jt ON jpl.[Job No_] = jt.[Job No_] AND jpl.[Job Task No_] = jt.[Job Task No_]
   LEFT JOIN InvoiceCurrency inv on jpl.[Job No_] = inv.[No_]
-  LEFT JOIN [DynamicsNAVPalaris].dbo.[Palaris$Job Planning Line Invoice] jpli ON jpl.[Job No_] = jpli.[Job No_] AND jpl.[Job Task No_] = jpli.[Job Task No_] AND jpl.[Line No_] = jpli.[Job Planning Line No_]  
+  LEFT JOIN dbo.[Palaris$Job Planning Line Invoice] jpli ON jpl.[Job No_] = jpli.[Job No_] AND jpl.[Job Task No_] = jpli.[Job Task No_] AND jpl.[Line No_] = jpli.[Job Planning Line No_]  
 WHERE jpl.[Job No_] = @JobNo
 AND (jpli.[Document No_] NOT LIKE 'CR%'
 AND jpli.[Document No_] NOT IN (SELECT * FROM AppliesTo)
@@ -410,7 +413,13 @@ SELECT *
 	WHEN jpl.[Line Type] = 'Contract' THEN [Quantity]
     ELSE null
     END AS [ContractQtyExp]
-,UPPER(SUBSTRING([JPNameShort],1,2) + '-' + SUBSTRING([JPNameShort],CHARINDEX(' ',[JPNameShort])+1,3)) AS JPShortInitial
+/*,UPPER(SUBSTRING([JPNameShort],1,2) + '-' + SUBSTRING([JPNameShort],CHARINDEX(' ',[JPNameShort])+1,3)) AS JPShortInitial*/
+,SUBSTRING([JPNameShort], 1, 3) +     --First initial
+    SUBSTRING([JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1, 3) +    --Middle/Last initial
+    CASE WHEN 0 &lt;&gt;  CHARINDEX(' ', [JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1) -- More than two words 
+        THEN SUBSTRING([JPNameShort], CHARINDEX(' ', [JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1) + 1, 3)  --Last initial
+    ELSE '' --Have to add empty string to avoid NULLing entire result
+    END AS JPShortInitial
 
  FROM JPL
 
@@ -423,7 +432,13 @@ SELECT *
 ,null AS [Contract]
 ,null AS [ContractQty]
 ,null AS [ContractQtyExp]
-,UPPER(SUBSTRING([JPNameShort],1,2) + '-' + SUBSTRING([JPNameShort],CHARINDEX(' ',[JPNameShort])+1,3)) AS JPShortInitial
+/*,UPPER(SUBSTRING([JPNameShort],1,2) + '-' + SUBSTRING([JPNameShort],CHARINDEX(' ',[JPNameShort])+1,3)) AS JPShortInitial*/
+,SUBSTRING([JPNameShort], 1, 3) +     --First initial
+    SUBSTRING([JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1, 3) +    --Middle/Last initial
+    CASE WHEN 0 &lt;&gt;  CHARINDEX(' ', [JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1) -- More than two words 
+        THEN SUBSTRING([JPNameShort], CHARINDEX(' ', [JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1) + 1, 3)  --Last initial
+    ELSE '' --Have to add empty string to avoid NULLing entire result
+    END AS JPShortInitial
  FROM JLE
 )
 
@@ -464,24 +479,20 @@ ORDER BY [Date] asc</CommandText>
         <DataField>Document Date</DataField>
         <rd:TypeName>System.DateTime</rd:TypeName>
       </Field>
-      <Field Name="Name">
-        <DataField>Name</DataField>
-        <rd:TypeName>System.String</rd:TypeName>
-      </Field>
       <Field Name="Month_Year">
         <DataField>Month-Year</DataField>
-        <rd:TypeName>System.String</rd:TypeName>
-      </Field>
-      <Field Name="Type">
-        <DataField>Type</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="ISO_Week">
         <DataField>ISO-Week</DataField>
         <rd:TypeName>System.Int32</rd:TypeName>
       </Field>
-      <Field Name="Job_Position_Title">
-        <DataField>Job Position Title</DataField>
+      <Field Name="ISO_Week_Year">
+        <DataField>ISO-Week-Year</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Name">
+        <DataField>Name</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="NameShort">
@@ -492,17 +503,21 @@ ORDER BY [Date] asc</CommandText>
         <DataField>JPNameShort</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
-      <Field Name="TaskExpenses">
-        <DataField>TaskExpenses</DataField>
-        <rd:TypeName>System.String</rd:TypeName>
-      </Field>
       <Field Name="JPName">
         <DataField>JPName</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
-      <Field Name="ISO_Week_Year">
-        <DataField>ISO-Week-Year</DataField>
-        <rd:TypeName>System.Int32</rd:TypeName>
+      <Field Name="TaskExpenses">
+        <DataField>TaskExpenses</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Type">
+        <DataField>Type</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Job_Position_Title">
+        <DataField>Job Position Title</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="RevenueCategory">
         <DataField>RevenueCategory</DataField>
@@ -564,45 +579,45 @@ ORDER BY [Date] asc</CommandText>
         <DataField>Line Amount (LCY)</DataField>
         <rd:TypeName>System.Decimal</rd:TypeName>
       </Field>
-      <Field Name="Last_Date_Modified">
-        <DataField>Last Date Modified</DataField>
-        <rd:TypeName>System.DateTime</rd:TypeName>
-      </Field>
       <Field Name="Unit_Price__INV_">
         <DataField>Unit Price (INV)</DataField>
         <rd:TypeName>System.Decimal</rd:TypeName>
-      </Field>
-      <Field Name="User_ID">
-        <DataField>User ID</DataField>
-        <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="Total_Price__INV_">
         <DataField>Total Price (INV)</DataField>
         <rd:TypeName>System.Decimal</rd:TypeName>
       </Field>
-      <Field Name="Gen__Bus__Posting_Group">
-        <DataField>Gen_ Bus_ Posting Group</DataField>
+      <Field Name="Line_Discount_Amount__INV_">
+        <DataField>Line Discount Amount (INV)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Line_Amount__INV_">
+        <DataField>Line Amount (INV)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="InvoiceNo">
+        <DataField>InvoiceNo</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="Currency">
         <DataField>Currency</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
-      <Field Name="InvoiceNo">
-        <DataField>InvoiceNo</DataField>
+      <Field Name="Last_Date_Modified">
+        <DataField>Last Date Modified</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="User_ID">
+        <DataField>User ID</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
-      <Field Name="Line_Discount_Amount__INV_">
-        <DataField>Line Discount Amount (INV)</DataField>
-        <rd:TypeName>System.Decimal</rd:TypeName>
+      <Field Name="Gen__Bus__Posting_Group">
+        <DataField>Gen_ Bus_ Posting Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="Gen__Prod__Posting_Group">
         <DataField>Gen_ Prod_ Posting Group</DataField>
         <rd:TypeName>System.String</rd:TypeName>
-      </Field>
-      <Field Name="Line_Amount__INV_">
-        <DataField>Line Amount (INV)</DataField>
-        <rd:TypeName>System.Decimal</rd:TypeName>
       </Field>
       <Field Name="Qty__to_Transfer_to_Invoice">
         <DataField>Qty_ to Transfer to Invoice</DataField>
@@ -694,5 +709,5 @@ ORDER BY [Date] asc</CommandText>
       </Field>
     </Fields>
   </DataSet>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
 </SharedDataSet>

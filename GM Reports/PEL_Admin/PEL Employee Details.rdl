@@ -244,7 +244,8 @@ WHERE No_ = @No</CommandText>
         <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT No_, Name 
 FROM [Palaris Europe Limited$Employee]
-WHERE Status = 0</CommandText>
+WHERE Status = 0
+AND [Global Dimension 2 Code] = 'PEL'</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -707,6 +708,15 @@ WHERE [Employee No_] = @No</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>MiscArticleInfo</DataSetName>
+            <Filters>
+              <Filter>
+                <FilterExpression>=iif(Instr(Fields!Misc__Article_Code.Value, "EYS")&gt;0, 1, 0)</FilterExpression>
+                <Operator>Equal</Operator>
+                <FilterValues>
+                  <FilterValue DataType="Integer">0</FilterValue>
+                </FilterValues>
+              </Filter>
+            </Filters>
             <Top>86.94133mm</Top>
             <Left>3.175mm</Left>
             <Height>15.70417mm</Height>
@@ -1380,6 +1390,6 @@ WHERE [Employee No_] = @No</CommandText>
     </ReportParameter>
   </ReportParameters>
   <rd:ReportUnitType>Mm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>43f68e84-40bc-441b-a808-ec48c7e4cfd0</rd:ReportID>
 </Report>

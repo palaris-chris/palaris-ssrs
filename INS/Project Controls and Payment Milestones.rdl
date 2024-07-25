@@ -673,7 +673,7 @@ AND Job.No_ NOT LIKE 'T-%'</CommandText>
                   <Width>18.12083mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>45.8441mm</Width>
+                  <Width>37.98332mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>28.89585mm</Width>
@@ -990,7 +990,7 @@ AND Job.No_ NOT LIKE 'T-%'</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>12.87917mm</Height>
+                  <Height>13mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1952,7 +1952,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                                 <TextRun>
                                   <Value>=Fields!Amount.Value</Value>
                                   <Style>
-                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                    <Format>#,0.00;(#,0.00)</Format>
                                     <Color>=
 IIf(Fields!UsageMinusInvoiced.Value &lt;= 0, "Gray",
 "Default")</Color>
@@ -1993,7 +1993,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                                   <Value>=Fields!UsageMinusInvoiced.Value</Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
-                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                    <Format>#,0.00;(#,0.00)</Format>
                                     <Color>=
 IIf(Fields!UsageMinusInvoiced.Value &lt;= 0, "Gray",
 "Default")</Color>
@@ -2162,10 +2162,9 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
             </SortExpressions>
             <Top>13.9886mm</Top>
             <Left>1.162mm</Left>
-            <Height>30.61458mm</Height>
-            <Width>484.31544mm</Width>
+            <Height>30.73541mm</Height>
+            <Width>476.45466mm</Width>
             <Visibility>
-              <Hidden>true</Hidden>
               <ToggleItem>Btn_PM</ToggleItem>
             </Visibility>
             <Style>
@@ -2201,7 +2200,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                   <Width>18.12083mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>45.65624mm</Width>
+                  <Width>37.98332mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>28.89585mm</Width>
@@ -2210,7 +2209,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                   <Width>25mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>36.16541mm</Width>
+                  <Width>34.31333mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>38.75833mm</Width>
@@ -2561,6 +2560,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox12">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Business_Unit_Group.Value</SortExpression>
                           </UserSort>
@@ -2597,6 +2597,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox26">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Project_Manager.Value</SortExpression>
                           </UserSort>
@@ -2633,6 +2634,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox15">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Job_No_.Value</SortExpression>
                           </UserSort>
@@ -2669,6 +2671,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox51">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Risk_Level.Value</SortExpression>
                           </UserSort>
@@ -2705,6 +2708,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox55">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!TaskDescription.Value</SortExpression>
                           </UserSort>
@@ -2741,6 +2745,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox93">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Deliverable_Type.Value</SortExpression>
                           </UserSort>
@@ -2777,6 +2782,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox16">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Planning_Date.Value</SortExpression>
                           </UserSort>
@@ -2813,6 +2819,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox17">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Last_Date_Modified.Value</SortExpression>
                           </UserSort>
@@ -2849,6 +2856,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox18">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!DaysMoved.Value</SortExpression>
                           </UserSort>
@@ -2885,6 +2893,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox29">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Description_2.Value</SortExpression>
                           </UserSort>
@@ -2921,6 +2930,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox30">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!PM_Comment.Value</SortExpression>
                           </UserSort>
@@ -2962,6 +2972,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox31">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -2995,6 +3006,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox32">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3028,6 +3040,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox140">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3061,6 +3074,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox139">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3092,6 +3106,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox141">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3123,6 +3138,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox19">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3154,6 +3170,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox143">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3185,6 +3202,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox144">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3216,6 +3234,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox145">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3249,6 +3268,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox146">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3280,6 +3300,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox40">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3316,6 +3337,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Business_Unit_Group2">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3347,6 +3369,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Project_Manager2">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3378,6 +3401,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Job_No_2">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3418,6 +3442,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Risk_Level">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3452,6 +3477,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Bold",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TaskDescription">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3486,6 +3512,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Bold",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Deliverable_Type">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3523,6 +3550,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Planning_Date2">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3567,6 +3595,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Promised_Delivery_Date2">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3601,6 +3630,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="DaysMoved2">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3640,6 +3670,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Milestone2">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3693,6 +3724,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="PM_Comment2">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3789,10 +3821,10 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                 <Value>=Fields!Planning_Date.Value</Value>
               </SortExpression>
             </SortExpressions>
-            <Top>46.47431mm</Top>
+            <Top>76.90417mm</Top>
             <Left>1.27mm</Left>
             <Height>30.08542mm</Height>
-            <Width>524.89457mm</Width>
+            <Width>515.36957mm</Width>
             <ZIndex>1</ZIndex>
             <Visibility>
               <ToggleItem>Btn_Dlvable</ToggleItem>
@@ -3924,7 +3956,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                   <Width>18.12083mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>45.65624mm</Width>
+                  <Width>37.98332mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>28.89585mm</Width>
@@ -3933,7 +3965,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                   <Width>25mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>36.16541mm</Width>
+                  <Width>34.31333mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>38.75833mm</Width>
@@ -3961,6 +3993,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox70">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3998,6 +4031,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox78">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4032,6 +4066,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox79">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4066,6 +4101,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox27">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4100,6 +4136,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox81">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4134,6 +4171,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox89">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4168,6 +4206,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox90">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4202,6 +4241,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox91">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4236,6 +4276,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox92">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4275,6 +4316,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox43">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Business_Unit_Group.Value</SortExpression>
                           </UserSort>
@@ -4311,6 +4353,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox44">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Project_Manager.Value</SortExpression>
                           </UserSort>
@@ -4347,6 +4390,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox45">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Job_No_.Value</SortExpression>
                           </UserSort>
@@ -4383,6 +4427,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox53">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Risk_Level.Value</SortExpression>
                           </UserSort>
@@ -4419,6 +4464,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox56">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!TaskDescription.Value</SortExpression>
                           </UserSort>
@@ -4455,6 +4501,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox33">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Deliverable_Type.Value</SortExpression>
                           </UserSort>
@@ -4491,6 +4538,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox46">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Planning_Date.Value</SortExpression>
                           </UserSort>
@@ -4527,6 +4575,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox47">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Last_Date_Modified.Value</SortExpression>
                           </UserSort>
@@ -4563,6 +4612,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox48">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!DaysMoved.Value</SortExpression>
                           </UserSort>
@@ -4599,6 +4649,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox49">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!Description_2.Value</SortExpression>
                           </UserSort>
@@ -4635,6 +4686,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox50">
+                          <CanGrow>true</CanGrow>
                           <UserSort>
                             <SortExpression>=Fields!PM_Comment.Value</SortExpression>
                           </UserSort>
@@ -4676,6 +4728,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox54">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4709,6 +4762,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox57">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4742,6 +4796,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox142">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4775,6 +4830,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox149">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4806,6 +4862,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox155">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4837,6 +4894,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox36">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4868,6 +4926,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox156">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4899,6 +4958,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox157">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4930,6 +4990,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox158">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4963,6 +5024,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox159">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -4994,6 +5056,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox59">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5030,6 +5093,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Business_Unit_Group4">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5061,6 +5125,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Project_Manager4">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5092,6 +5157,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Job_No_4">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5132,6 +5198,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Risk_Level3">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5166,6 +5233,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Bold",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TaskDescription2">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5200,6 +5268,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Bold",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Deliverable_Type1">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5236,6 +5305,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Planning_Date4">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5280,6 +5350,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Promised_Delivery_Date4">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5314,6 +5385,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="DaysMoved4">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5353,6 +5425,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Milestone4">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5406,6 +5479,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="PM_Comment4">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -5502,10 +5576,10 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                 <Value>=Fields!Planning_Date.Value</Value>
               </SortExpression>
             </SortExpressions>
-            <Top>78.62465mm</Top>
+            <Top>45.63111mm</Top>
             <Left>1.27mm</Left>
             <Height>30.08542mm</Height>
-            <Width>524.89457mm</Width>
+            <Width>515.36957mm</Width>
             <ZIndex>4</ZIndex>
             <Visibility>
               <ToggleItem>Btn_Dlvable</ToggleItem>
@@ -5537,14 +5611,14 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>110.34098mm</Height>
+        <Height>109.01806mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>526.16457mm</Width>
+      <Width>516.63957mm</Width>
       <Page>
         <PageFooter>
           <Height>11.28889mm</Height>
@@ -5615,7 +5689,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
       <DataType>String</DataType>
       <DefaultValue>
         <DataSetReference>
-          <DataSetName>ThisPM</DataSetName>
+          <DataSetName>ActivePMs</DataSetName>
           <ValueField>Name</ValueField>
         </DataSetReference>
       </DefaultValue>

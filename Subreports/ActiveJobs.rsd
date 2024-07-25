@@ -27,6 +27,9 @@ job.No_
   ,job.[Expected End Date]
   ,job.[Ending Date]
   ,job.[Job On Hold]
+  ,CASE WHEN job.[Currency Code] &lt;&gt; '' THEN LEFT(job.[Currency Code], 3)
+	ELSE 'GBP'
+	END AS [Currency]
   ,CASE WHEN job.[Risk Level] = 0 THEN 'Level 1'
   WHEN job.[Risk Level] = 1 THEN 'Level 2'
   WHEN job.[Risk Level] = 2 THEN 'Level 3'
@@ -38,6 +41,8 @@ job.No_
 	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
 	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
 	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+	 WHEN job.[Job Type] = 6 THEN 'Sub Only'
+	 WHEN job.[Job Type] = 7 THEN 'Multi-Year'
 	ELSE null 
    END AS [JobType]
   ,CASE WHEN LEFT(job.[Timesheet Work Type Group], 1) = 'D' THEN 'Daily'
@@ -97,7 +102,7 @@ AS ServiceOwner
 ,job.[Planned Margin _]/100 AS [CETMargin]
 
 ,(SELECT
-SUM(jpl.[Total Cost (LCY)])
+SUM(jpl.[Total Cost])
 FROM
   [Palaris Europe Limited$Job Planning Line] jpl
 WHERE
@@ -106,7 +111,7 @@ WHERE
   AND jpl.[Orig_ Estimation] = 1) AS OriginalScheduleCost
 
 ,(SELECT
-SUM(jpl.[Line Amount (LCY)])
+SUM(jpl.[Line Amount])
 FROM
   [Palaris Europe Limited$Job Planning Line] jpl
 WHERE
@@ -115,7 +120,7 @@ WHERE
   AND jpl.[Orig_ Estimation] = 1) AS OriginalSchedulePrice
 
 ,(SELECT
-SUM(jpl.[Total Cost (LCY)])
+SUM(jpl.[Total Cost])
 FROM
   [Palaris Europe Limited$Job Planning Line] jpl
 WHERE
@@ -123,7 +128,7 @@ WHERE
   AND jpl.[Schedule Line] = 1) AS ScheduleCost
 
 ,ISNULL((SELECT
-SUM(jpl.[Total Cost (LCY)])
+SUM(jpl.[Total Cost])
 FROM
   [Palaris Europe Limited$Job Planning Line] jpl
 WHERE
@@ -131,7 +136,7 @@ WHERE
   AND jpl.[Schedule Line] = 1 AND jpl.[Work Type Code] IN ('NBTHR', 'NBTDAY')), 0) AS ScheduleNBTCost
 
 ,(SELECT
-SUM(jpl.[Total Cost (LCY)])
+SUM(jpl.[Total Cost])
 FROM
   [Palaris Europe Limited$Job Planning Line] jpl
 WHERE
@@ -139,7 +144,7 @@ WHERE
   AND jpl.[Schedule Line] = 1 AND ((jpl.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY', 'BILLHR-XX', 'BILLDAY-XX') AND jpl.[No_] NOT LIKE 'R9%') OR jpl.[Job Task No_] = 'Y0000')) AS SchedulePalResourceCost
 
 ,(SELECT
-SUM(jpl.[Line Amount (LCY)])
+SUM(jpl.[Line Amount])
 FROM
   [Palaris Europe Limited$Job Planning Line] jpl
 WHERE
@@ -171,7 +176,7 @@ WHERE
   AND jle.[Entry Type] = 0 AND jle.[Work Type Code] IN ('NBTHR', 'NBTDAY')) AS UsageNBT
 
 ,ISNULL((SELECT
-SUM(jle.[Total Cost (LCY)])
+SUM(jle.[Total Cost])
 FROM
   [Palaris Europe Limited$Job Ledger Entry] jle
 WHERE
@@ -179,7 +184,7 @@ WHERE
   AND jle.[Entry Type] = 0 AND jle.[Work Type Code] IN ('NBTHR', 'NBTDAY')),0) AS NBTCost
 
 ,(SELECT
-SUM(jle.[Total Cost (LCY)])
+SUM(jle.[Total Cost])
 FROM
   [Palaris Europe Limited$Job Ledger Entry] jle
 WHERE
@@ -195,7 +200,7 @@ WHERE
   AND jle.[Entry Type] = 0 AND jle.[Work Type Code]  IN ('BILLHR', 'BILLDAY')) AS UsageBILL
 
   ,(SELECT
-SUM(jle.[Total Cost (LCY)])
+SUM(jle.[Total Cost])
 FROM
   [Palaris Europe Limited$Job Ledger Entry] jle
 WHERE
@@ -203,7 +208,7 @@ WHERE
   AND jle.[Entry Type] = 0) AS UsageCost
 
   ,(SELECT
-SUM(jle.[Line Amount (LCY)])
+SUM(jle.[Line Amount])
 FROM
   [Palaris Europe Limited$Job Ledger Entry] jle
 WHERE
@@ -211,7 +216,7 @@ WHERE
   AND jle.[Entry Type] = 0) AS UsagePrice
 
 ,-1*(SELECT
-SUM(jle.[Line Amount (LCY)])
+SUM(jle.[Line Amount])
 FROM
   [Palaris Europe Limited$Job Ledger Entry] jle
 WHERE
@@ -219,7 +224,7 @@ WHERE
   AND jle.[Entry Type] = 1) AS Invoiced
 
 ,(SELECT
-SUM(jpl.[Line Amount (LCY)])
+SUM(jpl.[Line Amount])
 FROM
   [Palaris Europe Limited$Job Planning Line] jpl
 WHERE
@@ -230,7 +235,7 @@ AND
 jpl.[Planning Date] &lt; GETDATE()) AS WIP
 
 ,(SELECT
-SUM(jpl.[Total Price (LCY)])
+SUM(jpl.[Total Price])
 FROM
   [Palaris Europe Limited$Job Planning Line] jpl
 WHERE
@@ -244,7 +249,7 @@ jpl.[Planning Date] &lt; GETDATE()
 ) AS WIPNoPO
 
 ,(SELECT
-SUM(jpl.[Total Price (LCY)])
+SUM(jpl.[Total Price])
 FROM
   [Palaris Europe Limited$Job Planning Line] jpl
 WHERE
@@ -338,6 +343,7 @@ jobs_PEL.[Creation Date],
 jobs_PEL.[Starting Date],
 jobs_PEL.[Expected End Date],
 jobs_PEL.[Job On Hold],
+jobs_PEL.[Currency],
 jobs_PEL.[Risk Level],
 UPPER(Jobs_PEL.[Time Sheet Owner User ID]) AS [PM User Name],
 palres2.name AS [PM Supervisor],
@@ -412,6 +418,9 @@ job.No_
   ,job.[Expected End Date]
   ,job.[Ending Date]
   ,job.[Job On Hold]
+  ,CASE WHEN job.[Currency Code] &lt;&gt; '' THEN LEFT(job.[Currency Code], 3)
+	ELSE 'AUD'
+	END AS [Currency]
   ,CASE WHEN job.[Risk Level] = 0 THEN 'Level 1'
   WHEN job.[Risk Level] = 1 THEN 'Level 2'
   WHEN job.[Risk Level] = 2 THEN 'Level 3'
@@ -423,6 +432,8 @@ job.No_
 	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
 	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
 	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+	 WHEN job.[Job Type] = 6 THEN 'Sub Only'
+	 WHEN job.[Job Type] = 7 THEN 'Multi-Year'
 	ELSE null 
    END AS [JobType]
   ,CASE WHEN LEFT(job.[Timesheet Work Type Group], 1) = 'D' THEN 'Daily'
@@ -482,7 +493,7 @@ AS ServiceOwner
 ,job.[Planned Margin _]/100 AS [CETMargin]
 
 ,(SELECT
-SUM(jpl.[Total Cost (LCY)])
+SUM(jpl.[Total Cost])
 FROM
   [Palaris$Job Planning Line] jpl
 WHERE
@@ -491,7 +502,7 @@ WHERE
   AND jpl.[Orig_ Estimation] = 1) AS OriginalScheduleCost
 
 ,(SELECT
-SUM(jpl.[Line Amount (LCY)])
+SUM(jpl.[Line Amount])
 FROM
   [Palaris$Job Planning Line] jpl
 WHERE
@@ -500,7 +511,7 @@ WHERE
   AND jpl.[Orig_ Estimation] = 1) AS OriginalSchedulePrice
 
 ,(SELECT
-SUM(jpl.[Total Cost (LCY)])
+SUM(jpl.[Total Cost])
 FROM
   [Palaris$Job Planning Line] jpl
 WHERE
@@ -508,7 +519,7 @@ WHERE
   AND jpl.[Schedule Line] = 1) AS ScheduleCost
 
 ,ISNULL((SELECT
-SUM(jpl.[Total Cost (LCY)])
+SUM(jpl.[Total Cost])
 FROM
   [Palaris$Job Planning Line] jpl
 WHERE
@@ -516,7 +527,7 @@ WHERE
   AND jpl.[Schedule Line] = 1 AND jpl.[Work Type Code] IN ('NBTHR', 'NBTDAY')), 0) AS ScheduleNBTCost
 
 ,(SELECT
-SUM(jpl.[Total Cost (LCY)])
+SUM(jpl.[Total Cost])
 FROM
   [Palaris$Job Planning Line] jpl
 WHERE
@@ -524,7 +535,7 @@ WHERE
   AND jpl.[Schedule Line] = 1 AND ((jpl.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY', 'BILLHR-XX', 'BILLDAY-XX') AND jpl.[No_] NOT LIKE 'R9%') OR jpl.[Job Task No_] = 'Y0000')) AS SchedulePalResourceCost
 
 ,(SELECT
-SUM(jpl.[Line Amount (LCY)])
+SUM(jpl.[Line Amount])
 FROM
   [Palaris$Job Planning Line] jpl
 WHERE
@@ -555,7 +566,7 @@ WHERE
   AND jle.[Entry Type] = 0 AND jle.[Work Type Code] IN ('NBTHR', 'NBTDAY')) AS UsageNBT
 
 ,ISNULL((SELECT
-SUM(jle.[Total Cost (LCY)])
+SUM(jle.[Total Cost])
 FROM
   [Palaris$Job Ledger Entry] jle
 WHERE
@@ -563,7 +574,7 @@ WHERE
   AND jle.[Entry Type] = 0 AND jle.[Work Type Code] IN ('NBTHR', 'NBTDAY')),0) AS NBTCost
 
 ,(SELECT
-SUM(jle.[Total Cost (LCY)])
+SUM(jle.[Total Cost])
 FROM
   [Palaris$Job Ledger Entry] jle
 WHERE
@@ -579,7 +590,7 @@ WHERE
   AND jle.[Entry Type] = 0 AND jle.[Work Type Code] IN ('BILLHR', 'BILLDAY')) AS UsageBILL
 
   ,(SELECT
-SUM(jle.[Total Cost (LCY)])
+SUM(jle.[Total Cost])
 FROM
   [Palaris$Job Ledger Entry] jle
 WHERE
@@ -587,7 +598,7 @@ WHERE
   AND jle.[Entry Type] = 0) AS UsageCost
 
   ,(SELECT
-SUM(jle.[Line Amount (LCY)])
+SUM(jle.[Line Amount])
 FROM
   [Palaris$Job Ledger Entry] jle
 WHERE
@@ -595,7 +606,7 @@ WHERE
   AND jle.[Entry Type] = 0) AS UsagePrice
 
 ,-1*(SELECT
-SUM(jle.[Line Amount (LCY)])
+SUM(jle.[Line Amount])
 FROM
   [Palaris$Job Ledger Entry] jle
 WHERE
@@ -603,7 +614,7 @@ WHERE
   AND jle.[Entry Type] = 1) AS Invoiced
 
 ,(SELECT
-SUM(jpl.[Line Amount (LCY)])
+SUM(jpl.[Line Amount])
 FROM
   [Palaris$Job Planning Line] jpl
 WHERE
@@ -614,7 +625,7 @@ AND
 jpl.[Planning Date] &lt; GETDATE()) AS WIP
 
 ,(SELECT
-SUM(jpl.[Total Price (LCY)])
+SUM(jpl.[Total Price])
 FROM
   [Palaris$Job Planning Line] jpl
 WHERE
@@ -628,7 +639,7 @@ jpl.[Planning Date] &lt; GETDATE()
 ) AS WIPNoPO
 
 ,(SELECT
-SUM(jpl.[Total Price (LCY)])
+SUM(jpl.[Total Price])
 FROM
   [Palaris$Job Planning Line] jpl
 WHERE
@@ -725,6 +736,7 @@ jobs.[Creation Date],
 jobs.[Starting Date],
 jobs.[Expected End Date],
 jobs.[Job On Hold],
+jobs.[Currency],
 jobs.[Risk Level],
 UPPER(Jobs.[Time Sheet Owner User ID]) AS [PM User Name],
 palres2.name AS [PM Supervisor],
@@ -833,6 +845,10 @@ SELECT * FROM AUPIVOT</CommandText>
       </Field>
       <Field Name="PM_User_Name">
         <DataField>PM User Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Currency">
+        <DataField>Currency</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="Risk_Level">
@@ -1033,5 +1049,5 @@ SELECT * FROM AUPIVOT</CommandText>
       </Field>
     </Fields>
   </DataSet>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
 </SharedDataSet>

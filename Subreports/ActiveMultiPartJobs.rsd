@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT DISTINCT
+CASE WHEN CHARINDEX('-',job.[No_])&gt;0 THEN   
+       LEFT(job.[No_], CHARINDEX('-',job.[No_])-1)         
+       WHEN ISNUMERIC(RIGHT(job.[No_], 1))&lt;&gt;1 THEN     
+       LEFT(job.[No_], LEN(job.[No_])-1)    
+       ELSE job.[No_]  END AS [Base Job No]
+
+FROM
+[Palaris$Job] job
+WHERE job.[Project Status] = 'ACTIVE' AND
+((CHARINDEX('-',job.[No_])&gt;0) OR (ISNUMERIC(RIGHT(job.[No_], 1))&lt;&gt;1))
+
+UNION ALL
+
+SELECT DISTINCT
+CASE WHEN CHARINDEX('-',job.[No_])&gt;0 THEN   
+       LEFT(job.[No_], CHARINDEX('-',job.[No_])-1)         
+       WHEN ISNUMERIC(RIGHT(job.[No_], 1))&lt;&gt;1 THEN     
+       LEFT(job.[No_], LEN(job.[No_])-1)    
+       ELSE job.[No_]  END AS [Base Job No]
+
+FROM
+[Palaris Europe Limited$Job] job
+WHERE job.[Project Status] = 'ACTIVE' AND
+((CHARINDEX('-',job.[No_])&gt;0) OR (ISNUMERIC(RIGHT(job.[No_], 1))&lt;&gt;1))</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Base_Job_No">
+        <DataField>Base Job No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>
