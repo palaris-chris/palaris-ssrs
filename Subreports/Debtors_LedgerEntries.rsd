@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+WITH
+
+BUGroup AS
+(
+SELECT [Consolidation Code] AS [Business Unit Group], [Code] AS [Business Unit], [Name] AS [Label]
+FROM [DynamicsNAVPalaris].[dbo].[Palaris$Dimension Value] 
+WHERE [Dimension Code] = 'BUSUNIT'
+),
+
+SalesInvoices AS
+(
+SELECT DISTINCT [Document No_], [Job No_]
+FROM [Palaris$Job Ledger Entry]
+),
+
+ResourceName AS
+(
+SELECT [Name], [No_], [Windows Name]
+FROM [Palaris$Resource]
+),
+
+Job AS
+(
+SELECT [Person Responsible], Job.[No_] AS No, [Customer PO], ResourceName.[Name] as 'Name', ResourceName.[Windows Name]
+FROM [Palaris$Job] Job
+LEFT JOIN ResourceName ON [Person Responsible] = ResourceName.[No_]
+),
+
+EPD AS
+(
+SELECT [No_], [Code], [Comment]
+FROM [Palaris$Sales Comment Line]
+WHERE [Code]='EPD'
+),
+
+CPD AS
+(
+SELECT [No_], [Code], [Comment]
+FROM [Palaris$Sales Comment Line]
+WHERE [Code]='CPD'
+),
+
+DIS AS
+(
+SELECT [No_], [Code], [Comment]
+FROM [Palaris$Sales Comment Line]
+WHERE [Code]='DIS'
+),
+
+Debtors AS
+(
+    SELECT cle.[Entry No_]
+         , cust.Name
+	 , cust.[Customer Price Group]
+         , cle.[Customer No_]
+         , job1.[Global Dimension 2 Code] as 'BusinessUnit'
+         , cle.Description
+         , cle.[Document No_]
+         , cle.[Posting Date]
+         , Sum(dcle.[Amount (LCY)]) as 'Amount (LCY)'
+         , dcle.[Initial Entry Due Date]
+	       , CASE
+           WHEN EPD.[Comment] != '' THEN CONVERT(datetime, EPD.[Comment], 103) ELSE NULL END AS EPD
+      	 , CASE
+           WHEN CPD.[Comment] != '' THEN CONVERT(datetime, CPD.[Comment], 103) ELSE NULL END AS CPD
+         , CASE
+           WHEN DIS.[Comment] != '' THEN CONVERT(datetime, DIS.[Comment], 103) ELSE NULL END AS DIS
+         , cust.[Payment Terms Code]
+	 , job1.[Payment Term]
+         , DATEDIFF(DD, cle.[Posting Date], GETDATE()) AS DaysDue
+	 , CASE
+		WHEN RIGHT(job1.[Payment Term], (LEN(job1.[Payment Term])-2)) = 'D' THEN (DATEDIFF(DD, cle.[Posting Date], GETDATE())-(LEFT(job1.[Payment Term], 2)))
+		WHEN RIGHT(job1.[Payment Term], (LEN(job1.[Payment Term])-2)) = 'EOM' THEN (DATEDIFF(DD, EOMONTH(cle.[Posting Date]), GETDATE())-(LEFT(job1.[Payment Term], 2)))
+		WHEN RIGHT(job1.[Payment Term], (LEN(job1.[Payment Term])-2)) = 'COD' THEN (DATEDIFF(DD, cle.[Posting Date], GETDATE()))
+		ELSE '0'
+	   END AS 'RealDaysDue'
+   	 , CASE
+		WHEN RIGHT(job1.[Payment Term], (LEN(job1.[Payment Term])-2)) = 'D' THEN (DATEDIFF(DD, CONVERT(datetime, DIS.[Comment], 103), GETDATE())-(LEFT(job1.[Payment Term], 2)))
+		WHEN RIGHT(job1.[Payment Term], (LEN(job1.[Payment Term])-2)) = 'EOM' THEN (DATEDIFF(DD, EOMONTH(CONVERT(datetime, DIS.[Comment], 103)), GETDATE())-(LEFT(job1.[Payment Term], 2)))
+		WHEN RIGHT(job1.[Payment Term], (LEN(job1.[Payment Term])-2)) = 'COD' THEN (DATEDIFF(DD, CONVERT(datetime, DIS.[Comment], 103), GETDATE()))
+		ELSE '0'
+	   END AS 'RealDaysDueDIS'
+
+      FROM [Palaris$Cust_ Ledger Entry] cle
+      JOIN [Palaris$Customer] cust ON cle.[Customer No_] = cust.No_
+      JOIN [Palaris$Detailed Cust_ Ledg_ Entry] dcle ON cle.[Entry No_] = dcle.[Cust_ Ledger Entry No_]
+      LEFT JOIN [SalesInvoices] si on cle.[Document No_] = si.[Document No_]
+      LEFT JOIN [Palaris$Job] job1 on si.[Job No_] = Job1.[No_]
+      LEFT JOIN EPD on cle.[Document No_] = EPD.[No_]
+      LEFT JOIN CPD on cle.[Document No_] = CPD.[No_]
+      LEFT JOIN DIS on cle.[Document No_] = DIS.[No_]
+     WHERE cle.[Open] = 1
+	   AND cle.[Document Type] IN (2,3,6)
+	   AND ISNUMERIC(cle.[Document No_]) = 1
+	   AND DIS.[Comment] != ''
+	 GROUP BY cle.[Entry No_], Name, cle.[Customer No_], job1.[Global Dimension 2 Code], cle.Description, cle.[Document No_], cle.[Posting Date], [Initial Entry Due Date], cle.[Open], cle.[Document Type], job1.[Payment Term], cust.[Payment Terms Code], cust.[Customer Price Group], EPD.[Comment], CPD.[Comment], DIS.[Comment]
+),
+
+Comment AS
+(
+	SELECT *
+		  , row_number() OVER (PARTITION BY No_ ORDER BY [Date] DESC) AS RowNum
+	  FROM [Palaris$Sales Comment Line] sc
+	WHERE Code like 'ACC%'
+),
+
+/*End 'Regular' Debtors - start of DaysToPay data*/
+
+Payments AS (
+  SELECT
+  cle.[Document No_]
+  ,'Payment' AS [Document Type]
+  , SUM([Amount (LCY)]) AS [TotalAmount]
+  , MAX(dcle.[Posting Date]) AS [LastPaymentDate]
+
+  FROM [Palaris$Cust_ Ledger Entry] cle
+  LEFT JOIN [Palaris$Detailed Cust_ Ledg_ Entry] dcle ON cle.[Entry No_] = dcle.[Cust_ Ledger Entry No_]
+  WHERE dcle.[Document Type] = 1
+  GROUP BY cle.[Document No_]
+  ),
+
+Invoices AS (
+  SELECT
+  cle.[Document No_]
+  ,'Invoice' AS [Document Type]
+  , SUM([Amount (LCY)]) AS [TotalInvoiceAmount]
+  , MAX(dcle.[Posting Date]) AS [LastInvoiceDate]
+
+  FROM [Palaris$Cust_ Ledger Entry] cle
+  LEFT JOIN [Palaris$Detailed Cust_ Ledg_ Entry] dcle ON cle.[Entry No_] = dcle.[Cust_ Ledger Entry No_]
+  WHERE dcle.[Document Type] = 2
+  GROUP BY cle.[Document No_]
+  ),
+
+ClosedDebtors AS
+(
+    SELECT
+        cle.[Document No_]
+        ,cle.[Customer No_]
+        ,cust.[Search Name]
+        ,si.[Job No_]
+        ,[Amount (LCY)]
+        ,dcle.[Posting Date] AS [DCLE Posting Date]
+
+
+      FROM [Palaris$Cust_ Ledger Entry] cle
+
+      JOIN [Palaris$Detailed Cust_ Ledg_ Entry] dcle ON cle.[Entry No_] = dcle.[Cust_ Ledger Entry No_]
+      LEFT JOIN [SalesInvoices] si on cle.[Document No_] = si.[Document No_]
+     LEFT JOIN [Palaris$Customer] cust ON cle.[Customer No_] = cust.No_
+     WHERE cle.[Document Type] IN (1,2,3,6)
+	   AND ISNUMERIC(cle.[Document No_]) = 1
+    AND cle.[Posting Date] &gt; dateadd(month,datediff(month,0,getdate())-18,0)
+        AND [Entry Type] IN (1, 2)
+
+
+  ),
+
+
+DaysToPay AS (
+      SELECT
+        DISTINCT
+        cdeb.[Document No_]
+        ,cdeb.[Customer No_]
+        ,inv.LastInvoiceDate
+        ,inv.TotalInvoiceAmount
+        ,pay.[LastPaymentDate]
+        ,DATEDIFF(DD, LastInvoiceDate, LastPaymentDate) AS DaysToPay
+      /* , bug.[Business Unit Group]
+	, si.[Job No_] AS 'JobNo'*/
+      FROM ClosedDebtors cdeb
+        LEFT JOIN Payments pay on cdeb.[Document No_] = pay.[Document No_]
+        LEFT JOIN Invoices inv on cdeb.[Document No_] = inv.[Document No_]
+        LEFT JOIN [Palaris$Customer] cust ON cdeb.[Customer No_] = cust.No_
+        LEFT JOIN [Palaris$Customer] parent ON cdeb.[Search Name] = parent.No_
+
+  ),
+
+  DaysToPay_Pivot AS (
+SELECT [Customer No_], AVG(DaysToPay) AS [AvgDaysToPay]
+FROM DaysToPay dtp
+WHERE dtp.DaysToPay IS NOT NULL
+GROUP BY [Customer No_]
+)
+
+SELECT deb.*
+     , CASE
+         WHEN RealDaysDue &gt; 0 THEN '1'
+         WHEN RealDaysDue &lt;= 0 AND RealDaysDue &gt;= -14  THEN '2'
+         WHEN RealDaysDue &lt; -14 AND RealDaysDue &gt;= -30  THEN '3'
+         WHEN RealDaysDue &lt; -30 THEN '4'
+       END AS 'DueCategory'
+            
+     , CASE
+         WHEN (DATEDIFF(DD, deb.DIS, GETDATE())-dtp.AvgDaysToPay) &gt; 0 THEN '1'
+         WHEN (DATEDIFF(DD, deb.DIS, GETDATE())-dtp.AvgDaysToPay) &lt;= 0 AND RealDaysDue &gt;= -14  THEN '2'
+         WHEN (DATEDIFF(DD, deb.DIS, GETDATE())-dtp.AvgDaysToPay) &lt; -14 AND RealDaysDue &gt;= -30  THEN '3'
+         WHEN (DATEDIFF(DD, deb.DIS, GETDATE())-dtp.AvgDaysToPay) &lt; -30 THEN '4'
+		 ELSE '5'
+       END AS 'AvgDueCategory'  
+	 , CONCAT(CONVERT(VARCHAR(5), com.Date, 3), ' ', com.Comment) AS Comment
+	 , bug.[Business Unit Group]
+	 , si.[Job No_] AS 'JobNo'
+	 , Job.Name AS PM
+	 , Job.[Windows Name]
+	 , Job.[Customer PO]
+	 , DATEADD(day, -1*deb.RealDaysDueDIS, GETDATE()) AS RealDueDate
+	 , DATEADD(day, dtp.[AvgDaysToPay], deb.DIS) AS AvgDueDate
+	 , dtp.AvgDaysToPay
+
+  FROM Debtors deb
+  LEFT JOIN Comment com ON deb.[Document No_] = com.No_ AND com.RowNum = 1
+  LEFT JOIN BUGroup bug ON deb.[BusinessUnit] = bug.[Business Unit]
+  LEFT JOIN SalesInvoices si on deb.[Document No_] = si.[Document No_]
+  LEFT JOIN Job on si.[Job No_] = Job.[No]
+  LEFT JOIN DaysToPay_Pivot dtp on deb.[Customer No_] = dtp.[Customer No_]
+ORDER BY [RealDueDate] ASC, Name</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Entry_No_">
+        <DataField>Entry No_</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Name">
+        <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Customer_Price_Group">
+        <DataField>Customer Price Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Customer_No_">
+        <DataField>Customer No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BusinessUnit">
+        <DataField>BusinessUnit</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Description">
+        <DataField>Description</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Document_No_">
+        <DataField>Document No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Posting_Date">
+        <DataField>Posting Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Amount__LCY_">
+        <DataField>Amount (LCY)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Initial_Entry_Due_Date">
+        <DataField>Initial Entry Due Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="EPD">
+        <DataField>EPD</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="CPD">
+        <DataField>CPD</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="DIS">
+        <DataField>DIS</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Payment_Terms_Code">
+        <DataField>Payment Terms Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Payment_Term">
+        <DataField>Payment Term</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="DaysDue">
+        <DataField>DaysDue</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="RealDaysDue">
+        <DataField>RealDaysDue</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="RealDaysDueDIS">
+        <DataField>RealDaysDueDIS</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="DueCategory">
+        <DataField>DueCategory</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="AvgDueCategory">
+        <DataField>AvgDueCategory</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Comment">
+        <DataField>Comment</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Business_Unit_Group">
+        <DataField>Business Unit Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="JobNo">
+        <DataField>JobNo</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PM">
+        <DataField>PM</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Windows_Name">
+        <DataField>Windows Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Customer_PO">
+        <DataField>Customer PO</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="RealDueDate">
+        <DataField>RealDueDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="AvgDueDate">
+        <DataField>AvgDueDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="AvgDaysToPay">
+        <DataField>AvgDaysToPay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Category">
+        <Value>=SWITCH(Fields!DueCategory.Value = "1", "Overdue based on payment terms",
+Fields!DueCategory.Value = "2", "Due next 14 days",
+Fields!DueCategory.Value = "3", "Due next 15-30 days",
+Fields!DueCategory.Value = "4", "Due 30+ days"
+)</Value>
+      </Field>
+      <Field Name="AvgCategory">
+        <Value>=SWITCH(Fields!AvgDueCategory.Value = "1", "Overdue based on average payment",
+Fields!AvgDueCategory.Value = "2", "Due next 14 days",
+Fields!AvgDueCategory.Value = "3", "Due next 15-30 days",
+Fields!AvgDueCategory.Value = "4", "Due 30+ days",
+Fields!AvgDueCategory.Value = "5", "Average not yet known"
+)</Value>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+</SharedDataSet>

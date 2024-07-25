@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <CommandText>/*Note that this query has been locked to Jan 2017 onwards - some complexity to support legacy task lines for proposal / BD time has been removed*/
+
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+DECLARE @StartDate Date = '09/01/2019';
+DECLARE @EndDate Date = '08/31/2020';
+
+WITH Acc_P AS
+(
+SELECT Id AS POTENTIALID, Account AS ACCOUNTID
+FROM ZohoCRM.dbo.Deals
+),
+
+Z_Users AS
+(
+SELECT Id AS USERID, [Full Name] AS Name, Fax AS [No_]
+FROM ZohoCRM.dbo.Users
+),
+
+ZCalls AS
+(
+SELECT 
+  CAST(Id AS NVARCHAR) AS ACTIVITYID
+  , Subject COLLATE Latin1_General_100_CI_AS AS Subject
+  ,'Call' COLLATE Latin1_General_100_CI_AS AS [ActivityType]
+  ,CASE WHEN [Call Status] = ('Unattended Dialled') THEN NULL
+  ELSE dateadd(HOUR, 11, [Call Start Time])
+  END AS Date
+  ,Z_Users.No_ COLLATE Latin1_General_100_CI_AS AS [No_]
+  ,null AS [BILLHR]
+  ,null AS [BD-PROP]
+  ,null AS [Adjustments]
+  ,null AS [AdjustedBILLHR]
+  ,null AS [Capacity]
+  ,null AS [BILLCapacity]
+  ,null AS [BD_PROPCapacity]
+  ,null AS [Entry No_]  
+FROM ZohoCRM.dbo.Calls ca
+LEFT JOIN Acc_P ON ca.RelatedTo = acc_P.POTENTIALID
+LEFT JOIN Z_Users ON ca.Owner = Z_Users.USERID
+),
+
+ZTasks AS
+(
+SELECT 
+  CAST(Id AS NVARCHAR) AS ACTIVITYID
+  , Subject COLLATE Latin1_General_100_CI_AS AS Subject
+  ,'Task' COLLATE Latin1_General_100_CI_AS AS [ActivityType]
+  ,CASE WHEN [Status] != ('Completed') THEN NULL
+  ELSE dateadd(HOUR, 11, [Due Date])
+  END AS Date
+  ,Z_Users.No_ COLLATE Latin1_General_100_CI_AS AS [No_]
+  ,null AS [BILLHR]
+  ,null AS [BD-PROP]
+  ,null AS [Adjustments]
+  ,null AS [AdjustedBILLHR]
+  ,null AS [Capacity]
+  ,null AS [BILLCapacity]
+  ,null AS [BD_PROPCapacity]
+  ,null AS [Entry No_]  
+FROM ZohoCRM.dbo.Tasks ta
+LEFT JOIN Acc_P ON ta.RelatedTo = acc_P.POTENTIALID
+LEFT JOIN Z_Users ON ta.Owner = Z_Users.USERID
+),
+
+Capacity AS
+(
+SELECT
+  null AS ACTIVITYID
+  ,null AS Subject
+  ,null AS [ActivityType]
+  ,[Date]
+  ,No_
+  ,null AS [BILLHR]
+  ,null AS [BD-PROP]
+  ,null AS [Adjustments]
+  ,null AS [AdjustedBILLHR]
+  ,COALESCE(SUM(Capacity),0) AS Capacity
+  ,COALESCE(SUM(CAST(dse.[Dimension Value Code] AS float)),0) AS BILLCapacity
+  ,COALESCE(SUM(CAST(dsebd.[Dimension Value Code] AS float)),0) AS [BD_PROPCapacity]
+  ,null AS [Entry No_]  
+FROM DynamicsNAVPalaris.dbo.[Palaris$Res_ Capacity Entry] rce
+LEFT JOIN DynamicsNAVPalaris.dbo.[Palaris$Resource] res ON rce.[Resource No_] = res.[No_]
+LEFT JOIN DynamicsNAVPalaris.dbo.[Palaris$Dimension Set Entry] dse ON (dse.[Dimension Code] = 'C_BILLABLE' AND rce.[Dimension Set ID] = dse.[Dimension Set ID])
+LEFT JOIN DynamicsNAVPalaris.dbo.[Palaris$Dimension Set Entry] dsebd ON (dsebd.[Dimension Code] = 'C_BDPROP' AND rce.[Dimension Set ID] = dsebd.[Dimension Set ID])
+WHERE Date BETWEEN @StartDate AND @EndDate
+GROUP BY [No_], Date
+
+
+),
+
+NAV_BDProp AS
+(
+    SELECT
+    null AS ACTIVITYID
+    ,null AS Subject
+    ,null AS [ActivityType]
+    ,jle.[Posting Date] AS [Date]
+    ,jle.No_
+  ,CASE
+    WHEN jle.[Work Type Code] LIKE 'BILL%' THEN [Quantity (Base)]
+    ELSE NULL
+  END AS [BILLHR]
+  ,CASE
+    WHEN jle.[Work Type Code] IN ('PROPOSAL', 'BUSDEV') THEN [Quantity (Base)]
+    ELSE NULL
+  END AS [BD-PROP]
+  ,CASE
+    WHEN jle.[Work Type Code] IN ('AL-DAY', 'PUBLIC-DAY') THEN [Quantity (Base)]
+    WHEN jle.[Work Type Code] = 'APPTD' AND jle.[Quantity (Base)] &lt;= 9 THEN jle.[Quantity (Base)]
+    WHEN jle.[Work Type Code] = 'APPTD' AND jle.[Quantity (Base)] &gt; 9 THEN 9
+    ELSE NULL
+  END AS [Adjustments]
+  ,CASE
+    WHEN jle.[Work Type Code] LIKE 'BILL%' THEN [Quantity (Base)]
+    WHEN jle.[Work Type Code] IN ('AL-DAY', 'PUBLIC-DAY') THEN [Quantity (Base)]
+    WHEN jle.[Work Type Code] = 'APPTD' AND jle.[Quantity (Base)] &lt;= 9 THEN jle.[Quantity (Base)]
+    WHEN jle.[Work Type Code] = 'APPTD' AND jle.[Quantity (Base)] &gt; 9 THEN 9
+    ELSE NULL
+  END AS [AdjustedBILLHR]
+  ,null AS [Capacity]
+  ,null AS [BILLCapacity]
+  ,null AS [BD_PROPCapacity]  
+  ,[Entry No_]
+FROM
+  DynamicsNAVPalaris.dbo.[Palaris$Job Ledger Entry] jle
+  LEFT JOIN DynamicsNAVPalaris.dbo.[Palaris$Resource] res ON jle.[No_] = res.[No_]
+  LEFT JOIN DynamicsNAVPalaris.dbo.[Palaris$Job Task] jt ON jle.[Job Task No_] = jt.[Job Task No_] AND jle.[Job No_] = jt.[Job No_]
+
+WHERE
+  jle.[Entry Type] = 0
+  AND jle.[Type] = 0
+  AND jle.No_ NOT LIKE 'R9%'
+  AND jle.[Job No_] NOT LIKE 'T-CAPACITY%'
+  AND jle.[Work Type Code] NOT LIKE 'OSA%'
+  AND jle.[Work Type Code] NOT LIKE 'KM%'
+  AND jle.[Work Type Code] NOT LIKE 'PAY%'
+  AND jle.[Posting Date] BETWEEN @StartDate AND @EndDate
+),
+
+Merged AS
+(
+SELECT * FROM ZCalls
+UNION
+SELECT * FROM ZTasks
+UNION
+SELECT * FROM Capacity
+UNION
+SELECT * FROM NAV_BDProp
+)
+
+SELECT *
+  ,DATENAME(yyyy, Date) AS [CY]
+  ,DATENAME(month, Date) AS [CM]
+  ,DATENAME(quarter, Date) AS [CQ]
+  ,CONCAT(DATENAME(month, Date), ' ', DATENAME(yyyy, Date)) AS [CMCY]
+  ,CONCAT('Q', DATENAME(quarter, Date), ' ', DATENAME(yyyy, Date)) AS [CQCY]
+  ,CASE WHEN MONTH(Date)&lt;=8 THEN DATENAME(yyyy, Date)
+	ELSE DATENAME(yyyy, DATEADD(year, 1,Date))
+	END AS [BonusYear]
+  ,CASE WHEN (MONTH(Date)+4) % 12 &gt;0 THEN (MONTH(Date)+4) % 12 ELSE 12
+	END AS [BonusMonthNumber]
+  ,DATEPART(iso_week, Date) AS WEEKNUM 
+  
+  FROM Merged</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="ACTIVITYID">
+        <DataField>ACTIVITYID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Subject">
+        <DataField>Subject</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ActivityType">
+        <DataField>ActivityType</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Date">
+        <DataField>Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="No_">
+        <DataField>No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BILLHR">
+        <DataField>BILLHR</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="BD_PROP">
+        <DataField>BD-PROP</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Adjustments">
+        <DataField>Adjustments</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="AdjustedBILLHR">
+        <DataField>AdjustedBILLHR</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Capacity">
+        <DataField>Capacity</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="BILLCapacity">
+        <DataField>BILLCapacity</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="BD_PROPCapacity">
+        <DataField>BD_PROPCapacity</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="CY">
+        <DataField>CY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Entry_No_">
+        <DataField>Entry No_</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="CM">
+        <DataField>CM</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CQ">
+        <DataField>CQ</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CMCY">
+        <DataField>CMCY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CQCY">
+        <DataField>CQCY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BonusYear">
+        <DataField>BonusYear</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BonusMonthNumber">
+        <DataField>BonusMonthNumber</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="WEEKNUM">
+        <DataField>WEEKNUM</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+</SharedDataSet>

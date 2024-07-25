@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@JobNo">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+          <rd:IsMultiValued>false</rd:IsMultiValued>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+WITH 
+
+InvoiceCurrency AS
+(
+SELECT No_, [Invoice Currency Code], 
+CASE WHEN (exch.Rate IS NULL) THEN 1
+ELSE exch.Rate
+END AS Rate
+FROM dbo.[Palaris Europe Limited$Job] job
+OUTER APPLY
+	(SELECT TOP 1 (1/curr2.[Relational Exch_ Rate Amount]) AS [Rate]
+	FROM dbo.[Palaris Europe Limited$Currency Exchange Rate] curr2 
+	WHERE curr2.[Currency Code] = job.[Invoice Currency Code] 
+	ORDER BY curr2.[Starting Date] desc) AS [exch]
+WHERE [No_] = @JobNo
+),
+
+JT0 AS
+(
+SELECT
+[Job No_]
+,[Job Task No_]
+,Description AS Name
+,LEFT(Totaling, 5) AS TotalStart
+,RIGHT(Totaling, 5) AS TotalEnd
+
+FROM dbo.[Palaris Europe Limited$Job Task] 
+WHERE 
+[Job No_] = @JobNo
+AND [Job Task Type] IN (2,4)
+AND [Indentation] = 0
+),
+
+JT1 AS
+(
+SELECT
+[Job No_]
+,[Job Task No_]
+,Description AS Name
+,LEFT(Totaling, 5) AS TotalStart
+,RIGHT(Totaling, 5) AS TotalEnd
+
+FROM dbo.[Palaris Europe Limited$Job Task] 
+WHERE 
+[Job No_] = @JobNo
+AND [Job Task Type] IN (2,4)
+AND [Indentation] = 1
+),
+
+JT2 AS
+(
+SELECT
+[Job No_]
+,[Job Task No_]
+,Description AS Name
+,LEFT(Totaling, 5) AS TotalStart
+,RIGHT(Totaling, 5) AS TotalEnd
+FROM dbo.[Palaris Europe Limited$Job Task] 
+WHERE 
+[Job No_] = @JobNo
+AND [Job Task Type] IN (2,4)
+AND [Indentation] = 2
+),
+
+JT3 AS
+(
+SELECT
+[Job No_]
+,[Job Task No_]
+,Description AS Name
+,LEFT(Totaling, 5) AS TotalStart
+,RIGHT(Totaling, 5) AS TotalEnd
+FROM dbo.[Palaris Europe Limited$Job Task] 
+WHERE 
+[Job No_] = @JobNo
+AND [Job Task Type] IN (2,4)
+AND [Indentation] = 3
+),
+
+JT4 AS
+(
+SELECT
+[Job No_]
+,[Job Task No_]
+,Description AS Name
+,LEFT(Totaling, 5) AS TotalStart
+,RIGHT(Totaling, 5) AS TotalEnd
+FROM dbo.[Palaris Europe Limited$Job Task] 
+WHERE 
+[Job No_] = @JobNo
+AND [Job Task Type] IN (2,4)
+AND [Indentation] = 4
+),
+
+JT5 AS
+(
+SELECT
+[Job No_]
+,[Job Task No_]
+,Description AS Name
+,LEFT(Totaling, 5) AS TotalStart
+,RIGHT(Totaling, 5) AS TotalEnd
+FROM dbo.[Palaris Europe Limited$Job Task] 
+WHERE 
+[Job No_] = @JobNo
+AND [Job Task Type] IN (2,4)
+AND [Indentation] = 5
+),
+
+JobTasks AS
+(
+SELECT 
+jt.[Job No_]
+, jt.[Job Task No_]
+, jt.Description AS Name
+, jt.Indentation
+, CASE WHEN [Job Task Type] = 0 THEN 'Posting'
+WHEN [Job Task Type] = 1 THEN 'Heading'
+WHEN [Job Task Type] = 2 THEN 'Total'
+WHEN [Job Task Type] = 3 THEN 'Begin-Total'
+WHEN [Job Task Type] = 4 THEN 'End-Total'
+END AS [Job Task Type]
+,jt0.name AS Indent0Cat
+,jt0.[Job Task No_] AS Indent0No
+,jt1.name AS Indent1Cat
+,jt1.[Job Task No_] AS Indent1No
+,jt2.name AS Indent2Cat
+,jt2.[Job Task No_] AS Indent2No
+,jt3.name AS Indent3Cat
+,jt3.[Job Task No_] AS Indent3No
+,jt4.name AS Indent4Cat
+,jt4.[Job Task No_] AS Indent4No
+,jt5.name AS Indent5Cat
+,jt5.[Job Task No_] AS Indent5No
+FROM dbo.[Palaris Europe Limited$Job Task] jt
+LEFT JOIN jt0 ON jt.[Job No_] = jt0.[Job No_] AND jt.[Job Task No_] BETWEEN jt0.TotalStart AND jt0.TotalEnd
+LEFT JOIN jt1 ON jt.[Job No_] = jt1.[Job No_] AND jt.[Job Task No_] BETWEEN jt1.TotalStart AND jt1.TotalEnd
+LEFT JOIN jt2 ON jt.[Job No_] = jt2.[Job No_] AND jt.[Job Task No_] BETWEEN jt2.TotalStart AND jt2.TotalEnd
+LEFT JOIN jt3 ON jt.[Job No_] = jt3.[Job No_] AND jt.[Job Task No_] BETWEEN jt3.TotalStart AND jt3.TotalEnd
+LEFT JOIN jt4 ON jt.[Job No_] = jt4.[Job No_] AND jt.[Job Task No_] BETWEEN jt4.TotalStart AND jt4.TotalEnd
+LEFT JOIN jt5 ON jt.[Job No_] = jt5.[Job No_] AND jt.[Job Task No_] BETWEEN jt5.TotalStart AND jt5.TotalEnd
+WHERE jt.[Job No_] = @JobNo
+AND jt.[Job Task Type] = 0 
+),
+
+JPL AS 
+(
+SELECT 
+jpl.[Job No_]
+,jpl.[Job Task No_]
+,CONCAT(jpl.[Job No_],jpl.[Job Task No_]) AS [JobTaskNo]
+,jt.[Name] AS [Task]
+,CASE  WHEN jpl.[Line Type] = '0' THEN 'Schedule'
+    WHEN jpl.[Line Type] = '1' THEN 'Contract'
+    END AS [Line Type]
+,jpl.No_ 
+,jpl.[Planning Date] AS DATE
+,jpl.[Document Date]
+,FORMAT([Planning Date],'MMM yy') AS [Month-Year]
+,DATEPART(isoww, [Planning Date]) AS [ISO-Week]
+,YEAR(DATEADD(day, 26 - DATEPART(isoww,[Planning Date]), [Planning Date])) AS [ISO-Week-Year]
+,CASE WHEN jpl.Type = '2' THEN ac.[Name]
+    WHEN jpl.Type = '0' THEN res.[Name]
+    END AS Name
+,CASE WHEN jpl.Type = '2' THEN ac.[Name]
+WHEN jpl.[Work Type Code] LIKE 'KM%' OR jpl.[Work Type Code] LIKE 'OSA' THEN LTRIM(RIGHT(jt.Indent2Cat, LEN(jt.Indent2Cat) - 6))
+    WHEN jpl.[Job Position Title] = '' THEN (SELECT TOP 1 jrp.[Job Position Title] 
+    FROM [Palaris Europe Limited$Job Resource Price] jrp WHERE jrp.[Job No_] = @JobNo AND jrp.[Code] = jpl.[No_]) 
+    WHEN jpl.Type = '0' THEN jpl.[Job Position Title] 
+    END AS JPName
+,CASE WHEN jpl.Type = '2' THEN 'G/L Account'
+	WHEN jpl.No_ = 'R9998' THEN 'Milestone Allocation'
+    WHEN jpl.Type = '0' THEN 'Resource'
+    END AS Type
+,jpl.[Job Position Title]    
+,null AS [RevenueCategory]   
+,jpl.Description
+,jpl.[Document No_]
+,jpl.Quantity
+,jpl.[Quantity (Base)]
+,jpl.[Location Code]
+,jpl.[Work Type Code]
+,jpl.[Unit of Measure Code] 
+,jpl.[Unit Cost (LCY)] AS [Unit Cost]  
+,jpl.[Total Cost (LCY)] AS [Total Cost]  
+,jpl.[Unit Price (LCY)] AS [Unit Price]
+,jpl.[Total Price (LCY)] AS [Total Price]
+,jpl.[Line Discount _]
+,jpl.[Line Discount Amount (LCY)]
+,jpl.[Line Amount (LCY)]
+,ROUND(jpl.[Unit Price (LCY)]*inv.rate, 2) AS [Unit Price (INV)]
+,ROUND(jpl.[Total Price (LCY)]*inv.rate, 2) AS [Total Price (INV)]
+,ROUND(jpl.[Line Discount Amount (LCY)]*inv.rate, 2) AS [Line Discount Amount (INV)]
+,ROUND(jpl.[Line Amount (LCY)]*inv.rate, 2) AS [Line Amount (INV)]
+,jpli.[Document No_] AS [InvoiceNo]
+,jpl.[Last Date Modified] 
+,jpl.[User ID] 
+,jpl.[Gen_ Bus_ Posting Group]
+,jpl.[Gen_ Prod_ Posting Group] 
+,CASE WHEN jpl.[Line Type] = '0' THEN null
+WHEN jpl.[Line Type] = '1' THEN jpl.[Qty_ to Transfer to Invoice]
+END AS [Qty_ to Transfer to Invoice]
+,CASE WHEN jpl.[Line Type] = '0' THEN null
+WHEN jpl.[Line Type] = '1' THEN jpl.[Qty_ to Invoice]
+END AS [Qty_ to Invoice]
+,CASE WHEN jpl.[Line Type] = '0' THEN null
+    WHEN jpl.[Line Type] = '1' THEN (jpl.Quantity - jpl.[Qty_ to Invoice]) 
+    END AS [Qty_ Invoiced]
+
+,jpl.[Ledger Entry No_]
+,LTRIM(RIGHT(jt.Indent0Cat, LEN(jt.Indent0Cat) - 6)) AS TotalTask0
+,jt.Indent0No
+,LTRIM(RIGHT(jt.Indent1Cat, LEN(jt.Indent1Cat) - 6)) AS TotalTask1
+,jt.Indent1No
+,LTRIM(RIGHT(jt.Indent2Cat, LEN(jt.Indent2Cat) - 6)) AS TotalTask2
+,jt.Indent2No
+,LTRIM(RIGHT(jt.Indent3Cat, LEN(jt.Indent3Cat) - 6)) AS TotalTask3
+,jt.Indent3No
+,LTRIM(RIGHT(jt.Indent4Cat, LEN(jt.Indent4Cat) - 6)) AS TotalTask4
+,jt.Indent4No
+FROM dbo.[Palaris Europe Limited$Job Planning Line] jpl
+
+
+  LEFT JOIN [DynamicsNAVPalaris].dbo.[Palaris Europe Limited$Resource] res ON jpl.[No_] = res.[No_]  
+  LEFT JOIN [DynamicsNAVPalaris].dbo.[Palaris Europe Limited$G_L Account] ac ON jpl.[Expense No_ Allocation] = ac.No_  
+  LEFT JOIN JobTasks jt ON jpl.[Job No_] = jt.[Job No_] AND jpl.[Job Task No_] = jt.[Job Task No_]
+  LEFT JOIN InvoiceCurrency inv on jpl.[Job No_] = inv.[No_]
+  LEFT JOIN [DynamicsNAVPalaris].dbo.[Palaris Europe Limited$Job Planning Line Invoice] jpli ON jpl.[Job No_] = jpli.[Job No_] AND jpl.[Job Task No_] = jpli.[Job Task No_] AND jpl.[Line No_] = jpli.[Job Planning Line No_]  
+WHERE jpl.[Job No_] = @JobNo
+
+
+),
+
+JLE AS
+(
+SELECT 
+jle.[Job No_]
+,jle.[Job Task No_]
+,CONCAT(jle.[Job No_],jle.[Job Task No_]) AS [JobTaskNo]
+,jt.[Name] AS [Task]
+
+,CASE  WHEN jle.[Entry Type] = '0' THEN 'Usage'
+    WHEN jle.[Entry Type] = '1' THEN 'Sale'
+    END AS [Line Type]
+,jle.No_ 
+,jle.[Posting Date] AS DATE
+,jle.[Document Date]
+,FORMAT([Posting Date],'MMM yy') AS [Month-Year]
+,DATEPART(isoww, [Posting Date]) AS [ISO-Week]
+,YEAR(DATEADD(day, 26 - DATEPART(isoww,[Posting Date]), [Posting Date])) AS [ISO-Week-Year]
+,CASE WHEN jle.Type = '2' THEN ac.[Name]
+    WHEN jle.Type = '0' THEN res.[Name]
+    END AS Name
+,CASE WHEN jle.Type = '2' THEN ac.[Name]
+WHEN jle.[Work Type Code] LIKE 'KM%' OR jle.[Work Type Code] LIKE 'OSA' THEN LTRIM(RIGHT(jt.Indent2Cat, LEN(jt.Indent2Cat) - 6))
+    WHEN jle.[Job Position Title] = '' THEN (SELECT TOP 1 jrp.[Job Position Title] FROM [Palaris Europe Limited$Job Resource Price] jrp WHERE jrp.[Job No_] = @JobNo AND jrp.[Code] = jle.[No_]) 
+    WHEN jle.Type = '0' THEN jle.[Job Position Title] 
+    END AS JPName
+,CASE WHEN jle.Type = '2' THEN 'G/L Account'
+	WHEN jle.No_ = 'R9998' THEN 'Milestone Allocation'
+    WHEN jle.Type = '0' THEN 'Resource'
+    END AS Type
+,jle.[Job Position Title]    
+,CASE 
+   WHEN jle.[Work Type Code] LIKE 'OSA%' OR jle.[Work Type Code] LIKE 'KM%' OR jle.[Work Type Code] = 'FLAT-RATE' THEN 'Travel/Accom/Meals'
+   WHEN jle.[Work Type Code] = 'FX-RISK' THEN 'FX Risk'
+   WHEN res.[Resource Group No_] = 'PAY' THEN 'Margin Max'
+   WHEN res.[Resource Group No_] = 'GEN' OR res.[Resource Group No_] = 'INT' THEN 'FT Labour'
+   WHEN res.[Resource Group No_] = 'GENC' THEN 'Casual Labour'
+   WHEN res.[Resource Group No_] = 'SUB' OR jle.No_ IN ('51150', '51160') THEN 'Sub Labour' 
+   WHEN jle.No_ IN ('51165','52100', '52115','52150','52400','52500','52600') THEN 'Travel/Accom/Meals'
+   ELSE 'Other Disbursements'
+ END AS [RevenueCategory]   
+,jle.Description
+,jle.[Document No_]
+,jle.Quantity
+,jle.[Quantity (Base)]
+,jle.[Location Code]
+,jle.[Work Type Code]
+,jle.[Unit of Measure Code] 
+,jle.[Unit Cost (LCY)] AS [Unit Cost]  
+,jle.[Total Cost (LCY)] AS [Total Cost]  
+,jle.[Unit Price (LCY)] AS [Unit Price]
+,jle.[Total Price (LCY)] AS [Total Price]
+,jle.[Line Discount _]
+,jle.[Line Discount Amount (LCY)]
+,jle.[Line Amount (LCY)]
+,null AS [Unit Price (INV)]
+,null AS [Total Price (INV)]
+,null AS [Line Discount Amount (INV)]
+,null AS [Line Amount (INV)]
+,null AS [InvoiceNo]
+,jle.[Posting Date] AS [Last Date Modified] 
+,jle.[User ID] 
+,jle.[Gen_ Bus_ Posting Group]
+,jle.[Gen_ Prod_ Posting Group] 
+,null AS [Qty_ to Transfer to Invoice]
+,null AS [Qty_ to Invoice]
+,null AS [Qty_ Invoiced]
+,jle.[Entry No_] AS [Ledger Entry No_]
+,LTRIM(RIGHT(jt.Indent0Cat, LEN(jt.Indent0Cat) - 6)) AS Indent0Cat
+,jt.Indent0No
+,LTRIM(RIGHT(jt.Indent1Cat, LEN(jt.Indent1Cat) - 6)) AS Indent1Cat
+,jt.Indent1No
+,LTRIM(RIGHT(jt.Indent2Cat, LEN(jt.Indent2Cat) - 6)) AS Indent2Cat
+,jt.Indent2No
+,LTRIM(RIGHT(jt.Indent3Cat, LEN(jt.Indent3Cat) - 6)) AS Indent3Cat
+,jt.Indent3No
+,LTRIM(RIGHT(jt.Indent4Cat, LEN(jt.Indent4Cat) - 6)) AS Indent4Cat
+,jt.Indent4No
+
+
+FROM dbo.[Palaris Europe Limited$Job Ledger Entry] jle
+  LEFT JOIN dbo.[Palaris Europe Limited$Resource] res ON jle.[No_] = res.[No_]  
+  LEFT JOIN dbo.[Palaris Europe Limited$G_L Account] ac ON jle.No_ = ac.No_  
+  LEFT JOIN JobTasks jt ON jle.[Job No_] = jt.[Job No_] AND jle.[Job Task No_] = jt.[Job Task No_]
+  
+WHERE jle.[Job No_] = @JobNo
+
+),
+
+JPL_JLE AS
+(
+SELECT *
+
+,   CASE WHEN jpl.[Qty_ to Invoice] != 0 THEN [Line Amount (INV)]
+    ELSE null
+    END AS [Uninvoiced]
+,   CASE WHEN jpl.[Qty_ to Invoice] = 0 THEN [Line Amount (INV)]
+    ELSE null
+    END AS [Invoiced]
+ FROM JPL
+UNION
+SELECT *
+,null AS [Uninvoiced]
+,null AS [Invoiced]
+ FROM JLE
+)
+
+SELECT * FROM JPL_JLE
+ORDER BY [Date] asc</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Job_No_">
+        <DataField>Job No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Job_Task_No_">
+        <DataField>Job Task No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="JobTaskNo">
+        <DataField>JobTaskNo</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Task">
+        <DataField>Task</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Line_Type">
+        <DataField>Line Type</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="No_">
+        <DataField>No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="DATE">
+        <DataField>DATE</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Document_Date">
+        <DataField>Document Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Name">
+        <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Month_Year">
+        <DataField>Month-Year</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Type">
+        <DataField>Type</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ISO_Week">
+        <DataField>ISO-Week</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Job_Position_Title">
+        <DataField>Job Position Title</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="JPName">
+        <DataField>JPName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ISO_Week_Year">
+        <DataField>ISO-Week-Year</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="RevenueCategory">
+        <DataField>RevenueCategory</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Description">
+        <DataField>Description</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Document_No_">
+        <DataField>Document No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Quantity">
+        <DataField>Quantity</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Quantity__Base_">
+        <DataField>Quantity (Base)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Location_Code">
+        <DataField>Location Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Work_Type_Code">
+        <DataField>Work Type Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Unit_of_Measure_Code">
+        <DataField>Unit of Measure Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Unit_Cost">
+        <DataField>Unit Cost</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Total_Cost">
+        <DataField>Total Cost</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Unit_Price">
+        <DataField>Unit Price</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Total_Price">
+        <DataField>Total Price</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Line_Discount__">
+        <DataField>Line Discount _</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Line_Discount_Amount__LCY_">
+        <DataField>Line Discount Amount (LCY)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Line_Amount__LCY_">
+        <DataField>Line Amount (LCY)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Last_Date_Modified">
+        <DataField>Last Date Modified</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Unit_Price__INV_">
+        <DataField>Unit Price (INV)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="User_ID">
+        <DataField>User ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Total_Price__INV_">
+        <DataField>Total Price (INV)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Gen__Bus__Posting_Group">
+        <DataField>Gen_ Bus_ Posting Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="InvoiceNo">
+        <DataField>InvoiceNo</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Line_Discount_Amount__INV_">
+        <DataField>Line Discount Amount (INV)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Gen__Prod__Posting_Group">
+        <DataField>Gen_ Prod_ Posting Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Line_Amount__INV_">
+        <DataField>Line Amount (INV)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Qty__to_Transfer_to_Invoice">
+        <DataField>Qty_ to Transfer to Invoice</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Qty__to_Invoice">
+        <DataField>Qty_ to Invoice</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Qty__Invoiced">
+        <DataField>Qty_ Invoiced</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Ledger_Entry_No_">
+        <DataField>Ledger Entry No_</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="TotalTask0">
+        <DataField>TotalTask0</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent0No">
+        <DataField>Indent0No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="TotalTask1">
+        <DataField>TotalTask1</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent1No">
+        <DataField>Indent1No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="TotalTask2">
+        <DataField>TotalTask2</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent2No">
+        <DataField>Indent2No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="TotalTask3">
+        <DataField>TotalTask3</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent3No">
+        <DataField>Indent3No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="TotalTask4">
+        <DataField>TotalTask4</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent4No">
+        <DataField>Indent4No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Uninvoiced">
+        <DataField>Uninvoiced</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Invoiced">
+        <DataField>Invoiced</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+</SharedDataSet>

@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <CommandText>/*Jobs list with service types + service owners included*/
+
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+WITH Resources AS
+(
+SELECT
+Name, 
+No_,
+[Time Sheet Owner User ID],
+[Global Dimension 2 Code],
+[Employment Date],
+[Contract Class]
+FROM DynamicsNAVPalaris.dbo.[Palaris$Resource] res
+),
+
+PAL AS
+(
+SELECT 
+tsl.[Time Sheet No_]
+,tsl.[Time Sheet Starting Date]
+,tsl.[Job No_]
+,tsl.[Job Task No_]
+,tsl.[Description]
+,tsl.[Work Type Code]
+,jt.[Timesheet Default Work Type]
+,CASE WHEN tsl.[Work Type Code] != jt.[Timesheet Default Work Type] THEN 1 ELSE 0
+END AS [WorkTypeChanged]
+,CASE WHEN (LEFT(tsl.[Job No_], 2) = 'T-' AND tsl.[Work Type Code] IN ('BILLHR','BILLDAY','NBTHR','NBTDAY')) THEN 1 ELSE 0
+END AS [JobWorkTypeOnly]
+,CASE 
+WHEN tsl.Posted = 1 THEN 'Posted'
+WHEN tsl.Status = 0 THEN 'Open'
+WHEN tsl.Status = 1 THEN 'Submitted'
+WHEN tsl.Status = 2 THEN 'Rejected'
+WHEN tsl.Status = 3 THEN 'Approved'
+END AS [Status]
+,tsl.[Work Location]
+,tsl.Qty1 AS [Saturday]
+,tsl.Qty2 AS [Sunday]
+,tsl.Qty3 AS [Monday]
+,tsl.Qty4 AS [Tuesday] 
+,tsl.Qty5 AS [Wednesday]
+,tsl.Qty6 AS [Thursday]
+,tsl.Qty7 AS [Friday]
+,tsl.[Total Hours Worked]
+, CASE WHEN tsl.[Total Hours Worked] % 0.25 != 0
+THEN 1 ELSE 0
+END AS [NotMultipleOf0.25]
+,tsl.[Job Approver User ID]
+,tsh.[Resource No_]
+,tsh.[Owner User ID]
+,tsh.[Approver User ID]
+,CASE WHEN tsl.[Job No_] LIKE 'T-%'
+    THEN raprv.[Name]
+    ELSE japrv.[Name]
+    END AS [Approver]
+,CASE 
+WHEN res.[Global Dimension 2 Code] = 'PER' THEN 'PER'
+ELSE 'PAL' END AS Company 
+,res.Name
+,CASE 
+WHEN tsl.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'BILLHR-XX', 'BILLDAY-XX') THEN tsl.[Total Hours Worked]
+ELSE 0
+END AS [Billable]
+FROM [Palaris$Time Sheet Line] tsl
+LEFT JOIN [Palaris$Time Sheet Header] tsh on tsl.[Time Sheet No_] = tsh.No_
+LEFT JOIN Resources res ON tsh.[Resource No_] = res.No_ 
+LEFT JOIN Resources japrv ON tsl.[Job Approver User ID] = japrv.[Time Sheet Owner User ID] 
+LEFT JOIN Resources raprv ON tsh.[Approver User ID] = raprv.[Time Sheet Owner User ID] 
+LEFT JOIN [Palaris$Job Task] jt ON (tsl.[Job No_] = jt.[Job No_] AND tsl.[Job Task No_] = jt.[Job Task No_])
+WHERE Posted = 0
+),
+
+PEL AS
+(
+SELECT 
+tsl.[Time Sheet No_]
+,tsl.[Time Sheet Starting Date]
+,tsl.[Job No_]
+,tsl.[Job Task No_]
+,tsl.[Description]
+,tsl.[Work Type Code]
+,jt.[Timesheet Default Work Type]
+,CASE WHEN tsl.[Work Type Code] != jt.[Timesheet Default Work Type] THEN 1 ELSE 0
+END AS [WorkTypeChanged]
+,CASE WHEN (LEFT(tsl.[Job No_], 2) = 'T-' AND tsl.[Work Type Code] IN ('BILLHR','BILLDAY','NBTHR','NBTDAY')) THEN 1 ELSE 0
+END AS [JobWorkTypeOnly]
+,CASE 
+WHEN tsl.Status = 0 THEN 'Open'
+WHEN tsl.Status = 1 THEN 'Submitted'
+WHEN tsl.Status = 2 THEN 'Approved'
+WHEN tsl.Status = 3 THEN 'Posted'
+END AS [Status]
+,tsl.[Work Location]
+,tsl.Qty1 AS [Saturday]
+,tsl.Qty2 AS [Sunday]
+,tsl.Qty3 AS [Monday]
+,tsl.Qty4 AS [Tuesday] 
+,tsl.Qty5 AS [Wednesday]
+,tsl.Qty6 AS [Thursday]
+,tsl.Qty7 AS [Friday]
+,tsl.[Total Hours Worked]
+, CASE WHEN tsl.[Total Hours Worked] % 0.25 != 0
+THEN 1 ELSE 0
+END AS [NotMultipleOf0.25]
+,tsl.[Job Approver User ID]
+,tsh.[Resource No_]
+,tsh.[Owner User ID]
+,tsh.[Approver User ID]
+,CASE WHEN tsl.[Job No_] LIKE 'T-%'
+    THEN raprv.[Name]
+    ELSE japrv.[Name]
+    END AS [Approver]
+, 'PEL' AS Company 
+,res.Name
+,CASE 
+WHEN tsl.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'BILLHR-XX', 'BILLDAY-XX') THEN tsl.[Total Hours Worked]
+ELSE 0
+END AS [Billable]
+FROM [Palaris Europe Limited$Time Sheet Line] tsl
+LEFT JOIN [Palaris Europe Limited$Time Sheet Header] tsh on tsl.[Time Sheet No_] = tsh.No_
+LEFT JOIN Resources res ON tsh.[Resource No_] = res.No_ 
+LEFT JOIN Resources japrv ON tsl.[Job Approver User ID] = japrv.[Time Sheet Owner User ID] 
+LEFT JOIN Resources raprv ON tsh.[Approver User ID] = raprv.[Time Sheet Owner User ID] 
+LEFT JOIN [Palaris Europe Limited$Job Task] jt ON (tsl.[Job No_] = jt.[Job No_] AND tsl.[Job Task No_] = jt.[Job Task No_])
+WHERE Posted = 0   
+)
+
+SELECT * FROM PAL
+UNION
+SELECT * FROM PEL</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Time_Sheet_No_">
+        <DataField>Time Sheet No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Time_Sheet_Starting_Date">
+        <DataField>Time Sheet Starting Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Job_No_">
+        <DataField>Job No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Job_Task_No_">
+        <DataField>Job Task No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Description">
+        <DataField>Description</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Work_Type_Code">
+        <DataField>Work Type Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Status">
+        <DataField>Status</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Timesheet_Default_Work_Type">
+        <DataField>Timesheet Default Work Type</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Work_Location">
+        <DataField>Work Location</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="JobWorkTypeOnly">
+        <DataField>JobWorkTypeOnly</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="WorkTypeChanged">
+        <DataField>WorkTypeChanged</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Saturday">
+        <DataField>Saturday</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Sunday">
+        <DataField>Sunday</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Monday">
+        <DataField>Monday</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Tuesday">
+        <DataField>Tuesday</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Wednesday">
+        <DataField>Wednesday</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Thursday">
+        <DataField>Thursday</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Friday">
+        <DataField>Friday</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Total_Hours_Worked">
+        <DataField>Total Hours Worked</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Job_Approver_User_ID">
+        <DataField>Job Approver User ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="NotMultipleOf0_25">
+        <DataField>NotMultipleOf0.25</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Resource_No_">
+        <DataField>Resource No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Owner_User_ID">
+        <DataField>Owner User ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Approver_User_ID">
+        <DataField>Approver User ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Company">
+        <DataField>Company</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Approver">
+        <DataField>Approver</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Name">
+        <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Billable">
+        <DataField>Billable</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+</SharedDataSet>

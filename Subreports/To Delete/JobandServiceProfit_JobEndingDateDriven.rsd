@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@StartDate">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+          <rd:IsMultiValued>false</rd:IsMultiValued>
+        </DataSetParameter>
+        <DataSetParameter Name="@EndDate">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+          <rd:IsMultiValued>false</rd:IsMultiValued>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>/*Jobs list with service types + service owners included*/
+
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+;WITH BUGroup AS
+(
+SELECT [Business Unit Group], [Business Unit]
+    FROM [Business Unit Group]
+),
+
+Jobs_PEL AS
+
+(
+SELECT
+job.No_
+  ,job.Description
+  ,job.[Global Dimension 2 Code]
+  ,bug.[Business Unit Group]
+  ,job.[Ending Date]
+  ,job.[Job Type]
+  ,res.[Name]
+  ,res.[Supervisor]
+  ,job.[Bill-to Customer No_]
+, (SELECT TOP 1 [Dimension Value Code] 
+  FROM [Palaris Europe Limited$Job Task Dimension] jtd
+  WHERE 
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+) 
+AS Service 
+
+, LEFT((SELECT TOP 1 [Dimension Value Code] 
+  FROM [Palaris Europe Limited$Job Task Dimension] jtd
+  WHERE 
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+),5) 
+
+AS ServiceCode
+
+, RIGHT((SELECT TOP 1 [Dimension Value Code] 
+  FROM [Palaris Europe Limited$Job Task Dimension] jtd
+  WHERE 
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+)
+
+,LEN  
+((SELECT TOP 1 [Dimension Value Code] 
+  FROM [Palaris Europe Limited$Job Task Dimension] jtd
+  WHERE 
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+))-6)
+AS ServiceOwner
+
+  ,(SELECT
+SUM(jle.[Total Cost (LCY)])
+FROM
+  [Palaris Europe Limited$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 0
+
+  ) AS UsageCost
+
+  ,(SELECT
+SUM(jle.[Line Amount (LCY)])
+FROM
+  [Palaris Europe Limited$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 0
+)  AS UsagePrice
+
+,-1*(SELECT
+SUM(jle.[Line Amount (LCY)])
+FROM
+  [Palaris Europe Limited$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 1
+  ) AS Invoiced
+
+  
+FROM
+[Palaris Europe Limited$Job] job
+LEFT JOIN [Palaris Europe Limited$Resource] res ON job.[Person Responsible] = res.[No_]
+LEFT JOIN BUGroup bug ON job.[Global Dimension 2 Code] = bug.[Business Unit]
+
+WHERE 
+job.[No_] NOT LIKE 'T-%' AND job.[No_] NOT LIKE 'TEST%'
+AND job.[Ending Date] BETWEEN @StartDate AND @EndDate
+),
+
+PELPIVOT AS
+(
+SELECT 
+Jobs_PEL.No_ AS [Job No], 
+Jobs_PEL.Description, 
+Jobs_PEL.name AS [Project Manager], 
+palres2.name AS [PM Supervisor], 
+UPPER(palres2.[Time Sheet Owner User ID]) AS [PM Supervisor User Name],
+jobs_PEL.Supervisor AS [Supervisor No],
+dv.Name AS [Service Title], 
+Jobs_PEL.[Business Unit Group],
+palres.Name AS [Service Owner],
+Jobs_PEL.ServiceCode AS [Service Code],
+Jobs_PEL.UsageCost AS [Usage Cost],
+Jobs_PEL.UsagePrice AS [Usage Price],
+Jobs_PEL.Invoiced
+FROM Jobs_PEL
+LEFT JOIN [Palaris Europe Limited$Dimension Value] dv ON dv.Code = Jobs_PEL.Service
+LEFT JOIN [Palaris Europe Limited$Resource] palres ON palres.No_ = ServiceOwner
+LEFT JOIN [Palaris Europe Limited$Resource] palres2 ON palres2.No_ = jobs_PEL.Supervisor
+),
+
+Jobs AS
+
+(
+SELECT
+job.No_
+  ,job.Description
+  ,job.[Global Dimension 2 Code]
+  ,bug.[Business Unit Group]
+  ,job.[Ending Date]
+  ,job.[Job Type]
+  ,res.[Name]
+  ,res.[Supervisor]
+  ,job.[Bill-to Customer No_]
+  ,job.[Customer PO Value]
+, (SELECT TOP 1 [Dimension Value Code] 
+  FROM [Palaris$Job Task Dimension] jtd
+  WHERE 
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+) 
+AS Service 
+
+, LEFT((SELECT TOP 1 [Dimension Value Code] 
+  FROM [Palaris$Job Task Dimension] jtd
+  WHERE 
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+),5) 
+
+AS ServiceCode
+
+, RIGHT((SELECT TOP 1 [Dimension Value Code] 
+  FROM [Palaris$Job Task Dimension] jtd
+  WHERE 
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+)
+
+,LEN  
+((SELECT TOP 1 [Dimension Value Code] 
+  FROM [Palaris$Job Task Dimension] jtd
+  WHERE 
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+))-6)
+AS ServiceOwner
+  ,(SELECT
+SUM(jle.[Total Cost (LCY)])
+FROM
+  [Palaris$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 0
+ ) AS UsageCost
+
+  ,(SELECT
+SUM(jle.[Line Amount (LCY)])
+FROM
+  [Palaris$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 0
+)  AS UsagePrice
+
+,-1*(SELECT
+SUM(jle.[Line Amount (LCY)])
+FROM
+  [Palaris$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 1
+) AS Invoiced
+
+  
+FROM
+[Palaris$Job] job
+LEFT JOIN [Palaris$Resource] res ON job.[Person Responsible] = res.[No_]
+LEFT JOIN BUGroup bug ON job.[Global Dimension 2 Code] = bug.[Business Unit]
+
+WHERE
+job.[No_] NOT LIKE 'T-%' AND job.[No_] NOT LIKE 'TEST%'
+AND job.[Ending Date] BETWEEN @StartDate AND @EndDate
+),
+
+AUPIVOT AS
+(
+SELECT 
+jobs.No_ AS [Job No], 
+jobs.Description, 
+Jobs.name AS [Project Manager],
+palres2.name AS [PM Supervisor],
+UPPER(palres2.[Time Sheet Owner User ID]) AS [PM Supervisor User Name],
+jobs.Supervisor AS [Supervisor No],
+dv.Name AS [Service Title], 
+jobs.[Business Unit Group],
+palres.Name AS [Service Owner],
+jobs.ServiceCode AS [Service Code],
+jobs.UsageCost AS [Usage Cost],
+jobs.UsagePrice AS [Usage Price],
+jobs.Invoiced
+FROM Jobs
+LEFT JOIN [Palaris$Dimension Value] dv ON dv.Code = jobs.Service
+LEFT JOIN [Palaris$Resource] palres ON palres.No_ = ServiceOwner
+LEFT JOIN [Palaris$Resource] palres2 ON palres2.No_ = jobs.Supervisor
+)
+
+SELECT * FROM PELPIVOT
+WHERE [Invoiced] &lt;&gt; 0 OR [Usage Cost] &lt;&gt; 0
+UNION
+SELECT * FROM AUPIVOT
+WHERE [Invoiced] &lt;&gt; 0 OR [Usage Cost] &lt;&gt; 0</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Job_No">
+        <DataField>Job No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Description">
+        <DataField>Description</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Project_Manager">
+        <DataField>Project Manager</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Service_Title">
+        <DataField>Service Title</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PM_Supervisor">
+        <DataField>PM Supervisor</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PM_Supervisor_User_Name">
+        <DataField>PM Supervisor User Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Business_Unit_Group">
+        <DataField>Business Unit Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Supervisor_No">
+        <DataField>Supervisor No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Service_Owner">
+        <DataField>Service Owner</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Service_Code">
+        <DataField>Service Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Usage_Cost">
+        <DataField>Usage Cost</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Usage_Price">
+        <DataField>Usage Price</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Invoiced">
+        <DataField>Invoiced</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>

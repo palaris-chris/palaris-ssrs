@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAVTest</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+WITH BUGroup AS
+(
+SELECT [Consolidation Code] AS [Business Unit Group], [Code] AS [Business Unit], [Name] AS [Label]
+FROM [DynamicsNAVPalaris_060818].[dbo].[Palaris$Dimension Value] 
+WHERE [Dimension Code] = 'BUSUNIT'
+),
+
+JobDetails AS
+
+(
+SELECT
+job.No_
+  ,job.Description
+  ,job.[Global Dimension 2 Code] AS [BU]
+  ,bug.[Business Unit Group]
+  ,job.[Ending Date]
+  ,job.[Job Type]
+  ,res.[Name]
+  ,res.[Supervisor]
+  ,res.[Time Sheet Owner User ID]
+  ,job.[Bill-to Customer No_]
+  ,job.[Customer PO Value]
+, (SELECT TOP 1 [Dimension Value Code]
+  FROM [Palaris$Job Task Dimension] jtd
+  WHERE
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+)
+AS Service
+
+, LEFT((SELECT TOP 1 [Dimension Value Code]
+  FROM [Palaris$Job Task Dimension] jtd
+  WHERE
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+),5)
+
+AS ServiceCode
+
+, RIGHT((SELECT TOP 1 [Dimension Value Code]
+  FROM [Palaris$Job Task Dimension] jtd
+  WHERE
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+)
+
+,LEN
+((SELECT TOP 1 [Dimension Value Code]
+  FROM [Palaris$Job Task Dimension] jtd
+  WHERE
+	jtd.[Job No_] = Job.No_
+	AND jtd.[Dimension Code] = 'SERVICE'
+  ORDER BY [Dimension Value Code] ASC
+))-6)
+AS ServiceOwner
+
+,(SELECT
+SUM(jpl.[Total Cost (LCY)])
+FROM
+  [Palaris$Job Planning Line] jpl
+WHERE
+  jpl.[Job No_] = Job.No_
+  AND jpl.[Schedule Line] = 1) AS ScheduleCost
+
+,ISNULL((SELECT
+SUM(jpl.[Total Cost (LCY)])
+FROM
+  [Palaris$Job Planning Line] jpl
+WHERE
+  jpl.[Job No_] = Job.No_
+  AND jpl.[Schedule Line] = 1 AND jpl.[Work Type Code] IN ('NBTHR', 'NBTDAY')), 0) AS ScheduleNBTCost
+
+,(SELECT
+SUM(jpl.[Total Cost (LCY)])
+FROM
+  [Palaris$Job Planning Line] jpl
+WHERE
+  jpl.[Job No_] = Job.No_
+  AND jpl.[Schedule Line] = 1 AND jpl.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY')) AS SchedulePalResourceCost
+
+,(SELECT
+SUM(jpl.[Line Amount (LCY)])
+FROM
+  [Palaris$Job Planning Line] jpl
+WHERE
+  jpl.[Job No_] = Job.No_
+  AND jpl.[Schedule Line] = 1) AS SchedulePrice
+
+ ,(SELECT
+SUM(jpl.[Quantity (Base)])
+FROM
+  [Palaris$Job Planning Line] jpl
+WHERE
+  jpl.[Job No_] = Job.No_
+  AND jpl.[Schedule Line] = 1 AND jpl.[Work Type Code]  IN ('BILLHR', 'BILLDAY')) AS ScheduleBILL
+
+ ,(SELECT
+SUM(jpl.[Quantity (Base)])
+FROM
+  [Palaris$Job Planning Line] jpl
+WHERE
+  jpl.[Job No_] = Job.No_
+  AND jpl.[Schedule Line] = 1 AND jpl.[Work Type Code] IN ('NBTHR', 'NBTDAY')) AS ScheduleNBT
+,(SELECT
+SUM(jle.[Quantity (Base)])
+FROM
+  [Palaris$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 0 AND jle.[Work Type Code] IN ('NBTHR', 'NBTDAY')) AS UsageNBT
+
+,ISNULL((SELECT
+SUM(jle.[Total Cost (LCY)])
+FROM
+  [Palaris$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 0 AND jle.[Work Type Code] IN ('NBTHR', 'NBTDAY')),0) AS NBTCost
+
+,(SELECT
+SUM(jle.[Total Cost (LCY)])
+FROM
+  [Palaris$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 0 AND jle.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY')) AS PalResourceCost
+
+,(SELECT
+SUM(jle.[Quantity (Base)])
+FROM
+  [Palaris$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 0 AND jle.[Work Type Code] IN ('BILLHR', 'BILLDAY')) AS UsageBILL
+
+  ,(SELECT
+SUM(jle.[Total Cost (LCY)])
+FROM
+  [Palaris$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 0) AS UsageCost
+
+  ,(SELECT
+SUM(jle.[Line Amount (LCY)])
+FROM
+  [Palaris$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 0) AS UsagePrice
+
+,-1*(SELECT
+SUM(jle.[Line Amount (LCY)])
+FROM
+  [Palaris$Job Ledger Entry] jle
+WHERE
+  jle.[Job No_] = Job.No_
+  AND jle.[Entry Type] = 1) AS Invoiced
+  
+  , (SELECT TOP 1 [Posting Date]
+  FROM [Palaris$Job Ledger Entry] jle
+  WHERE
+  jle.[Job No_] = job.[No_]
+  AND jle.[Entry Type] = 0
+  ORDER BY [Posting Date] asc) AS LedgerStartDate
+  , (SELECT TOP 1 [Posting Date]
+  FROM [Palaris$Job Ledger Entry] jle
+  WHERE
+  jle.[Job No_] = job.[No_]
+  AND jle.[Entry Type] = 0
+  ORDER BY [Posting Date] desc) AS LedgerEndDate
+
+FROM
+[Palaris$Job] job
+LEFT JOIN [Palaris$Resource] res ON job.[Person Responsible] = res.[No_]
+LEFT JOIN BUGroup bug ON job.[Global Dimension 2 Code] = bug.[Business Unit]
+),
+
+JobList AS
+(
+SELECT
+   job.[No_] AS No
+FROM [Palaris$Job] Job
+WHERE Job.Status = 2
+AND Job.No_ NOT LIKE 'T-%'
+),
+
+Lines AS 
+(
+SELECT 
+ jpl.[Job No_]
+ , jpl.[Job Task No_]
+ , jpl.[Planning Date]
+ , CASE WHEN jpl.[Promised Delivery Date] = '1753-01-01 00:00:00' THEN null ELSE jpl.[Promised Delivery Date] END AS [Promised Delivery Date]
+ , jpl.[No_]
+ , jpl.[Last Date Modified]
+ , jpl.[Description] AS [Milestone]
+ , jpl.[Quantity]
+ , jpl.[Line Amount (LCY)] AS [Amount]
+ , jd.[Business Unit Group]
+ , jd.Name AS [Project Manager]
+ , jd.[Time Sheet Owner User ID] AS [PM Username]
+ FROM [Palaris$Job Planning Line] jpl
+LEFT JOIN JobDetails jd ON jpl.[Job No_] = jd.[No_]
+WHERE jpl.[Job No_] IN (SELECT No FROM JobList)
+AND jpl.[Work Type Code] = 'PAY'
+AND jpl.[Contract Line] = '1'
+AND jpl.[Qty_ to Invoice] = '1'
+)
+SELECT *, DATEDIFF(day, [Planning Date], [Promised Delivery Date])*-1 AS DaysMoved FROM Lines 
+
+ORDER BY [Planning Date] asc</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Job_No_">
+        <DataField>Job No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Job_Task_No_">
+        <DataField>Job Task No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Planning_Date">
+        <DataField>Planning Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Promised_Delivery_Date">
+        <DataField>Promised Delivery Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="No_">
+        <DataField>No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Last_Date_Modified">
+        <DataField>Last Date Modified</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Milestone">
+        <DataField>Milestone</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Quantity">
+        <DataField>Quantity</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Amount">
+        <DataField>Amount</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Business_Unit_Group">
+        <DataField>Business Unit Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Project_Manager">
+        <DataField>Project Manager</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PM_Username">
+        <DataField>PM Username</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="DaysMoved">
+        <DataField>DaysMoved</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://reports.palaris.com.au/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>

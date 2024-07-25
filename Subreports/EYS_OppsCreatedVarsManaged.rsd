@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@ResourceNo">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+          <rd:IsMultiValued>false</rd:IsMultiValued>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+/*DASHBOARD USERS MUST BE SET UP IN JOB RESOURCE PRICE TABLE FOR THIS TO WORK
+
+DECLARE @ResourceNo varchar(5)
+SET @ResourceNo = 'R8000';*/
+
+WITH JobsWorked AS
+(
+SELECT DISTINCT [Job No_], [Job Position Title]
+FROM [Palaris$Job Resource Price] jrp
+WHERE Code = @ResourceNo AND [Job No_] NOT LIKE 'T-%'
+UNION 
+SELECT DISTINCT [Job No_], [Job Position Title]
+FROM [Palaris Europe Limited$Job Resource Price] jrp
+WHERE Code = @ResourceNo AND [Job No_] NOT LIKE 'T-%'
+),
+
+N_Users AS
+(
+SELECT
+Name, No_, [Global Dimension 2 Code] AS [BU]
+FROM [DynamicsNAVPalaris].dbo.[Palaris$Resource] res
+WHERE [Resource Group No_] = 'GEN'
+),
+
+Z_Users AS
+(
+SELECT CAST(Id AS NVARCHAR) AS U_Id, [Full Name] AS Name, Fax AS [No_], n.BU AS BU
+FROM ZohoCRM.dbo.Users u
+LEFT JOIN N_Users n ON u.Fax COLLATE Latin1_General_100_CI_AS = n.No_
+WHERE n.No_ = @ResourceNo
+),
+
+VariationsManaged AS
+(
+SELECT
+job.No_
+,job.[Description]
+,(SELECT
+    SUM(jpl.[Line Amount (LCY)])
+    FROM
+    [DynamicsNAVPalaris].[dbo].[Palaris$Job Planning Line] jpl
+    WHERE
+    jpl.[Job No_] = Job.No_
+    AND jpl.[Schedule Line] = 1) 
+    AS SchedulePrice
+,(SELECT TOP 1 [Posting Date]
+  FROM [DynamicsNAVPalaris].[dbo].[Palaris$Job Ledger Entry] jle
+  WHERE
+  jle.[Job No_] = job.[No_]
+  AND jle.[Entry Type] = 0
+  AND jle.[Type] = 0
+    AND jle.[Work Type Code] NOT IN ('MARGIN-MAX','PAY','FX-RISK')
+  ORDER BY [Posting Date] asc)  AS [Created]
+,'Variation Start' AS 'Stage'
+,'Variation' AS 'StageGrouped'
+,'Variation' AS [Client Feedback]
+
+,(SELECT
+    SUM(jpl.[Line Amount (LCY)])
+    FROM
+    [DynamicsNAVPalaris].[dbo].[Palaris$Job Planning Line] jpl
+    WHERE
+    jpl.[Job No_] = Job.No_
+    AND jpl.[Schedule Line] = 1) 
+   AS [WonVar]
+,null AS [WonOpp]
+,null AS [LostOpp]
+,null AS [OpenOpp]
+
+FROM
+[DynamicsNAVPalaris].[dbo].[Palaris$Job] job
+WHERE job.[Person Responsible] = @ResourceNo 
+AND LEFT(job.[No_], 2) &lt;&gt; 'T-'
+AND ISNUMERIC(RIGHT(job.[No_], 1))&lt;&gt;1
+/*job.No_ IN (SELECT [Job No_] FROM JobsWorked)*/ 
+/*could be limited by date for speed improvement?*/
+),
+
+CreatedOpps AS
+(
+SELECT 
+  o.[Opportunity ID] COLLATE Latin1_General_100_CI_AS AS [Opportunity ID] 
+, o.[Description] COLLATE Latin1_General_100_CI_AS AS [Description]
+, o.[Amount]
+, o.[Created Time] AS [Created]
+, o.[Stage]
+, CASE WHEN o.Stage = 'Closed Won' THEN 
+    'Won'
+    WHEN o.Stage = 'Closed Lost' THEN
+    'Lost'
+    ELSE 'Open'
+    END AS [StageGrouped]
+, CASE WHEN o.Stage = 'Closed Won' THEN 
+    o.[Primary Won Reason]
+    WHEN o.Stage = 'Closed Lost' THEN
+    o.[Primary Lost Reason]
+    ELSE 'Still Open'
+    END AS [Client Feedback]
+,null AS [WonVar]
+,CASE WHEN o.Stage = 'Closed Won' THEN 
+ [Amount] ELSE NULL END
+ AS [WonOpp]
+,CASE WHEN o.Stage = 'Closed Lost' THEN 
+ [Amount] ELSE NULL END AS [LostOpp]
+,CASE WHEN o.Stage != 'Closed Lost' AND o.Stage != 'Closed Won' THEN
+ [Amount] ELSE NULL END AS [OpenOpp]
+
+FROM [ZohoCRM].[dbo].[Deals] o
+LEFT JOIN [ZohoCRM].[dbo].[Accounts] a ON o.Account = a.Id
+LEFT JOIN Z_Users ON CAST(o.[Created By] AS NVARCHAR) = Z_Users.U_Id
+WHERE Z_Users.No_ = @ResourceNo
+),
+
+
+OppsWonVarManaged AS
+(
+SELECT * FROM CreatedOpps
+UNION ALL 
+SELECT * FROM VariationsManaged
+)
+
+SELECT *
+,DATENAME(yyyy, Created) AS [CY]
+,DATENAME(month, Created) AS [CM]
+,DATENAME(quarter, Created) AS [CQ]
+,CONCAT(DATENAME(month, Created), ' ', DATENAME(yyyy, Created)) AS [CMCY]
+,CONCAT('Q', DATENAME(quarter, Created), ' ', DATENAME(yyyy, Created)) AS [CQCY]
+,DATEADD(dd, -(DATEPART(dw, [Created])-1), [Created]) [WeekStart]
+,DATEADD(dd, 7-(DATEPART(dw, [Created])), [Created]) [WeekEnd]
+,CASE WHEN MONTH(DATEADD(dd, 7-(DATEPART(dw, [Created])), [Created]))&lt;=8 THEN DATENAME(yyyy, DATEADD(dd, 7-(DATEPART(dw, [Created])), [Created]))
+	ELSE DATENAME(yyyy, DATEADD(year, 1,DATEADD(dd, 7-(DATEPART(dw, [Created])), [Created])))
+	END AS [BonusYear]
+,CASE WHEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, [Created])), [Created]))+4) % 12 &gt;0 THEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, [Created])), [Created]))+4) % 12 ELSE 12
+	END AS [BonusMonthNumber]
+,DATEPART(iso_week, [Created]) AS WEEKNUM
+
+FROM OppsWonVarManaged</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Opportunity_ID">
+        <DataField>Opportunity ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="WeekEnding">
+        <Value>=DateAdd("d",6-iif(Weekday(Fields!Created.Value)=7,0,Weekday(Fields!Created.Value)),Fields!Created.Value)</Value>
+      </Field>
+      <Field Name="Description">
+        <DataField>Description</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ReportingMonth">
+        <Value>=MonthName(Month(Fields!WeekEnding.Value)) &amp; " " &amp; Format(Fields!WeekEnding.Value, "yy")</Value>
+      </Field>
+      <Field Name="Amount">
+        <DataField>Amount</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="StageGrouped">
+        <DataField>StageGrouped</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Created">
+        <DataField>Created</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="WonVar">
+        <DataField>WonVar</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Stage">
+        <DataField>Stage</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="WonOpp">
+        <DataField>WonOpp</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="Client_Feedback">
+        <DataField>Client Feedback</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CY">
+        <DataField>CY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="LostOpp">
+        <DataField>LostOpp</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="CM">
+        <DataField>CM</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="OpenOpp">
+        <DataField>OpenOpp</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="CQ">
+        <DataField>CQ</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CMCY">
+        <DataField>CMCY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CQCY">
+        <DataField>CQCY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="WeekStart">
+        <DataField>WeekStart</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="WeekEnd">
+        <DataField>WeekEnd</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="BonusYear">
+        <DataField>BonusYear</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BonusMonthNumber">
+        <DataField>BonusMonthNumber</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="WEEKNUM">
+        <DataField>WEEKNUM</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+</SharedDataSet>

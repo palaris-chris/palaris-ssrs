@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+;WITH BUGroup AS
+(
+SELECT [Consolidation Code] AS [Business Unit Group], [Code] AS [Business Unit], [Name] AS [Label]
+FROM [DynamicsNAVPalaris].[dbo].[Palaris$Dimension Value] 
+WHERE [Dimension Code] = 'BUSUNIT'
+),
+
+Jobs_PEL AS
+
+(
+SELECT
+job.[Invoicing Frequency] AS IFNo
+,CASE 
+   WHEN job.[Invoicing Frequency] = 0 THEN 'Week 1'
+   WHEN job.[Invoicing Frequency] = 1 THEN 'Week 2'
+   WHEN job.[Invoicing Frequency] = 2 THEN 'Week 3'
+   WHEN job.[Invoicing Frequency] = 3 THEN 'End of Month'
+   WHEN job.[Invoicing Frequency] = 4 THEN 'Milestone'
+   WHEN job.[Invoicing Frequency] = 5 THEN 'Special'
+ END AS [Invoicing Frequency]
+FROM
+[Palaris Europe Limited$Job] job
+LEFT JOIN [Palaris Europe Limited$Resource] res ON job.[Person Responsible] = res.[No_]
+WHERE
+job.[No_] NOT LIKE 'T-%' AND job.[No_] NOT LIKE 'TEST%' AND
+job.[Project Status] = 'ACTIVE'
+),
+
+Jobs_AU AS
+
+(
+SELECT
+job.[Invoicing Frequency] AS IFNo
+,CASE 
+   WHEN job.[Invoicing Frequency] = 0 THEN 'Week 1'
+   WHEN job.[Invoicing Frequency] = 1 THEN 'Week 2'
+   WHEN job.[Invoicing Frequency] = 2 THEN 'Week 3'
+   WHEN job.[Invoicing Frequency] = 3 THEN 'End of Month'
+   WHEN job.[Invoicing Frequency] = 4 THEN 'Milestone'
+   WHEN job.[Invoicing Frequency] = 5 THEN 'Special'
+ END AS [Invoicing Frequency]
+FROM
+[Palaris$Job] job
+LEFT JOIN [Palaris$Resource] res ON job.[Person Responsible] = res.[No_]
+WHERE
+job.[No_] NOT LIKE 'T-%' AND job.[No_] NOT LIKE 'TEST%' AND
+job.[Project Status] = 'ACTIVE'
+),
+
+Results AS
+(
+SELECT * FROM Jobs_AU
+UNION
+SELECT * FROM Jobs_PEL
+)
+
+SELECT DISTINCT * FROM Results
+ORDER BY IFNo</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="IFNo">
+        <DataField>IFNo</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Invoicing_Frequency">
+        <DataField>Invoicing Frequency</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+</SharedDataSet>

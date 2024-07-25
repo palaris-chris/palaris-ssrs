@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAVTest</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+;WITH BUGroup AS
+(
+SELECT [Consolidation Code] AS [Business Unit Group], [Code] AS [Business Unit], [Name] AS [Label]
+FROM [DynamicsNAVPalaris_060818].[dbo].[Palaris$Dimension Value] 
+WHERE [Dimension Code] = 'BUSUNIT'
+),
+
+Jobs_PEL AS
+
+(
+SELECT
+  bug.[Business Unit Group]
+FROM
+[Palaris Europe Limited$Job] job
+LEFT JOIN BUGroup bug ON job.[Global Dimension 2 Code] = bug.[Business Unit]
+WHERE
+job.[No_] NOT LIKE 'T-%' AND job.[No_] NOT LIKE 'TEST%' AND
+job.[Project Status] = 'ACTIVE'
+),
+
+Jobs_AU AS
+
+(
+SELECT
+  bug.[Business Unit Group]
+FROM
+[Palaris$Job] job
+LEFT JOIN BUGroup bug ON job.[Global Dimension 2 Code] = bug.[Business Unit]
+WHERE
+job.[No_] NOT LIKE 'T-%' AND job.[No_] NOT LIKE 'TEST%' AND
+job.[Project Status] = 'ACTIVE'
+),
+
+Results AS
+(
+SELECT * FROM Jobs_AU
+UNION
+SELECT * FROM Jobs_PEL
+)
+
+SELECT DISTINCT * FROM Results</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Business_Unit_Group">
+        <DataField>Business Unit Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+</SharedDataSet>

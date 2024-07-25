@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+Declare @Date date;
+SET @Date = '01/07/2016'; /*DATEADD(month, -36, CAST(GETDATE() - DATEPART(DAY, GETDATE()) AS DATE));*/
+Declare @EndDate date;
+SET @EndDate = (SELECT MAX(EOMONTH([Starting Date])) AS [End] FROM [Palaris$Accounting Period] WHERE [Published] = 1);
+
+WITH dsBUs AS
+(
+SELECT [Dimension Set ID], [Dimension Value Code] 
+FROM dbo."Palaris$Dimension Set Entry"
+WHERE [Dimension Code] = 'BUSUNIT'
+),
+
+dsCompany AS
+(
+SELECT [Dimension Set ID], [Dimension Value Code] 
+FROM dbo."Palaris$Dimension Set Entry"
+WHERE [Dimension Code] = 'COMPANY'
+),
+
+dsEmployees AS
+(
+SELECT [Dimension Set ID], [Dimension Value Code] 
+FROM dbo."Palaris$Dimension Set Entry"
+WHERE [Dimension Code] = 'EMPLOYEE'
+),
+
+dsService AS
+(
+SELECT [Dimension Set ID], [Dimension Value Code] 
+FROM dbo."Palaris$Dimension Set Entry"
+WHERE [Dimension Code] = 'SERVICE'
+),
+
+DimSets AS
+(
+SELECT DISTINCT dse.[Dimension Set ID]
+,LEFT(dsB.[Dimension Value Code],3) AS [BUSUNIT]
+,dsC.[Dimension Value Code] AS [COMPANY]
+,dsEm.[Dimension Value Code] AS [EMPLOYEE]
+,dsS.[Dimension Value Code] AS [SERVICE]
+
+FROM dbo.[Palaris$Dimension Set Entry] dse
+LEFT JOIN dsBUs dsB ON dse.[Dimension Set ID] = dsB.[Dimension Set ID]
+LEFT JOIN dsCompany dsC ON dse.[Dimension Set ID] = dsC.[Dimension Set ID]
+LEFT JOIN dsEmployees dsEm ON dse.[Dimension Set ID] = dsEm.[Dimension Set ID]
+LEFT JOIN dsService dsS ON dse.[Dimension Set ID] = dsS.[Dimension Set ID]
+),
+
+Indent1 AS
+(
+SELECT
+tc.[No_]
+,RIGHT(tc.[Name], LEN(tc.[Name])-7) AS Name
+,tc.Indentation
+,tc.Income_Balance
+,LEFT(Totaling, 5) AS TotalStart
+,RIGHT(Totaling, 5) AS TotalEnd
+FROM dbo.[Palaris$G_L Account] tc
+WHERE [Account Type] IN (2,4)
+AND [Indentation] = 1
+),
+
+Indent2 AS
+(
+SELECT
+tc.[No_]
+,RIGHT(tc.[Name], LEN(tc.[Name])-7) AS Name
+,tc.Indentation
+,tc.Income_Balance
+,LEFT(Totaling, 5) AS TotalStart
+,RIGHT(Totaling, 5) AS TotalEnd
+FROM dbo.[Palaris$G_L Account] tc
+WHERE [Account Type] IN (2,4)
+AND [Indentation] = 2
+),
+
+Indent3 AS
+(
+SELECT
+tc.[No_]
+,RIGHT(tc.[Name], LEN(tc.[Name])-7) AS Name
+,tc.Indentation
+,tc.Income_Balance
+,LEFT(Totaling, 5) AS TotalStart
+,RIGHT(Totaling, 5) AS TotalEnd
+FROM dbo.[Palaris$G_L Account] tc
+WHERE [Account Type] IN (2,4)
+AND [Indentation] = 3
+),
+
+Indent4 AS
+(
+SELECT
+tc.[No_]
+,RIGHT(tc.[Name], LEN(tc.[Name])-7) AS Name
+,tc.Indentation
+,tc.Income_Balance
+,LEFT(Totaling, 5) AS TotalStart
+,RIGHT(Totaling, 5) AS TotalEnd
+FROM dbo.[Palaris$G_L Account] tc
+WHERE [Account Type] IN (2,4)
+AND [Indentation] = 4
+),
+
+Indent5 AS
+(
+SELECT
+tc.[No_]
+,RIGHT(tc.[Name], LEN(tc.[Name])-7) AS Name
+,tc.Indentation
+,tc.Income_Balance
+,LEFT(Totaling, 5) AS TotalStart
+,RIGHT(Totaling, 5) AS TotalEnd
+FROM dbo.[Palaris$G_L Account] tc
+WHERE [Account Type] IN (2,4)
+AND [Indentation] = 5
+),
+
+PostingGLCategories AS
+(
+SELECT
+ac.[No_]
+,ac.[Name]
+,ac.Indentation
+,ac.[Direct Posting]
+,CASE WHEN [Account Type] = 0 THEN 'Posting'
+WHEN [Account Type] = 1 THEN 'Heading'
+WHEN [Account Type] = 2 THEN 'Total'
+WHEN [Account Type] = 3 THEN 'Begin-Total'
+WHEN [Account Type] = 4 THEN 'End-Total'
+END AS [Account Type]
+,ac.Income_Balance
+,i1.name AS Indent1Cat
+,i1.No_ AS Indent1No
+,i2.name AS Indent2Cat
+,i2.No_ AS Indent2No
+,i3.name AS Indent3Cat
+,i3.No_ AS Indent3No
+,i4.name AS Indent4Cat
+,i4.No_ AS Indent4No
+,i5.name AS Indent5Cat
+,i5.No_ AS Indent5No
+FROM dbo.[Palaris$G_L Account] ac
+LEFT JOIN Indent1 i1 ON ac.No_ BETWEEN i1.TotalStart AND i1.TotalEnd
+LEFT JOIN Indent2 i2 ON ac.No_ BETWEEN i2.TotalStart AND i2.TotalEnd
+LEFT JOIN Indent3 i3 ON ac.No_ BETWEEN i3.TotalStart AND i3.TotalEnd
+LEFT JOIN Indent4 i4 ON ac.No_ BETWEEN i4.TotalStart AND i4.TotalEnd
+LEFT JOIN Indent5 i5 ON ac.No_ BETWEEN i5.TotalStart AND i5.TotalEnd
+WHERE AC.[Account Type] = 0 
+),
+
+GenLedger AS 
+(
+SELECT
+[Entry No_]
+,DATENAME(yyyy, gl.[Posting Date]) AS [CY]
+,DATENAME(m, gl.[Posting Date]) AS [CM]
+,DATENAME(quarter, gl.[Posting Date]) AS [CQ]
+,CONCAT(LEFT(DATENAME(m, gl.[Posting Date]),3), ' ',DATENAME(yyyy, gl.[Posting Date])) AS [CMCY]
+,CONCAT('Q',DATENAME(quarter, gl.[Posting Date]),' ',DATENAME(yyyy, gl.[Posting Date])) AS [CQCY]
+,CASE WHEN MONTH(gl.[Posting Date])&lt;=8 THEN DATENAME(yyyy, gl.[Posting Date])
+	ELSE DATENAME(yyyy, DATEADD(year, 1,gl.[Posting Date]))
+	END AS [BonusYear]
+,CASE WHEN (MONTH(gl.[Posting Date])+4) % 12 &gt;0 THEN (MONTH(gl.[Posting Date])+4) % 12 ELSE 12
+	END AS [BonusMonthNumber]
+,[G_L Account No_]
+,pgc.[Name]
+,pgc.Indent1Cat
+,pgc.Indent1No
+,pgc.Indent2Cat
+,pgc.Indent2No
+,pgc.Indent3Cat
+,pgc.Indent3No
+,pgc.Indent4Cat
+,pgc.Indent4No
+,pgc.Indent5Cat
+,pgc.Indent5No
+,[Posting Date]
+,[Source Type]
+,[Bal_ Account Type]
+,[Description]
+,-1*[Amount] AS [Amount]
+,[Debit Amount]
+,[Credit Amount]
+,[Dimension Set ID] AS [Dimension Set]
+,CASE WHEN pgc.Indent2Cat = 'Gross Profit' THEN -1*[Amount]
+END AS [GrossProfit]
+,CASE WHEN pgc.Indent3Cat = 'Total Revenue' THEN -1*[Amount]
+END AS [TotalRevenue]
+,CASE WHEN pgc.Indent3Cat = 'Project Costs' THEN -1*[Amount]
+END AS [ProjectCosts]
+,CASE WHEN MONTH(gl.[Posting Date]) = MONTH(GETDATE()) AND YEAR(gl.[Posting Date]) = YEAR(GETDATE()) THEN 1
+ELSE 0 
+END AS [IsCurrentMonth]
+
+FROM dbo."Palaris$G_L Entry" gl
+LEFT JOIN PostingGLCategories pgc ON gl.[G_L Account No_] = pgc.[No_]
+WHERE [Posting Date] &gt; @Date 
+AND [Posting Date] &lt;= @EndDate
+AND [G_L Account No_] &gt;= '40000'
+)
+
+SELECT * FROM GenLedger gl
+LEFT JOIN DimSets ds on ds.[Dimension Set ID] = gl.[Dimension Set]</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Entry_No_">
+        <DataField>Entry No_</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="CY">
+        <DataField>CY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CM">
+        <DataField>CM</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CQ">
+        <DataField>CQ</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CMCY">
+        <DataField>CMCY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CQCY">
+        <DataField>CQCY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BonusYear">
+        <DataField>BonusYear</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BonusMonthNumber">
+        <DataField>BonusMonthNumber</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="G_L_Account_No_">
+        <DataField>G_L Account No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Name">
+        <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent1Cat">
+        <DataField>Indent1Cat</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent1No">
+        <DataField>Indent1No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent2Cat">
+        <DataField>Indent2Cat</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent2No">
+        <DataField>Indent2No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent3Cat">
+        <DataField>Indent3Cat</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent3No">
+        <DataField>Indent3No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent4Cat">
+        <DataField>Indent4Cat</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent4No">
+        <DataField>Indent4No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent5Cat">
+        <DataField>Indent5Cat</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Indent5No">
+        <DataField>Indent5No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Posting_Date">
+        <DataField>Posting Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Source_Type">
+        <DataField>Source Type</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Bal__Account_Type">
+        <DataField>Bal_ Account Type</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Description">
+        <DataField>Description</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Amount">
+        <DataField>Amount</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Debit_Amount">
+        <DataField>Debit Amount</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Credit_Amount">
+        <DataField>Credit Amount</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Dimension_Set">
+        <DataField>Dimension Set</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="GrossProfit">
+        <DataField>GrossProfit</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="IsCurrentMonth">
+        <DataField>IsCurrentMonth</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="TotalRevenue">
+        <DataField>TotalRevenue</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="ProjectCosts">
+        <DataField>ProjectCosts</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Dimension_Set_ID">
+        <DataField>Dimension Set ID</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="BUSUNIT">
+        <DataField>BUSUNIT</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="COMPANY">
+        <DataField>COMPANY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="EMPLOYEE">
+        <DataField>EMPLOYEE</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="SERVICE">
+        <DataField>SERVICE</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+    <Filters>
+      <Filter>
+        <FilterExpression>=Fields!BUSUNIT.Value</FilterExpression>
+        <Operator>NotEqual</Operator>
+        <FilterValues>
+          <FilterValue>PAM</FilterValue>
+        </FilterValues>
+      </Filter>
+    </Filters>
+  </DataSet>
+  <rd:ReportServerUrl>http://reports.palaris.com.au/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>

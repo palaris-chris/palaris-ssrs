@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+WITH 
+
+r AS
+(
+SELECT [Code], [Name], [Resource No_] FROM dbo.[Palaris$Responsibility Center]
+),
+
+bu AS
+
+(
+    SELECT * FROM dbo.[Palaris$Dimension Set Entry]
+    WHERE [Dimension Code] = 'BUSUNIT'
+),
+
+pl AS
+(
+    SELECT 
+    [Document No_]
+    ,SUM([Amount]) AS Amount
+    ,SUM([Amount Including VAT]) AS AmountInclGST
+  FROM [DynamicsNAVPalaris].[dbo].[Palaris$Purchase Line]
+  WHERE [Document Type] = 2
+  GROUP BY [Document No_]
+),
+
+ph AS
+(
+SELECT 
+[No_]
+,[Pay-to Name]
+,[Pay-to City]
+,[Posting Date]
+,[Payment Terms Code]
+,[Due Date]
+,[Vendor Posting Group]
+,[Prices Including VAT]
+,[Vendor Invoice No_]
+,bu.[Dimension Value Code] AS BU
+,[Accounts Received Date]
+,[Currency Code]
+,pl.Amount
+,pl.AmountInclGST
+,[Code]
+,[Name]
+,[Resource No_] 
+FROM dbo.[Palaris$Purchase Header] ph
+LEFT JOIN r ON ph.[Responsibility Center] = r.Code 
+LEFT JOIN bu ON ph.[Dimension Set ID] = bu.[Dimension Set ID] 
+LEFT JOIN pl ON ph.[No_] = pl.[Document No_]
+WHERE [Document Type] = 2
+)
+
+SELECT * FROM PH</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="No_">
+        <DataField>No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Pay_to_Name">
+        <DataField>Pay-to Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Pay_to_City">
+        <DataField>Pay-to City</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Posting_Date">
+        <DataField>Posting Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Payment_Terms_Code">
+        <DataField>Payment Terms Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Due_Date">
+        <DataField>Due Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Vendor_Posting_Group">
+        <DataField>Vendor Posting Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Prices_Including_VAT">
+        <DataField>Prices Including VAT</DataField>
+        <rd:TypeName>System.Byte</rd:TypeName>
+      </Field>
+      <Field Name="Vendor_Invoice_No_">
+        <DataField>Vendor Invoice No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BU">
+        <DataField>BU</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Currency_Code">
+        <DataField>Currency Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Accounts_Received_Date">
+        <DataField>Accounts Received Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Code">
+        <DataField>Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Amount">
+        <DataField>Amount</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Name">
+        <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="AmountInclGST">
+        <DataField>AmountInclGST</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Resource_No_">
+        <DataField>Resource No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+</SharedDataSet>

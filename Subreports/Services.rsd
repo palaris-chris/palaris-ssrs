@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+WITH ServiceDimension AS
+(
+SELECT
+RIGHT(Code, 5) AS RNO,
+Name AS ServiceLabel,
+LEFT(Code, 5) AS ServiceCode
+FROM
+[Palaris$Dimension Value]
+WHERE
+[Dimension Code] = 'SERVICE' AND
+Name NOT LIKE 'WGR%' AND
+Blocked = '0'
+)
+
+SELECT 
+Res.Name AS Owner,
+ServiceCode,
+ServiceLabel
+FROM ServiceDimension
+LEFT JOIN [Palaris$Resource] Res ON Res.No_ = ServiceDimension.RNO</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Owner">
+        <DataField>Owner</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ServiceLabel">
+        <DataField>ServiceLabel</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ServiceCode">
+        <DataField>ServiceCode</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>

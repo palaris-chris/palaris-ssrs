@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+;WITH BUGroup AS
+(
+SELECT [Business Unit Group], [Business Unit]
+    FROM [Business Unit Group]
+),
+
+/*Res_PEL AS
+
+(
+SELECT
+	res.[Name]
+	,res.[Time Sheet Owner User ID]
+FROM
+[Palaris Europe Limited$Resource] res
+
+WHERE
+res.[Blocked] = 0 
+AND res.[Resource Group No_] = 'GEN'
+),*/
+
+Res_AU AS
+
+(
+SELECT
+	res.[Name]
+	,res.[Time Sheet Owner User ID]
+	,res.No_
+FROM
+[Palaris$Resource] res
+
+WHERE
+res.[Blocked] = 0 
+AND res.[Resource Group No_] = 'GEN'
+),
+
+Results AS
+(
+SELECT * FROM Res_AU
+)
+
+SELECT DISTINCT * FROM Results
+ORDER BY Name asc</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Name">
+        <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="No_">
+        <DataField>No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Time_Sheet_Owner_User_ID">
+        <DataField>Time Sheet Owner User ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://reports.palaris.com.au/reportserver</rd:ReportServerUrl>
+</SharedDataSet>

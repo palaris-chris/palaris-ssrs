@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+;WITH ServicesAU AS 
+(
+SELECT
+RIGHT(Code, 5) AS RNO,
+dv.Name AS ServiceLabel,
+Res.Name AS Owner
+FROM
+[Palaris$Dimension Value] dv
+
+LEFT JOIN [Palaris$Resource] Res ON Res.No_ = RIGHT(Code, 5)
+
+WHERE
+[Dimension Code] = 'SERVICE' AND
+dv.Name NOT LIKE 'WGR%' AND
+RIGHT(Code, 5) &lt;&gt; 'RXXXX'
+),
+
+ServicesPEL AS (
+SELECT
+RIGHT(Code, 5) AS RNO,
+dv.Name AS ServiceLabel,
+Res.Name AS Owner
+FROM
+[Palaris Europe Limited$Dimension Value] dv
+
+LEFT JOIN [Palaris Europe Limited$Resource] Res ON Res.No_ = RIGHT(Code, 5)
+
+WHERE
+[Dimension Code] = 'SERVICE' AND
+dv.Name NOT LIKE 'WGR%' AND
+RIGHT(Code, 5) &lt;&gt; 'RXXXX'
+)
+
+SELECT DISTINCT Owner FROM ServicesAU
+UNION
+SELECT DISTINCT Owner FROM ServicesPEL</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Owner">
+        <DataField>Owner</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>

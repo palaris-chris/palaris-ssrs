@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+WITH PAL AS
+(
+SELECT 
+res.Name
+,res.[Resource Group No_]
+,tsh.[No_]
+,tsh.[Starting Date]
+,tsh.[Ending Date]
+,SUM(tsl.[Total Hours Worked]) AS TotalHours
+,(SELECT SUM([Total Hours Worked]) 
+    FROM [Palaris$Time Sheet Line] tsl2 
+    WHERE tsl2.[Time Sheet No_] = tsh.No_ 
+    AND tsl2.Posted = 0) 
+AS TotalUnposted
+,(SELECT SUM([Total Hours Worked]) 
+    FROM [Palaris$Time Sheet Line] tsl2 
+    WHERE tsl2.[Time Sheet No_] = tsh.No_
+    AND tsl2.[Job No_] LIKE 'T-INTERNAL%' AND tsl2.[Job Task No_] IN ('I0620','I0621')) 
+AS TotalJobNotSetUp
+,(SELECT (SUM([Total Hours Worked]) % 0.25) 
+    FROM [Palaris$Time Sheet Line] tsl2 
+    WHERE tsl2.[Time Sheet No_] = tsh.No_)
+AS Total0point25
+, 'PAL' AS Company 
+FROM [Palaris$Time Sheet Header] tsh
+
+LEFT JOIN [Palaris$Resource] res on tsh.[Resource No_] = res.No_
+LEFT JOIN [Palaris$Time Sheet Line] tsl on tsh.No_ = tsl.[Time Sheet No_]
+
+GROUP BY res.Name, res.[Resource Group No_], tsh.No_, tsh.[Starting Date], tsh.[Ending Date]
+),
+
+PEL AS
+(
+SELECT 
+res.Name
+,res.[Resource Group No_]
+,tsh.[No_]
+,tsh.[Starting Date]
+,tsh.[Ending Date]
+,SUM(tsl.[Total Hours Worked]) AS TotalHours
+,(SELECT SUM([Total Hours Worked]) 
+    FROM [Palaris Europe Limited$Time Sheet Line] tsl2 
+    WHERE tsl2.[Time Sheet No_] = tsh.No_ 
+    AND tsl2.Posted = 0) 
+AS TotalUnposted
+,(SELECT SUM([Total Hours Worked]) 
+    FROM [Palaris Europe Limited$Time Sheet Line] tsl2 
+    WHERE tsl2.[Time Sheet No_] = tsh.No_
+    AND tsl2.[Job No_] LIKE 'T-INTERNAL%' AND tsl2.[Job Task No_] IN ('I0620','I0621')) 
+AS TotalJobNotSetUp
+,(SELECT (SUM([Total Hours Worked]) % 0.25) 
+    FROM [Palaris Europe Limited$Time Sheet Line] tsl2 
+    WHERE tsl2.[Time Sheet No_] = tsh.No_)
+AS Total0point25
+, 'PEL' AS Company 
+FROM [Palaris Europe Limited$Time Sheet Header] tsh
+
+LEFT JOIN [Palaris Europe Limited$Resource] res on tsh.[Resource No_] = res.No_
+LEFT JOIN [Palaris Europe Limited$Time Sheet Line] tsl on tsh.No_ = tsl.[Time Sheet No_]
+
+GROUP BY res.Name, res.[Resource Group No_], tsh.No_, tsh.[Starting Date], tsh.[Ending Date]
+)
+
+SELECT * FROM PAL
+UNION
+SELECT * FROM PEL</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Name">
+        <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Resource_Group_No_">
+        <DataField>Resource Group No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="No_">
+        <DataField>No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Starting_Date">
+        <DataField>Starting Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Ending_Date">
+        <DataField>Ending Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="TotalHours">
+        <DataField>TotalHours</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="TotalUnposted">
+        <DataField>TotalUnposted</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="TotalJobNotSetUp">
+        <DataField>TotalJobNotSetUp</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Company">
+        <DataField>Company</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Total0point25">
+        <DataField>Total0point25</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+</SharedDataSet>
