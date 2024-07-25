@@ -28,7 +28,7 @@ FROM [Palaris$Resource]
 
 Job AS
 (
-SELECT [Person Responsible], Job.[No_] AS No, Job.[Invoice Currency Code], [Customer PO], ResourceName.[Name] as 'Name', ResourceName.[Windows Name]
+SELECT [Person Responsible], Job.[No_] AS No, Job.[Invoice Currency Code], CASE WHEN job.[Currency Code] &lt;&gt; '' THEN LEFT(job.[Currency Code], 3) ELSE '' END AS [Currency], [Customer PO], ResourceName.[Name] as 'Name', ResourceName.[Windows Name]
 FROM [Palaris$Job] Job
 LEFT JOIN ResourceName ON [Person Responsible] = ResourceName.[No_]
 ),
@@ -212,7 +212,8 @@ SELECT deb.*
 	 , Job.Name AS PM
 	 , Job.[Windows Name]
 	 , Job.[Customer PO]
-   , Job.[Invoice Currency Code]
+	 , Job.[Invoice Currency Code]
+	 , CASE WHEN Job.[Invoice Currency Code] &lt;&gt; '' THEN LEFT(Job.[Invoice Currency Code],3) ELSE Job.[Currency] END AS Currency
 	 , DATEADD(day, -1*deb.RealDaysDueDIS, GETDATE()) AS RealDueDate
 	 , DATEADD(day, dtp.[AvgDaysToPay], deb.DIS) AS AvgDueDate
 	 , dtp.AvgDaysToPay
@@ -339,6 +340,10 @@ ORDER BY [RealDueDate] ASC, Name</CommandText>
         <DataField>RealDueDate</DataField>
         <rd:TypeName>System.DateTime</rd:TypeName>
       </Field>
+      <Field Name="Currency">
+        <DataField>Currency</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
       <Field Name="Invoice_Currency_Code">
         <DataField>Invoice Currency Code</DataField>
         <rd:TypeName>System.String</rd:TypeName>
@@ -353,5 +358,5 @@ ORDER BY [RealDueDate] ASC, Name</CommandText>
       </Field>
     </Fields>
   </DataSet>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
 </SharedDataSet>

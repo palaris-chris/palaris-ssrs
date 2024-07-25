@@ -13,8 +13,8 @@
         <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
-        <Field Name="JobType">
-          <DataField>JobType</DataField>
+        <Field Name="PriceStrategy">
+          <DataField>PriceStrategy</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Job_No">
@@ -245,6 +245,10 @@
           <DataField>UninvoicedAlice</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="Database">
+          <DataField>Database</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="ActiveBUs">
@@ -367,7 +371,7 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>33.20208mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>37.43542mm</Width>
@@ -531,14 +535,14 @@
                         <Textbox Name="Textbox33">
                           <CanGrow>true</CanGrow>
                           <UserSort>
-                            <SortExpression>=Fields!JobType.Value</SortExpression>
+                            <SortExpression>=Fields!PriceStrategy.Value</SortExpression>
                           </UserSort>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Job Type</Value>
+                                  <Value>Price Strategy</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>White</Color>
@@ -1503,7 +1507,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Job Type</Value>
+                                  <Value>Price Strategy</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2247,7 +2251,7 @@
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>=Microsoft.VisualBasic.Interaction.IIF(Fields!Business_Unit_Group.Value = "PEL", "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_PEL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value, "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_ALL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value)</Hyperlink>
+                                <Hyperlink>="http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_Dynamic&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value &amp; "&amp;DatabaseNameInput=" &amp; Fields!Database.Value</Hyperlink>
                               </Action>
                             </Actions>
                           </ActionInfo>
@@ -2310,14 +2314,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="JobType">
+                        <Textbox Name="PriceStrategy">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!JobType.Value</Value>
+                                  <Value>=Fields!PriceStrategy.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -2326,7 +2330,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>JobType</rd:DefaultName>
+                          <rd:DefaultName>PriceStrategy</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -2761,7 +2765,7 @@
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>=IIF(Fields!Business_Unit_Group.Value="PEL", 
+                                <Hyperlink>=IIF(Fields!Database.Value="Palaris Europe Limited", 
 "https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", 
 "https://timesheets.palaris.com.au/palarisbilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))")</Hyperlink>
                               </Action>
@@ -2810,11 +2814,9 @@
                             <Actions>
                               <Action>
                                 <Hyperlink>=IIF(Fields!ChargeType.Value="Daily", 
-	IIF(Fields!Business_Unit_Group.Value="PEL", 
-	"https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLDAY-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", 
+IIF(Fields!Database.Value="Palaris Europe Limited", 	"https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLDAY-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", 
 	"https://timesheets.palaris.com.au/palarisbilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLDAY-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))"),
-	IIF(Fields!Business_Unit_Group.Value="PEL", 
-	"https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLHR-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", 
+	IIF(Fields!Database.Value="Palaris Europe Limited", "https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLHR-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", 
 	"https://timesheets.palaris.com.au/palarisbilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLHR-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))"))</Hyperlink>
                               </Action>
                             </Actions>
@@ -2875,7 +2877,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="JobType2">
+                        <Textbox Name="PriceStrategy2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2891,7 +2893,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>JobType</rd:DefaultName>
+                          <rd:DefaultName>PriceStrategy</rd:DefaultName>
                           <ToolTip>="PO "&amp;Fields!Customer_PO_Status.Value</ToolTip>
                           <Style>
                             <Border>
@@ -4584,7 +4586,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
             <Top>20.53241mm</Top>
             <Left>3.55139mm</Left>
             <Height>28.38813mm</Height>
-            <Width>692.36023mm</Width>
+            <Width>700.56231mm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -4669,7 +4671,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
           </Border>
         </Style>
       </Body>
-      <Width>695.91162mm</Width>
+      <Width>704.1137mm</Width>
       <Page>
         <PageHeight>297mm</PageHeight>
         <PageWidth>210mm</PageWidth>

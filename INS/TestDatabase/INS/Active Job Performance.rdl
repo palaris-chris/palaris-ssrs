@@ -8,8 +8,8 @@
         <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
-        <Field Name="JobType">
-          <DataField>JobType</DataField>
+        <Field Name="PriceStrategy">
+          <DataField>PriceStrategy</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Job_No">
@@ -2576,7 +2576,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="JobType2">
+                        <Textbox Name="PriceStrategy2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2592,7 +2592,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>JobType</rd:DefaultName>
+                          <rd:DefaultName>PriceStrategy</rd:DefaultName>
                           <ToolTip>="PO "&amp;Fields!Customer_PO_Status.Value</ToolTip>
                           <Style>
                             <Border>

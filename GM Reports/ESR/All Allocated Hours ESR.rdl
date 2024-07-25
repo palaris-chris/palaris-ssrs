@@ -25,7 +25,7 @@ SELECT
   job.No_
   ,job.Description
   ,job.[Global Dimension 2 Code]
-  ,job.[Job Type]
+  ,job.[Price Strategy]
   ,job.[Person Responsible]
   ,res.[Windows Name]
   
@@ -44,7 +44,7 @@ SELECT
   job.No_
   ,job.Description
   ,job.[Global Dimension 2 Code]
-  ,job.[Job Type]
+  ,job.[Price Strategy]
   ,job.[Person Responsible]
   ,res.[Windows Name]
   
@@ -76,7 +76,7 @@ SELECT * FROM PELJobs</CommandText>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Job_Type">
-          <DataField>Job Type</DataField>
+          <DataField>Price Strategy</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="Person_Responsible">
@@ -96,12 +96,7 @@ SELECT * FROM PELJobs</CommandText>
 /*DECLARE @ResourceNo varchar(5)
 SET @ResourceNo = 'R0000';*/
 
-WITH BUGroup AS
-(
-SELECT [Consolidation Code] AS [Business Unit Group], [Code] AS [Business Unit], [Name] AS [Label]
-FROM [DynamicsNAVPalaris].[dbo].[Palaris$Dimension Value] 
-WHERE [Dimension Code] = 'BUSUNIT'
-),
+WITH
 
 JLE AS
 (
@@ -122,9 +117,12 @@ SELECT
  ,jle.[Line Amount (LCY)] AS [Price]
  ,jle.[Unit of Measure Code] AS [Unit]
  ,jle.[Work Type Code] AS [Work Type]
- ,bug.[Business Unit Group] AS BUG
- ,bug.[Business Unit] AS BU
+ ,CASE WHEN res.[Resource Group No_] IN ('GEN', 'GENC')
+ THEN res.[Global Dimension 2 Code]
+ ELSE job.[Global Dimension 2 Code]
+END AS BUG
  ,jle.[Entry Type] as [Line Type]
+
  ,res.[Resource Group No_]
  ,res.[Name] as [Resource]
  ,res.[Search Name]
@@ -139,10 +137,7 @@ FROM
  LEFT JOIN [Palaris$Resource] res ON jle.[No_] = res.[No_]
  LEFT JOIN [Palaris$Job Task] jt ON jle.[Job Task No_] = jt.[Job Task No_] AND jle.[Job No_] = jt.[Job No_]
  LEFT JOIN [Palaris$Job] job ON jle.[Job No_] = job.No_
- LEFT JOIN BUGroup bug ON CASE WHEN res.[Resource Group No_] IN ('GEN', 'GENC')
- THEN res.[Global Dimension 2 Code]
- ELSE job.[Global Dimension 2 Code]
- END = bug.[Business Unit]
+
 
 WHERE
  jle.[Entry Type] = 0
@@ -181,8 +176,10 @@ WHERE
  ,jpl.[Line Amount (LCY)] AS [Price]
  ,jpl.[Unit of Measure Code] AS [Unit]
  ,jpl.[Work Type Code] AS [Work Type]
- ,bug.[Business Unit Group] AS BUG
- ,bug.[Business Unit] AS BU
+ ,CASE WHEN res.[Resource Group No_] IN ('GEN', 'GENC')
+ THEN res.[Global Dimension 2 Code]
+ ELSE job.[Global Dimension 2 Code]
+END AS BUG
  ,jpl.[Schedule Line] AS [Line Type]
 
  ,res.[Resource Group No_]
@@ -199,10 +196,7 @@ FROM
  LEFT JOIN [Palaris$Resource] res ON jpl.[No_] = res.[No_]
  LEFT JOIN [Palaris$Job Task] jt ON jpl.[Job Task No_] = jt.[Job Task No_] AND jpl.[Job No_] = jt.[Job No_]
  LEFT JOIN [Palaris$Job] job ON jpl.[Job No_] = job.No_
- LEFT JOIN BUGroup bug ON CASE WHEN res.[Resource Group No_] IN ('GEN', 'GENC')
- THEN res.[Global Dimension 2 Code]
- ELSE job.[Global Dimension 2 Code]
- END = bug.[Business Unit]
+
 
 WHERE
  jpl.[Schedule Line] = 1
@@ -245,8 +239,7 @@ SELECT
  ,jle.[Line Amount (LCY)] AS [Price]
  ,jle.[Unit of Measure Code] AS [Unit]
  ,jle.[Work Type Code] AS [Work Type]
- ,bug.[Business Unit Group] AS BUG
- ,bug.[Business Unit] AS BU
+ ,'PEL' as [BUG]
  ,jle.[Entry Type] as [Line Type]
 
  ,res.[Resource Group No_]
@@ -261,11 +254,6 @@ FROM
  [Palaris Europe Limited$Job Ledger Entry] jle 
  LEFT JOIN [Palaris Europe Limited$Resource] res ON jle.[No_] = res.[No_]
  LEFT JOIN [Palaris Europe Limited$Job Task] jt ON jle.[Job Task No_] = jt.[Job Task No_] AND jle.[Job No_] = jt.[Job No_]
-LEFT JOIN [Palaris Europe Limited$Job] job ON jle.[Job No_] = job.No_
- LEFT JOIN BUGroup bug ON CASE WHEN res.[Resource Group No_] IN ('GEN', 'GENC')
- THEN res.[Global Dimension 2 Code]
- ELSE job.[Global Dimension 2 Code]
- END = bug.[Business Unit]
 
 WHERE
  jle.[Entry Type] = 0
@@ -304,8 +292,7 @@ WHERE
  ,jpl.[Line Amount (LCY)] AS [Price]
  ,jpl.[Unit of Measure Code] AS [Unit]
  ,jpl.[Work Type Code] AS [Work Type]
- ,bug.[Business Unit Group] AS BUG
- ,bug.[Business Unit] AS BU
+ ,'PEL' as [BUG]
  ,jpl.[Schedule Line] AS [Line Type]
 
  ,res.[Resource Group No_]
@@ -321,11 +308,6 @@ FROM
  [Palaris Europe Limited$Job Planning Line] jpl 
  LEFT JOIN [Palaris Europe Limited$Resource] res ON jpl.[No_] = res.[No_]
  LEFT JOIN [Palaris Europe Limited$Job Task] jt ON jpl.[Job Task No_] = jt.[Job Task No_] AND jpl.[Job No_] = jt.[Job No_]
- LEFT JOIN [Palaris Europe Limited$Job] job ON jpl.[Job No_] = job.No_
- LEFT JOIN BUGroup bug ON CASE WHEN res.[Resource Group No_] IN ('GEN', 'GENC')
- THEN res.[Global Dimension 2 Code]
- ELSE job.[Global Dimension 2 Code]
- END = bug.[Business Unit]
 
 WHERE
  jpl.[Schedule Line] = 1
@@ -366,7 +348,7 @@ FROM Merged
 Result_PEL AS
 (
 SELECT
-Merged_PEL.[Job No_] AS ID, Merged_PEL.No_, Merged_PEL.Resource, Merged_PEL.[Resource Group No_], Merged_PEL.BUG, Merged_PEL.BU, Merged_PEL.[Job No_], Merged_PEL.[Job Task No_], Merged_PEL.[Task], Merged_PEL.Qty, Merged_PEL.[TIMEREPORT], 'PEL' AS DB
+Merged_PEL.[Job No_] AS ID, Merged_PEL.No_, Merged_PEL.Resource, Merged_PEL.[Resource Group No_], Merged_PEL.BUG, Merged_PEL.[Job No_], Merged_PEL.[Job Task No_], Merged_PEL.[Task], Merged_PEL.Qty, Merged_PEL.[TIMEREPORT], 'PEL' AS DB
 
 FROM Merged_PEL
 ),
@@ -374,7 +356,7 @@ FROM Merged_PEL
 Result AS
 (
 SELECT
-Merged.[Job No_] AS ID, Merged.No_, Merged.Resource, Merged.[Resource Group No_], Merged.BUG, Merged.BU, Merged.[Job No_], Merged.[Job Task No_], Merged.[Task], Merged.Qty, Merged.[TIMEREPORT], 'AU' AS DB
+Merged.[Job No_] AS ID, Merged.No_, Merged.Resource, Merged.[Resource Group No_], Merged.BUG, Merged.[Job No_], Merged.[Job Task No_], Merged.[Task], Merged.Qty, Merged.[TIMEREPORT], 'AU' AS DB
 FROM Merged
 ),
 
@@ -399,17 +381,12 @@ Zoho AS
 (
 SELECT
 CAST(opps.Id AS NVARCHAR) AS ID,
-LEFT([Resource Allocation ID], 5)
-COLLATE Latin1_General_100_CI_AS AS No_,
-[Resource Name]
-COLLATE Latin1_General_100_CI_AS AS [Resource],
+LEFT([Resource Allocation ID], 5)  AS No_,
+[Resource Name] AS [Resource],
 'GEN' AS [Resource Group No_],
-LEFT(res.[Global Dimension 2 Code], 3)
-COLLATE Latin1_General_100_CI_AS AS BUG,
-res.[Global Dimension 2 Code]
-COLLATE Latin1_General_100_CI_AS AS BU,
+LEFT(res.[Global Dimension 2 Code], 3) AS BUG,
 RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5)
-COLLATE Latin1_General_100_CI_AS AS [Job No_],
+  AS [Job No_],
 'ZOHO' AS [Job Task No_],
 'Open Opportunity' AS [Task],
 CASE WHEN res.[Global Dimension 2 Code] = 'PEL' THEN 'PEL'
@@ -419,9 +396,9 @@ END AS DB,
 '0' AS USETIME,
 opps.Stage AS [Status]
 
-FROM [ZohoCRM].[dbo].[CustomModule3] resalloc
-LEFT JOIN [ZohoCRM].[dbo].[Deals] opps ON RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5) = opps.[Opportunity ID]
-LEFT JOIN [Palaris$Resource] res ON LEFT([Resource Allocation ID] COLLATE Latin1_General_100_CI_AS, 5) = res.[No_]
+FROM [ZohoCRM].[dbo].[Resource Allocations] resalloc
+LEFT JOIN [ZohoCRM].[dbo].[Opportunities] opps ON RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5) = opps.[Opportunity ID]
+LEFT JOIN [Palaris$Resource] res ON LEFT([Resource Allocation ID], 5) = res.[No_]
 WHERE 
 /*res.No_ = @ResourceNo AND */
 (opps.Stage NOT LIKE 'Closed%'
@@ -459,10 +436,6 @@ ORDER BY [Status],[Job No_]</CommandText>
         </Field>
         <Field Name="Job_Task_No_">
           <DataField>Job Task No_</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="BU">
-          <DataField>BU</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="BUG">
@@ -3540,6 +3513,6 @@ iif(ReportItems!Used3.Value / IIf(ReportItems!Proposed3.Value = 0, 1.01, ReportI
     </ReportParameter>
   </ReportParameters>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://reports.palaris.com.au/ReportServer</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>9d0811f2-f5e6-43e4-9a73-0eeac6e1dbc2</rd:ReportID>
 </Report>

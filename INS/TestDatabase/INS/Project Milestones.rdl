@@ -56,7 +56,7 @@ job.No_
   ,job.[Global Dimension 2 Code] AS [BU]
   ,bug.[Business Unit Group]
   ,job.[Ending Date]
-  ,job.[Job Type]
+  ,job.[Price Strategy]
   ,res.[Name]
   ,res.[Supervisor]
   ,res.[Time Sheet Owner User ID]

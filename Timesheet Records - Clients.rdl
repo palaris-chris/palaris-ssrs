@@ -36,8 +36,8 @@
           <DataField>PMNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="JobType">
-          <DataField>JobType</DataField>
+        <Field Name="PriceStrategy">
+          <DataField>PriceStrategy</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="PM_User_Name">

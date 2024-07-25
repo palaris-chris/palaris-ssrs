@@ -228,7 +228,7 @@ Merged_PEL AS (
 Result_PEL AS
 (
 SELECT
-Merged_PEL.[Job No_] AS ID, Merged_PEL.No_, Merged_PEL.Resource, Merged_PEL.[Resource Group No_], Merged_PEL.BUG, Merged_PEL.[Job No_], SUM(Merged_PEL.Qty) AS Qty, Merged_PEL.[TIMEREPORT], Merged_PEL.[Vendor], 'PEL' AS DB, Merged_PEL.[Job On Hold]
+Merged_PEL.[Job No_] AS ID, Merged_PEL.No_, Merged_PEL.Resource, Merged_PEL.[Resource Group No_], Merged_PEL.BUG, Merged_PEL.[Job No_], SUM(Merged_PEL.Qty) AS Qty, Merged_PEL.[TIMEREPORT], Merged_PEL.[Vendor], 'Palaris Europe Limited' AS DB, Merged_PEL.[Job On Hold]
 FROM Merged_PEL
 GROUP BY Merged_PEL.[Job No_], Merged_PEL.No_, Merged_PEL.Resource, Merged_PEL.[Resource Group No_], Merged_PEL.BUG, Merged_PEL.[Job No_], Merged_PEL.[TIMEREPORT], Merged_PEL.[Vendor], Merged_PEL.[Job On Hold]
 ),
@@ -236,7 +236,7 @@ GROUP BY Merged_PEL.[Job No_], Merged_PEL.No_, Merged_PEL.Resource, Merged_PEL.[
 Result AS
 (
 SELECT
-Merged.[Job No_] AS ID, Merged.No_, Merged.Resource, Merged.[Resource Group No_], Merged.BUG, Merged.[Job No_], SUM(Merged.Qty) AS Qty, Merged.[TIMEREPORT], Merged.[Vendor], 'AU' AS DB, Merged.[Job On Hold]
+Merged.[Job No_] AS ID, Merged.No_, Merged.Resource, Merged.[Resource Group No_], Merged.BUG, Merged.[Job No_], SUM(Merged.Qty) AS Qty, Merged.[TIMEREPORT], Merged.[Vendor], 'Palaris' AS DB, Merged.[Job On Hold]
 FROM Merged
 GROUP BY Merged.[Job No_], Merged.No_, Merged.Resource, Merged.[Resource Group No_], Merged.BUG, Merged.[Job No_], Merged.[TIMEREPORT], Merged.[Vendor], Merged.[Job On Hold]
 
@@ -266,29 +266,29 @@ Zoho AS
 (
 SELECT
 CAST(opps.Id AS NVARCHAR) AS ID
-,LEFT([Resource Allocation ID], 5) COLLATE Latin1_General_100_CI_AS AS No_
-,[Resource Name] COLLATE Latin1_General_100_CI_AS AS [Resource]
+,LEFT([Resource Allocation ID], 5)  AS No_
+,[Resource Name]  AS [Resource]
 ,'GEN' AS [Resource Group No_]
 ,LEFT(res.[Global Dimension 2 Code], 3)
-COLLATE Latin1_General_100_CI_AS AS BUG,
+ AS BUG,
 RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5)
-COLLATE Latin1_General_100_CI_AS AS [Job No_]
+ AS [Job No_]
 
 ,'' AS [Vendor]
-,CASE WHEN res.[Global Dimension 2 Code] = 'PEL' THEN 'PEL'
-ELSE 'AU' 
+,CASE WHEN res.[Global Dimension 2 Code] = 'PEL' THEN 'Palaris Europe Limited'
+ELSE 'Palaris' 
 END AS DB
 , null AS [Job On Hold]
 , CASE WHEN ((opps.[NAV Setup Complete] = '0') AND (opps.Stage = 'Closed Won')) THEN [Qty (Hrs)]
 ELSE null END AS PROPTIME
 ,'0' AS USETIME
-,resalloc.Discipline COLLATE Latin1_General_100_CI_AS AS [Discipline]
+,resalloc.Discipline  AS [Discipline]
 ,CASE WHEN ((opps.[NAV Setup Complete] = '0') AND (opps.Stage = 'Closed Won')) THEN 'Active Job'
 ELSE opps.Stage END AS [Status]
 ,[Qty (Hrs)] AS ZOHOTIME
 
-FROM [ZohoCRM].[dbo].[CustomModule3] resalloc
-LEFT JOIN [ZohoCRM].[dbo].[Deals] opps ON RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5) = opps.[Opportunity ID]
+FROM [ZohoCRM].[dbo].[Resource Allocations] resalloc
+LEFT JOIN [ZohoCRM].[dbo].[Opportunities] opps ON RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5) = opps.[Opportunity ID]
 LEFT JOIN [Palaris$Resource] res ON LEFT([Resource Allocation ID] COLLATE Latin1_General_100_CI_AS, 5) = res.[No_]
 WHERE 
 /*res.No_ = @ResourceNo AND */
@@ -2276,7 +2276,7 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
                           <TablixMembers>
                             <TablixMember>
                               <TablixHeader>
-                                <Size>2.5cm</Size>
+                                <Size>3.02917cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox96">
                                     <CanGrow>true</CanGrow>
@@ -2468,7 +2468,7 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
                           <TablixMembers>
                             <TablixMember>
                               <TablixHeader>
-                                <Size>2.5cm</Size>
+                                <Size>3.02917cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox151">
                                     <CanGrow>true</CanGrow>
@@ -2606,7 +2606,7 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
                                 </GroupExpressions>
                               </Group>
                               <TablixHeader>
-                                <Size>2.5cm</Size>
+                                <Size>3.02917cm</Size>
                                 <CellContents>
                                   <Textbox Name="Job_No_5">
                                     <CanGrow>true</CanGrow>
@@ -2632,7 +2632,7 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
                                     <ActionInfo>
                                       <Actions>
                                         <Action>
-                                          <Hyperlink>=Microsoft.VisualBasic.Interaction.iif(Fields!Status.Value = "Active Job", Microsoft.VisualBasic.Interaction.IIf(Fields!DB.Value = "PEL", "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_PEL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No_.Value, "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_ALL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No_.Value), "https://crm.zoho.com/crm/EntityInfo.do?module=Potentials&amp;id=" &amp; Fields!ID.Value)</Hyperlink>
+                                          <Hyperlink>=IIf(Fields!Status.Value = "Active Job", "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_Dynamic&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No_.Value &amp; "&amp;DatabaseNameInput=" &amp; Fields!DB.Value, "https://crm.zoho.com/crm/EntityInfo.do?module=Potentials&amp;id=" &amp; Fields!ID.Value)</Hyperlink>
                                         </Action>
                                       </Actions>
                                     </ActionInfo>
@@ -2801,7 +2801,7 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
                           <TablixMembers>
                             <TablixMember>
                               <TablixHeader>
-                                <Size>2.5cm</Size>
+                                <Size>3.02917cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox98">
                                     <CanGrow>true</CanGrow>
@@ -2934,7 +2934,7 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
                 <Top>0.17727cm</Top>
                 <Left>0.29104cm</Left>
                 <Height>4.07128cm</Height>
-                <Width>35.75256cm</Width>
+                <Width>36.28173cm</Width>
                 <Style>
                   <Border>
                     <Style>Solid</Style>
@@ -2967,7 +2967,7 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
             <Top>11.47649mm</Top>
             <Left>0mm</Left>
             <Height>51.2531mm</Height>
-            <Width>360.436mm</Width>
+            <Width>365.7277mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -3017,7 +3017,7 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
           </Border>
         </Style>
       </Body>
-      <Width>360.436mm</Width>
+      <Width>365.7277mm</Width>
       <Page>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
@@ -3051,6 +3051,6 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
     </ReportParameter>
   </ReportParameters>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://reports.palaris.com.au/ReportServer</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>9d0811f2-f5e6-43e4-9a73-0eeac6e1dbc2</rd:ReportID>
 </Report>

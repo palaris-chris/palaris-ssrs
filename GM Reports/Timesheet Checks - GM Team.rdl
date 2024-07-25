@@ -5,7 +5,7 @@
     <DataSet Name="UnpostedTimesheetLines">
       <SharedDataSet>
         <SharedDataSetReference>/Subreports/UnpostedTimesheetLines</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+        <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
         <Field Name="Time_Sheet_No_">
@@ -18,6 +18,10 @@
         </Field>
         <Field Name="Job_No_">
           <DataField>Job_No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Business_Unit_Group">
+          <DataField>Business_Unit_Group</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Job_Task_No_">
@@ -125,7 +129,7 @@
     <DataSet Name="CurrentTimeSheets">
       <SharedDataSet>
         <SharedDataSetReference>/Subreports/CurrentTimeSheets</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+        <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
         <Field Name="Name">
@@ -143,6 +147,10 @@
         <Field Name="Starting_Date">
           <DataField>Starting_Date</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Business_Unit_Group">
+          <DataField>Business_Unit_Group</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Ending_Date">
           <DataField>Ending_Date</DataField>
@@ -172,12 +180,16 @@
           <DataField>Total0point25</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="TotalLeave">
+          <DataField>TotalLeave</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="CurrentTimeSheetWeeks">
       <SharedDataSet>
         <SharedDataSetReference>/Subreports/CurrentTimeSheetWeeks</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+        <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
         <Field Name="Starting_Date">
@@ -193,7 +205,7 @@
     <DataSet Name="PostedTimesheetLines">
       <SharedDataSet>
         <SharedDataSetReference>/Subreports/PostedTimesheetLines</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+        <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
         <Field Name="Time_Sheet_No_">
@@ -1474,47 +1486,14 @@
                     <TablixColumn>
                       <Width>25mm</Width>
                     </TablixColumn>
+                    <TablixColumn>
+                      <Width>25mm</Width>
+                    </TablixColumn>
                   </TablixColumns>
                   <TablixRows>
                     <TablixRow>
                       <Height>6mm</Height>
                       <TablixCells>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Textbox60">
-                              <CanGrow>true</CanGrow>
-                              <UserSort>
-                                <SortExpression>=Fields!TotalHours.Value</SortExpression>
-                                <SortTarget>CurrentTimeSheets</SortTarget>
-                              </UserSort>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Total Hours</Value>
-                                      <Style>
-                                        <FontSize>8pt</FontSize>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox60</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>LightGrey</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
                         <TablixCell>
                           <CellContents>
                             <Textbox Name="Textbox61">
@@ -1547,37 +1526,30 @@
                             </Textbox>
                           </CellContents>
                         </TablixCell>
-                      </TablixCells>
-                    </TablixRow>
-                    <TablixRow>
-                      <Height>6mm</Height>
-                      <TablixCells>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="TotalHours">
+                            <Textbox Name="Textbox1">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=Sum(Fields!TotalHours.Value)</Value>
+                                      <Value>Total Leave</Value>
                                       <Style>
                                         <FontSize>8pt</FontSize>
-                                        <Format>n2</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>TotalHours</rd:DefaultName>
+                              <rd:DefaultName>Textbox1</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Color>LightGrey</Color>
                                   <Style>Solid</Style>
                                 </Border>
-                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
                                 <PaddingLeft>2pt</PaddingLeft>
                                 <PaddingRight>2pt</PaddingRight>
                                 <PaddingTop>2pt</PaddingTop>
@@ -1586,6 +1558,44 @@
                             </Textbox>
                           </CellContents>
                         </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox3">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Total Hours</Value>
+                                      <Style>
+                                        <FontSize>8pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox3</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                    <TablixRow>
+                      <Height>6mm</Height>
+                      <TablixCells>
                         <TablixCell>
                           <CellContents>
                             <Textbox Name="TotalBillable">
@@ -1620,12 +1630,83 @@
                             </Textbox>
                           </CellContents>
                         </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="TotalLeave">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Sum(Fields!TotalLeave.Value)</Value>
+                                      <Style>
+                                        <FontSize>8pt</FontSize>
+                                        <Format>n2</Format>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>TotalLeave</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="TotalHours2">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Sum(Fields!TotalHours.Value)</Value>
+                                      <Style>
+                                        <FontSize>8pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                        <Format>n2</Format>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>TotalHours2</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                            <rd:Selected>true</rd:Selected>
+                          </CellContents>
+                        </TablixCell>
                       </TablixCells>
                     </TablixRow>
                   </TablixRows>
                 </TablixBody>
                 <TablixColumnHierarchy>
                   <TablixMembers>
+                    <TablixMember />
                     <TablixMember />
                     <TablixMember />
                   </TablixMembers>
@@ -1643,7 +1724,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>Group</Value>
+                                    <Value>BU</Value>
                                     <Style>
                                       <FontSize>8pt</FontSize>
                                     </Style>
@@ -1782,9 +1863,9 @@
                       </TablixMembers>
                     </TablixMember>
                     <TablixMember>
-                      <Group Name="Resource_Group_No_">
+                      <Group Name="BUGroup">
                         <GroupExpressions>
-                          <GroupExpression>=Fields!Resource_Group_No_.Value</GroupExpression>
+                          <GroupExpression>=Fields!Business_Unit_Group.Value</GroupExpression>
                         </GroupExpressions>
                         <Filters>
                           <Filter>
@@ -1804,14 +1885,14 @@
                       <TablixHeader>
                         <Size>12.68218mm</Size>
                         <CellContents>
-                          <Textbox Name="Resource_Group_No_">
+                          <Textbox Name="Business_Unit_Group">
                             <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!Resource_Group_No_.Value</Value>
+                                    <Value>=Fields!Business_Unit_Group.Value</Value>
                                     <Style>
                                       <FontSize>8pt</FontSize>
                                     </Style>
@@ -1820,7 +1901,7 @@
                                 <Style />
                               </Paragraph>
                             </Paragraphs>
-                            <rd:DefaultName>Resource_Group_No_</rd:DefaultName>
+                            <rd:DefaultName>Business_Unit_Group</rd:DefaultName>
                             <Style>
                               <Border>
                                 <Color>LightGrey</Color>
@@ -2020,7 +2101,7 @@
                 <Top>63.15843mm</Top>
                 <Left>1.68078mm</Left>
                 <Height>12mm</Height>
-                <Width>152.38218mm</Width>
+                <Width>177.38218mm</Width>
                 <ZIndex>3</ZIndex>
                 <Style>
                   <Border>
@@ -2252,7 +2333,7 @@
                 </Filters>
                 <Top>11.60992mm</Top>
                 <Left>0.762mm</Left>
-                <Height>13.49375mm</Height>
+                <Height>13.49376mm</Height>
                 <Width>59.44306mm</Width>
                 <ZIndex>5</ZIndex>
                 <Style>
@@ -2356,6 +2437,6 @@
     </ReportParameter>
   </ReportParameters>
   <rd:ReportUnitType>Mm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>878a3b82-bcb4-423b-baf2-76f8bb678cb9</rd:ReportID>
 </Report>

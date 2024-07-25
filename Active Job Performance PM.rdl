@@ -5,11 +5,11 @@
     <DataSet Name="ActiveJobs">
       <SharedDataSet>
         <SharedDataSetReference>/Subreports/ActiveJobs</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+        <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
-        <Field Name="JobType">
-          <DataField>JobType</DataField>
+        <Field Name="PriceStrategy">
+          <DataField>PriceStrategy</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Job_No">
@@ -36,6 +36,10 @@
           <DataField>PMNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ProjectType">
+          <DataField>ProjectType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="PM_User_Name">
           <DataField>PM_User_Name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -60,9 +64,17 @@
           <DataField>Expected_End_Date</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
+        <Field Name="Currency">
+          <DataField>Currency</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="CostCompletion">
           <DataField>CostCompletion</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Risk_Level">
+          <DataField>Risk_Level</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Job_On_Hold">
           <DataField>Job_On_Hold</DataField>
@@ -86,6 +98,10 @@
         </Field>
         <Field Name="Supervisor_No">
           <DataField>Supervisor_No</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Business_Unit">
+          <DataField>Business_Unit</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="PalResourceCost">
@@ -240,6 +256,10 @@
           <DataField>UninvoicedAlice</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="Database">
+          <DataField>Database</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="ActiveBUs">
@@ -295,7 +315,7 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>24.75577mm</Width>
+                  <Width>32.1641mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>37.3133mm</Width>
@@ -364,10 +384,19 @@
                   <Width>17.99871mm</Width>
                 </TablixColumn>
                 <TablixColumn>
+                  <Width>20mm</Width>
+                </TablixColumn>
+                <TablixColumn>
                   <Width>19.32163mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>18.52788mm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>25mm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>25mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>24.6133mm</Width>
@@ -1090,6 +1119,39 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox34">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox34</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox205">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -1140,6 +1202,70 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox206</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox109">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox109</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox121">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox121</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -2028,6 +2154,41 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox51">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Bid Margin %</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>Silver</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox51</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#333744</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox27">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -2081,6 +2242,80 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox29</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#333744</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox110">
+                          <CanGrow>true</CanGrow>
+                          <UserSort>
+                            <SortExpression>=Fields!ScheduleMargin_perc.Value - Fields!CETMargin.Value</SortExpression>
+                          </UserSort>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Diff Planned to Bid</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox110</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#333744</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox122">
+                          <CanGrow>true</CanGrow>
+                          <UserSort>
+                            <SortExpression>=Fields!NotionalMargin.Value - Fields!ScheduleMargin_perc.Value</SortExpression>
+                          </UserSort>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Diff Notional to Plan</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox122</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -2804,6 +3039,37 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox103">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>CETMargin</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#464646</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox103</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#c5ae97</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox47">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2850,6 +3116,64 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox48</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#c5ae97</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox111">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox111</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#c5ae97</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox125">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox125</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -2919,7 +3243,7 @@
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>=Microsoft.VisualBasic.Interaction.IIF(Fields!Business_Unit_Group.Value = "PEL", "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_PEL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value, "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_ALL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value)</Hyperlink>
+                                <Hyperlink>="http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_Dynamic&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value &amp; "&amp;DatabaseNameInput=" &amp; Fields!Database.Value</Hyperlink>
                               </Action>
                             </Actions>
                           </ActionInfo>
@@ -3395,7 +3719,7 @@
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>=IIF(Fields!Business_Unit_Group.Value="PEL", 
+                                <Hyperlink>=IIF(Fields!Database.Value="Palaris Europe Limited", 
 "https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", 
 "https://timesheets.palaris.com.au/palarisbilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))")</Hyperlink>
                               </Action>
@@ -3444,10 +3768,10 @@
                             <Actions>
                               <Action>
                                 <Hyperlink>=IIF(Fields!ChargeType.Value="Daily", 
-	IIF(Fields!Business_Unit_Group.Value="PEL", 
+	IIF(Fields!Database.Value="Palaris Europe Limited",  
 	"https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLDAY-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", 
 	"https://timesheets.palaris.com.au/palarisbilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLDAY-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))"),
-	IIF(Fields!Business_Unit_Group.Value="PEL", 
+	IIF(Fields!Database.Value="Palaris Europe Limited",  
 	"https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLHR-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", 
 	"https://timesheets.palaris.com.au/palarisbilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLHR-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))"))</Hyperlink>
                               </Action>
@@ -3509,7 +3833,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="JobType2">
+                        <Textbox Name="PriceStrategy2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -3525,7 +3849,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>JobType</rd:DefaultName>
+                          <rd:DefaultName>PriceStrategy</rd:DefaultName>
                           <ToolTip>="PO "&amp;Fields!Customer_PO_Status.Value</ToolTip>
                           <Style>
                             <Border>
@@ -3817,6 +4141,46 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="CETMargin">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CETMargin.Value</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <Format>0.00%</Format>
+                                    <Color>DimGray</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>CETMargin</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Silver</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="ScheduleMargin_perc">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -3875,6 +4239,82 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>NotionalMargin</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Silver</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox113">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=ReportItems!ScheduleMargin_perc.Value - ReportItems!CETMargin.Value</Value>
+                                  <Style>
+                                    <Format>0.00%</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox113</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Silver</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox126">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=ReportItems!NotionalMargin.Value - ReportItems!ScheduleMargin_perc.Value</Value>
+                                  <Style>
+                                    <Format>0.00%</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox126</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -4027,6 +4467,13 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>true</Hidden>
+                  </Visibility>
+                </TablixMember>
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -4233,7 +4680,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
             <Top>19.9936mm</Top>
             <Left>0mm</Left>
             <Height>28.38813mm</Height>
-            <Width>643.32839mm</Width>
+            <Width>720.73672mm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -4313,7 +4760,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>24.75577mm</Width>
+                  <Width>32.1641mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>37.3133mm</Width>
@@ -4382,10 +4829,19 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                   <Width>17.99871mm</Width>
                 </TablixColumn>
                 <TablixColumn>
+                  <Width>20mm</Width>
+                </TablixColumn>
+                <TablixColumn>
                   <Width>19.32163mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>18.52788mm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>25mm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>25mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>24.6133mm</Width>
@@ -5108,6 +5564,39 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox105">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox105</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox231">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -5173,6 +5662,70 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox114">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox114</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox127">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox127</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox233">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -5190,6 +5743,9 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox233</rd:DefaultName>
+                          <Visibility>
+                            <Hidden>true</Hidden>
+                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -6049,6 +6605,41 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox106">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Bid Margin %</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>Silver</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox106</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#333744</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox73">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -6102,6 +6693,74 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox29</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#333744</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox115">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Diff Planned to Bid</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox115</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#333744</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox131">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Diff Notional to Plan</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox131</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -6825,6 +7484,37 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox107">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>CETMargin</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#464646</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox107</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#c5ae97</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox100">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -6871,6 +7561,64 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox48</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#c5ae97</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox116">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox116</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#c5ae97</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox132">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox132</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -6940,7 +7688,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>=Microsoft.VisualBasic.Interaction.IIF(Fields!Business_Unit_Group.Value = "PEL", "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_PEL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value, "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_ALL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value)</Hyperlink>
+                                <Hyperlink>="http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_Dynamic&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value &amp; "&amp;DatabaseNameInput=" &amp; Fields!Database.Value</Hyperlink>
                               </Action>
                             </Actions>
                           </ActionInfo>
@@ -7415,7 +8163,9 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>=Microsoft.VisualBasic.Interaction.IIF(Fields!Business_Unit_Group.Value = "PEL", "https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST(" &amp; Fields!Job_No.Value &amp; "),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", "https://timesheets.palaris.com.au/palarisbilling?openform=709&amp;initview=WHERE(Job%20No.=CONST(" &amp; Fields!Job_No.Value &amp; "),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))")</Hyperlink>
+                                <Hyperlink>=IIF(Fields!Database.Value="Palaris Europe Limited", 
+"https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", 
+"https://timesheets.palaris.com.au/palarisbilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))")</Hyperlink>
                               </Action>
                             </Actions>
                           </ActionInfo>
@@ -7462,10 +8212,10 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                             <Actions>
                               <Action>
                                 <Hyperlink>=IIF(Fields!ChargeType.Value="Daily", 
-	IIF(Fields!Business_Unit_Group.Value="PEL", 
+	IIF(Fields!Database.Value="Palaris Europe Limited",  
 	"https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLDAY-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", 
 	"https://timesheets.palaris.com.au/palarisbilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLDAY-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))"),
-	IIF(Fields!Business_Unit_Group.Value="PEL", 
+	IIF(Fields!Database.Value="Palaris Europe Limited",  
 	"https://timesheets.palaris.com.au/palariseuropebilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLHR-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))", 
 	"https://timesheets.palaris.com.au/palarisbilling?openform=709&amp;initview=WHERE(Job%20No.=CONST("&amp; Fields!Job_No.Value &amp;"),Work%20Type%20Code=CONST(BILLHR-XX),Contract%20Line=CONST(Yes),%20Qty.%20Invoiced=FILTER(0))"))</Hyperlink>
                               </Action>
@@ -7527,7 +8277,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="JobType3">
+                        <Textbox Name="PriceStrategy3">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -7543,7 +8293,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>JobType</rd:DefaultName>
+                          <rd:DefaultName>PriceStrategy</rd:DefaultName>
                           <ToolTip>="PO " &amp; Fields!Customer_PO_Status.Value</ToolTip>
                           <Style>
                             <Border>
@@ -7835,6 +8585,46 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="CETMargin1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CETMargin.Value</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <Format>0.00%</Format>
+                                    <Color>DimGray</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>CETMargin1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Silver</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="ScheduleMargin_perc2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -7893,6 +8683,82 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>NotionalMargin</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Silver</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox117">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=ReportItems!ScheduleMargin_perc2.Value - ReportItems!CETMargin1.Value</Value>
+                                  <Style>
+                                    <Format>0.00%</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox117</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Silver</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox133">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=ReportItems!NotionalMargin2.Value - ReportItems!ScheduleMargin_perc2.Value</Value>
+                                  <Style>
+                                    <Format>0.00%</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox133</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -8042,6 +8908,9 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                     <ToggleItem>ColumnToggle</ToggleItem>
                   </Visibility>
                 </TablixMember>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -8262,7 +9131,7 @@ And UCASE(Fields!PM_User_Name.Value) &lt;&gt; UCASE(Parameters!CurrentUser.Value
             <Top>51.79476mm</Top>
             <Left>0mm</Left>
             <Height>28.71685mm</Height>
-            <Width>643.32839mm</Width>
+            <Width>720.73672mm</Width>
             <ZIndex>3</ZIndex>
             <Visibility>
               <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
@@ -8325,7 +9194,7 @@ And UCASE(Fields!PM_User_Name.Value) &lt;&gt; UCASE(Parameters!CurrentUser.Value
           </Border>
         </Style>
       </Body>
-      <Width>688.56301mm</Width>
+      <Width>720.73672mm</Width>
       <Page>
         <PageHeight>297mm</PageHeight>
         <PageWidth>210mm</PageWidth>
@@ -8421,6 +9290,6 @@ LT0H1NXT5H5HWQzojz7cgoT4GPj6eP8+mYa9zk1nYWqlpa6yef+chcTR8QgJCcbihc9ix/a3IJM5Zzi8
     </EmbeddedImage>
   </EmbeddedImages>
   <rd:ReportUnitType>Mm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>bcf7ed78-a424-4116-adad-d852d67e8804</rd:ReportID>
 </Report>

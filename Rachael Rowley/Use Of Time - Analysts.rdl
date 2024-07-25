@@ -43,7 +43,7 @@ select * from cte_last_13_months</CommandText>
     <DataSet Name="ActiveResources">
       <SharedDataSet>
         <SharedDataSetReference>/Subreports/To Delete/ActiveResources</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+        <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
         <Field Name="Name">
@@ -59,6 +59,20 @@ select * from cte_last_13_months</CommandText>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
+      <Filters>
+        <Filter>
+          <FilterExpression>=Fields!Name.Value</FilterExpression>
+          <Operator>In</Operator>
+          <FilterValues>
+            <FilterValue>Edison Hung</FilterValue>
+            <FilterValue>Amy Novak</FilterValue>
+            <FilterValue>Amy Lowe</FilterValue>
+            <FilterValue>Rachael Rowley</FilterValue>
+            <FilterValue>Myles Jamieson</FilterValue>
+            <FilterValue>Ross Bennett</FilterValue>
+          </FilterValues>
+        </Filter>
+      </Filters>
     </DataSet>
     <DataSet Name="ActiveBUs">
       <SharedDataSet>
@@ -75,7 +89,7 @@ select * from cte_last_13_months</CommandText>
     <DataSet Name="AllBUTimeCalendarMonthFeb20">
       <SharedDataSet>
         <SharedDataSetReference>/Subreports/AllBUTime</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+        <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
         <Field Name="Job_No_">
@@ -248,18 +262,15 @@ select * from cte_last_13_months</CommandText>
           <DataField>LabelClean</DataField>
         </Field>
       </Fields>
-    </DataSet>
-    <DataSet Name="ActiveAUBU">
-      <SharedDataSet>
-        <SharedDataSetReference>/Subreports/ActiveAUBUs</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
-      </SharedDataSet>
-      <Fields>
-        <Field Name="Business_Unit_Group">
-          <DataField>Business_Unit_Group</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
+      <Filters>
+        <Filter>
+          <FilterExpression>=Fields!No_.Value</FilterExpression>
+          <Operator>In</Operator>
+          <FilterValues>
+            <FilterValue>=Parameters!Resource.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+      </Filters>
     </DataSet>
   </DataSets>
   <ReportSections>
@@ -272,7 +283,7 @@ select * from cte_last_13_months</CommandText>
                 <TablixCornerRow>
                   <TablixCornerCell>
                     <CellContents>
-                      <Textbox Name="Textbox9">
+                      <Textbox Name="Textbox113">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -291,7 +302,7 @@ select * from cte_last_13_months</CommandText>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox9</rd:DefaultName>
+                        <rd:DefaultName>Textbox113</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -310,7 +321,7 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
-                      <Textbox Name="Textbox29">
+                      <Textbox Name="Textbox5">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -329,10 +340,7 @@ select * from cte_last_13_months</CommandText>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox29</rd:DefaultName>
-                        <Visibility>
-                          <Hidden>true</Hidden>
-                        </Visibility>
+                        <rd:DefaultName>Textbox5</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -348,7 +356,7 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
-                      <Textbox Name="Textbox55">
+                      <Textbox Name="Textbox114">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -367,7 +375,7 @@ select * from cte_last_13_months</CommandText>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox55</rd:DefaultName>
+                        <rd:DefaultName>Textbox114</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -422,6 +430,41 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
+                      <Textbox Name="Textbox23">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value />
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>White</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Left</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox23</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Style>None</Style>
+                          </Border>
+                          <BackgroundColor>#4b4b4b</BackgroundColor>
+                          <PaddingLeft>5pt</PaddingLeft>
+                          <PaddingRight>3pt</PaddingRight>
+                          <PaddingTop>4pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
                       <Textbox Name="Textbox1">
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -441,40 +484,6 @@ select * from cte_last_13_months</CommandText>
                           </Paragraph>
                         </Paragraphs>
                         <rd:DefaultName>Textbox1</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Style>None</Style>
-                          </Border>
-                          <BackgroundColor>#4b4b4b</BackgroundColor>
-                          <PaddingLeft>5pt</PaddingLeft>
-                          <PaddingRight>3pt</PaddingRight>
-                          <PaddingTop>4pt</PaddingTop>
-                          <PaddingBottom>2pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixCornerCell>
-                  <TablixCornerCell>
-                    <CellContents>
-                      <Textbox Name="Textbox17">
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value />
-                                <Style>
-                                  <FontWeight>Bold</FontWeight>
-                                  <Color>White</Color>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style>
-                              <TextAlign>Left</TextAlign>
-                            </Style>
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>Textbox12</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -527,6 +536,41 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
+                      <Textbox Name="Textbox24">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value />
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>White</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Left</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox24</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Style>None</Style>
+                          </Border>
+                          <BackgroundColor>#4b4b4b</BackgroundColor>
+                          <PaddingLeft>5pt</PaddingLeft>
+                          <PaddingRight>3pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
                       <Textbox Name="Textbox2">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
@@ -547,41 +591,6 @@ select * from cte_last_13_months</CommandText>
                           </Paragraph>
                         </Paragraphs>
                         <rd:DefaultName>Textbox2</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Style>None</Style>
-                          </Border>
-                          <BackgroundColor>#4b4b4b</BackgroundColor>
-                          <PaddingLeft>5pt</PaddingLeft>
-                          <PaddingRight>3pt</PaddingRight>
-                          <PaddingTop>2pt</PaddingTop>
-                          <PaddingBottom>2pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixCornerCell>
-                  <TablixCornerCell>
-                    <CellContents>
-                      <Textbox Name="Textbox22">
-                        <CanGrow>true</CanGrow>
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value />
-                                <Style>
-                                  <FontWeight>Bold</FontWeight>
-                                  <Color>White</Color>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style>
-                              <TextAlign>Left</TextAlign>
-                            </Style>
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>Textbox22</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -634,7 +643,8 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
-                      <Textbox Name="Textbox23">
+                      <Textbox Name="Textbox82">
+                        <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
@@ -653,7 +663,7 @@ select * from cte_last_13_months</CommandText>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox23</rd:DefaultName>
+                        <rd:DefaultName>Textbox82</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -669,7 +679,7 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
-                      <Textbox Name="Textbox7">
+                      <Textbox Name="Textbox17">
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
@@ -677,6 +687,7 @@ select * from cte_last_13_months</CommandText>
                               <TextRun>
                                 <Value />
                                 <Style>
+                                  <FontSize>8pt</FontSize>
                                   <FontWeight>Bold</FontWeight>
                                   <Color>White</Color>
                                 </Style>
@@ -687,7 +698,7 @@ select * from cte_last_13_months</CommandText>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox7</rd:DefaultName>
+                        <rd:DefaultName>Textbox17</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -720,6 +731,12 @@ select * from cte_last_13_months</CommandText>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.94438cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.5cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.11831cm</Width>
@@ -778,7 +795,7 @@ select * from cte_last_13_months</CommandText>
                                   <Value>=Sum(Fields!Quantity__Base_.Value) / ReportItems!CapacityTextBox.Value</Value>
                                   <Style>
                                     <Format>0%</Format>
-                                    <Color>#141414</Color>
+                                    <Color>=IIf(InScope("JobNo"),IIf(CDec(Left(ReportItems!LabelBox.Value,1)) Mod 2 = 0, "White", "WhiteSmoke"),"#141414")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -835,7 +852,7 @@ select * from cte_last_13_months</CommandText>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
-                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <BackgroundColor>Gainsboro</BackgroundColor>
                             <PaddingLeft>5pt</PaddingLeft>
                             <PaddingRight>3pt</PaddingRight>
                             <PaddingTop>4pt</PaddingTop>
@@ -869,6 +886,11 @@ select * from cte_last_13_months</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
                             <PaddingLeft>5pt</PaddingLeft>
                             <PaddingRight>3pt</PaddingRight>
                             <PaddingTop>4pt</PaddingTop>
@@ -912,6 +934,76 @@ select * from cte_last_13_months</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Adjustments">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!Adjustments.Value)</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <Format>n2</Format>
+                                    <Color>#141414</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Adjustments</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>4pt</PaddingTop>
+                            <PaddingBottom>5pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="AdjustedBILLHR">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!AdjustedBILLHR.Value)</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <Format>n2</Format>
+                                    <Color>#141414</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>AdjustedBILLHR</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>4pt</PaddingTop>
+                            <PaddingBottom>5pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="BILLCapacity">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -921,6 +1013,7 @@ select * from cte_last_13_months</CommandText>
                                 <TextRun>
                                   <Value>=Sum(Fields!BILLCapacity.Value)</Value>
                                   <Style>
+                                    <FontStyle>Italic</FontStyle>
                                     <Format>n2</Format>
                                     <Color>#141414</Color>
                                   </Style>
@@ -935,6 +1028,7 @@ select * from cte_last_13_months</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <PaddingLeft>5pt</PaddingLeft>
                             <PaddingRight>3pt</PaddingRight>
                             <PaddingTop>4pt</PaddingTop>
@@ -952,7 +1046,7 @@ select * from cte_last_13_months</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=ReportItems!BILLHR.Value / ReportItems!BILLCapacity.Value</Value>
+                                  <Value>=ReportItems!AdjustedBILLHR.Value / ReportItems!BILLCapacity.Value</Value>
                                   <Style>
                                     <Format>0.00%</Format>
                                     <Color>#141414</Color>
@@ -968,6 +1062,7 @@ select * from cte_last_13_months</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <PaddingLeft>5pt</PaddingLeft>
                             <PaddingRight>3pt</PaddingRight>
                             <PaddingTop>4pt</PaddingTop>
@@ -1158,6 +1253,74 @@ select * from cte_last_13_months</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox69">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox69</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#545454</BackgroundColor>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>4pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox77">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox77</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#545454</BackgroundColor>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>4pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox35">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -1231,7 +1394,7 @@ select * from cte_last_13_months</CommandText>
             <TablixColumnHierarchy>
               <TablixMembers>
                 <TablixMember>
-                  <Group Name="Label">
+                  <Group Name="LabelGroup">
                     <GroupExpressions>
                       <GroupExpression>=Fields!Label.Value</GroupExpression>
                     </GroupExpressions>
@@ -1309,7 +1472,6 @@ select * from cte_last_13_months</CommandText>
                                 <Style />
                               </Paragraph>
                             </Paragraphs>
-                            <rd:DefaultName>LabelClean</rd:DefaultName>
                             <Style>
                               <Border>
                                 <Color>LightGrey</Color>
@@ -1471,7 +1633,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixHeader>
                     <Size>0.07938cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox68">
+                      <Textbox Name="Textbox117">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -1488,7 +1650,7 @@ select * from cte_last_13_months</CommandText>
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox68</rd:DefaultName>
+                        <rd:DefaultName>Textbox117</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -1630,7 +1792,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixHeader>
                     <Size>0.07938cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox69">
+                      <Textbox Name="Textbox118">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -1647,7 +1809,7 @@ select * from cte_last_13_months</CommandText>
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox69</rd:DefaultName>
+                        <rd:DefaultName>Textbox118</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -1788,7 +1950,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixHeader>
                     <Size>0.07938cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox71">
+                      <Textbox Name="Textbox122">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -1805,7 +1967,7 @@ select * from cte_last_13_months</CommandText>
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox71</rd:DefaultName>
+                        <rd:DefaultName>Textbox122</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -1946,7 +2108,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixHeader>
                     <Size>0.07938cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox74">
+                      <Textbox Name="Textbox123">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -1963,7 +2125,323 @@ select * from cte_last_13_months</CommandText>
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox74</rd:DefaultName>
+                        <rd:DefaultName>Textbox123</rd:DefaultName>
+                        <Visibility>
+                          <Hidden>true</Hidden>
+                        </Visibility>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>None</Style>
+                          </Border>
+                          <BackgroundColor>#4b4b4b</BackgroundColor>
+                          <PaddingLeft>5pt</PaddingLeft>
+                          <PaddingRight>3pt</PaddingRight>
+                          <PaddingTop>4pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember>
+                      <TablixHeader>
+                        <Size>0.73229cm</Size>
+                        <CellContents>
+                          <Textbox Name="Textbox55">
+                            <KeepTogether>true</KeepTogether>
+                            <Paragraphs>
+                              <Paragraph>
+                                <TextRuns>
+                                  <TextRun>
+                                    <Value>Adjustments</Value>
+                                    <Style>
+                                      <FontWeight>Bold</FontWeight>
+                                      <Color>White</Color>
+                                    </Style>
+                                  </TextRun>
+                                </TextRuns>
+                                <Style />
+                              </Paragraph>
+                            </Paragraphs>
+                            <rd:DefaultName>Textbox55</rd:DefaultName>
+                            <Style>
+                              <Border>
+                                <Color>LightGrey</Color>
+                                <Style>None</Style>
+                              </Border>
+                              <BackgroundColor>#4b4b4b</BackgroundColor>
+                              <PaddingLeft>5pt</PaddingLeft>
+                              <PaddingRight>3pt</PaddingRight>
+                              <PaddingTop>4pt</PaddingTop>
+                              <PaddingBottom>2pt</PaddingBottom>
+                            </Style>
+                          </Textbox>
+                        </CellContents>
+                      </TablixHeader>
+                      <TablixMembers>
+                        <TablixMember>
+                          <TablixHeader>
+                            <Size>0.58567cm</Size>
+                            <CellContents>
+                              <Textbox Name="Textbox56">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value />
+                                        <Style>
+                                          <FontWeight>Bold</FontWeight>
+                                          <Color>White</Color>
+                                        </Style>
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style />
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>Textbox56</rd:DefaultName>
+                                <Style>
+                                  <Border>
+                                    <Color>LightGrey</Color>
+                                    <Style>None</Style>
+                                  </Border>
+                                  <BackgroundColor>#4b4b4b</BackgroundColor>
+                                  <PaddingLeft>5pt</PaddingLeft>
+                                  <PaddingRight>3pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                          <TablixMembers>
+                            <TablixMember>
+                              <TablixHeader>
+                                <Size>0.17667cm</Size>
+                                <CellContents>
+                                  <Textbox Name="Textbox79">
+                                    <KeepTogether>true</KeepTogether>
+                                    <Paragraphs>
+                                      <Paragraph>
+                                        <TextRuns>
+                                          <TextRun>
+                                            <Value />
+                                            <Style>
+                                              <FontWeight>Bold</FontWeight>
+                                              <Color>White</Color>
+                                            </Style>
+                                          </TextRun>
+                                        </TextRuns>
+                                        <Style />
+                                      </Paragraph>
+                                    </Paragraphs>
+                                    <rd:DefaultName>Textbox79</rd:DefaultName>
+                                    <Style>
+                                      <Border>
+                                        <Color>LightGrey</Color>
+                                        <Style>None</Style>
+                                      </Border>
+                                      <BackgroundColor>DimGray</BackgroundColor>
+                                      <PaddingLeft>5pt</PaddingLeft>
+                                      <PaddingRight>3pt</PaddingRight>
+                                      <PaddingTop>2pt</PaddingTop>
+                                      <PaddingBottom>2pt</PaddingBottom>
+                                    </Style>
+                                  </Textbox>
+                                </CellContents>
+                              </TablixHeader>
+                            </TablixMember>
+                          </TablixMembers>
+                        </TablixMember>
+                      </TablixMembers>
+                      <Visibility>
+                        <Hidden>true</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.07938cm</Size>
+                    <CellContents>
+                      <Textbox Name="Textbox124">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value />
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>White</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox124</rd:DefaultName>
+                        <Visibility>
+                          <Hidden>true</Hidden>
+                        </Visibility>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>None</Style>
+                          </Border>
+                          <BackgroundColor>#4b4b4b</BackgroundColor>
+                          <PaddingLeft>5pt</PaddingLeft>
+                          <PaddingRight>3pt</PaddingRight>
+                          <PaddingTop>4pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember>
+                      <TablixHeader>
+                        <Size>0.73229cm</Size>
+                        <CellContents>
+                          <Textbox Name="Textbox71">
+                            <KeepTogether>true</KeepTogether>
+                            <Paragraphs>
+                              <Paragraph>
+                                <TextRuns>
+                                  <TextRun>
+                                    <Value>Adjusted BILLHR</Value>
+                                    <Style>
+                                      <FontWeight>Bold</FontWeight>
+                                      <Color>White</Color>
+                                    </Style>
+                                  </TextRun>
+                                </TextRuns>
+                                <Style />
+                              </Paragraph>
+                            </Paragraphs>
+                            <rd:DefaultName>Textbox71</rd:DefaultName>
+                            <Style>
+                              <Border>
+                                <Color>LightGrey</Color>
+                                <Style>None</Style>
+                              </Border>
+                              <BackgroundColor>#4b4b4b</BackgroundColor>
+                              <PaddingLeft>5pt</PaddingLeft>
+                              <PaddingRight>3pt</PaddingRight>
+                              <PaddingTop>4pt</PaddingTop>
+                              <PaddingBottom>2pt</PaddingBottom>
+                            </Style>
+                          </Textbox>
+                        </CellContents>
+                      </TablixHeader>
+                      <TablixMembers>
+                        <TablixMember>
+                          <TablixHeader>
+                            <Size>0.58567cm</Size>
+                            <CellContents>
+                              <Textbox Name="Textbox74">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value />
+                                        <Style>
+                                          <FontWeight>Bold</FontWeight>
+                                          <Color>White</Color>
+                                        </Style>
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style />
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>Textbox74</rd:DefaultName>
+                                <Style>
+                                  <Border>
+                                    <Color>LightGrey</Color>
+                                    <Style>None</Style>
+                                  </Border>
+                                  <BackgroundColor>#4b4b4b</BackgroundColor>
+                                  <PaddingLeft>5pt</PaddingLeft>
+                                  <PaddingRight>3pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                          <TablixMembers>
+                            <TablixMember>
+                              <TablixHeader>
+                                <Size>0.17667cm</Size>
+                                <CellContents>
+                                  <Textbox Name="Textbox78">
+                                    <KeepTogether>true</KeepTogether>
+                                    <Paragraphs>
+                                      <Paragraph>
+                                        <TextRuns>
+                                          <TextRun>
+                                            <Value />
+                                            <Style>
+                                              <FontWeight>Bold</FontWeight>
+                                              <Color>White</Color>
+                                            </Style>
+                                          </TextRun>
+                                        </TextRuns>
+                                        <Style />
+                                      </Paragraph>
+                                    </Paragraphs>
+                                    <rd:DefaultName>Textbox78</rd:DefaultName>
+                                    <Style>
+                                      <Border>
+                                        <Color>LightGrey</Color>
+                                        <Style>None</Style>
+                                      </Border>
+                                      <BackgroundColor>DimGray</BackgroundColor>
+                                      <PaddingLeft>5pt</PaddingLeft>
+                                      <PaddingRight>3pt</PaddingRight>
+                                      <PaddingTop>2pt</PaddingTop>
+                                      <PaddingBottom>2pt</PaddingBottom>
+                                    </Style>
+                                  </Textbox>
+                                </CellContents>
+                              </TablixHeader>
+                            </TablixMember>
+                          </TablixMembers>
+                        </TablixMember>
+                      </TablixMembers>
+                      <Visibility>
+                        <Hidden>true</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.07938cm</Size>
+                    <CellContents>
+                      <Textbox Name="Textbox125">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value />
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>White</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox125</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -1992,7 +2470,7 @@ select * from cte_last_13_months</CommandText>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>Billable Target</Value>
+                                    <Value>EYS Target</Value>
                                     <Style>
                                       <FontWeight>Bold</FontWeight>
                                       <Color>White</Color>
@@ -2104,7 +2582,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixHeader>
                     <Size>0.07938cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox75">
+                      <Textbox Name="Textbox126">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -2121,7 +2599,7 @@ select * from cte_last_13_months</CommandText>
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox75</rd:DefaultName>
+                        <rd:DefaultName>Textbox126</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -2310,27 +2788,27 @@ select * from cte_last_13_months</CommandText>
                   </TablixHeader>
                   <TablixMembers>
                     <TablixMember>
-                      <Group Name="BUGroup">
+                      <Group Name="Resource">
                         <GroupExpressions>
-                          <GroupExpression>=Fields!BUGroup.Value</GroupExpression>
+                          <GroupExpression>=Fields!Resource.Value</GroupExpression>
                         </GroupExpressions>
                       </Group>
                       <SortExpressions>
                         <SortExpression>
-                          <Value>=Fields!BUGroup.Value</Value>
+                          <Value>=Fields!Resource.Value</Value>
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
                         <Size>2.5cm</Size>
                         <CellContents>
-                          <Textbox Name="BUGroup">
+                          <Textbox Name="Resource">
                             <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!BUGroup.Value</Value>
+                                    <Value>=Fields!Resource.Value</Value>
                                     <Style>
                                       <FontWeight>Bold</FontWeight>
                                       <Color>White</Color>
@@ -2342,7 +2820,7 @@ select * from cte_last_13_months</CommandText>
                                 </Style>
                               </Paragraph>
                             </Paragraphs>
-                            <rd:DefaultName>BUGroup</rd:DefaultName>
+                            <rd:DefaultName>Resource</rd:DefaultName>
                             <Style>
                               <Border>
                                 <Style>None</Style>
@@ -2358,43 +2836,44 @@ select * from cte_last_13_months</CommandText>
                       </TablixHeader>
                       <TablixMembers>
                         <TablixMember>
-                          <Group Name="Resource3">
+                          <Group Name="JobNo">
                             <GroupExpressions>
-                              <GroupExpression>=Fields!Resource.Value</GroupExpression>
+                              <GroupExpression>=Fields!Job_No_.Value</GroupExpression>
                             </GroupExpressions>
                           </Group>
                           <SortExpressions>
                             <SortExpression>
-                              <Value>=Fields!Resource.Value</Value>
+                              <Value>=Fields!BUGroup.Value</Value>
                             </SortExpression>
                           </SortExpressions>
                           <TablixHeader>
-                            <Size>3.40882cm</Size>
+                            <Size>2.5cm</Size>
                             <CellContents>
-                              <Textbox Name="Resource3">
+                              <Textbox Name="Job_No_1">
                                 <CanGrow>true</CanGrow>
                                 <KeepTogether>true</KeepTogether>
                                 <Paragraphs>
                                   <Paragraph>
                                     <TextRuns>
                                       <TextRun>
-                                        <Value>=Fields!Resource.Value</Value>
+                                        <Value>=Fields!Job_No_.Value</Value>
                                         <Style>
-                                          <Color>#141414</Color>
+                                          <FontWeight>Bold</FontWeight>
+                                          <Color>White</Color>
                                         </Style>
                                       </TextRun>
                                     </TextRuns>
                                     <Style>
-                                      <TextAlign>Right</TextAlign>
+                                      <TextAlign>Left</TextAlign>
                                     </Style>
                                   </Paragraph>
                                 </Paragraphs>
-                                <rd:DefaultName>Resource</rd:DefaultName>
+                                <rd:DefaultName>Job_No_1</rd:DefaultName>
                                 <Style>
                                   <Border>
                                     <Style>None</Style>
                                   </Border>
-                                  <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                  <BackgroundColor>DimGray</BackgroundColor>
                                   <PaddingLeft>5pt</PaddingLeft>
                                   <PaddingRight>3pt</PaddingRight>
                                   <PaddingTop>4pt</PaddingTop>
@@ -2408,7 +2887,7 @@ select * from cte_last_13_months</CommandText>
                           </TablixMembers>
                           <Visibility>
                             <Hidden>true</Hidden>
-                            <ToggleItem>BUGroup</ToggleItem>
+                            <ToggleItem>Resource</ToggleItem>
                           </Visibility>
                         </TablixMember>
                       </TablixMembers>
@@ -2421,7 +2900,7 @@ select * from cte_last_13_months</CommandText>
                 </TablixMember>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>3.28359cm</Size>
+                    <Size>8.28359cm</Size>
                     <CellContents>
                       <Textbox Name="Textbox42">
                         <CanGrow>true</CanGrow>
@@ -2430,7 +2909,7 @@ select * from cte_last_13_months</CommandText>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value>% of Capacity</Value>
                                 <Style>
                                   <FontWeight>Bold</FontWeight>
                                   <Color>White</Color>
@@ -2438,7 +2917,7 @@ select * from cte_last_13_months</CommandText>
                               </TextRun>
                             </TextRuns>
                             <Style>
-                              <TextAlign>Left</TextAlign>
+                              <TextAlign>Right</TextAlign>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
@@ -2457,87 +2936,7 @@ select * from cte_last_13_months</CommandText>
                     </CellContents>
                   </TablixHeader>
                   <TablixMembers>
-                    <TablixMember>
-                      <TablixHeader>
-                        <Size>2.5cm</Size>
-                        <CellContents>
-                          <Textbox Name="Textbox5">
-                            <CanGrow>true</CanGrow>
-                            <KeepTogether>true</KeepTogether>
-                            <Paragraphs>
-                              <Paragraph>
-                                <TextRuns>
-                                  <TextRun>
-                                    <Value />
-                                    <Style>
-                                      <FontWeight>Bold</FontWeight>
-                                      <Color>White</Color>
-                                    </Style>
-                                  </TextRun>
-                                </TextRuns>
-                                <Style>
-                                  <TextAlign>Left</TextAlign>
-                                </Style>
-                              </Paragraph>
-                            </Paragraphs>
-                            <rd:DefaultName>Textbox5</rd:DefaultName>
-                            <Style>
-                              <Border>
-                                <Style>None</Style>
-                              </Border>
-                              <BackgroundColor>#545454</BackgroundColor>
-                              <PaddingLeft>5pt</PaddingLeft>
-                              <PaddingRight>3pt</PaddingRight>
-                              <PaddingTop>4pt</PaddingTop>
-                              <PaddingBottom>2pt</PaddingBottom>
-                            </Style>
-                          </Textbox>
-                        </CellContents>
-                      </TablixHeader>
-                      <TablixMembers>
-                        <TablixMember>
-                          <TablixHeader>
-                            <Size>3.40882cm</Size>
-                            <CellContents>
-                              <Textbox Name="Textbox24">
-                                <CanGrow>true</CanGrow>
-                                <KeepTogether>true</KeepTogether>
-                                <Paragraphs>
-                                  <Paragraph>
-                                    <TextRuns>
-                                      <TextRun>
-                                        <Value />
-                                        <Style>
-                                          <FontWeight>Bold</FontWeight>
-                                          <Color>White</Color>
-                                        </Style>
-                                      </TextRun>
-                                    </TextRuns>
-                                    <Style>
-                                      <TextAlign>Left</TextAlign>
-                                    </Style>
-                                  </Paragraph>
-                                </Paragraphs>
-                                <rd:DefaultName>Textbox18</rd:DefaultName>
-                                <Style>
-                                  <Border>
-                                    <Style>None</Style>
-                                  </Border>
-                                  <BackgroundColor>#545454</BackgroundColor>
-                                  <PaddingLeft>5pt</PaddingLeft>
-                                  <PaddingRight>3pt</PaddingRight>
-                                  <PaddingTop>4pt</PaddingTop>
-                                  <PaddingBottom>2pt</PaddingBottom>
-                                </Style>
-                              </Textbox>
-                            </CellContents>
-                          </TablixHeader>
-                          <TablixMembers>
-                            <TablixMember />
-                          </TablixMembers>
-                        </TablixMember>
-                      </TablixMembers>
-                    </TablixMember>
+                    <TablixMember />
                   </TablixMembers>
                   <KeepWithGroup>Before</KeepWithGroup>
                 </TablixMember>
@@ -2553,17 +2952,10 @@ select * from cte_last_13_months</CommandText>
                 </FilterValues>
               </Filter>
               <Filter>
-                <FilterExpression>=Fields!Resource_Group_No_.Value</FilterExpression>
-                <Operator>Equal</Operator>
-                <FilterValues>
-                  <FilterValue>GEN</FilterValue>
-                </FilterValues>
-              </Filter>
-              <Filter>
-                <FilterExpression>=Fields!BUGroup.Value</FilterExpression>
+                <FilterExpression>=Fields!No_.Value</FilterExpression>
                 <Operator>In</Operator>
                 <FilterValues>
-                  <FilterValue>=Parameters!BUGroup.Value</FilterValue>
+                  <FilterValue>=Parameters!Resource.Value</FilterValue>
                 </FilterValues>
               </Filter>
             </Filters>
@@ -2573,10 +2965,10 @@ select * from cte_last_13_months</CommandText>
                 <Direction>Descending</Direction>
               </SortExpression>
             </SortExpressions>
-            <Top>1.02898cm</Top>
+            <Top>1.0819cm</Top>
             <Left>0.03295cm</Left>
             <Height>3.11439cm</Height>
-            <Width>22.76606cm</Width>
+            <Width>26.85724cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2913,7 +3305,7 @@ select * from cte_last_13_months</CommandText>
                 </FilterValues>
               </Filter>
             </Filters>
-            <Top>42.22747mm</Top>
+            <Top>45.40247mm</Top>
             <Left>0.3295mm</Left>
             <Height>9.635cm</Height>
             <Width>23.95669cm</Width>
@@ -2988,7 +3380,7 @@ select * from cte_last_13_months</CommandText>
                 <TablixCornerRow>
                   <TablixCornerCell>
                     <CellContents>
-                      <Textbox Name="Textbox76">
+                      <Textbox Name="Textbox127">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -3007,7 +3399,7 @@ select * from cte_last_13_months</CommandText>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox76</rd:DefaultName>
+                        <rd:DefaultName>Textbox127</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -3026,7 +3418,7 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
-                      <Textbox Name="Textbox77">
+                      <Textbox Name="Textbox62">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -3045,10 +3437,7 @@ select * from cte_last_13_months</CommandText>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox77</rd:DefaultName>
-                        <Visibility>
-                          <Hidden>true</Hidden>
-                        </Visibility>
+                        <rd:DefaultName>Textbox62</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -3064,7 +3453,7 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
-                      <Textbox Name="Textbox78">
+                      <Textbox Name="Textbox128">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -3083,7 +3472,7 @@ select * from cte_last_13_months</CommandText>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox78</rd:DefaultName>
+                        <rd:DefaultName>Textbox128</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -3138,6 +3527,41 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
+                      <Textbox Name="Textbox68">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value />
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>White</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Left</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox68</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Style>None</Style>
+                          </Border>
+                          <BackgroundColor>#545454</BackgroundColor>
+                          <PaddingLeft>5pt</PaddingLeft>
+                          <PaddingRight>3pt</PaddingRight>
+                          <PaddingTop>4pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
                       <Textbox Name="Textbox8">
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -3157,40 +3581,6 @@ select * from cte_last_13_months</CommandText>
                           </Paragraph>
                         </Paragraphs>
                         <rd:DefaultName>Textbox8</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Style>None</Style>
-                          </Border>
-                          <BackgroundColor>#545454</BackgroundColor>
-                          <PaddingLeft>5pt</PaddingLeft>
-                          <PaddingRight>3pt</PaddingRight>
-                          <PaddingTop>4pt</PaddingTop>
-                          <PaddingBottom>2pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixCornerCell>
-                  <TablixCornerCell>
-                    <CellContents>
-                      <Textbox Name="Textbox34">
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value />
-                                <Style>
-                                  <FontWeight>Bold</FontWeight>
-                                  <Color>White</Color>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style>
-                              <TextAlign>Left</TextAlign>
-                            </Style>
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>Textbox12</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -3243,7 +3633,7 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
-                      <Textbox Name="Textbox54">
+                      <Textbox Name="Textbox75">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -3262,7 +3652,7 @@ select * from cte_last_13_months</CommandText>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox54</rd:DefaultName>
+                        <rd:DefaultName>Textbox75</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -3278,7 +3668,7 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
-                      <Textbox Name="Textbox12">
+                      <Textbox Name="Textbox9">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -3297,7 +3687,7 @@ select * from cte_last_13_months</CommandText>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox12</rd:DefaultName>
+                        <rd:DefaultName>Textbox9</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -3350,7 +3740,43 @@ select * from cte_last_13_months</CommandText>
                   </TablixCornerCell>
                   <TablixCornerCell>
                     <CellContents>
-                      <Textbox Name="Textbox41">
+                      <Textbox Name="Textbox76">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Resource1</Value>
+                                <Style>
+                                  <FontSize>8pt</FontSize>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>White</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Left</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox76</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Style>None</Style>
+                          </Border>
+                          <BackgroundColor>DimGray</BackgroundColor>
+                          <PaddingLeft>5pt</PaddingLeft>
+                          <PaddingRight>3pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox22">
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
@@ -3369,41 +3795,7 @@ select * from cte_last_13_months</CommandText>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox41</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Style>None</Style>
-                          </Border>
-                          <BackgroundColor>DimGray</BackgroundColor>
-                          <PaddingLeft>5pt</PaddingLeft>
-                          <PaddingRight>3pt</PaddingRight>
-                          <PaddingTop>2pt</PaddingTop>
-                          <PaddingBottom>2pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixCornerCell>
-                  <TablixCornerCell>
-                    <CellContents>
-                      <Textbox Name="Textbox37">
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value />
-                                <Style>
-                                  <FontWeight>Bold</FontWeight>
-                                  <Color>White</Color>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style>
-                              <TextAlign>Left</TextAlign>
-                            </Style>
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>Textbox37</rd:DefaultName>
+                        <rd:DefaultName>Textbox22</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -3423,10 +3815,13 @@ select * from cte_last_13_months</CommandText>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.98733cm</Width>
+                  <Width>3.01379cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.82241cm</Width>
+                  <Width>1.79276cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.9685cm</Width>
@@ -3517,6 +3912,40 @@ select * from cte_last_13_months</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Capacity">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!Capacity.Value)</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <Format>n2</Format>
+                                    <Color>#141414</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Capacity</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>4pt</PaddingTop>
+                            <PaddingBottom>5pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="BILLHR1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -3573,6 +4002,7 @@ select * from cte_last_13_months</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <PaddingLeft>5pt</PaddingLeft>
                             <PaddingRight>3pt</PaddingRight>
                             <PaddingTop>4pt</PaddingTop>
@@ -3590,9 +4020,10 @@ select * from cte_last_13_months</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Capacity.Value)</Value>
+                                  <Value>=ReportItems!BILLHR1.Value / ReportItems!BILLCapacity1.Value</Value>
                                   <Style>
-                                    <Format>n2</Format>
+                                    <FontStyle>Italic</FontStyle>
+                                    <Format>0.00%</Format>
                                     <Color>#141414</Color>
                                   </Style>
                                 </TextRun>
@@ -3605,6 +4036,7 @@ select * from cte_last_13_months</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <PaddingLeft>5pt</PaddingLeft>
                             <PaddingRight>3pt</PaddingRight>
                             <PaddingTop>4pt</PaddingTop>
@@ -3690,6 +4122,42 @@ select * from cte_last_13_months</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Capacity2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!Capacity.Value)</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>n2</Format>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Capacity2</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#545454</BackgroundColor>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>4pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="BILLHR2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -3758,17 +4226,17 @@ select * from cte_last_13_months</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Capacity2">
+                        <Textbox Name="Textbox7">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Capacity.Value)</Value>
+                                  <Value>=ReportItems!BILLHR2.Value / ReportItems!BILLCapacity2.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n2</Format>
+                                    <Format>0%</Format>
                                     <Color>White</Color>
                                   </Style>
                                 </TextRun>
@@ -3776,7 +4244,7 @@ select * from cte_last_13_months</CommandText>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Capacity1</rd:DefaultName>
+                          <rd:DefaultName>Textbox7</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -3867,6 +4335,40 @@ select * from cte_last_13_months</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox34">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox34</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#545454</BackgroundColor>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>4pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox57">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -3935,17 +4437,16 @@ select * from cte_last_13_months</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox516">
+                        <Textbox Name="Textbox37">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=ReportItems!Textbox49.Value / ReportItems!Capacity2.Value</Value>
+                                  <Value />
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>0%</Format>
                                     <Color>White</Color>
                                   </Style>
                                 </TextRun>
@@ -3953,7 +4454,7 @@ select * from cte_last_13_months</CommandText>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox513</rd:DefaultName>
+                          <rd:DefaultName>Textbox37</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4034,7 +4535,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixMembers>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>0.73229cm</Size>
+                        <Size>0.78521cm</Size>
                         <CellContents>
                           <Textbox Name="LabelClean2">
                             <KeepTogether>true</KeepTogether>
@@ -4118,7 +4619,7 @@ select * from cte_last_13_months</CommandText>
                           <TablixMembers>
                             <TablixMember>
                               <TablixHeader>
-                                <Size>0.15021cm</Size>
+                                <Size>0.17667cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox19">
                                     <KeepTogether>true</KeepTogether>
@@ -4168,7 +4669,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixHeader>
                     <Size>0.07938cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox80">
+                      <Textbox Name="Textbox130">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -4185,7 +4686,7 @@ select * from cte_last_13_months</CommandText>
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox80</rd:DefaultName>
+                        <rd:DefaultName>Textbox130</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -4206,7 +4707,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixMembers>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>0.73229cm</Size>
+                        <Size>0.78521cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox47">
                             <KeepTogether>true</KeepTogether>
@@ -4280,7 +4781,7 @@ select * from cte_last_13_months</CommandText>
                           <TablixMembers>
                             <TablixMember>
                               <TablixHeader>
-                                <Size>0.15021cm</Size>
+                                <Size>0.17667cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox20">
                                     <KeepTogether>true</KeepTogether>
@@ -4326,7 +4827,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixHeader>
                     <Size>0.07938cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox81">
+                      <Textbox Name="Textbox131">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -4343,7 +4844,7 @@ select * from cte_last_13_months</CommandText>
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox81</rd:DefaultName>
+                        <rd:DefaultName>Textbox131</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -4364,7 +4865,161 @@ select * from cte_last_13_months</CommandText>
                   <TablixMembers>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>0.73229cm</Size>
+                        <Size>0.78521cm</Size>
+                        <CellContents>
+                          <Textbox Name="Textbox12">
+                            <KeepTogether>true</KeepTogether>
+                            <Paragraphs>
+                              <Paragraph>
+                                <TextRuns>
+                                  <TextRun>
+                                    <Value>Capacity</Value>
+                                    <Style>
+                                      <FontWeight>Bold</FontWeight>
+                                      <Color>White</Color>
+                                    </Style>
+                                  </TextRun>
+                                </TextRuns>
+                                <Style />
+                              </Paragraph>
+                            </Paragraphs>
+                            <rd:DefaultName>Textbox12</rd:DefaultName>
+                            <Style>
+                              <Border>
+                                <Color>LightGrey</Color>
+                                <Style>None</Style>
+                              </Border>
+                              <BackgroundColor>#545454</BackgroundColor>
+                              <PaddingLeft>5pt</PaddingLeft>
+                              <PaddingRight>3pt</PaddingRight>
+                              <PaddingTop>4pt</PaddingTop>
+                              <PaddingBottom>2pt</PaddingBottom>
+                            </Style>
+                          </Textbox>
+                        </CellContents>
+                      </TablixHeader>
+                      <TablixMembers>
+                        <TablixMember>
+                          <TablixHeader>
+                            <Size>0.6cm</Size>
+                            <CellContents>
+                              <Textbox Name="Textbox54">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value />
+                                        <Style>
+                                          <FontWeight>Bold</FontWeight>
+                                          <Color>White</Color>
+                                        </Style>
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style />
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>Textbox54</rd:DefaultName>
+                                <Style>
+                                  <Border>
+                                    <Color>LightGrey</Color>
+                                    <Style>None</Style>
+                                  </Border>
+                                  <BackgroundColor>#545454</BackgroundColor>
+                                  <PaddingLeft>5pt</PaddingLeft>
+                                  <PaddingRight>3pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                          <TablixMembers>
+                            <TablixMember>
+                              <TablixHeader>
+                                <Size>0.17667cm</Size>
+                                <CellContents>
+                                  <Textbox Name="Textbox41">
+                                    <KeepTogether>true</KeepTogether>
+                                    <Paragraphs>
+                                      <Paragraph>
+                                        <TextRuns>
+                                          <TextRun>
+                                            <Value />
+                                            <Style>
+                                              <FontWeight>Bold</FontWeight>
+                                              <Color>White</Color>
+                                            </Style>
+                                          </TextRun>
+                                        </TextRuns>
+                                        <Style />
+                                      </Paragraph>
+                                    </Paragraphs>
+                                    <rd:DefaultName>Textbox41</rd:DefaultName>
+                                    <Style>
+                                      <Border>
+                                        <Style>None</Style>
+                                      </Border>
+                                      <BackgroundColor>DimGray</BackgroundColor>
+                                      <PaddingLeft>5pt</PaddingLeft>
+                                      <PaddingRight>3pt</PaddingRight>
+                                      <PaddingTop>2pt</PaddingTop>
+                                      <PaddingBottom>2pt</PaddingBottom>
+                                    </Style>
+                                  </Textbox>
+                                </CellContents>
+                              </TablixHeader>
+                            </TablixMember>
+                          </TablixMembers>
+                        </TablixMember>
+                      </TablixMembers>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.07938cm</Size>
+                    <CellContents>
+                      <Textbox Name="Textbox132">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value />
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>White</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox132</rd:DefaultName>
+                        <Visibility>
+                          <Hidden>true</Hidden>
+                        </Visibility>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>None</Style>
+                          </Border>
+                          <BackgroundColor>#545454</BackgroundColor>
+                          <PaddingLeft>5pt</PaddingLeft>
+                          <PaddingRight>3pt</PaddingRight>
+                          <PaddingTop>4pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember>
+                      <TablixHeader>
+                        <Size>0.78521cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox13">
                             <KeepTogether>true</KeepTogether>
@@ -4437,7 +5092,7 @@ select * from cte_last_13_months</CommandText>
                           <TablixMembers>
                             <TablixMember>
                               <TablixHeader>
-                                <Size>0.15021cm</Size>
+                                <Size>0.17667cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox72">
                                     <KeepTogether>true</KeepTogether>
@@ -4483,7 +5138,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixHeader>
                     <Size>0.07938cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox82">
+                      <Textbox Name="Textbox133">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -4500,7 +5155,7 @@ select * from cte_last_13_months</CommandText>
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox82</rd:DefaultName>
+                        <rd:DefaultName>Textbox133</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -4521,7 +5176,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixMembers>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>0.73229cm</Size>
+                        <Size>0.78521cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox58">
                             <KeepTogether>true</KeepTogether>
@@ -4529,7 +5184,7 @@ select * from cte_last_13_months</CommandText>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>Target</Value>
+                                    <Value>EYS Target</Value>
                                     <Style>
                                       <FontWeight>Bold</FontWeight>
                                       <Color>White</Color>
@@ -4594,7 +5249,7 @@ select * from cte_last_13_months</CommandText>
                           <TablixMembers>
                             <TablixMember>
                               <TablixHeader>
-                                <Size>0.15021cm</Size>
+                                <Size>0.17667cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox73">
                                     <KeepTogether>true</KeepTogether>
@@ -4640,7 +5295,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixHeader>
                     <Size>0.07938cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox83">
+                      <Textbox Name="Textbox134">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -4657,7 +5312,7 @@ select * from cte_last_13_months</CommandText>
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox83</rd:DefaultName>
+                        <rd:DefaultName>Textbox134</rd:DefaultName>
                         <Visibility>
                           <Hidden>true</Hidden>
                         </Visibility>
@@ -4678,7 +5333,7 @@ select * from cte_last_13_months</CommandText>
                   <TablixMembers>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>0.73229cm</Size>
+                        <Size>0.78521cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox11">
                             <KeepTogether>true</KeepTogether>
@@ -4686,7 +5341,7 @@ select * from cte_last_13_months</CommandText>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>Capacity</Value>
+                                    <Value>% Target</Value>
                                     <Style>
                                       <FontWeight>Bold</FontWeight>
                                       <Color>White</Color>
@@ -4751,7 +5406,7 @@ select * from cte_last_13_months</CommandText>
                           <TablixMembers>
                             <TablixMember>
                               <TablixHeader>
-                                <Size>0.15021cm</Size>
+                                <Size>0.17667cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox31">
                                     <KeepTogether>true</KeepTogether>
@@ -4790,6 +5445,9 @@ select * from cte_last_13_months</CommandText>
                           </TablixMembers>
                         </TablixMember>
                       </TablixMembers>
+                      <Visibility>
+                        <Hidden>true</Hidden>
+                      </Visibility>
                     </TablixMember>
                   </TablixMembers>
                 </TablixMember>
@@ -4842,27 +5500,27 @@ select * from cte_last_13_months</CommandText>
                   </TablixHeader>
                   <TablixMembers>
                     <TablixMember>
-                      <Group Name="BUGroup1">
+                      <Group Name="Resource1">
                         <GroupExpressions>
-                          <GroupExpression>=Fields!BUGroup.Value</GroupExpression>
+                          <GroupExpression>=Fields!Resource.Value</GroupExpression>
                         </GroupExpressions>
                       </Group>
                       <SortExpressions>
                         <SortExpression>
-                          <Value>=Fields!BUGroup.Value</Value>
+                          <Value>=Fields!Resource.Value</Value>
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
                         <Size>2.5cm</Size>
                         <CellContents>
-                          <Textbox Name="BUGroup1">
+                          <Textbox Name="Resource1">
                             <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!BUGroup.Value</Value>
+                                    <Value>=Fields!Resource.Value</Value>
                                     <Style>
                                       <FontWeight>Bold</FontWeight>
                                       <Color>White</Color>
@@ -4874,7 +5532,7 @@ select * from cte_last_13_months</CommandText>
                                 </Style>
                               </Paragraph>
                             </Paragraphs>
-                            <rd:DefaultName>BUGroup1</rd:DefaultName>
+                            <rd:DefaultName>Resource1</rd:DefaultName>
                             <Style>
                               <Border>
                                 <Style>None</Style>
@@ -4890,43 +5548,44 @@ select * from cte_last_13_months</CommandText>
                       </TablixHeader>
                       <TablixMembers>
                         <TablixMember>
-                          <Group Name="Resource4">
+                          <Group Name="Job">
                             <GroupExpressions>
-                              <GroupExpression>=Fields!Resource.Value</GroupExpression>
+                              <GroupExpression>=Fields!Job_No_.Value</GroupExpression>
                             </GroupExpressions>
                           </Group>
                           <SortExpressions>
                             <SortExpression>
-                              <Value>=Fields!Resource.Value</Value>
+                              <Value>=Fields!BUGroup.Value</Value>
                             </SortExpression>
                           </SortExpressions>
                           <TablixHeader>
-                            <Size>3.43528cm</Size>
+                            <Size>2.5cm</Size>
                             <CellContents>
-                              <Textbox Name="Resource4">
+                              <Textbox Name="Job_No_">
                                 <CanGrow>true</CanGrow>
                                 <KeepTogether>true</KeepTogether>
                                 <Paragraphs>
                                   <Paragraph>
                                     <TextRuns>
                                       <TextRun>
-                                        <Value>=Fields!Resource.Value</Value>
+                                        <Value>=Fields!Job_No_.Value</Value>
                                         <Style>
-                                          <Color>#141414</Color>
+                                          <FontWeight>Bold</FontWeight>
+                                          <Color>White</Color>
                                         </Style>
                                       </TextRun>
                                     </TextRuns>
                                     <Style>
-                                      <TextAlign>Right</TextAlign>
+                                      <TextAlign>Left</TextAlign>
                                     </Style>
                                   </Paragraph>
                                 </Paragraphs>
-                                <rd:DefaultName>Resource</rd:DefaultName>
+                                <rd:DefaultName>Job_No_</rd:DefaultName>
                                 <Style>
                                   <Border>
                                     <Style>None</Style>
                                   </Border>
-                                  <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                  <BackgroundColor>DimGray</BackgroundColor>
                                   <PaddingLeft>5pt</PaddingLeft>
                                   <PaddingRight>3pt</PaddingRight>
                                   <PaddingTop>4pt</PaddingTop>
@@ -4940,7 +5599,7 @@ select * from cte_last_13_months</CommandText>
                           </TablixMembers>
                           <Visibility>
                             <Hidden>true</Hidden>
-                            <ToggleItem>BUGroup1</ToggleItem>
+                            <ToggleItem>Resource1</ToggleItem>
                           </Visibility>
                         </TablixMember>
                       </TablixMembers>
@@ -4993,7 +5652,7 @@ select * from cte_last_13_months</CommandText>
                       <TablixHeader>
                         <Size>2.5cm</Size>
                         <CellContents>
-                          <Textbox Name="Textbox14">
+                          <Textbox Name="Textbox81">
                             <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
@@ -5012,7 +5671,7 @@ select * from cte_last_13_months</CommandText>
                                 </Style>
                               </Paragraph>
                             </Paragraphs>
-                            <rd:DefaultName>Textbox14</rd:DefaultName>
+                            <rd:DefaultName>Textbox81</rd:DefaultName>
                             <Style>
                               <Border>
                                 <Style>None</Style>
@@ -5029,9 +5688,9 @@ select * from cte_last_13_months</CommandText>
                       <TablixMembers>
                         <TablixMember>
                           <TablixHeader>
-                            <Size>3.43528cm</Size>
+                            <Size>2.5cm</Size>
                             <CellContents>
-                              <Textbox Name="Textbox32">
+                              <Textbox Name="Textbox14">
                                 <CanGrow>true</CanGrow>
                                 <KeepTogether>true</KeepTogether>
                                 <Paragraphs>
@@ -5050,7 +5709,7 @@ select * from cte_last_13_months</CommandText>
                                     </Style>
                                   </Paragraph>
                                 </Paragraphs>
-                                <rd:DefaultName>Textbox18</rd:DefaultName>
+                                <rd:DefaultName>Textbox14</rd:DefaultName>
                                 <Style>
                                   <Border>
                                     <Style>None</Style>
@@ -5074,7 +5733,7 @@ select * from cte_last_13_months</CommandText>
                 </TablixMember>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>9.22536cm</Size>
+                    <Size>8.29008cm</Size>
                     <CellContents>
                       <Textbox Name="Textbox510">
                         <CanGrow>true</CanGrow>
@@ -5083,14 +5742,7 @@ select * from cte_last_13_months</CommandText>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>% of Capacity for </Value>
-                                <Style>
-                                  <FontWeight>Bold</FontWeight>
-                                  <Color>White</Color>
-                                </Style>
-                              </TextRun>
-                              <TextRun>
-                                <Value>=Fields!ReportingMonth.Value</Value>
+                                <Value>% of Capacity</Value>
                                 <Style>
                                   <FontWeight>Bold</FontWeight>
                                   <Color>White</Color>
@@ -5129,17 +5781,10 @@ select * from cte_last_13_months</CommandText>
                 </FilterValues>
               </Filter>
               <Filter>
-                <FilterExpression>=Fields!Resource_Group_No_.Value</FilterExpression>
-                <Operator>Equal</Operator>
-                <FilterValues>
-                  <FilterValue>GEN</FilterValue>
-                </FilterValues>
-              </Filter>
-              <Filter>
-                <FilterExpression>=Fields!BUGroup.Value</FilterExpression>
+                <FilterExpression>=Fields!No_.Value</FilterExpression>
                 <Operator>In</Operator>
                 <FilterValues>
-                  <FilterValue>=Parameters!BUGroup.Value</FilterValue>
+                  <FilterValue>=Parameters!Resource.Value</FilterValue>
                 </FilterValues>
               </Filter>
             </Filters>
@@ -5149,10 +5794,9 @@ select * from cte_last_13_months</CommandText>
                 <Direction>Descending</Direction>
               </SortExpression>
             </SortExpressions>
-            <Top>14.90902cm</Top>
-            <Left>0.03295cm</Left>
-            <Height>3.83813cm</Height>
-            <Width>22.49857cm</Width>
+            <Top>15.90562cm</Top>
+            <Height>3.91751cm</Height>
+            <Width>24.0601cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -5180,8 +5824,7 @@ select * from cte_last_13_months</CommandText>
             </Paragraphs>
             <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
             <rd:DefaultName>ReportTitle</rd:DefaultName>
-            <Top>138.57747mm</Top>
-            <Left>0.03295cm</Left>
+            <Top>142.10525mm</Top>
             <Height>10.16mm</Height>
             <Width>359.95225mm</Width>
             <ZIndex>4</ZIndex>
@@ -5204,7 +5847,7 @@ select * from cte_last_13_months</CommandText>
           </Border>
         </Style>
       </Body>
-      <Width>360.28175mm</Width>
+      <Width>359.95225mm</Width>
       <Page>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
@@ -5218,30 +5861,14 @@ select * from cte_last_13_months</CommandText>
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="CurrentUser">
+    <ReportParameter Name="Resource">
       <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>=UCase(User!UserID)</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>CurrentUser</Prompt>
-      <Hidden>true</Hidden>
-    </ReportParameter>
-    <ReportParameter Name="BUGroup">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <DataSetReference>
-          <DataSetName>ActiveAUBU</DataSetName>
-          <ValueField>Business_Unit_Group</ValueField>
-        </DataSetReference>
-      </DefaultValue>
-      <Prompt>GM(s)</Prompt>
+      <Prompt>Name</Prompt>
       <ValidValues>
         <DataSetReference>
-          <DataSetName>ActiveBUs</DataSetName>
-          <ValueField>Business_Unit_Group</ValueField>
-          <LabelField>Business_Unit_Group</LabelField>
+          <DataSetName>ActiveResources</DataSetName>
+          <ValueField>No_</ValueField>
+          <LabelField>Name</LabelField>
         </DataSetReference>
       </ValidValues>
       <MultiValue>true</MultiValue>

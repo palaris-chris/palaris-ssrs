@@ -34,19 +34,20 @@ WHERE Code = @ResourceNo AND [Job No_] NOT LIKE 'T-%'
 
 ZohoOpps AS
 (
-SELECT d.[Opportunity ID] COLLATE Latin1_General_100_CI_AS AS [Opportunity ID] 
-, d.[Service] COLLATE Latin1_General_100_CI_AS AS [Service]
-, d.[Account Name] COLLATE Latin1_General_100_CI_AS AS [Account]
-, d.[Description] COLLATE Latin1_General_100_CI_AS AS [Description]
-, d.[Sector] COLLATE Latin1_General_100_CI_AS AS [Sector]
-, d.[Mine Method] COLLATE Latin1_General_100_CI_AS AS [Mine Method]
-, d.[Element] COLLATE Latin1_General_100_CI_AS AS [Element]
-, CASE WHEN a.[Parent Account Name] IS NULL
-  THEN d.[Account Name] COLLATE Latin1_General_100_CI_AS
-  ELSE a.[Parent Account Name] COLLATE Latin1_General_100_CI_AS
+SELECT d.[Opportunity ID]   AS [Opportunity ID] 
+, d.[Service]   AS [Service]
+, a.[Account Name]   AS [Account]
+, d.[Description]   AS [Description]
+, d.[Sector]   AS [Sector]
+, d.[Mine Method]   AS [Mine Method]
+, d.[Element]   AS [Element]
+, CASE WHEN a.[Parent Account] IS NULL
+  THEN a.[Account Name]  
+  ELSE p.[Account Name]  
 END AS [Parent]
-FROM [ZohoCRM].[dbo].[Deals] d
+FROM [ZohoCRM].[dbo].[Opportunities] d
 LEFT JOIN [ZohoCRM].[dbo].[Accounts] a ON d.Account = a.Id
+LEFT JOIN [ZohoCRM].[dbo].[Accounts] p ON a.[Parent Account] = p.Id
 ),
 
 Cust AS
@@ -271,5 +272,5 @@ ORDER BY No_ asc</CommandText>
       </Field>
     </Fields>
   </DataSet>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
 </SharedDataSet>

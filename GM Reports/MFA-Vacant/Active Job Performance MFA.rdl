@@ -8,8 +8,8 @@
         <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
-        <Field Name="JobType">
-          <DataField>JobType</DataField>
+        <Field Name="PriceStrategy">
+          <DataField>PriceStrategy</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Job_No">
@@ -511,14 +511,14 @@
                         <Textbox Name="Textbox33">
                           <CanGrow>true</CanGrow>
                           <UserSort>
-                            <SortExpression>=Fields!JobType.Value</SortExpression>
+                            <SortExpression>=Fields!PriceStrategy.Value</SortExpression>
                           </UserSort>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Job Type</Value>
+                                  <Value>Price Strategy</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>White</Color>
@@ -1483,7 +1483,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Job Type</Value>
+                                  <Value>Price Strategy</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2290,14 +2290,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="JobType">
+                        <Textbox Name="PriceStrategy">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!JobType.Value</Value>
+                                  <Value>=Fields!PriceStrategy.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -2306,7 +2306,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>JobType</rd:DefaultName>
+                          <rd:DefaultName>PriceStrategy</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -2855,7 +2855,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="JobType2">
+                        <Textbox Name="PriceStrategy2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2871,7 +2871,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>JobType</rd:DefaultName>
+                          <rd:DefaultName>PriceStrategy</rd:DefaultName>
                           <ToolTip>="PO "&amp;Fields!Customer_PO_Status.Value</ToolTip>
                           <Style>
                             <Border>

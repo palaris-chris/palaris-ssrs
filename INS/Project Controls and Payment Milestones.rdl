@@ -291,14 +291,14 @@ JobDetails AS
 SELECT
 job.No_
 ,job.Description
-  ,CASE WHEN [Job Type] = 0 THEN 'Other'
-	 WHEN job.[Job Type] = 1 THEN 'Capped Estimate (SOR)'
-	 WHEN job.[Job Type] = 2 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
-	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+  ,CASE WHEN [Price Strategy] = 0 THEN 'Other'
+	 WHEN job.[Price Strategy] = 1 THEN 'Capped Estimate (SOR)'
+	 WHEN job.[Price Strategy] = 2 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 3 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 4 THEN 'Site/Role Specific'
+	 WHEN job.[Price Strategy] = 5 THEN 'Ad-hoc'
 	ELSE null 
-   END AS [Job Type]
+   END AS [Price Strategy]
 ,CASE WHEN job.[Job On Hold] = 0 THEN 'No'
 ELSE 'Yes'
 END AS [Job On Hold]
@@ -344,14 +344,14 @@ UNION ALL
 SELECT
 job.No_
 ,job.Description
-  ,CASE WHEN [Job Type] = 0 THEN 'Other'
-	 WHEN job.[Job Type] = 1 THEN 'Capped Estimate (SOR)'
-	 WHEN job.[Job Type] = 2 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
-	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+  ,CASE WHEN [Price Strategy] = 0 THEN 'Other'
+	 WHEN job.[Price Strategy] = 1 THEN 'Capped Estimate (SOR)'
+	 WHEN job.[Price Strategy] = 2 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 3 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 4 THEN 'Site/Role Specific'
+	 WHEN job.[Price Strategy] = 5 THEN 'Ad-hoc'
 	ELSE null 
-   END AS [Job Type]
+   END AS [Price Strategy]
 ,CASE WHEN job.[Job On Hold] = 0 THEN 'No'
 ELSE 'Yes'
 END AS [Job On Hold]
@@ -415,7 +415,7 @@ SELECT
  jpl.[Job No_]
  , jpl.[Job Task No_]
  , jd.[Risk Level]
-,jd.[Job Type]
+,jd.[Price Strategy]
 ,jd.[Job On Hold]
 ,jd.Description AS Project
  , jt.[Description] AS TaskDescription
@@ -452,7 +452,7 @@ SELECT
  jpl.[Job No_]
  , jpl.[Job Task No_]
  , jd.[Risk Level]
-,jd.[Job Type]
+,jd.[Price Strategy]
 ,jd.[Job On Hold]
 ,jd.Description AS Project
  , jt.[Description] AS TaskDescription
@@ -515,7 +515,7 @@ ORDER BY [Planning Date] asc</CommandText>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Job_Type">
-          <DataField>Job Type</DataField>
+          <DataField>Price Strategy</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Description_2">

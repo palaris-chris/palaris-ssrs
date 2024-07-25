@@ -12,7 +12,7 @@
     <DataSet Name="Debtors_LedgerEntries">
       <SharedDataSet>
         <SharedDataSetReference>/Subreports/Debtors_LedgerEntries</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+        <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
         <Field Name="Entry_No_">
@@ -146,12 +146,19 @@
             <FilterValue>=Parameters!CurrentUser.Value</FilterValue>
           </FilterValues>
         </Filter>
+        <Filter>
+          <FilterExpression>=LEFT(Fields!JobNo.Value, 3)&lt;&gt;"WGR"</FilterExpression>
+          <Operator>Equal</Operator>
+          <FilterValues>
+            <FilterValue DataType="Boolean">true</FilterValue>
+          </FilterValues>
+        </Filter>
       </Filters>
     </DataSet>
     <DataSet Name="Debtors_UnsentLedger">
       <SharedDataSet>
         <SharedDataSetReference>/Subreports/Debtors_UnsentLedger</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+        <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
         <Field Name="Entry_No_">
@@ -277,6 +284,13 @@
           <Operator>Equal</Operator>
           <FilterValues>
             <FilterValue>=Parameters!CurrentUser.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+        <Filter>
+          <FilterExpression>=LEFT(Fields!JobNo.Value, 3)&lt;&gt;"WGR"</FilterExpression>
+          <Operator>Equal</Operator>
+          <FilterValues>
+            <FilterValue DataType="Boolean">true</FilterValue>
           </FilterValues>
         </Filter>
       </Filters>
@@ -948,7 +962,7 @@ Fields!AvgDueCategory.Value = "5", "Silver"
                   <Width>1.62562cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.18563cm</Width>
+                  <Width>2.68523cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.2248cm</Width>
@@ -3764,7 +3778,7 @@ IIF(Fields!Customer_Price_Group.Value = "RISK-UPFNT", "Upfront Payment", "No")))
             <Top>13.09992cm</Top>
             <Left>0.09122cm</Left>
             <Height>3.29958cm</Height>
-            <Width>55.31232cm</Width>
+            <Width>55.81192cm</Width>
             <ZIndex>5</ZIndex>
             <Visibility>
               <Hidden>=IsNothing(First(Fields!Document_No_.Value, "Debtors_UnsentLedger"))</Hidden>
@@ -3839,7 +3853,7 @@ IIF(Fields!Customer_Price_Group.Value = "RISK-UPFNT", "Upfront Payment", "No")))
                   <Width>1.62562cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.18563cm</Width>
+                  <Width>2.68523cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.2248cm</Width>
@@ -6662,7 +6676,7 @@ IIF(Fields!Customer_Price_Group.Value="RISK-UPFNT", "Upfront Payment", "No")))</
             <Top>8.3312cm</Top>
             <Left>0.09122cm</Left>
             <Height>3.29958cm</Height>
-            <Width>55.31232cm</Width>
+            <Width>55.81192cm</Width>
             <ZIndex>8</ZIndex>
             <Style>
               <Border>
@@ -6766,6 +6780,6 @@ IoYHjsh33nnHJ6ZQTU1Neno6X4mKSygTqBl1Hj58+Pz586CHDvLjkfX9DRWiCilUWB+p6AmWwrxFHQ2s
   </EmbeddedImages>
   <Language>en-AU</Language>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>566ea8e2-5232-4f12-89a8-5c30c5b950f2</rd:ReportID>
 </Report>

@@ -2,14 +2,9 @@
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
   <AutoRefresh>0</AutoRefresh>
   <DataSets>
-    <DataSet Name="AllJobsDesc2MA">
+    <DataSet Name="South32Jobs">
       <SharedDataSet>
-        <SharedDataSetReference>/Subreports/AllJobs-Desc2</SharedDataSetReference>
-        <QueryParameters>
-          <QueryParameter Name="@Description2">
-            <Value>=Parameters!Description2.Value</Value>
-          </QueryParameter>
-        </QueryParameters>
+        <SharedDataSetReference>/Subreports/South32Jobs</SharedDataSetReference>
         <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
@@ -291,18 +286,6 @@
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="ActiveMasterAgreements">
-      <SharedDataSet>
-        <SharedDataSetReference>/Subreports/ActiveMasterAgreements</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
-      </SharedDataSet>
-      <Fields>
-        <Field Name="Description_2">
-          <DataField>Description_2</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-    </DataSet>
   </DataSets>
   <ReportSections>
     <ReportSection>
@@ -361,7 +344,7 @@
                   <Width>37.43542mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>49.5609mm</Width>
+                  <Width>25mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>46.04375mm</Width>
@@ -4563,11 +4546,11 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
             </TablixRowHierarchy>
             <FixedColumnHeaders>true</FixedColumnHeaders>
             <KeepTogether>true</KeepTogether>
-            <DataSetName>AllJobsDesc2MA</DataSetName>
+            <DataSetName>South32Jobs</DataSetName>
             <Top>20.53241mm</Top>
             <Left>3.55139mm</Left>
             <Height>28.38813mm</Height>
-            <Width>692.36023mm</Width>
+            <Width>667.79933mm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -4652,7 +4635,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
           </Border>
         </Style>
       </Body>
-      <Width>695.91162mm</Width>
+      <Width>681.65211mm</Width>
       <Page>
         <PageHeight>297mm</PageHeight>
         <PageWidth>210mm</PageWidth>
@@ -4665,19 +4648,6 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParameters>
-    <ReportParameter Name="Description2">
-      <DataType>String</DataType>
-      <Prompt>Description2</Prompt>
-      <ValidValues>
-        <DataSetReference>
-          <DataSetName>ActiveMasterAgreements</DataSetName>
-          <ValueField>Description_2</ValueField>
-          <LabelField>Description_2</LabelField>
-        </DataSetReference>
-      </ValidValues>
-    </ReportParameter>
-  </ReportParameters>
   <rd:ReportUnitType>Mm</rd:ReportUnitType>
   <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
   <rd:ReportID>bcf7ed78-a424-4116-adad-d852d67e8804</rd:ReportID>

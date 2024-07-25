@@ -35,14 +35,14 @@ job.No_
   ,job.[Expected End Date]
   ,job.[Ending Date]
   ,job.[Job On Hold]
-  ,CASE WHEN job.[Job Type] = 0 THEN 'Other'
-	 WHEN job.[Job Type] = 1 THEN 'Capped Estimate (SOR)'
-	 WHEN job.[Job Type] = 2 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
-	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+  ,CASE WHEN job.[Price Strategy] = 0 THEN 'Other'
+	 WHEN job.[Price Strategy] = 1 THEN 'Capped Estimate (SOR)'
+	 WHEN job.[Price Strategy] = 2 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 3 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 4 THEN 'Site/Role Specific'
+	 WHEN job.[Price Strategy] = 5 THEN 'Ad-hoc'
 	ELSE null 
-	END AS [JobType]
+	END AS [PriceStrategy]
 
   ,CASE WHEN LEFT(job.[Timesheet Work Type Group], 1) = 'D' THEN 'Daily'
   WHEN LEFT(job.[Timesheet Work Type Group], 1) = 'H' THEN 'Hourly'
@@ -334,7 +334,7 @@ Jobs_PEL.No_ AS [Job No],
 Jobs_PEL.Description,
 Jobs_PEL.name AS [Project Manager],
 Jobs_PEL.PMNo,
-Jobs_PEL.[JobType],
+Jobs_PEL.[PriceStrategy],
 Jobs_PEL.[ChargeType],
 jobs_PEL.[Creation Date],
 jobs_PEL.[Starting Date],
@@ -388,7 +388,8 @@ Jobs_PEL.[Next Invoice Date],
 Jobs_PEL.[Invoicing Frequency],
 Jobs_PEL.[Payment Term],
 Jobs_PEL.PMAdditionalNo,
-'' AS GroupCol
+'' AS GroupCol,
+'Palaris Europe Limited' AS [Database]
 
 FROM Jobs_PEL
 LEFT JOIN [Palaris Europe Limited$Dimension Value] dv ON dv.Code = Jobs_PEL.Service
@@ -411,14 +412,14 @@ job.No_
   ,job.[Expected End Date]
   ,job.[Ending Date]
   ,job.[Job On Hold]
-  ,CASE WHEN job.[Job Type] = 0 THEN 'Other'
-	 WHEN job.[Job Type] = 1 THEN 'Capped Estimate (SOR)'
-	 WHEN job.[Job Type] = 2 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
-	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+  ,CASE WHEN job.[Price Strategy] = 0 THEN 'Other'
+	 WHEN job.[Price Strategy] = 1 THEN 'Capped Estimate (SOR)'
+	 WHEN job.[Price Strategy] = 2 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 3 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 4 THEN 'Site/Role Specific'
+	 WHEN job.[Price Strategy] = 5 THEN 'Ad-hoc'
 	ELSE null 
-	END AS [JobType]
+	END AS [PriceStrategy]
 
   ,CASE WHEN LEFT(job.[Timesheet Work Type Group], 1) = 'D' THEN 'Daily'
   WHEN LEFT(job.[Timesheet Work Type Group], 1) = 'H' THEN 'Hourly'
@@ -712,7 +713,7 @@ jobs.No_ AS [Job No],
 jobs.Description,
 Jobs.name AS [Project Manager],
 Jobs.PMNo,
-Jobs.[JobType],
+Jobs.[PriceStrategy],
 Jobs.[ChargeType],
 jobs.[Creation Date],
 jobs.[Starting Date],
@@ -766,7 +767,8 @@ jobs.[Next Invoice Date],
 jobs.[Invoicing Frequency],
 jobs.[Payment Term],
 jobs.PMAdditionalNo,
-'' AS GroupCol
+'' AS GroupCol,
+'Palaris' AS [Database]
 
 
 FROM Jobs
@@ -798,8 +800,8 @@ SELECT * FROM AUPIVOT</CommandText>
         <DataField>PMNo</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
-      <Field Name="JobType">
-        <DataField>JobType</DataField>
+      <Field Name="PriceStrategy">
+        <DataField>PriceStrategy</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="Creation_Date">
@@ -1012,6 +1014,10 @@ SELECT * FROM AUPIVOT</CommandText>
       </Field>
       <Field Name="GroupCol">
         <DataField>GroupCol</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Database">
+        <DataField>Database</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
     </Fields>

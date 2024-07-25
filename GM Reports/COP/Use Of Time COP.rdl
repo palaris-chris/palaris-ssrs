@@ -2,11 +2,6 @@
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="PalarisZoho">
-      <DataSourceReference>/PalarisZoho</DataSourceReference>
-      <rd:SecurityType>None</rd:SecurityType>
-      <rd:DataSourceID>d2e93664-4756-4375-9be8-8c0d3580c954</rd:DataSourceID>
-    </DataSource>
     <DataSource Name="PalarisNAV">
       <DataSourceReference>/PalarisNAV</DataSourceReference>
       <rd:SecurityType>None</rd:SecurityType>
@@ -79,7 +74,7 @@ select * from cte_last_13_months</CommandText>
     </DataSet>
     <DataSet Name="AllBUTimeCalendarMonthFeb20">
       <SharedDataSet>
-        <SharedDataSetReference>/Subreports/AllBUTimeCalendarMonthFeb20</SharedDataSetReference>
+        <SharedDataSetReference>/Subreports/AllBUTime</SharedDataSetReference>
         <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
@@ -5246,6 +5241,6 @@ select * from cte_last_13_months</CommandText>
   </ReportParameters>
   <Language>en-AU</Language>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://reports.palaris.com.au/ReportServer</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>9d0811f2-f5e6-43e4-9a73-0eeac6e1dbc2</rd:ReportID>
 </Report>

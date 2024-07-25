@@ -25,7 +25,7 @@ SELECT
   job.No_
   ,job.Description
   ,job.[Global Dimension 2 Code]
-  ,job.[Job Type]
+  ,job.[Price Strategy]
   ,job.[Person Responsible]
   ,res.[Windows Name]
   
@@ -44,7 +44,7 @@ SELECT
   job.No_
   ,job.Description
   ,job.[Global Dimension 2 Code]
-  ,job.[Job Type]
+  ,job.[Price Strategy]
   ,job.[Person Responsible]
   ,res.[Windows Name]
   
@@ -76,7 +76,7 @@ SELECT * FROM PELJobs</CommandText>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Job_Type">
-          <DataField>Job Type</DataField>
+          <DataField>Price Strategy</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="Person_Responsible">

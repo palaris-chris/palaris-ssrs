@@ -35,8 +35,8 @@
           <DataField>PMNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="JobType">
-          <DataField>JobType</DataField>
+        <Field Name="PriceStrategy">
+          <DataField>PriceStrategy</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="PM_User_Name">
@@ -493,7 +493,7 @@ WITH WIP AS
     FROM [Palaris$Job] job
     WHERE/* No_ LIKE 'SOUTH%'
     AND*/ [Project Status] = 'ACTIVE'
-    AND [Job Type] IN ('0', '1', '4', '5')
+    AND [Price Strategy] IN ('0', '1', '4', '5')
 )
 
 SELECT j.No_, Description, CONCAT(j.No_, ' | ', [Description]) AS JobTitle
@@ -502,7 +502,7 @@ FROM [Palaris$Job] j
 LEFT JOIN WIP s ON j.No_ = s.No_
 WHERE /*j.No_ LIKE 'SOUTH%'
 AND */[Project Status] = 'ACTIVE'
-AND [Job Type] NOT IN ('2', '3')
+AND [Price Strategy] NOT IN ('2', '3')
 AND s.Uninvoiced IS NOT NULL
 AND s.Uninvoiced != '0'</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>

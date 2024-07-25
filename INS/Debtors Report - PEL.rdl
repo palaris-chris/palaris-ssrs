@@ -36,7 +36,7 @@ FROM [Palaris Europe Limited$Resource] WITH (NOLOCK)
 
 Job AS
 (
-SELECT [Person Responsible], Job.[No_] AS No, Job.[Invoice Currency Code], [Customer PO], ResourceName.[Name] as 'Name', ResourceName.[Windows Name]
+SELECT [Person Responsible], Job.[No_] AS No, Job.[Invoice Currency Code], CASE WHEN job.[Currency Code] &lt;&gt; '' THEN LEFT(job.[Currency Code], 3) ELSE '' END AS [Currency], [Customer PO], ResourceName.[Name] as 'Name', ResourceName.[Windows Name]
 FROM [Palaris Europe Limited$Job] Job
 LEFT JOIN ResourceName ON [Person Responsible] = ResourceName.[No_]
 ),
@@ -219,7 +219,8 @@ SELECT deb.*
 	 , si.[Job No_] AS 'JobNo'
 	 , Job.Name AS PM
 	 , Job.[Windows Name]
-   , Job.[Invoice Currency Code]
+	 , Job.[Invoice Currency Code]
+	 , CASE WHEN Job.[Invoice Currency Code] &lt;&gt; '' THEN LEFT(Job.[Invoice Currency Code],3) ELSE Job.[Currency] END AS Currency
 	 , Job.[Customer PO]
 	 , DATEADD(day, -1*deb.RealDaysDueDIS, GETDATE()) AS RealDueDate
 	 , DATEADD(day, dtp.[AvgDaysToPay], deb.DIS) AS AvgDueDate
@@ -341,6 +342,10 @@ ORDER BY [RealDueDate] ASC, Name</CommandText>
           <DataField>Invoice Currency Code</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Currency">
+          <DataField>Currency</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Customer_PO">
           <DataField>Customer PO</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -418,7 +423,7 @@ FROM [Palaris Europe Limited$Resource] WITH (NOLOCK)
 
 Job AS
 (
-SELECT [Person Responsible], Job.[No_] AS No, [Customer PO], Job.[Invoice Currency Code], ResourceName.[Name] as 'Name', ResourceName.[Windows Name]
+SELECT [Person Responsible], Job.[No_] AS No, [Customer PO], Job.[Invoice Currency Code], CASE WHEN job.[Currency Code] &lt;&gt; '' THEN LEFT(job.[Currency Code], 3) ELSE '' END AS [Currency], ResourceName.[Name] as 'Name', ResourceName.[Windows Name]
 FROM [Palaris Europe Limited$Job] Job
 LEFT JOIN ResourceName ON [Person Responsible] = ResourceName.[No_]
 ),
@@ -601,6 +606,7 @@ SELECT deb.*
 	 , si.[Job No_] AS 'JobNo'
 	 , Job.Name AS PM
 	 , Job.[Invoice Currency Code]
+	 , CASE WHEN Job.[Invoice Currency Code] &lt;&gt; '' THEN LEFT(Job.[Invoice Currency Code],3) ELSE Job.[Currency] END AS Currency
 	 , Job.[Windows Name]
 	 , Job.[Customer PO]
 	 , DATEADD(day, -1*deb.RealDaysDueDIS, GETDATE()) AS RealDueDate
@@ -723,6 +729,10 @@ ORDER BY [RealDueDate] ASC, Name</CommandText>
         </Field>
         <Field Name="Invoice_Currency_Code">
           <DataField>Invoice Currency Code</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Currency">
+          <DataField>Currency</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Customer_PO">
@@ -1461,6 +1471,9 @@ Fields!AvgDueCategory.Value = "5", "Silver"
                   <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
+                  <Width>2.5cm</Width>
+                </TablixColumn>
+                <TablixColumn>
                   <Width>1.865cm</Width>
                 </TablixColumn>
                 <TablixColumn>
@@ -1793,6 +1806,44 @@ Fields!AvgDueCategory.Value = "5", "Silver"
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox111</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>#323232</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>4pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox117">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Currency</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox117</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2559,14 +2610,14 @@ Fields!AvgDueCategory.Value = "5", "Silver"
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Amount2">
+                        <Textbox Name="Amount1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIf(LEN(Fields!Invoice_Currency_Code.Value)&gt;0,Fields!Amount.Value,Nothing)</Value>
+                                  <Value>=Fields!Amount.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <Format>#,0.00;(#,0.00)</Format>
@@ -2578,7 +2629,42 @@ Fields!AvgDueCategory.Value = "5", "Silver"
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Amount2</rd:DefaultName>
+                          <rd:DefaultName>Amount1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Currency1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Currency.Value</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Currency1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -3289,7 +3375,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox115">
+                        <Textbox Name="Textbox121">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -3307,7 +3393,39 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox115</rd:DefaultName>
+                          <rd:DefaultName>Textbox121</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox119">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox119</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4018,6 +4136,38 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox120">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox120</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox108">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -4487,6 +4637,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
                 <TablixMember>
                   <Visibility>
                     <Hidden>true</Hidden>
@@ -4550,7 +4701,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
             <Top>13.09992cm</Top>
             <Left>0.09122cm</Left>
             <Height>3.29958cm</Height>
-            <Width>59.67732cm</Width>
+            <Width>62.17732cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -4906,7 +5057,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                   <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.865cm</Width>
+                  <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.5cm</Width>
@@ -5256,14 +5407,14 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox101">
+                        <Textbox Name="Textbox106">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Invoice Currency Code</Value>
+                                  <Value>Currency</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -5276,7 +5427,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox101</rd:DefaultName>
+                          <rd:DefaultName>Textbox106</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -6026,7 +6177,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIf(LEN(Fields!Invoice_Currency_Code.Value)&gt;0,Fields!Amount.Value,Nothing)</Value>
+                                  <Value>=Fields!Amount.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <Format>#,0.00;(#,0.00)</Format>
@@ -6055,14 +6206,14 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Invoice_Currency_Code">
+                        <Textbox Name="Currency">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=LEFT(Fields!Invoice_Currency_Code.Value, 3)</Value>
+                                  <Value>=Fields!Currency.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6073,7 +6224,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Invoice_Currency_Code</rd:DefaultName>
+                          <rd:DefaultName>Currency</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -6784,7 +6935,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox103">
+                        <Textbox Name="Textbox112">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -6800,7 +6951,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox103</rd:DefaultName>
+                          <rd:DefaultName>Textbox112</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -7480,7 +7631,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox104">
+                        <Textbox Name="Textbox113">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -7496,7 +7647,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox104</rd:DefaultName>
+                          <rd:DefaultName>Textbox113</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -8007,7 +8158,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
             <Top>8.3312cm</Top>
             <Left>0.09122cm</Left>
             <Height>3.29958cm</Height>
-            <Width>59.67732cm</Width>
+            <Width>60.31232cm</Width>
             <ZIndex>9</ZIndex>
             <Style>
               <Border>
@@ -8024,7 +8175,7 @@ IIF(Fields!Customer_Price_Group.Value="SENSITIVE", "Sensitive",
           </Border>
         </Style>
       </Body>
-      <Width>597.6854mm</Width>
+      <Width>622.6854mm</Width>
       <Page>
         <PageFooter>
           <Height>11.43mm</Height>

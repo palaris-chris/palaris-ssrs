@@ -5,11 +5,19 @@
       <DataSourceReference>/PalarisNAV</DataSourceReference>
       <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
-WITH PAL AS
+WITH BUGroup AS
+(
+SELECT [Consolidation Code] AS [Business Unit Group], [Code] AS [Business Unit], [Name] AS [Label]
+FROM [DynamicsNAVPalaris].[dbo].[Palaris$Dimension Value] 
+WHERE [Dimension Code] = 'BUSUNIT'
+),
+
+PAL AS
 (
 SELECT 
 res.Name
 ,res.[Resource Group No_]
+,bug.[Business Unit Group]
 ,tsh.[No_]
 ,tsh.[Starting Date]
 ,tsh.[Ending Date]
@@ -29,6 +37,11 @@ AS TotalUnposted
     WHERE tsl2.[Time Sheet No_] = tsh.No_
     AND tsl2.[Job No_] LIKE 'T-INTERNAL%' AND tsl2.[Job Task No_] IN ('I0620','I0621')) 
 AS TotalJobNotSetUp
+,(SELECT SUM([Total Hours Worked]) 
+    FROM [Palaris$Time Sheet Line] tsl2 
+    WHERE tsl2.[Time Sheet No_] = tsh.No_
+    AND tsl2.[Job No_] LIKE 'T-LEAVE%') 
+AS TotalLeave
 ,(SELECT (SUM([Total Hours Worked]) % 0.25) 
     FROM [Palaris$Time Sheet Line] tsl2 
     WHERE tsl2.[Time Sheet No_] = tsh.No_)
@@ -38,8 +51,9 @@ FROM [Palaris$Time Sheet Header] tsh
 
 LEFT JOIN [Palaris$Resource] res on tsh.[Resource No_] = res.No_
 LEFT JOIN [Palaris$Time Sheet Line] tsl on tsh.No_ = tsl.[Time Sheet No_]
+LEFT JOIN BUGroup bug ON res.[Global Dimension 2 Code] = bug.[Business Unit]
 
-GROUP BY res.Name, res.[Resource Group No_], tsh.No_, tsh.[Starting Date], tsh.[Ending Date]
+GROUP BY res.Name, res.[Resource Group No_], bug.[Business Unit Group], tsh.No_, tsh.[Starting Date], tsh.[Ending Date]
 ),
 
 PEL AS
@@ -47,6 +61,7 @@ PEL AS
 SELECT 
 res.Name
 ,res.[Resource Group No_]
+,bug.[Business Unit Group]
 ,tsh.[No_]
 ,tsh.[Starting Date]
 ,tsh.[Ending Date]
@@ -66,6 +81,11 @@ AS TotalUnposted
     WHERE tsl2.[Time Sheet No_] = tsh.No_
     AND tsl2.[Job No_] LIKE 'T-INTERNAL%' AND tsl2.[Job Task No_] IN ('I0620','I0621')) 
 AS TotalJobNotSetUp
+,(SELECT SUM([Total Hours Worked]) 
+    FROM [Palaris$Time Sheet Line] tsl2 
+    WHERE tsl2.[Time Sheet No_] = tsh.No_
+    AND tsl2.[Job No_] LIKE 'T-LEAVE%') 
+AS TotalLeave
 ,(SELECT (SUM([Total Hours Worked]) % 0.25) 
     FROM [Palaris Europe Limited$Time Sheet Line] tsl2 
     WHERE tsl2.[Time Sheet No_] = tsh.No_)
@@ -75,8 +95,9 @@ FROM [Palaris Europe Limited$Time Sheet Header] tsh
 
 LEFT JOIN [Palaris Europe Limited$Resource] res on tsh.[Resource No_] = res.No_
 LEFT JOIN [Palaris Europe Limited$Time Sheet Line] tsl on tsh.No_ = tsl.[Time Sheet No_]
+LEFT JOIN BUGroup bug ON res.[Global Dimension 2 Code] = bug.[Business Unit]
 
-GROUP BY res.Name, res.[Resource Group No_], tsh.No_, tsh.[Starting Date], tsh.[Ending Date]
+GROUP BY res.Name, res.[Resource Group No_], bug.[Business Unit Group], tsh.No_, tsh.[Starting Date], tsh.[Ending Date]
 )
 
 SELECT * FROM PAL
@@ -95,6 +116,10 @@ SELECT * FROM PEL</CommandText>
       </Field>
       <Field Name="No_">
         <DataField>No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Business_Unit_Group">
+        <DataField>Business Unit Group</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="Starting_Date">
@@ -125,11 +150,15 @@ SELECT * FROM PEL</CommandText>
         <DataField>Company</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
+      <Field Name="TotalLeave">
+        <DataField>TotalLeave</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
       <Field Name="Total0point25">
         <DataField>Total0point25</DataField>
         <rd:TypeName>System.Decimal</rd:TypeName>
       </Field>
     </Fields>
   </DataSet>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
 </SharedDataSet>

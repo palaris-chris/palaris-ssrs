@@ -142,6 +142,7 @@ SELECT
  , jd.[Business Unit Group]
  , jd.Name AS [Project Manager]
  , jd.[Time Sheet Owner User ID] as [PM_Username]
+ , 'Palaris' AS [Database]
  FROM [Palaris$Job Planning Line] jpl
 LEFT JOIN JobDetails jd ON jpl.[Job No_] = jd.[No_]
 LEFT JOIN JobTasks jt ON jpl.[Job No_] = jt.[Job No_] AND jpl.[Job Task No_] = jt.[Job Task No_]
@@ -170,6 +171,7 @@ SELECT
  , jd.[Business Unit Group]
  , jd.Name AS [Project Manager]
  , jd.[Time Sheet Owner User ID] as [PM_Username]
+ , 'Palaris Europe Limited' AS [Database]
  FROM [Palaris Europe Limited$Job Planning Line] jpl
 LEFT JOIN JobDetails jd ON jpl.[Job No_] = jd.[No_]
 LEFT JOIN JobTasks jt ON jpl.[Job No_] = jt.[Job No_] AND jpl.[Job Task No_] = jt.[Job Task No_]
@@ -254,6 +256,10 @@ ORDER BY [Planning Date] asc</CommandText>
           <DataField>PM_Username</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Database">
+          <DataField>Database</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <Filters>
         <Filter>
@@ -291,14 +297,14 @@ JobDetails AS
 SELECT
 job.No_
 ,job.Description
-  ,CASE WHEN [Job Type] = 0 THEN 'Other'
-	 WHEN job.[Job Type] = 1 THEN 'Capped Estimate (SOR)'
-	 WHEN job.[Job Type] = 2 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
-	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+  ,CASE WHEN [Price Strategy] = 0 THEN 'Other'
+	 WHEN job.[Price Strategy] = 1 THEN 'Capped Estimate (SOR)'
+	 WHEN job.[Price Strategy] = 2 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 3 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 4 THEN 'Site/Role Specific'
+	 WHEN job.[Price Strategy] = 5 THEN 'Ad-hoc'
 	ELSE null 
-   END AS [Job Type]
+   END AS [Price Strategy]
 ,CASE WHEN job.[Job On Hold] = 0 THEN 'No'
 ELSE 'Yes'
 END AS [Job On Hold]
@@ -344,14 +350,14 @@ UNION ALL
 SELECT
 job.No_
 ,job.Description
-  ,CASE WHEN [Job Type] = 0 THEN 'Other'
-	 WHEN job.[Job Type] = 1 THEN 'Capped Estimate (SOR)'
-	 WHEN job.[Job Type] = 2 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
-	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
-	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+  ,CASE WHEN [Price Strategy] = 0 THEN 'Other'
+	 WHEN job.[Price Strategy] = 1 THEN 'Capped Estimate (SOR)'
+	 WHEN job.[Price Strategy] = 2 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 3 THEN 'Fixed Price'
+	 WHEN job.[Price Strategy] = 4 THEN 'Site/Role Specific'
+	 WHEN job.[Price Strategy] = 5 THEN 'Ad-hoc'
 	ELSE null 
-   END AS [Job Type]
+   END AS [Price Strategy]
 ,CASE WHEN job.[Job On Hold] = 0 THEN 'No'
 ELSE 'Yes'
 END AS [Job On Hold]
@@ -415,7 +421,7 @@ SELECT
  jpl.[Job No_]
  , jpl.[Job Task No_]
  , jd.[Risk Level]
-,jd.[Job Type]
+,jd.[Price Strategy]
 ,jd.[Job On Hold]
 ,jd.Description AS Project
  , jt.[Description] AS TaskDescription
@@ -438,6 +444,7 @@ SELECT
  , jd.[Business Unit Group]
  , jd.Name AS [Project Manager]
 ,jd.[PM_Username]
+ , 'Palaris' AS [Database]
  FROM [Palaris$Job Planning Line] jpl
 LEFT JOIN JobDetails jd ON jpl.[Job No_] = jd.[No_]
 LEFT JOIN JobTasks jt ON jpl.[Job No_] = jt.[Job No_] AND jpl.[Job Task No_] = jt.[Job Task No_]
@@ -452,7 +459,7 @@ SELECT
  jpl.[Job No_]
  , jpl.[Job Task No_]
  , jd.[Risk Level]
-,jd.[Job Type]
+,jd.[Price Strategy]
 ,jd.[Job On Hold]
 ,jd.Description AS Project
  , jt.[Description] AS TaskDescription
@@ -475,6 +482,7 @@ SELECT
  , jd.[Business Unit Group]
  , jd.Name AS [Project Manager]
 ,jd.[PM_Username]
+ , 'Palaris Europe Limited' AS [Database]
  FROM [Palaris Europe Limited$Job Planning Line] jpl
 LEFT JOIN JobDetails jd ON jpl.[Job No_] = jd.[No_]
 LEFT JOIN JobTasks jt ON jpl.[Job No_] = jt.[Job No_] AND jpl.[Job Task No_] = jt.[Job Task No_]
@@ -515,7 +523,7 @@ ORDER BY [Planning Date] asc</CommandText>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Job_Type">
-          <DataField>Job Type</DataField>
+          <DataField>Price Strategy</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Description_2">
@@ -572,6 +580,10 @@ ORDER BY [Planning Date] asc</CommandText>
         </Field>
         <Field Name="PM_Username">
           <DataField>PM_Username</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Database">
+          <DataField>Database</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -1759,8 +1771,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>=IIF(Fields!Business_Unit_Group.Value="PEL", "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_PEL&amp;rs:Command=Render&amp;JobNo_="&amp; Fields!Job_No_.Value, 
-"http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_ALL&amp;rs:Command=Render&amp;JobNo_="&amp; Fields!Job_No_.Value)</Hyperlink>
+                                <Hyperlink>="http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_Dynamic&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No_.Value &amp; "&amp;DatabaseNameInput=" &amp; Fields!Database.Value</Hyperlink>
                               </Action>
                             </Actions>
                           </ActionInfo>
@@ -3425,7 +3436,7 @@ IIf(Fields!UsageMinusInvoiced.Value&gt;=(Fields!Amount.Value), "Pink",
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>=Microsoft.VisualBasic.Interaction.IIF(Fields!Business_Unit_Group.Value = "PEL", "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_PEL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No_.Value, "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_ALL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No_.Value)</Hyperlink>
+                                <Hyperlink>="http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_Dynamic&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No_.Value &amp; "&amp;DatabaseNameInput=" &amp; Fields!Database.Value</Hyperlink>
                               </Action>
                             </Actions>
                           </ActionInfo>
@@ -5031,8 +5042,7 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>=IIF(Fields!Business_Unit_Group.Value="PEL", "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_PEL&amp;rs:Command=Render&amp;JobNo_="&amp; Fields!Job_No_.Value, 
-"http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_ALL&amp;rs:Command=Render&amp;JobNo_="&amp; Fields!Job_No_.Value)</Hyperlink>
+                                <Hyperlink>="http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_Dynamic&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No_.Value &amp; "&amp;DatabaseNameInput=" &amp; Fields!Database.Value</Hyperlink>
                               </Action>
                             </Actions>
                           </ActionInfo>
@@ -5634,6 +5644,6 @@ IIf(Fields!Planning_Date.Value &lt; Now(), "Firebrick",
     </ReportParameter>
   </ReportParameters>
   <rd:ReportUnitType>Mm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>625c5935-0ced-4184-ba06-a94cb5bc3a41</rd:ReportID>
 </Report>

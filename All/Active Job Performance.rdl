@@ -33,7 +33,7 @@
     <DataSet Name="ActiveJobs_CCGrouping">
       <SharedDataSet>
         <SharedDataSetReference>/Subreports/ActiveJobs</SharedDataSetReference>
-        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+        <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
         <Field Name="Job_No">
@@ -60,12 +60,16 @@
           <DataField>Creation_Date</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
+        <Field Name="ProjectType">
+          <DataField>ProjectType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="ChargeType">
           <DataField>ChargeType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="JobType">
-          <DataField>JobType</DataField>
+        <Field Name="PriceStrategy">
+          <DataField>PriceStrategy</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="PM_Supervisor">
@@ -79,6 +83,10 @@
         <Field Name="Expected_End_Date">
           <DataField>Expected_End_Date</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Currency">
+          <DataField>Currency</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Starting_Date">
           <DataField>Starting_Date</DataField>
@@ -115,6 +123,10 @@
         <Field Name="ResourceCostCompletion">
           <DataField>ResourceCostCompletion</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Business_Unit">
+          <DataField>Business_Unit</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ScheduleMargin">
           <DataField>ScheduleMargin</DataField>
@@ -272,6 +284,10 @@
           <DataField>GroupCol</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Database">
+          <DataField>Database</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="PlannedHours">
           <Value>=Fields!Schedule_Billable_Time.Value+Fields!Schedule_Non_Billable_Time.Value</Value>
         </Field>
@@ -316,7 +332,7 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
           </FilterValues>
         </Filter>
         <Filter>
-          <FilterExpression>=Fields!JobType.Value</FilterExpression>
+          <FilterExpression>=Fields!ProjectType.Value</FilterExpression>
           <Operator>In</Operator>
           <FilterValues>
             <FilterValue>=Parameters!ProjectType.Value</FilterValue>
@@ -407,6 +423,9 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                 </TablixColumn>
                 <TablixColumn>
                   <Width>65.48125mm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>36.90625mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>40.8154mm</Width>
@@ -545,10 +564,10 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox60">
+                        <Textbox Name="Textbox14">
                           <CanGrow>true</CanGrow>
                           <UserSort>
-                            <SortExpression>=Fields!JobType.Value</SortExpression>
+                            <SortExpression>=Fields!ProjectType.Value</SortExpression>
                           </UserSort>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -556,6 +575,44 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                               <TextRuns>
                                 <TextRun>
                                   <Value>Project Type</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox14</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#323232</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox60">
+                          <CanGrow>true</CanGrow>
+                          <UserSort>
+                            <SortExpression>=Fields!PriceStrategy.Value</SortExpression>
+                          </UserSort>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Price Strategy</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1267,7 +1324,7 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox64">
+                        <Textbox Name="Textbox26">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1283,7 +1340,36 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox64</rd:DefaultName>
+                          <rd:DefaultName>Textbox26</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>DimGray</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox8">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox8</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1827,7 +1913,7 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>=Microsoft.VisualBasic.Interaction.IIF(Fields!Business_Unit_Group.Value = "PEL", "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_PEL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value, "http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_All_ALL&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value)</Hyperlink>
+                                <Hyperlink>="http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_Dynamic&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value &amp; "&amp;DatabaseNameInput=" &amp; Fields!Database.Value</Hyperlink>
                               </Action>
                             </Actions>
                           </ActionInfo>
@@ -1839,7 +1925,6 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                             <BottomBorder>
                               <Color>Silver</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </BottomBorder>
                             <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
@@ -1893,14 +1978,14 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="JobType">
+                        <Textbox Name="ProjectType">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!JobType.Value</Value>
+                                  <Value>=Fields!ProjectType.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -1911,7 +1996,46 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>JobType</rd:DefaultName>
+                          <rd:DefaultName>ProjectType</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Silver</Color>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="PriceStrategy">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!PriceStrategy.Value</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>PriceStrategy</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -2694,7 +2818,7 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox63">
+                        <Textbox Name="Textbox24">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2710,7 +2834,50 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox63</rd:DefaultName>
+                          <rd:DefaultName>Textbox24</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox9">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -3508,8 +3675,10 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
               <TablixMembers>
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
                 <TablixMember>
                   <Visibility>
+                    <Hidden>true</Hidden>
                     <ToggleItem>ColumnToggle</ToggleItem>
                   </Visibility>
                 </TablixMember>
@@ -3558,14 +3727,14 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                   <TablixHeader>
                     <Size>25mm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox767">
+                      <Textbox Name="Currency">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value>=Fields!Currency.Value</Value>
                                 <Style>
                                   <FontSize>9pt</FontSize>
                                   <FontWeight>Bold</FontWeight>
@@ -3576,7 +3745,7 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox767</rd:DefaultName>
+                        <rd:DefaultName>Currency</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -3837,7 +4006,7 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
             <Top>20.42658mm</Top>
             <Left>3.6632mm</Left>
             <Height>26.2875mm</Height>
-            <Width>507.94701mm</Width>
+            <Width>544.85326mm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -3921,7 +4090,7 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
           </Border>
         </Style>
       </Body>
-      <Width>511.61021mm</Width>
+      <Width>548.51646mm</Width>
       <Page>
         <PageHeight>297mm</PageHeight>
         <PageWidth>210mm</PageWidth>
@@ -3985,35 +4154,50 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
-          <Value>Capped Estimate (SOR)</Value>
-          <Value>Fixed Price</Value>
-          <Value>Site/Role Specific</Value>
+          <Value xml:space="preserve"> </Value>
+          <Value>Minor</Value>
+          <Value>Medium</Value>
+          <Value>Major (Single Year)</Value>
+          <Value>Major (Multi Year)</Value>
+          <Value>Site-Based / Role Specific</Value>
+          <Value>Subcontractor Only</Value>
           <Value>Ad-hoc</Value>
-          <Value>Other</Value>
         </Values>
       </DefaultValue>
       <Prompt>Project Type</Prompt>
       <ValidValues>
         <ParameterValues>
           <ParameterValue>
-            <Value>Capped Estimate (SOR)</Value>
-            <Label>Capped Estimate (SOR)</Label>
+            <Value xml:space="preserve"> </Value>
+            <Label xml:space="preserve"> </Label>
           </ParameterValue>
           <ParameterValue>
-            <Value>Fixed Price</Value>
-            <Label>Fixed Price</Label>
+            <Value>Minor</Value>
+            <Label>Minor</Label>
           </ParameterValue>
           <ParameterValue>
-            <Value>Site/Role Specific</Value>
-            <Label>Site/Role Specific</Label>
+            <Value>Medium</Value>
+            <Label>Medium</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Major (Single Year)</Value>
+            <Label>Major (Single Year)</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Major (Multi Year)</Value>
+            <Label>Major (Multi Year)</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Site-Based / Role Specific</Value>
+            <Label>Site-Based / Role Specific</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Subcontractor Only</Value>
+            <Label>Subcontractor Only</Label>
           </ParameterValue>
           <ParameterValue>
             <Value>Ad-hoc</Value>
             <Label>Ad-hoc</Label>
-          </ParameterValue>
-          <ParameterValue>
-            <Value>Other</Value>
-            <Label>Other</Label>
           </ParameterValue>
         </ParameterValues>
       </ValidValues>
@@ -4077,6 +4261,6 @@ IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Va
     </ReportParameter>
   </ReportParameters>
   <rd:ReportUnitType>Mm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>bcf7ed78-a424-4116-adad-d852d67e8804</rd:ReportID>
 </Report>

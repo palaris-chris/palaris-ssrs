@@ -25,7 +25,7 @@ SELECT
   job.No_
   ,job.Description
   ,job.[Global Dimension 2 Code]
-  ,job.[Job Type]
+  ,job.[Price Strategy]
   ,job.[Person Responsible]
   ,res.[Windows Name]
   
@@ -44,7 +44,7 @@ SELECT
   job.No_
   ,job.Description
   ,job.[Global Dimension 2 Code]
-  ,job.[Job Type]
+  ,job.[Price Strategy]
   ,job.[Person Responsible]
   ,res.[Windows Name]
   
@@ -76,7 +76,7 @@ SELECT * FROM PELJobs</CommandText>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Job_Type">
-          <DataField>Job Type</DataField>
+          <DataField>Price Strategy</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="Person_Responsible">
@@ -181,30 +181,24 @@ UNION ALL
 Zoho AS
 (
 SELECT
-RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5)
-COLLATE Latin1_General_100_CI_AS AS [Job No_],
-opps.[Opportunity Name]
-COLLATE Latin1_General_100_CI_AS AS [Description],
+RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5) AS [Job No_],
+opps.[Opportunity Name] AS [Description],
 'ZOHO' AS [Job Task No_],
-LEFT([Resource Allocation ID], 5)
-COLLATE Latin1_General_100_CI_AS AS No_,
-[Resource Name]
-COLLATE Latin1_General_100_CI_AS AS [Resource],
-LEFT(res.[Global Dimension 2 Code], 3)
-COLLATE Latin1_General_100_CI_AS AS BUG,
+LEFT([Resource Allocation ID], 5) AS No_,
+[Resource Name] AS [Resource],
+LEFT(res.[Global Dimension 2 Code], 3) AS BUG,
 CAST(opps.Id AS NVARCHAR) AS ID,
 'Open Opportunity' AS [Task],
 [Qty (Hrs)] AS Proposed,
 '0' AS Used,
 opps.Stage AS [Status]
-FROM [ZohoCRM].[dbo].[CustomModule3] resalloc
-LEFT JOIN [ZohoCRM].[dbo].[Deals] opps ON RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5) = opps.[Opportunity ID]
-LEFT JOIN [Palaris$Resource] res WITH (NOLOCK) ON LEFT([Resource Allocation ID] COLLATE Latin1_General_100_CI_AS, 5) = res.[No_]
+FROM [ZohoCRM].[dbo].[Resource Allocations] resalloc
+LEFT JOIN [ZohoCRM].[dbo].[Opportunities] opps ON RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5) = opps.[Opportunity ID]
+LEFT JOIN [Palaris$Resource] res ON LEFT([Resource Allocation ID], 5) = res.[No_]
 WHERE 
 res.No_ = @ResourceNo AND 
 opps.Stage != 'Closed Lost' AND
-RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5)
-COLLATE Latin1_General_100_CI_AS NOT IN (SELECT [Job No_] FROM JPL_JLE)
+RIGHT([Resource Allocation ID], (LEN([Resource Allocation ID]))-5) NOT IN (SELECT [Job No_] FROM JPL_JLE)
 )
 
 SELECT [ID], [Job No_], [Description], [Job Task No_], Task, [Status], Proposed, Used FROM ZOHO
@@ -3436,6 +3430,6 @@ iif(ReportItems!Used10.Value / IIf(ReportItems!Proposed10.Value = 0, 1.01, Repor
     </ReportParameter>
   </ReportParameters>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>9d0811f2-f5e6-43e4-9a73-0eeac6e1dbc2</rd:ReportID>
 </Report>

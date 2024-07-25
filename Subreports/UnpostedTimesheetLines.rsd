@@ -7,7 +7,14 @@
 
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
-WITH Resources AS
+WITH BUGroup AS
+(
+SELECT [Consolidation Code] AS [Business Unit Group], [Code] AS [Business Unit], [Name] AS [Label]
+FROM [DynamicsNAVPalaris].[dbo].[Palaris$Dimension Value] 
+WHERE [Dimension Code] = 'BUSUNIT'
+),
+
+Resources AS
 (
 SELECT
 Name, 
@@ -23,6 +30,7 @@ PAL AS
 (
 SELECT 
 tsl.[Time Sheet No_]
+,bug.[Business Unit Group]
 ,tsl.[Time Sheet Starting Date]
 ,tsl.[Job No_]
 ,tsl.[Job Task No_]
@@ -71,6 +79,7 @@ END AS [Billable]
 FROM [Palaris$Time Sheet Line] tsl
 LEFT JOIN [Palaris$Time Sheet Header] tsh on tsl.[Time Sheet No_] = tsh.No_
 LEFT JOIN Resources res ON tsh.[Resource No_] = res.No_ 
+LEFT JOIN BUGroup bug ON res.[Global Dimension 2 Code] = bug.[Business Unit]
 LEFT JOIN Resources japrv ON tsl.[Job Approver User ID] = japrv.[Time Sheet Owner User ID] 
 LEFT JOIN Resources raprv ON tsh.[Approver User ID] = raprv.[Time Sheet Owner User ID] 
 LEFT JOIN [Palaris$Job Task] jt ON (tsl.[Job No_] = jt.[Job No_] AND tsl.[Job Task No_] = jt.[Job Task No_])
@@ -83,6 +92,7 @@ PEL AS
 (
 SELECT 
 tsl.[Time Sheet No_]
+,bug.[Business Unit Group]
 ,tsl.[Time Sheet Starting Date]
 ,tsl.[Job No_]
 ,tsl.[Job Task No_]
@@ -129,6 +139,7 @@ END AS [Billable]
 FROM [Palaris Europe Limited$Time Sheet Line] tsl
 LEFT JOIN [Palaris Europe Limited$Time Sheet Header] tsh on tsl.[Time Sheet No_] = tsh.No_
 LEFT JOIN Resources res ON tsh.[Resource No_] = res.No_ 
+LEFT JOIN BUGroup bug ON res.[Global Dimension 2 Code] = bug.[Business Unit]
 LEFT JOIN Resources japrv ON tsl.[Job Approver User ID] = japrv.[Time Sheet Owner User ID] 
 LEFT JOIN Resources raprv ON tsh.[Approver User ID] = raprv.[Time Sheet Owner User ID] 
 LEFT JOIN [Palaris Europe Limited$Job Task] jt ON (tsl.[Job No_] = jt.[Job No_] AND tsl.[Job Task No_] = jt.[Job Task No_])
@@ -149,6 +160,10 @@ SELECT * FROM PEL</CommandText>
       <Field Name="Time_Sheet_Starting_Date">
         <DataField>Time Sheet Starting Date</DataField>
         <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Business_Unit_Group">
+        <DataField>Business Unit Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="Job_No_">
         <DataField>Job No_</DataField>
@@ -256,5 +271,5 @@ SELECT * FROM PEL</CommandText>
       </Field>
     </Fields>
   </DataSet>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
 </SharedDataSet>

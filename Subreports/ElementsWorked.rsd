@@ -47,10 +47,9 @@ WHERE Code = @ResourceNo AND [Job No_] NOT LIKE 'T-%'
 ZohoOpps AS
 (
 SELECT 
-d.[Opportunity ID] COLLATE Latin1_General_100_CI_AS AS [Opportunity ID] 
-,d.[Element] COLLATE Latin1_General_100_CI_AS AS [Element]
-FROM [ZohoCRM].[dbo].[Deals] d
-LEFT JOIN [ZohoCRM].[dbo].[Accounts] a ON d.Account = a.Id
+d.[Opportunity ID] AS [Opportunity ID] 
+,d.[Element] AS [Element]
+FROM [ZohoCRM].[dbo].[Opportunities] d
 )
 
 SELECT DISTINCT
@@ -66,5 +65,5 @@ LEFT JOIN ZohoOpps zo ON zo.[Opportunity ID] = job.[Base Job No]</CommandText>
       </Field>
     </Fields>
   </DataSet>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
 </SharedDataSet>
