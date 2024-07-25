@@ -13,6 +13,8 @@
         </DataSetParameter>
       </DataSetParameters>
       <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+/*DECLARE @JobNo AS NVARCHAR(11)
+SET @JobNo = '';*/
 
 WITH 
 InvoiceCurrency AS
@@ -52,8 +54,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 
 FROM dbo.[Palaris$Job Task] 
 WHERE 
@@ -68,8 +70,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 
 FROM dbo.[Palaris$Job Task] 
 WHERE 
@@ -84,8 +86,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 FROM dbo.[Palaris$Job Task] 
 WHERE 
 [Job No_] = @JobNo
@@ -99,8 +101,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 FROM dbo.[Palaris$Job Task] 
 WHERE 
 [Job No_] = @JobNo
@@ -114,8 +116,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 FROM dbo.[Palaris$Job Task] 
 WHERE 
 [Job No_] = @JobNo
@@ -129,8 +131,8 @@ SELECT
 [Job No_]
 ,[Job Task No_]
 ,Description AS Name
-,LEFT(Totaling, 5) AS TotalStart
-,RIGHT(Totaling, 5) AS TotalEnd
+,LEFT(Totaling,CHARINDEX('..', Totaling)-1) AS TotalStart
+,RIGHT(Totaling,LEN(Totaling)-CHARINDEX('..', Totaling)-1) AS TotalEnd
 FROM dbo.[Palaris$Job Task] 
 WHERE 
 [Job No_] = @JobNo
@@ -163,13 +165,14 @@ END AS [Job Task Type]
 ,jt4.[Job Task No_] AS Indent4No
 ,jt5.name AS Indent5Cat
 ,jt5.[Job Task No_] AS Indent5No
+
 FROM dbo.[Palaris$Job Task] jt
-LEFT JOIN jt0 ON jt.[Job No_] = jt0.[Job No_] AND jt.[Job Task No_] BETWEEN jt0.TotalStart AND jt0.TotalEnd
-LEFT JOIN jt1 ON jt.[Job No_] = jt1.[Job No_] AND jt.[Job Task No_] BETWEEN jt1.TotalStart AND jt1.TotalEnd
-LEFT JOIN jt2 ON jt.[Job No_] = jt2.[Job No_] AND jt.[Job Task No_] BETWEEN jt2.TotalStart AND jt2.TotalEnd
-LEFT JOIN jt3 ON jt.[Job No_] = jt3.[Job No_] AND jt.[Job Task No_] BETWEEN jt3.TotalStart AND jt3.TotalEnd
-LEFT JOIN jt4 ON jt.[Job No_] = jt4.[Job No_] AND jt.[Job Task No_] BETWEEN jt4.TotalStart AND jt4.TotalEnd
-LEFT JOIN jt5 ON jt.[Job No_] = jt5.[Job No_] AND jt.[Job Task No_] BETWEEN jt5.TotalStart AND jt5.TotalEnd
+LEFT JOIN jt0 ON jt.[Job No_] = jt0.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt0.TotalStart,'-','') AND REPLACE(jt0.TotalEnd,'-','')
+LEFT JOIN jt1 ON jt.[Job No_] = jt1.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt1.TotalStart,'-','') AND REPLACE(jt1.TotalEnd,'-','')
+LEFT JOIN jt2 ON jt.[Job No_] = jt2.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt2.TotalStart,'-','') AND REPLACE(jt2.TotalEnd,'-','')
+LEFT JOIN jt3 ON jt.[Job No_] = jt3.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt3.TotalStart,'-','') AND REPLACE(jt3.TotalEnd,'-','')
+LEFT JOIN jt4 ON jt.[Job No_] = jt4.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt4.TotalStart,'-','') AND REPLACE(jt4.TotalEnd,'-','')
+LEFT JOIN jt5 ON jt.[Job No_] = jt5.[Job No_] AND jt.[Job Task No_] BETWEEN REPLACE(jt5.TotalStart,'-','') AND REPLACE(jt5.TotalEnd,'-','')
 WHERE jt.[Job No_] = @JobNo
 AND jt.[Job Task Type] = 0 
 ),
@@ -410,7 +413,13 @@ SELECT *
 	WHEN jpl.[Line Type] = 'Contract' THEN [Quantity]
     ELSE null
     END AS [ContractQtyExp]
-,UPPER(SUBSTRING([JPNameShort],1,2) + '-' + SUBSTRING([JPNameShort],CHARINDEX(' ',[JPNameShort])+1,3)) AS JPShortInitial
+/*,UPPER(SUBSTRING([JPNameShort],1,2) + '-' + SUBSTRING([JPNameShort],CHARINDEX(' ',[JPNameShort])+1,3)) AS JPShortInitial*/
+,SUBSTRING([JPNameShort], 1, 3) +     --First initial
+    SUBSTRING([JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1, 3) +    --Middle/Last initial
+    CASE WHEN 0 &lt;&gt;  CHARINDEX(' ', [JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1) -- More than two words 
+        THEN SUBSTRING([JPNameShort], CHARINDEX(' ', [JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1) + 1, 3)  --Last initial
+    ELSE '' --Have to add empty string to avoid NULLing entire result
+    END AS JPShortInitial
 
  FROM JPL
 
@@ -423,7 +432,13 @@ SELECT *
 ,null AS [Contract]
 ,null AS [ContractQty]
 ,null AS [ContractQtyExp]
-,UPPER(SUBSTRING([JPNameShort],1,2) + '-' + SUBSTRING([JPNameShort],CHARINDEX(' ',[JPNameShort])+1,3)) AS JPShortInitial
+/*,UPPER(SUBSTRING([JPNameShort],1,2) + '-' + SUBSTRING([JPNameShort],CHARINDEX(' ',[JPNameShort])+1,3)) AS JPShortInitial*/
+,SUBSTRING([JPNameShort], 1, 3) +     --First initial
+    SUBSTRING([JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1, 3) +    --Middle/Last initial
+    CASE WHEN 0 &lt;&gt;  CHARINDEX(' ', [JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1) -- More than two words 
+        THEN SUBSTRING([JPNameShort], CHARINDEX(' ', [JPNameShort], CHARINDEX(' ', [JPNameShort]) + 1) + 1, 3)  --Last initial
+    ELSE '' --Have to add empty string to avoid NULLing entire result
+    END AS JPShortInitial
  FROM JLE
 )
 

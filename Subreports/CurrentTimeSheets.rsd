@@ -17,6 +17,11 @@ res.Name
 ,(SELECT SUM([Total Hours Worked]) 
     FROM [Palaris$Time Sheet Line] tsl2 
     WHERE tsl2.[Time Sheet No_] = tsh.No_ 
+    AND tsl2.[Work Type Code] LIKE 'BILL%') 
+AS TotalBillable
+,(SELECT SUM([Total Hours Worked]) 
+    FROM [Palaris$Time Sheet Line] tsl2 
+    WHERE tsl2.[Time Sheet No_] = tsh.No_ 
     AND tsl2.Posted = 0) 
 AS TotalUnposted
 ,(SELECT SUM([Total Hours Worked]) 
@@ -46,6 +51,11 @@ res.Name
 ,tsh.[Starting Date]
 ,tsh.[Ending Date]
 ,SUM(tsl.[Total Hours Worked]) AS TotalHours
+,(SELECT SUM([Total Hours Worked]) 
+    FROM [Palaris Europe Limited$Time Sheet Line] tsl2 
+    WHERE tsl2.[Time Sheet No_] = tsh.No_ 
+    AND tsl2.[Work Type Code] LIKE 'BILL%') 
+AS TotalBillable
 ,(SELECT SUM([Total Hours Worked]) 
     FROM [Palaris Europe Limited$Time Sheet Line] tsl2 
     WHERE tsl2.[Time Sheet No_] = tsh.No_ 
@@ -101,6 +111,10 @@ SELECT * FROM PEL</CommandText>
       </Field>
       <Field Name="TotalUnposted">
         <DataField>TotalUnposted</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="TotalBillable">
+        <DataField>TotalBillable</DataField>
         <rd:TypeName>System.Decimal</rd:TypeName>
       </Field>
       <Field Name="TotalJobNotSetUp">

@@ -60,6 +60,10 @@
           <DataField>Creation_Date</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
+        <Field Name="ChargeType">
+          <DataField>ChargeType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="JobType">
           <DataField>JobType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -82,6 +86,10 @@
         </Field>
         <Field Name="PM_User_Name">
           <DataField>PM_User_Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Risk_Level">
+          <DataField>Risk_Level</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Business_Unit_Group">
@@ -232,8 +240,8 @@
           <DataField>PMAdditionalNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OutOfScope">
-          <DataField>OutOfScope</DataField>
+        <Field Name="WIPNoPO">
+          <DataField>WIPNoPO</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="UninvoicedAlice">
@@ -288,8 +296,8 @@
           <Value>=IIf(Fields!Job_On_Hold.Value = 1, "5 On Hold",
 IIf(Fields!CostCompletion.Value &gt;= CDec(0) and Fields!CostCompletion.Value &lt; CDec(0.3), "1 0-29 %",
 IIf(Fields!CostCompletion.Value &gt;= CDec(0.3) and Fields!CostCompletion.Value &lt; CDec(0.9), "2 30-90 %",
-IIf(Fields!CostCompletion.Value &gt;= CDec(0.9) and Fields!CostCompletion.Value &lt;= CDec(1.01), "3 90-101 %",
-IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Value>
+IIf(Fields!CostCompletion.Value &gt;= CDec(0.9) and Fields!CostCompletion.Value &lt; CDec(0.99), "3 90-99 %",
+IIf(Fields!CostCompletion.Value &gt;= CDec(0.99), "4 &gt;=100 %", "6 ?")))))</Value>
         </Field>
       </Fields>
       <Filters>
@@ -298,6 +306,27 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
           <Operator>In</Operator>
           <FilterValues>
             <FilterValue>=Parameters!Business_Unit.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+        <Filter>
+          <FilterExpression>=Fields!Risk_Level.Value</FilterExpression>
+          <Operator>In</Operator>
+          <FilterValues>
+            <FilterValue>=Parameters!ProjectLevel.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+        <Filter>
+          <FilterExpression>=Fields!JobType.Value</FilterExpression>
+          <Operator>In</Operator>
+          <FilterValues>
+            <FilterValue>=Parameters!ProjectType.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+        <Filter>
+          <FilterExpression>=Fields!Service_Code.Value</FilterExpression>
+          <Operator>In</Operator>
+          <FilterValues>
+            <FilterValue>=Parameters!Service.Value</FilterValue>
           </FilterValues>
         </Filter>
       </Filters>
@@ -380,7 +409,10 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
                   <Width>65.48125mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>40.8154mm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>22.08958mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>30.67557mm</Width>
@@ -523,7 +555,7 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Job Type</Value>
+                                  <Value>Project Type</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -535,6 +567,44 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox60</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>#323232</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox6">
+                          <CanGrow>true</CanGrow>
+                          <UserSort>
+                            <SortExpression>=Fields!Risk_Level.Value</SortExpression>
+                          </UserSort>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Level</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox6</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1226,6 +1296,35 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox13">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox13</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>DimGray</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox28">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -1813,6 +1912,45 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>JobType</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Silver</Color>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Risk_Level">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Risk_Level.Value</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Risk_Level</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -2599,6 +2737,49 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox11">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox11</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>3pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox132">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -3329,10 +3510,10 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
                 <TablixMember />
                 <TablixMember>
                   <Visibility>
-                    <Hidden>true</Hidden>
                     <ToggleItem>ColumnToggle</ToggleItem>
                   </Visibility>
                 </TablixMember>
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -3525,6 +3706,15 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
                     <GroupExpressions>
                       <GroupExpression>=Fields!CompletionGroup.Value</GroupExpression>
                     </GroupExpressions>
+                    <Filters>
+                      <Filter>
+                        <FilterExpression>=Fields!CompletionGroup.Value</FilterExpression>
+                        <Operator>In</Operator>
+                        <FilterValues>
+                          <FilterValue>=Parameters!CompletionGroup.Value</FilterValue>
+                        </FilterValues>
+                      </Filter>
+                    </Filters>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
@@ -3647,7 +3837,7 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
             <Top>20.42658mm</Top>
             <Left>3.6632mm</Left>
             <Height>26.2875mm</Height>
-            <Width>470.04203mm</Width>
+            <Width>507.94701mm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -3731,7 +3921,7 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
           </Border>
         </Style>
       </Body>
-      <Width>486.51253mm</Width>
+      <Width>511.61021mm</Width>
       <Page>
         <PageHeight>297mm</PageHeight>
         <PageWidth>210mm</PageWidth>
@@ -3748,15 +3938,10 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
     <ReportParameter Name="Business_Unit">
       <DataType>String</DataType>
       <DefaultValue>
-        <Values>
-          <Value>BDI</Value>
-          <Value>ENG</Value>
-          <Value>FEA</Value>
-          <Value>FIN</Value>
-          <Value>GAS</Value>
-          <Value>MNO</Value>
-          <Value>SHR</Value>
-        </Values>
+        <DataSetReference>
+          <DataSetName>ActiveBUs</DataSetName>
+          <ValueField>Business_Unit_Group</ValueField>
+        </DataSetReference>
       </DefaultValue>
       <Prompt>GM(s)</Prompt>
       <ValidValues>
@@ -3764,6 +3949,128 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
           <DataSetName>ActiveBUs</DataSetName>
           <ValueField>Business_Unit_Group</ValueField>
           <LabelField>Business_Unit_Group</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="ProjectLevel">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Level 1</Value>
+          <Value>Level 2</Value>
+          <Value>Level 3</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Project Level</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>Level 1</Value>
+            <Label>Level 1</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Level 2</Value>
+            <Label>Level 2</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Level 3</Value>
+            <Label>Level 3</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="ProjectType">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Capped Estimate (SOR)</Value>
+          <Value>Fixed Price</Value>
+          <Value>Site/Role Specific</Value>
+          <Value>Ad-hoc</Value>
+          <Value>Other</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Project Type</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>Capped Estimate (SOR)</Value>
+            <Label>Capped Estimate (SOR)</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Fixed Price</Value>
+            <Label>Fixed Price</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Site/Role Specific</Value>
+            <Label>Site/Role Specific</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Ad-hoc</Value>
+            <Label>Ad-hoc</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Other</Value>
+            <Label>Other</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="CompletionGroup">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>1 0-29 %</Value>
+          <Value>2 30-90 %</Value>
+          <Value>3 90-99 %</Value>
+          <Value>4 &gt;=100 %</Value>
+          <Value>5 On Hold</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Completion Group</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>1 0-29 %</Value>
+            <Label>0-29 %</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2 30-90 %</Value>
+            <Label>30-90 %</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>3 90-99 %</Value>
+            <Label>90-99 %</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>4 &gt;=100 %</Value>
+            <Label>&gt;=100 %</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>5 On Hold</Value>
+            <Label>On Hold</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Service">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Services</DataSetName>
+          <ValueField>ServiceCode</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Service(s)</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Services</DataSetName>
+          <ValueField>ServiceCode</ValueField>
+          <LabelField>ServiceLabel</LabelField>
         </DataSetReference>
       </ValidValues>
       <MultiValue>true</MultiValue>

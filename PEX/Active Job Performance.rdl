@@ -298,7 +298,7 @@
                   <Width>25mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>42.4625mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>37.43542mm</Width>
@@ -5170,7 +5170,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
             <Top>9.15735mm</Top>
             <Left>0.79375mm</Left>
             <Height>29.99166mm</Height>
-            <Width>832.95141mm</Width>
+            <Width>850.41391mm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -5222,7 +5222,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
           </Border>
         </Style>
       </Body>
-      <Width>833.74516mm</Width>
+      <Width>851.20766mm</Width>
       <Page>
         <PageHeader>
           <Height>9.12005mm</Height>
@@ -5312,18 +5312,10 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
     <ReportParameter Name="Business_Unit">
       <DataType>String</DataType>
       <DefaultValue>
-        <Values>
-          <Value>BDI</Value>
-          <Value>ENG</Value>
-          <Value>FEA</Value>
-          <Value>FIN</Value>
-          <Value>GAS</Value>
-          <Value>MNO</Value>
-          <Value>PAM</Value>
-          <Value>PEL</Value>
-          <Value>PEX</Value>
-          <Value>SHR</Value>
-        </Values>
+        <DataSetReference>
+          <DataSetName>ActiveBUs</DataSetName>
+          <ValueField>Business_Unit_Group</ValueField>
+        </DataSetReference>
       </DefaultValue>
       <Prompt>EGM(s)</Prompt>
       <ValidValues>
@@ -5337,6 +5329,6 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
     </ReportParameter>
   </ReportParameters>
   <rd:ReportUnitType>Mm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://reports.palaris.com.au/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>bcf7ed78-a424-4116-adad-d852d67e8804</rd:ReportID>
 </Report>

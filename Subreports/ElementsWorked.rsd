@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@ResourceNo">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+          <rd:IsMultiValued>false</rd:IsMultiValued>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>/*Used in Consultant Experience Report in SSRS
+Author: CP*/
+
+/*SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+DECLARE @ResourceNo varchar(5)
+SET @ResourceNo = 'R5022';*/
+
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+WITH JobsWorked AS
+(
+SELECT DISTINCT 
+CASE 
+	WHEN ISNUMERIC(RIGHT([Job No_], 1))&lt;&gt;1 THEN  
+	LEFT([Job No_], LEN([Job No_])-1) 
+	ELSE [Job No_]
+END AS [Base Job No]
+FROM [Palaris$Job Resource Price] jrp
+WHERE Code = @ResourceNo AND [Job No_] NOT LIKE 'T-%'
+
+UNION 
+
+SELECT DISTINCT 
+CASE 
+	WHEN ISNUMERIC(RIGHT([Job No_], 1))&lt;&gt;1 THEN  
+	LEFT([Job No_], LEN([Job No_])-1) 
+	ELSE [Job No_]
+END AS [Base Job No]
+FROM [Palaris Europe Limited$Job Resource Price] jrp
+WHERE Code = @ResourceNo AND [Job No_] NOT LIKE 'T-%'
+),
+
+ZohoOpps AS
+(
+SELECT 
+d.[Opportunity ID] COLLATE Latin1_General_100_CI_AS AS [Opportunity ID] 
+,d.[Element] COLLATE Latin1_General_100_CI_AS AS [Element]
+FROM [ZohoCRM].[dbo].[Deals] d
+LEFT JOIN [ZohoCRM].[dbo].[Accounts] a ON d.Account = a.Id
+)
+
+SELECT DISTINCT
+ISNULL(zo.Element, 'Coal') AS [Element]
+FROM JobsWorked job
+LEFT JOIN ZohoOpps zo ON zo.[Opportunity ID] = job.[Base Job No]</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Element">
+        <DataField>Element</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+</SharedDataSet>

@@ -96,11 +96,23 @@
           <DataField>Parent</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Element">
+          <DataField>Element</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Mine_Method">
+          <DataField>Mine_Method</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Sector">
+          <DataField>Sector</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="ActiveResource">
       <SharedDataSet>
-        <SharedDataSetReference>/Subreports/ActiveResources</SharedDataSetReference>
+        <SharedDataSetReference>/Subreports/ActiveResources_All</SharedDataSetReference>
         <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
@@ -128,7 +140,7 @@
     </DataSet>
     <DataSet Name="ActiveResource2">
       <SharedDataSet>
-        <SharedDataSetReference>/Subreports/ActiveResources</SharedDataSetReference>
+        <SharedDataSetReference>/Subreports/ActiveResources_All</SharedDataSetReference>
         <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
@@ -162,6 +174,23 @@
           </FilterValues>
         </Filter>
       </Filters>
+    </DataSet>
+    <DataSet Name="ElementsWorked">
+      <SharedDataSet>
+        <SharedDataSetReference>/Subreports/ElementsWorked</SharedDataSetReference>
+        <QueryParameters>
+          <QueryParameter Name="@ResourceNo">
+            <Value>=Parameters!ResourceNo.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Element">
+          <DataField>Element</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
     </DataSet>
   </DataSets>
   <ReportSections>
@@ -215,7 +244,7 @@
             <rd:DefaultName>ReportTitle</rd:DefaultName>
             <Top>0mm</Top>
             <Height>10.16mm</Height>
-            <Width>481.78066mm</Width>
+            <Width>569.0037mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1128,7 +1157,7 @@
                 </FilterValues>
               </Filter>
             </Filters>
-            <Top>80.34818mm</Top>
+            <Top>79.97269mm</Top>
             <Left>1.82033mm</Left>
             <Height>15.70417mm</Height>
             <Width>649.60283mm</Width>
@@ -1186,7 +1215,13 @@
                       <Width>20.40697mm</Width>
                     </TablixColumn>
                     <TablixColumn>
-                      <Width>75.94931mm</Width>
+                      <Width>61.92639mm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>25mm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>63.36458mm</Width>
                     </TablixColumn>
                   </TablixColumns>
                   <TablixRows>
@@ -1461,6 +1496,78 @@
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox8</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>5pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox24">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value />
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                        <Color>White</Color>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Left</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox24</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>5pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox28">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value />
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                        <Color>White</Color>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Left</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox28</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Color>LightGrey</Color>
@@ -1799,6 +1906,86 @@
                             </Textbox>
                           </CellContents>
                         </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox25">
+                              <CanGrow>true</CanGrow>
+                              <UserSort>
+                                <SortExpression>=Fields!Mine_Method.Value</SortExpression>
+                              </UserSort>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Mine Method</Value>
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                        <Color>White</Color>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Left</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox25</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>#414141</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>5pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox29">
+                              <CanGrow>true</CanGrow>
+                              <UserSort>
+                                <SortExpression>=Fields!Element.Value</SortExpression>
+                              </UserSort>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Element</Value>
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                        <Color>White</Color>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Left</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox29</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>#414141</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>5pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
                       </TablixCells>
                     </TablixRow>
                     <TablixRow>
@@ -2072,6 +2259,72 @@
                             </Textbox>
                           </CellContents>
                         </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Mine_Method">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Mine_Method.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Mine_Method</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                                <PaddingLeft>5pt</PaddingLeft>
+                                <PaddingRight>3pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Element">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Element.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Element</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                                <PaddingLeft>5pt</PaddingLeft>
+                                <PaddingRight>3pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
                       </TablixCells>
                     </TablixRow>
                     <TablixRow>
@@ -2291,12 +2544,74 @@
                             </Textbox>
                           </CellContents>
                         </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox27">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value />
+                                      <Style />
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox27</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox31">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value />
+                                      <Style />
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox31</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
                       </TablixCells>
                     </TablixRow>
                   </TablixRows>
                 </TablixBody>
                 <TablixColumnHierarchy>
                   <TablixMembers>
+                    <TablixMember />
+                    <TablixMember />
                     <TablixMember />
                     <TablixMember />
                     <TablixMember />
@@ -2365,11 +2680,32 @@ TRUE,FALSE)</FilterExpression>
                       <FilterValue>=Parameters!EndDate.Value</FilterValue>
                     </FilterValues>
                   </Filter>
+                  <Filter>
+                    <FilterExpression>=Fields!Element.Value</FilterExpression>
+                    <Operator>In</Operator>
+                    <FilterValues>
+                      <FilterValue>=Parameters!Element.Value</FilterValue>
+                    </FilterValues>
+                  </Filter>
+                  <Filter>
+                    <FilterExpression>=Fields!Mine_Method.Value</FilterExpression>
+                    <Operator>In</Operator>
+                    <FilterValues>
+                      <FilterValue>=Parameters!MineMethod.Value</FilterValue>
+                    </FilterValues>
+                  </Filter>
+                  <Filter>
+                    <FilterExpression>=Fields!Sector.Value</FilterExpression>
+                    <Operator>In</Operator>
+                    <FilterValues>
+                      <FilterValue>=Parameters!Sector.Value</FilterValue>
+                    </FilterValues>
+                  </Filter>
                 </Filters>
-                <Top>6.14742mm</Top>
-                <Left>134.46769mm</Left>
+                <Top>0.14742mm</Top>
+                <Left>133.67394mm</Left>
                 <Height>27.70417mm</Height>
-                <Width>345.73825mm</Width>
+                <Width>420.07991mm</Width>
                 <Style>
                   <Border>
                     <Style>Solid</Style>
@@ -3805,10 +4141,10 @@ TRUE,FALSE)</FilterExpression>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>12.48833mm</Top>
+            <Top>12.11284mm</Top>
             <Left>1.22693mm</Left>
             <Height>64.45554mm</Height>
-            <Width>481.47594mm</Width>
+            <Width>567.77677mm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -3817,7 +4153,7 @@ TRUE,FALSE)</FilterExpression>
             </Style>
           </Rectangle>
         </ReportItems>
-        <Height>97.11068mm</Height>
+        <Height>97.63985mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3851,6 +4187,17 @@ TRUE,FALSE)</FilterExpression>
       </ValidValues>
       <UsedInQuery>True</UsedInQuery>
     </ReportParameter>
+    <ReportParameter Name="Refresh">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>**Note** Refresh the page each time you select a new person</Prompt>
+    </ReportParameter>
     <ReportParameter Name="ResStartDate">
       <DataType>DateTime</DataType>
       <DefaultValue>
@@ -3861,12 +4208,6 @@ TRUE,FALSE)</FilterExpression>
       </DefaultValue>
       <Prompt>ResStartDate</Prompt>
       <Hidden>true</Hidden>
-      <UsedInQuery>True</UsedInQuery>
-    </ReportParameter>
-    <ReportParameter Name="Keyword">
-      <DataType>String</DataType>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>Enter Keyword (optional)</Prompt>
       <UsedInQuery>True</UsedInQuery>
     </ReportParameter>
     <ReportParameter Name="ResStartDate2">
@@ -3889,7 +4230,6 @@ TRUE,FALSE)</FilterExpression>
     </ReportParameter>
     <ReportParameter Name="StartDate">
       <DataType>DateTime</DataType>
-      <Nullable>true</Nullable>
       <DefaultValue>
         <Values>
           <Value>=Parameters!ResStartDate2.Value</Value>
@@ -3907,6 +4247,86 @@ TRUE,FALSE)</FilterExpression>
       </DefaultValue>
       <Prompt>Ending Date</Prompt>
       <UsedInQuery>True</UsedInQuery>
+    </ReportParameter>
+    <ReportParameter Name="Element">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>ElementsWorked</DataSetName>
+          <ValueField>Element</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Element</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>ElementsWorked</DataSetName>
+          <ValueField>Element</ValueField>
+          <LabelField>Element</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="MineMethod">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>UG</Value>
+          <Value>OC</Value>
+          <Value>Both</Value>
+          <Value>NA</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Mine Method</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>UG</Value>
+            <Label>UG</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>OC</Value>
+            <Label>OC</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Both</Value>
+            <Label>Both</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>NA</Value>
+            <Label>NA</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Sector">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Coal</Value>
+          <Value>Non-Coal</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Sector</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>Coal</Value>
+            <Label>Coal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Non-Coal</Value>
+            <Label>Non-Coal</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Keyword">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Enter Keyword (optional)</Prompt>
+      <UsedInQuery>False</UsedInQuery>
     </ReportParameter>
   </ReportParameters>
   <Language>en-AU</Language>

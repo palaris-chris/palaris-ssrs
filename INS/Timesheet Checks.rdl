@@ -186,6 +186,126 @@
         </Field>
       </Fields>
     </DataSet>
+    <DataSet Name="PostedTimesheetLines">
+      <SharedDataSet>
+        <SharedDataSetReference>/Subreports/PostedTimesheetLines</SharedDataSetReference>
+        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Time_Sheet_No_">
+          <DataField>Time_Sheet_No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Time_Sheet_Starting_Date">
+          <DataField>Time_Sheet_Starting_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Job_No_">
+          <DataField>Job_No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Job_Task_No_">
+          <DataField>Job_Task_No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Work_Type_Code">
+          <DataField>Work_Type_Code</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Timesheet_Default_Work_Type">
+          <DataField>Timesheet_Default_Work_Type</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Work_Location">
+          <DataField>Work_Location</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="JobWorkTypeOnly">
+          <DataField>JobWorkTypeOnly</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="WorkTypeChanged">
+          <DataField>WorkTypeChanged</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Saturday">
+          <DataField>Saturday</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Sunday">
+          <DataField>Sunday</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Monday">
+          <DataField>Monday</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Tuesday">
+          <DataField>Tuesday</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Wednesday">
+          <DataField>Wednesday</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Thursday">
+          <DataField>Thursday</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Friday">
+          <DataField>Friday</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Total_Hours_Worked">
+          <DataField>Total_Hours_Worked</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Job_Approver_User_ID">
+          <DataField>Job_Approver_User_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NotMultipleOf0_25">
+          <DataField>NotMultipleOf0_25</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Resource_No_">
+          <DataField>Resource_No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Owner_User_ID">
+          <DataField>Owner_User_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Approver_User_ID">
+          <DataField>Approver_User_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Company">
+          <DataField>Company</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Approver">
+          <DataField>Approver</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Billable">
+          <DataField>Billable</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
   </DataSets>
   <ReportSections>
     <ReportSection>
@@ -899,7 +1019,7 @@
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>70.8179mm</Top>
+                <Top>89.8679mm</Top>
                 <Left>1.309mm</Left>
                 <Height>12mm</Height>
                 <Width>341.56457mm</Width>
@@ -1573,7 +1693,7 @@
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>29.27267mm</Top>
+                <Top>29.00809mm</Top>
                 <Left>1.04441mm</Left>
                 <Height>12mm</Height>
                 <Width>341.79016mm</Width>
@@ -2247,7 +2367,7 @@
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>50.48798mm</Top>
+                <Top>69.53798mm</Top>
                 <Left>1.04441mm</Left>
                 <Height>12mm</Height>
                 <Width>341.82915mm</Width>
@@ -2296,7 +2416,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox58</rd:DefaultName>
-                <Top>43.27116mm</Top>
+                <Top>62.32116mm</Top>
                 <Left>6.74997mm</Left>
                 <Height>5.45293mm</Height>
                 <Width>108.99444mm</Width>
@@ -2429,7 +2549,7 @@
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>43.27116mm</Top>
+                <Top>62.32116mm</Top>
                 <Left>1.04441mm</Left>
                 <Height>5.45293mm</Height>
                 <Width>5mm</Width>
@@ -2617,7 +2737,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox58</rd:DefaultName>
-                <Top>64.40679mm</Top>
+                <Top>83.45679mm</Top>
                 <Left>6.74997mm</Left>
                 <Height>5.45293mm</Height>
                 <Width>108.99444mm</Width>
@@ -2750,845 +2870,11 @@
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>64.40679mm</Top>
+                <Top>83.45679mm</Top>
                 <Left>1.04441mm</Left>
                 <Height>5mm</Height>
                 <Width>5mm</Width>
                 <ZIndex>8</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <BackgroundColor>White</BackgroundColor>
-                </Style>
-              </GaugePanel>
-              <Tablix Name="Tablix9">
-                <TablixBody>
-                  <TablixColumns>
-                    <TablixColumn>
-                      <Width>148.31457mm</Width>
-                    </TablixColumn>
-                    <TablixColumn>
-                      <Width>25mm</Width>
-                    </TablixColumn>
-                    <TablixColumn>
-                      <Width>25mm</Width>
-                    </TablixColumn>
-                    <TablixColumn>
-                      <Width>25mm</Width>
-                    </TablixColumn>
-                    <TablixColumn>
-                      <Width>25mm</Width>
-                    </TablixColumn>
-                    <TablixColumn>
-                      <Width>25mm</Width>
-                    </TablixColumn>
-                  </TablixColumns>
-                  <TablixRows>
-                    <TablixRow>
-                      <Height>6mm</Height>
-                      <TablixCells>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Textbox23">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Description</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox17</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#7292cc</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Textbox24">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Job No </Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox2</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#7292cc</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Textbox25">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Job Task No </Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox3</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#7292cc</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Textbox26">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Work Type Code</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox5</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#7292cc</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Textbox27">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Status</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox7</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#7292cc</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Textbox28">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Total Hours Worked</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox9</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#7292cc</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                      </TablixCells>
-                    </TablixRow>
-                    <TablixRow>
-                      <Height>6mm</Height>
-                      <TablixCells>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Description4">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=Fields!Description.Value</Value>
-                                      <Style>
-                                        <FontSize>9pt</FontSize>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Description</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#e5e5e5</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Job_No_4">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=Fields!Job_No_.Value</Value>
-                                      <Style>
-                                        <FontSize>9pt</FontSize>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Job_No_</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#e5e5e5</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Job_Task_No_4">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=Fields!Job_Task_No_.Value</Value>
-                                      <Style>
-                                        <FontSize>9pt</FontSize>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Job_Task_No_</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#e5e5e5</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Work_Type_Code4">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=Fields!Work_Type_Code.Value</Value>
-                                      <Style>
-                                        <FontSize>9pt</FontSize>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Work_Type_Code</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#e5e5e5</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Status4">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=Fields!Status.Value</Value>
-                                      <Style>
-                                        <FontSize>9pt</FontSize>
-                                        <Format>n2</Format>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Status</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#e5e5e5</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Total_Hours_Worked4">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=Sum(Fields!Total_Hours_Worked.Value)</Value>
-                                      <Style>
-                                        <FontSize>9pt</FontSize>
-                                        <Format>n2</Format>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Total_Hours_Worked</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Color>#e5e5e5</Color>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                      </TablixCells>
-                    </TablixRow>
-                  </TablixRows>
-                </TablixBody>
-                <TablixColumnHierarchy>
-                  <TablixMembers>
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                  </TablixMembers>
-                </TablixColumnHierarchy>
-                <TablixRowHierarchy>
-                  <TablixMembers>
-                    <TablixMember>
-                      <TablixHeader>
-                        <Size>43.25mm</Size>
-                        <CellContents>
-                          <Textbox Name="Textbox20">
-                            <CanGrow>true</CanGrow>
-                            <KeepTogether>true</KeepTogether>
-                            <Paragraphs>
-                              <Paragraph>
-                                <TextRuns>
-                                  <TextRun>
-                                    <Value>Name</Value>
-                                    <Style>
-                                      <FontWeight>Bold</FontWeight>
-                                    </Style>
-                                  </TextRun>
-                                </TextRuns>
-                                <Style />
-                              </Paragraph>
-                            </Paragraphs>
-                            <rd:DefaultName>Textbox15</rd:DefaultName>
-                            <Style>
-                              <Border>
-                                <Color>#7292cc</Color>
-                                <Style>Solid</Style>
-                              </Border>
-                              <PaddingLeft>2pt</PaddingLeft>
-                              <PaddingRight>2pt</PaddingRight>
-                              <PaddingTop>2pt</PaddingTop>
-                              <PaddingBottom>2pt</PaddingBottom>
-                            </Style>
-                          </Textbox>
-                        </CellContents>
-                      </TablixHeader>
-                      <TablixMembers>
-                        <TablixMember>
-                          <TablixHeader>
-                            <Size>25.26458mm</Size>
-                            <CellContents>
-                              <Textbox Name="Textbox21">
-                                <CanGrow>true</CanGrow>
-                                <KeepTogether>true</KeepTogether>
-                                <Paragraphs>
-                                  <Paragraph>
-                                    <TextRuns>
-                                      <TextRun>
-                                        <Value>Time Sheet </Value>
-                                        <Style>
-                                          <FontWeight>Bold</FontWeight>
-                                        </Style>
-                                      </TextRun>
-                                    </TextRuns>
-                                    <Style />
-                                  </Paragraph>
-                                </Paragraphs>
-                                <rd:DefaultName>Textbox13</rd:DefaultName>
-                                <Style>
-                                  <Border>
-                                    <Color>#7292cc</Color>
-                                    <Style>Solid</Style>
-                                  </Border>
-                                  <PaddingLeft>2pt</PaddingLeft>
-                                  <PaddingRight>2pt</PaddingRight>
-                                  <PaddingTop>2pt</PaddingTop>
-                                  <PaddingBottom>2pt</PaddingBottom>
-                                </Style>
-                              </Textbox>
-                            </CellContents>
-                          </TablixHeader>
-                          <TablixMembers>
-                            <TablixMember />
-                          </TablixMembers>
-                        </TablixMember>
-                      </TablixMembers>
-                      <KeepWithGroup>After</KeepWithGroup>
-                    </TablixMember>
-                    <TablixMember>
-                      <Group Name="Owner_User_ID3">
-                        <GroupExpressions>
-                          <GroupExpression>=Fields!Owner_User_ID.Value</GroupExpression>
-                        </GroupExpressions>
-                      </Group>
-                      <SortExpressions>
-                        <SortExpression>
-                          <Value>=Fields!Owner_User_ID.Value</Value>
-                        </SortExpression>
-                      </SortExpressions>
-                      <TablixHeader>
-                        <Size>43.25mm</Size>
-                        <CellContents>
-                          <Textbox Name="Name7">
-                            <CanGrow>true</CanGrow>
-                            <KeepTogether>true</KeepTogether>
-                            <Paragraphs>
-                              <Paragraph>
-                                <TextRuns>
-                                  <TextRun>
-                                    <Value>=Fields!Name.Value</Value>
-                                    <Style>
-                                      <FontSize>9pt</FontSize>
-                                    </Style>
-                                  </TextRun>
-                                </TextRuns>
-                                <Style />
-                              </Paragraph>
-                            </Paragraphs>
-                            <rd:DefaultName>Name1</rd:DefaultName>
-                            <Style>
-                              <Border>
-                                <Color>#c6daf8</Color>
-                                <Style>Solid</Style>
-                              </Border>
-                              <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                              <PaddingLeft>2pt</PaddingLeft>
-                              <PaddingRight>2pt</PaddingRight>
-                              <PaddingTop>2pt</PaddingTop>
-                              <PaddingBottom>2pt</PaddingBottom>
-                            </Style>
-                          </Textbox>
-                        </CellContents>
-                      </TablixHeader>
-                      <TablixMembers>
-                        <TablixMember>
-                          <Group Name="Time_Sheet_No_4">
-                            <GroupExpressions>
-                              <GroupExpression>=Fields!Time_Sheet_No_.Value</GroupExpression>
-                            </GroupExpressions>
-                          </Group>
-                          <SortExpressions>
-                            <SortExpression>
-                              <Value>=Fields!Time_Sheet_No_.Value</Value>
-                            </SortExpression>
-                          </SortExpressions>
-                          <TablixHeader>
-                            <Size>25.26458mm</Size>
-                            <CellContents>
-                              <Textbox Name="Time_Sheet_No_4">
-                                <CanGrow>true</CanGrow>
-                                <KeepTogether>true</KeepTogether>
-                                <Paragraphs>
-                                  <Paragraph>
-                                    <TextRuns>
-                                      <TextRun>
-                                        <Value>=Fields!Time_Sheet_No_.Value</Value>
-                                        <Style>
-                                          <FontSize>9pt</FontSize>
-                                        </Style>
-                                      </TextRun>
-                                    </TextRuns>
-                                    <Style />
-                                  </Paragraph>
-                                </Paragraphs>
-                                <rd:DefaultName>Time_Sheet_No_</rd:DefaultName>
-                                <ActionInfo>
-                                  <Actions>
-                                    <Action>
-                                      <Hyperlink>=Microsoft.VisualBasic.Interaction.IIf(Fields!Company.Value = "PAL", "dynamicsnav://pmntlnav1:7046/Palaris/Palaris/runpage?page=953&amp;personalization=953&amp;$filter=%27Time%20Sheet%20Header%27.%27No.%27%20IS%20%27" &amp; Fields!Time_Sheet_No_.Value &amp; "%27&amp;mode=Edit", "dynamicsnav://pmntlnav1:7046/Palaris/Palaris%20Europe%20Limited/runpage?page=953&amp;personalization=953&amp;$filter=%27Time%20Sheet%20Header%27.%27No.%27%20IS%20%27" &amp; Fields!Time_Sheet_No_.Value &amp; "%27&amp;mode=Edit")</Hyperlink>
-                                    </Action>
-                                  </Actions>
-                                </ActionInfo>
-                                <Style>
-                                  <Border>
-                                    <Color>#e6eefc</Color>
-                                    <Style>Solid</Style>
-                                  </Border>
-                                  <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                  <PaddingLeft>2pt</PaddingLeft>
-                                  <PaddingRight>2pt</PaddingRight>
-                                  <PaddingTop>2pt</PaddingTop>
-                                  <PaddingBottom>2pt</PaddingBottom>
-                                </Style>
-                              </Textbox>
-                            </CellContents>
-                          </TablixHeader>
-                          <TablixMembers>
-                            <TablixMember>
-                              <Group Name="Details3" />
-                            </TablixMember>
-                          </TablixMembers>
-                        </TablixMember>
-                      </TablixMembers>
-                    </TablixMember>
-                  </TablixMembers>
-                </TablixRowHierarchy>
-                <DataSetName>UnpostedTimesheetLines</DataSetName>
-                <Filters>
-                  <Filter>
-                    <FilterExpression>=Fields!Time_Sheet_Starting_Date.Value</FilterExpression>
-                    <Operator>Equal</Operator>
-                    <FilterValues>
-                      <FilterValue>=Parameters!WeekEnding.Value</FilterValue>
-                    </FilterValues>
-                  </Filter>
-                  <Filter>
-                    <FilterExpression>=Fields!JobWorkTypeOnly.Value</FilterExpression>
-                    <Operator>Equal</Operator>
-                    <FilterValues>
-                      <FilterValue DataType="Integer">1</FilterValue>
-                    </FilterValues>
-                  </Filter>
-                </Filters>
-                <Top>112.0719mm</Top>
-                <Left>1.30901mm</Left>
-                <Height>12mm</Height>
-                <Width>341.82915mm</Width>
-                <ZIndex>9</ZIndex>
-                <Visibility>
-                  <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
-                </Visibility>
-                <Style>
-                  <Border>
-                    <Style>Solid</Style>
-                  </Border>
-                  <TopBorder>
-                    <Color>Black</Color>
-                    <Style>Solid</Style>
-                    <Width>1pt</Width>
-                  </TopBorder>
-                  <BottomBorder>
-                    <Color>Black</Color>
-                    <Style>Solid</Style>
-                    <Width>1pt</Width>
-                  </BottomBorder>
-                  <LeftBorder>
-                    <Color>Black</Color>
-                    <Style>Solid</Style>
-                    <Width>1pt</Width>
-                  </LeftBorder>
-                  <RightBorder>
-                    <Color>Black</Color>
-                    <Style>Solid</Style>
-                    <Width>1pt</Width>
-                  </RightBorder>
-                </Style>
-              </Tablix>
-              <Textbox Name="Textbox78">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>No BILLHR/NBTHR/BILLDAY/NBTDAY on T- Jobs</Value>
-                        <Style />
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox58</rd:DefaultName>
-                <Top>105.20786mm</Top>
-                <Left>7.01457mm</Left>
-                <Height>5.45293mm</Height>
-                <Width>108.99444mm</Width>
-                <ZIndex>10</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                  <PaddingTop>2pt</PaddingTop>
-                  <PaddingBottom>2pt</PaddingBottom>
-                </Style>
-              </Textbox>
-              <GaugePanel Name="GaugePanel5">
-                <StateIndicators>
-                  <StateIndicator Name="Indicator1">
-                    <GaugeInputValue>
-                      <Value>=Microsoft.VisualBasic.Interaction.IIf(Sum(Fields!Total_Hours_Worked.Value) &lt;&gt; 0, 1, 0)</Value>
-                      <Multiplier>1</Multiplier>
-                      <DataElementOutput>NoOutput</DataElementOutput>
-                    </GaugeInputValue>
-                    <TransformationType>None</TransformationType>
-                    <TransformationScope />
-                    <MinimumValue>
-                      <Value>NaN</Value>
-                      <Multiplier>1</Multiplier>
-                    </MinimumValue>
-                    <MaximumValue>
-                      <Value>NaN</Value>
-                      <Multiplier>1</Multiplier>
-                    </MaximumValue>
-                    <IndicatorStyle>None</IndicatorStyle>
-                    <IndicatorImage>
-                      <Source>External</Source>
-                      <Value />
-                    </IndicatorImage>
-                    <ScaleFactor>1</ScaleFactor>
-                    <IndicatorStates>
-                      <IndicatorState Name="Red">
-                        <StartValue>
-                          <Value>1</Value>
-                          <Multiplier>1</Multiplier>
-                        </StartValue>
-                        <EndValue>
-                          <Value>1</Value>
-                          <Multiplier>1</Multiplier>
-                        </EndValue>
-                        <Color>Red</Color>
-                        <ScaleFactor>1</ScaleFactor>
-                        <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
-                        <IndicatorImage>
-                          <Source>External</Source>
-                          <Value />
-                        </IndicatorImage>
-                      </IndicatorState>
-                      <IndicatorState Name="Green">
-                        <StartValue>
-                          <Value>0</Value>
-                          <Multiplier>1</Multiplier>
-                        </StartValue>
-                        <EndValue>
-                          <Value>0</Value>
-                          <Multiplier>1</Multiplier>
-                        </EndValue>
-                        <Color>Green</Color>
-                        <ScaleFactor>1</ScaleFactor>
-                        <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
-                        <IndicatorImage>
-                          <Source>External</Source>
-                          <Value />
-                        </IndicatorImage>
-                      </IndicatorState>
-                    </IndicatorStates>
-                    <Angle>0</Angle>
-                    <StateDataElementName />
-                    <rd:IconsSet>ThreeUnrimmedTrafficLights</rd:IconsSet>
-                    <Style>
-                      <ShadowOffset>2pt</ShadowOffset>
-                    </Style>
-                    <Top>4</Top>
-                    <Left>4</Left>
-                    <Height>92</Height>
-                    <Width>92</Width>
-                  </StateIndicator>
-                </StateIndicators>
-                <AutoLayout>true</AutoLayout>
-                <BackFrame>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <BackgroundColor>Gainsboro</BackgroundColor>
-                    <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
-                    <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
-                    <BackgroundHatchType>None</BackgroundHatchType>
-                    <ShadowOffset>0pt</ShadowOffset>
-                  </Style>
-                  <FrameBackground>
-                    <Style>
-                      <BackgroundColor>Silver</BackgroundColor>
-                      <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
-                      <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
-                      <BackgroundHatchType>None</BackgroundHatchType>
-                    </Style>
-                  </FrameBackground>
-                  <FrameImage>
-                    <Source>External</Source>
-                    <Value />
-                  </FrameImage>
-                </BackFrame>
-                <TopImage>
-                  <Source>External</Source>
-                  <Value />
-                </TopImage>
-                <DataSetName>UnpostedTimesheetLines</DataSetName>
-                <Filters>
-                  <Filter>
-                    <FilterExpression>=Fields!Time_Sheet_Starting_Date.Value</FilterExpression>
-                    <Operator>Equal</Operator>
-                    <FilterValues>
-                      <FilterValue>=Parameters!WeekEnding.Value</FilterValue>
-                    </FilterValues>
-                  </Filter>
-                  <Filter>
-                    <FilterExpression>=Fields!JobWorkTypeOnly.Value</FilterExpression>
-                    <Operator>Equal</Operator>
-                    <FilterValues>
-                      <FilterValue DataType="Integer">1</FilterValue>
-                    </FilterValues>
-                  </Filter>
-                </Filters>
-                <Top>105.66079mm</Top>
-                <Left>1.30901mm</Left>
-                <Height>5mm</Height>
-                <Width>5mm</Width>
-                <ZIndex>11</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -4240,7 +3526,7 @@
                 <Left>1.30901mm</Left>
                 <Height>12mm</Height>
                 <Width>341.82915mm</Width>
-                <ZIndex>12</ZIndex>
+                <ZIndex>9</ZIndex>
                 <Visibility>
                   <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
                 </Visibility>
@@ -4289,7 +3575,7 @@
                 <Left>7.01457mm</Left>
                 <Height>5.45293mm</Height>
                 <Width>108.99444mm</Width>
-                <ZIndex>13</ZIndex>
+                <ZIndex>10</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -4422,7 +3708,7 @@
                 <Left>1.30901mm</Left>
                 <Height>5mm</Height>
                 <Width>5mm</Width>
-                <ZIndex>14</ZIndex>
+                <ZIndex>11</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -4435,9 +3721,6 @@
                   <Tablix Name="Tablix4">
                     <TablixBody>
                       <TablixColumns>
-                        <TablixColumn>
-                          <Width>25mm</Width>
-                        </TablixColumn>
                         <TablixColumn>
                           <Width>25mm</Width>
                         </TablixColumn>
@@ -4510,38 +3793,6 @@
                                     </Paragraph>
                                   </Paragraphs>
                                   <rd:DefaultName>Textbox61</rd:DefaultName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
-                                <Textbox Name="Textbox86">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>45 Hours</Value>
-                                          <Style>
-                                            <FontSize>8pt</FontSize>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style />
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>Textbox86</rd:DefaultName>
                                   <Style>
                                     <Border>
                                       <Color>LightGrey</Color>
@@ -4694,138 +3945,6 @@
                             </TablixCell>
                             <TablixCell>
                               <CellContents>
-                                <GaugePanel Name="GaugePanel6">
-                                  <StateIndicators>
-                                    <StateIndicator Name="Indicator1">
-                                      <GaugeInputValue>
-                                        <Value>=Sum(Fields!TotalHours.Value)</Value>
-                                        <Multiplier>1</Multiplier>
-                                        <DataElementOutput>NoOutput</DataElementOutput>
-                                      </GaugeInputValue>
-                                      <TransformationType>None</TransformationType>
-                                      <TransformationScope>Tablix4</TransformationScope>
-                                      <MinimumValue>
-                                        <Value>NaN</Value>
-                                        <Multiplier>1</Multiplier>
-                                      </MinimumValue>
-                                      <MaximumValue>
-                                        <Value>NaN</Value>
-                                        <Multiplier>1</Multiplier>
-                                      </MaximumValue>
-                                      <IndicatorStyle>None</IndicatorStyle>
-                                      <IndicatorImage>
-                                        <Source>External</Source>
-                                        <Value />
-                                      </IndicatorImage>
-                                      <ScaleFactor>1</ScaleFactor>
-                                      <IndicatorStates>
-                                        <IndicatorState Name="Yellow">
-                                          <StartValue>
-                                            <Value>46</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </StartValue>
-                                          <EndValue>
-                                            <Value>100</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </EndValue>
-                                          <Color>Yellow</Color>
-                                          <ScaleFactor>1</ScaleFactor>
-                                          <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
-                                          <IndicatorImage>
-                                            <Source>External</Source>
-                                            <Value />
-                                          </IndicatorImage>
-                                        </IndicatorState>
-                                        <IndicatorState Name="Green">
-                                          <StartValue>
-                                            <Value>45</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </StartValue>
-                                          <EndValue>
-                                            <Value>45</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </EndValue>
-                                          <Color>Green</Color>
-                                          <ScaleFactor>1</ScaleFactor>
-                                          <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
-                                          <IndicatorImage>
-                                            <Source>External</Source>
-                                            <Value />
-                                          </IndicatorImage>
-                                        </IndicatorState>
-                                        <IndicatorState Name="Red">
-                                          <StartValue>
-                                            <Value>0</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </StartValue>
-                                          <EndValue>
-                                            <Value>44.99</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </EndValue>
-                                          <Color>Red</Color>
-                                          <ScaleFactor>1</ScaleFactor>
-                                          <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
-                                          <IndicatorImage>
-                                            <Source>External</Source>
-                                            <Value />
-                                          </IndicatorImage>
-                                        </IndicatorState>
-                                      </IndicatorStates>
-                                      <Angle>0</Angle>
-                                      <StateDataElementName />
-                                      <rd:IconsSet>ThreeUnrimmedTrafficLights</rd:IconsSet>
-                                      <Style>
-                                        <ShadowOffset>2pt</ShadowOffset>
-                                      </Style>
-                                      <Top>4</Top>
-                                      <Left>4</Left>
-                                      <Height>92</Height>
-                                      <Width>92</Width>
-                                      <ToolTip>=ReportItems!TotalHours.Value</ToolTip>
-                                    </StateIndicator>
-                                  </StateIndicators>
-                                  <AutoLayout>true</AutoLayout>
-                                  <BackFrame>
-                                    <Style>
-                                      <Border>
-                                        <Style>None</Style>
-                                      </Border>
-                                      <BackgroundColor>Gainsboro</BackgroundColor>
-                                      <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
-                                      <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
-                                      <BackgroundHatchType>None</BackgroundHatchType>
-                                      <ShadowOffset>0pt</ShadowOffset>
-                                    </Style>
-                                    <FrameBackground>
-                                      <Style>
-                                        <BackgroundColor>Silver</BackgroundColor>
-                                        <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
-                                        <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
-                                        <BackgroundHatchType>None</BackgroundHatchType>
-                                      </Style>
-                                    </FrameBackground>
-                                    <FrameImage>
-                                      <Source>External</Source>
-                                      <Value />
-                                    </FrameImage>
-                                  </BackFrame>
-                                  <TopImage>
-                                    <Source>External</Source>
-                                    <Value />
-                                  </TopImage>
-                                  <DataSetName>CurrentTimeSheets</DataSetName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                  </Style>
-                                </GaugePanel>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
                                 <Textbox Name="TotalJobNotSetUp">
                                   <CanGrow>true</CanGrow>
                                   <KeepTogether>true</KeepTogether>
@@ -4898,7 +4017,6 @@
                     </TablixBody>
                     <TablixColumnHierarchy>
                       <TablixMembers>
-                        <TablixMember />
                         <TablixMember />
                         <TablixMember />
                         <TablixMember />
@@ -5116,15 +4234,6 @@
                                 <GroupExpressions>
                                   <GroupExpression>=Fields!Name.Value</GroupExpression>
                                 </GroupExpressions>
-                                <Filters>
-                                  <Filter>
-                                    <FilterExpression>=Sum(Fields!TotalHours.Value)</FilterExpression>
-                                    <Operator>Equal</Operator>
-                                    <FilterValues>
-                                      <FilterValue DataType="Float">=CDec(45)</FilterValue>
-                                    </FilterValues>
-                                  </Filter>
-                                </Filters>
                               </Group>
                               <SortExpressions>
                                 <SortExpression>
@@ -5171,6 +4280,15 @@
                                     <GroupExpressions>
                                       <GroupExpression>=Fields!Company.Value</GroupExpression>
                                     </GroupExpressions>
+                                    <Filters>
+                                      <Filter>
+                                        <FilterExpression>=Sum(Fields!TotalHours.Value)</FilterExpression>
+                                        <Operator>GreaterThan</Operator>
+                                        <FilterValues>
+                                          <FilterValue>=CDec(0)</FilterValue>
+                                        </FilterValues>
+                                      </Filter>
+                                    </Filters>
                                   </Group>
                                   <SortExpressions>
                                     <SortExpression>
@@ -5292,10 +4410,10 @@
                         </FilterValues>
                       </Filter>
                     </Filters>
-                    <Top>66.59281mm</Top>
-                    <Left>0.92143mm</Left>
+                    <Top>42.78031mm</Top>
+                    <Left>0.41078mm</Left>
                     <Height>12mm</Height>
-                    <Width>227.38218mm</Width>
+                    <Width>202.38218mm</Width>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -5975,8 +5093,8 @@
                         </FilterValues>
                       </Filter>
                     </Filters>
-                    <Top>89.58146mm</Top>
-                    <Left>0.92143mm</Left>
+                    <Top>65.50438mm</Top>
+                    <Left>0.41078mm</Left>
                     <Height>12mm</Height>
                     <Width>202.38218mm</Width>
                     <ZIndex>1</ZIndex>
@@ -5989,9 +5107,6 @@
                   <Tablix Name="Tablix6">
                     <TablixBody>
                       <TablixColumns>
-                        <TablixColumn>
-                          <Width>25mm</Width>
-                        </TablixColumn>
                         <TablixColumn>
                           <Width>25mm</Width>
                         </TablixColumn>
@@ -6064,38 +5179,6 @@
                                     </Paragraph>
                                   </Paragraphs>
                                   <rd:DefaultName>Textbox61</rd:DefaultName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
-                                <Textbox Name="Textbox87">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>&gt;45 Hours</Value>
-                                          <Style>
-                                            <FontSize>8pt</FontSize>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style />
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>Textbox86</rd:DefaultName>
                                   <Style>
                                     <Border>
                                       <Color>LightGrey</Color>
@@ -6248,157 +5331,6 @@
                             </TablixCell>
                             <TablixCell>
                               <CellContents>
-                                <GaugePanel Name="GaugePanel7">
-                                  <StateIndicators>
-                                    <StateIndicator Name="Indicator1">
-                                      <GaugeInputValue>
-                                        <Value>=Sum(Fields!TotalHours.Value)</Value>
-                                        <Multiplier>1</Multiplier>
-                                        <DataElementOutput>NoOutput</DataElementOutput>
-                                      </GaugeInputValue>
-                                      <TransformationType>None</TransformationType>
-                                      <TransformationScope>Company3</TransformationScope>
-                                      <MinimumValue>
-                                        <Value>NaN</Value>
-                                        <Multiplier>1</Multiplier>
-                                      </MinimumValue>
-                                      <MaximumValue>
-                                        <Value>NaN</Value>
-                                        <Multiplier>1</Multiplier>
-                                      </MaximumValue>
-                                      <IndicatorStyle>None</IndicatorStyle>
-                                      <IndicatorImage>
-                                        <Source>External</Source>
-                                        <Value />
-                                      </IndicatorImage>
-                                      <ScaleFactor>1</ScaleFactor>
-                                      <IndicatorStates>
-                                        <IndicatorState Name="Yellow">
-                                          <StartValue>
-                                            <Value>45.01</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </StartValue>
-                                          <EndValue>
-                                            <Value>54.99</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </EndValue>
-                                          <Color>Yellow</Color>
-                                          <ScaleFactor>1</ScaleFactor>
-                                          <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
-                                          <IndicatorImage>
-                                            <Source>External</Source>
-                                            <Value />
-                                          </IndicatorImage>
-                                        </IndicatorState>
-                                        <IndicatorState Name="Green">
-                                          <StartValue>
-                                            <Value>45</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </StartValue>
-                                          <EndValue>
-                                            <Value>45</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </EndValue>
-                                          <Color>Green</Color>
-                                          <ScaleFactor>1</ScaleFactor>
-                                          <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
-                                          <IndicatorImage>
-                                            <Source>External</Source>
-                                            <Value />
-                                          </IndicatorImage>
-                                        </IndicatorState>
-                                        <IndicatorState Name="Red">
-                                          <StartValue>
-                                            <Value>0</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </StartValue>
-                                          <EndValue>
-                                            <Value>44.99</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </EndValue>
-                                          <Color>Red</Color>
-                                          <ScaleFactor>1</ScaleFactor>
-                                          <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
-                                          <IndicatorImage>
-                                            <Source>External</Source>
-                                            <Value />
-                                          </IndicatorImage>
-                                        </IndicatorState>
-                                        <IndicatorState Name="IndicatorState1">
-                                          <StartValue>
-                                            <Value>55</Value>
-                                            <Multiplier>1</Multiplier>
-                                            <DataElementOutput>NoOutput</DataElementOutput>
-                                          </StartValue>
-                                          <EndValue>
-                                            <Value>150</Value>
-                                            <Multiplier>1</Multiplier>
-                                            <DataElementOutput>NoOutput</DataElementOutput>
-                                          </EndValue>
-                                          <Color>Red</Color>
-                                          <ScaleFactor>1</ScaleFactor>
-                                          <IndicatorStyle>Circle</IndicatorStyle>
-                                          <IndicatorImage>
-                                            <Source>External</Source>
-                                            <Value />
-                                          </IndicatorImage>
-                                        </IndicatorState>
-                                      </IndicatorStates>
-                                      <Angle>0</Angle>
-                                      <StateDataElementName />
-                                      <rd:IconsSet>ThreeUnrimmedTrafficLights</rd:IconsSet>
-                                      <Style>
-                                        <ShadowOffset>2pt</ShadowOffset>
-                                      </Style>
-                                      <Top>4</Top>
-                                      <Left>4</Left>
-                                      <Height>92</Height>
-                                      <Width>92</Width>
-                                      <ToolTip>=ReportItems!TotalHours3.Value</ToolTip>
-                                    </StateIndicator>
-                                  </StateIndicators>
-                                  <AutoLayout>true</AutoLayout>
-                                  <BackFrame>
-                                    <Style>
-                                      <Border>
-                                        <Style>None</Style>
-                                      </Border>
-                                      <BackgroundColor>Gainsboro</BackgroundColor>
-                                      <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
-                                      <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
-                                      <BackgroundHatchType>None</BackgroundHatchType>
-                                      <ShadowOffset>0pt</ShadowOffset>
-                                    </Style>
-                                    <FrameBackground>
-                                      <Style>
-                                        <BackgroundColor>Silver</BackgroundColor>
-                                        <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
-                                        <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
-                                        <BackgroundHatchType>None</BackgroundHatchType>
-                                      </Style>
-                                    </FrameBackground>
-                                    <FrameImage>
-                                      <Source>External</Source>
-                                      <Value />
-                                    </FrameImage>
-                                  </BackFrame>
-                                  <TopImage>
-                                    <Source>External</Source>
-                                    <Value />
-                                  </TopImage>
-                                  <DataSetName>CurrentTimeSheets</DataSetName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                  </Style>
-                                </GaugePanel>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
                                 <Textbox Name="TotalJobNotSetUp3">
                                   <CanGrow>true</CanGrow>
                                   <KeepTogether>true</KeepTogether>
@@ -6471,7 +5403,6 @@
                     </TablixBody>
                     <TablixColumnHierarchy>
                       <TablixMembers>
-                        <TablixMember />
                         <TablixMember />
                         <TablixMember />
                         <TablixMember />
@@ -6691,10 +5622,10 @@
                                 </GroupExpressions>
                                 <Filters>
                                   <Filter>
-                                    <FilterExpression>=Sum(Fields!TotalHours.Value)</FilterExpression>
+                                    <FilterExpression>=Sum(Fields!TotalJobNotSetUp.Value)+Sum(Fields!TotalUnposted.Value)</FilterExpression>
                                     <Operator>GreaterThan</Operator>
                                     <FilterValues>
-                                      <FilterValue>=CDec(45)</FilterValue>
+                                      <FilterValue>=CDec(0)</FilterValue>
                                     </FilterValues>
                                   </Filter>
                                 </Filters>
@@ -6744,6 +5675,15 @@
                                     <GroupExpressions>
                                       <GroupExpression>=Fields!Company.Value</GroupExpression>
                                     </GroupExpressions>
+                                    <Filters>
+                                      <Filter>
+                                        <FilterExpression>=Sum(Fields!TotalJobNotSetUp.Value)+Sum(Fields!TotalUnposted.Value)</FilterExpression>
+                                        <Operator>GreaterThan</Operator>
+                                        <FilterValues>
+                                          <FilterValue>=CDec(0)</FilterValue>
+                                        </FilterValues>
+                                      </Filter>
+                                    </Filters>
                                   </Group>
                                   <SortExpressions>
                                     <SortExpression>
@@ -6865,895 +5805,8 @@
                     <Top>20.7814mm</Top>
                     <Left>0.92143mm</Left>
                     <Height>12mm</Height>
-                    <Width>227.38218mm</Width>
+                    <Width>202.38218mm</Width>
                     <ZIndex>2</ZIndex>
-                    <Style>
-                      <Border>
-                        <Style>None</Style>
-                      </Border>
-                    </Style>
-                  </Tablix>
-                  <Tablix Name="Tablix7">
-                    <TablixBody>
-                      <TablixColumns>
-                        <TablixColumn>
-                          <Width>25mm</Width>
-                        </TablixColumn>
-                        <TablixColumn>
-                          <Width>25mm</Width>
-                        </TablixColumn>
-                        <TablixColumn>
-                          <Width>25mm</Width>
-                        </TablixColumn>
-                        <TablixColumn>
-                          <Width>25mm</Width>
-                        </TablixColumn>
-                        <TablixColumn>
-                          <Width>25mm</Width>
-                        </TablixColumn>
-                      </TablixColumns>
-                      <TablixRows>
-                        <TablixRow>
-                          <Height>6mm</Height>
-                          <TablixCells>
-                            <TablixCell>
-                              <CellContents>
-                                <Textbox Name="Textbox75">
-                                  <CanGrow>true</CanGrow>
-                                  <UserSort>
-                                    <SortExpression>=Fields!TotalHours.Value</SortExpression>
-                                    <SortTarget>CurrentTimeSheets</SortTarget>
-                                  </UserSort>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>Total Hours</Value>
-                                          <Style>
-                                            <FontSize>8pt</FontSize>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style />
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>Textbox60</rd:DefaultName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
-                                <Textbox Name="Textbox76">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>Total Unposted</Value>
-                                          <Style>
-                                            <FontSize>8pt</FontSize>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style />
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>Textbox61</rd:DefaultName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
-                                <Textbox Name="Textbox88">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>&lt;45 Hours</Value>
-                                          <Style>
-                                            <FontSize>8pt</FontSize>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style />
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>Textbox86</rd:DefaultName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
-                                <Textbox Name="Textbox97">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>Not Set Up</Value>
-                                          <Style>
-                                            <FontSize>8pt</FontSize>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style />
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>Textbox91</rd:DefaultName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
-                                <Textbox Name="Textbox106">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>Not An Increment of 0.25</Value>
-                                          <Style>
-                                            <FontSize>8pt</FontSize>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style />
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>Textbox93</rd:DefaultName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </CellContents>
-                            </TablixCell>
-                          </TablixCells>
-                        </TablixRow>
-                        <TablixRow>
-                          <Height>6mm</Height>
-                          <TablixCells>
-                            <TablixCell>
-                              <CellContents>
-                                <Textbox Name="TotalHours4">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>=Sum(Fields!TotalHours.Value)</Value>
-                                          <Style>
-                                            <FontSize>8pt</FontSize>
-                                            <Format>n2</Format>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style />
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>TotalHours</rd:DefaultName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
-                                <Textbox Name="TotalUnposted4">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>=Sum(Fields!TotalUnposted.Value)</Value>
-                                          <Style>
-                                            <FontSize>8pt</FontSize>
-                                            <Format>n2</Format>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style />
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>TotalUnposted</rd:DefaultName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
-                                <GaugePanel Name="GaugePanel8">
-                                  <StateIndicators>
-                                    <StateIndicator Name="Indicator1">
-                                      <GaugeInputValue>
-                                        <Value>=Sum(Fields!TotalHours.Value)</Value>
-                                        <Multiplier>1</Multiplier>
-                                        <DataElementOutput>NoOutput</DataElementOutput>
-                                      </GaugeInputValue>
-                                      <TransformationType>None</TransformationType>
-                                      <TransformationScope>Company4</TransformationScope>
-                                      <MinimumValue>
-                                        <Value>NaN</Value>
-                                        <Multiplier>1</Multiplier>
-                                      </MinimumValue>
-                                      <MaximumValue>
-                                        <Value>NaN</Value>
-                                        <Multiplier>1</Multiplier>
-                                      </MaximumValue>
-                                      <IndicatorStyle>None</IndicatorStyle>
-                                      <IndicatorImage>
-                                        <Source>External</Source>
-                                        <Value />
-                                      </IndicatorImage>
-                                      <ScaleFactor>1</ScaleFactor>
-                                      <IndicatorStates>
-                                        <IndicatorState Name="Yellow">
-                                          <StartValue>
-                                            <Value>46</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </StartValue>
-                                          <EndValue>
-                                            <Value>100</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </EndValue>
-                                          <Color>Yellow</Color>
-                                          <ScaleFactor>1</ScaleFactor>
-                                          <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
-                                          <IndicatorImage>
-                                            <Source>External</Source>
-                                            <Value />
-                                          </IndicatorImage>
-                                        </IndicatorState>
-                                        <IndicatorState Name="Green">
-                                          <StartValue>
-                                            <Value>45</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </StartValue>
-                                          <EndValue>
-                                            <Value>45</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </EndValue>
-                                          <Color>Green</Color>
-                                          <ScaleFactor>1</ScaleFactor>
-                                          <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
-                                          <IndicatorImage>
-                                            <Source>External</Source>
-                                            <Value />
-                                          </IndicatorImage>
-                                        </IndicatorState>
-                                        <IndicatorState Name="Red">
-                                          <StartValue>
-                                            <Value>0</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </StartValue>
-                                          <EndValue>
-                                            <Value>44.99</Value>
-                                            <Multiplier>1</Multiplier>
-                                          </EndValue>
-                                          <Color>Red</Color>
-                                          <ScaleFactor>1</ScaleFactor>
-                                          <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
-                                          <IndicatorImage>
-                                            <Source>External</Source>
-                                            <Value />
-                                          </IndicatorImage>
-                                        </IndicatorState>
-                                        <IndicatorState Name="IndicatorState1">
-                                          <StartValue>
-                                            <Value />
-                                            <Multiplier>1</Multiplier>
-                                            <DataElementOutput>NoOutput</DataElementOutput>
-                                          </StartValue>
-                                          <EndValue>
-                                            <Value />
-                                            <Multiplier>1</Multiplier>
-                                            <DataElementOutput>NoOutput</DataElementOutput>
-                                          </EndValue>
-                                          <Color>Red</Color>
-                                          <ScaleFactor>1</ScaleFactor>
-                                          <IndicatorStyle>Circle</IndicatorStyle>
-                                          <IndicatorImage>
-                                            <Source>External</Source>
-                                            <Value />
-                                          </IndicatorImage>
-                                        </IndicatorState>
-                                      </IndicatorStates>
-                                      <Angle>0</Angle>
-                                      <StateDataElementName />
-                                      <rd:IconsSet>ThreeUnrimmedTrafficLights</rd:IconsSet>
-                                      <Style>
-                                        <ShadowOffset>2pt</ShadowOffset>
-                                      </Style>
-                                      <Top>4</Top>
-                                      <Left>4</Left>
-                                      <Height>92</Height>
-                                      <Width>92</Width>
-                                      <ToolTip>=ReportItems!TotalHours4.Value</ToolTip>
-                                    </StateIndicator>
-                                  </StateIndicators>
-                                  <AutoLayout>true</AutoLayout>
-                                  <BackFrame>
-                                    <Style>
-                                      <Border>
-                                        <Style>None</Style>
-                                      </Border>
-                                      <BackgroundColor>Gainsboro</BackgroundColor>
-                                      <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
-                                      <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
-                                      <BackgroundHatchType>None</BackgroundHatchType>
-                                      <ShadowOffset>0pt</ShadowOffset>
-                                    </Style>
-                                    <FrameBackground>
-                                      <Style>
-                                        <BackgroundColor>Silver</BackgroundColor>
-                                        <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
-                                        <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
-                                        <BackgroundHatchType>None</BackgroundHatchType>
-                                      </Style>
-                                    </FrameBackground>
-                                    <FrameImage>
-                                      <Source>External</Source>
-                                      <Value />
-                                    </FrameImage>
-                                  </BackFrame>
-                                  <TopImage>
-                                    <Source>External</Source>
-                                    <Value />
-                                  </TopImage>
-                                  <DataSetName>CurrentTimeSheets</DataSetName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                  </Style>
-                                </GaugePanel>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
-                                <Textbox Name="TotalJobNotSetUp4">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>=Sum(Fields!TotalJobNotSetUp.Value)</Value>
-                                          <Style>
-                                            <FontSize>8pt</FontSize>
-                                            <Format>n2</Format>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style />
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>TotalJobNotSetUp</rd:DefaultName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </CellContents>
-                            </TablixCell>
-                            <TablixCell>
-                              <CellContents>
-                                <Textbox Name="Total0point28">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>=Microsoft.VisualBasic.Interaction.IIf(Sum(Fields!Total0point25.Value) = 0, "", Sum(Fields!Total0point25.Value))</Value>
-                                          <Style>
-                                            <FontSize>8pt</FontSize>
-                                            <Format>n2</Format>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style />
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>Total0point25</rd:DefaultName>
-                                  <Style>
-                                    <Border>
-                                      <Color>LightGrey</Color>
-                                      <Style>Solid</Style>
-                                    </Border>
-                                    <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </CellContents>
-                            </TablixCell>
-                          </TablixCells>
-                        </TablixRow>
-                      </TablixRows>
-                    </TablixBody>
-                    <TablixColumnHierarchy>
-                      <TablixMembers>
-                        <TablixMember />
-                        <TablixMember />
-                        <TablixMember />
-                        <TablixMember />
-                        <TablixMember />
-                      </TablixMembers>
-                    </TablixColumnHierarchy>
-                    <TablixRowHierarchy>
-                      <TablixMembers>
-                        <TablixMember>
-                          <TablixHeader>
-                            <Size>12.68218mm</Size>
-                            <CellContents>
-                              <Textbox Name="Textbox73">
-                                <CanGrow>true</CanGrow>
-                                <KeepTogether>true</KeepTogether>
-                                <Paragraphs>
-                                  <Paragraph>
-                                    <TextRuns>
-                                      <TextRun>
-                                        <Value>Group</Value>
-                                        <Style>
-                                          <FontSize>8pt</FontSize>
-                                        </Style>
-                                      </TextRun>
-                                    </TextRuns>
-                                    <Style />
-                                  </Paragraph>
-                                </Paragraphs>
-                                <rd:DefaultName>Textbox65</rd:DefaultName>
-                                <Style>
-                                  <Border>
-                                    <Color>LightGrey</Color>
-                                    <Style>Solid</Style>
-                                  </Border>
-                                  <PaddingLeft>2pt</PaddingLeft>
-                                  <PaddingRight>2pt</PaddingRight>
-                                  <PaddingTop>2pt</PaddingTop>
-                                  <PaddingBottom>2pt</PaddingBottom>
-                                </Style>
-                              </Textbox>
-                            </CellContents>
-                          </TablixHeader>
-                          <TablixMembers>
-                            <TablixMember>
-                              <TablixHeader>
-                                <Size>46.43125mm</Size>
-                                <CellContents>
-                                  <Textbox Name="Textbox74">
-                                    <CanGrow>true</CanGrow>
-                                    <KeepTogether>true</KeepTogether>
-                                    <Paragraphs>
-                                      <Paragraph>
-                                        <TextRuns>
-                                          <TextRun>
-                                            <Value>Name</Value>
-                                            <Style>
-                                              <FontSize>8pt</FontSize>
-                                            </Style>
-                                          </TextRun>
-                                        </TextRuns>
-                                        <Style />
-                                      </Paragraph>
-                                    </Paragraphs>
-                                    <rd:DefaultName>Textbox63</rd:DefaultName>
-                                    <Style>
-                                      <Border>
-                                        <Color>LightGrey</Color>
-                                        <Style>Solid</Style>
-                                      </Border>
-                                      <PaddingLeft>2pt</PaddingLeft>
-                                      <PaddingRight>2pt</PaddingRight>
-                                      <PaddingTop>2pt</PaddingTop>
-                                      <PaddingBottom>2pt</PaddingBottom>
-                                    </Style>
-                                  </Textbox>
-                                </CellContents>
-                              </TablixHeader>
-                              <TablixMembers>
-                                <TablixMember>
-                                  <TablixHeader>
-                                    <Size>18.26875mm</Size>
-                                    <CellContents>
-                                      <Textbox Name="Textbox104">
-                                        <CanGrow>true</CanGrow>
-                                        <KeepTogether>true</KeepTogether>
-                                        <Paragraphs>
-                                          <Paragraph>
-                                            <TextRuns>
-                                              <TextRun>
-                                                <Value>Company</Value>
-                                                <Style>
-                                                  <FontSize>8pt</FontSize>
-                                                </Style>
-                                              </TextRun>
-                                            </TextRuns>
-                                            <Style />
-                                          </Paragraph>
-                                        </Paragraphs>
-                                        <rd:DefaultName>Textbox100</rd:DefaultName>
-                                        <Style>
-                                          <Border>
-                                            <Color>LightGrey</Color>
-                                            <Style>Solid</Style>
-                                          </Border>
-                                          <PaddingLeft>2pt</PaddingLeft>
-                                          <PaddingRight>2pt</PaddingRight>
-                                          <PaddingTop>2pt</PaddingTop>
-                                          <PaddingBottom>2pt</PaddingBottom>
-                                        </Style>
-                                      </Textbox>
-                                    </CellContents>
-                                  </TablixHeader>
-                                  <TablixMembers>
-                                    <TablixMember>
-                                      <TablixHeader>
-                                        <Size>25mm</Size>
-                                        <CellContents>
-                                          <Textbox Name="Textbox105">
-                                            <CanGrow>true</CanGrow>
-                                            <KeepTogether>true</KeepTogether>
-                                            <Paragraphs>
-                                              <Paragraph>
-                                                <TextRuns>
-                                                  <TextRun>
-                                                    <Value>No </Value>
-                                                    <Style>
-                                                      <FontSize>8pt</FontSize>
-                                                    </Style>
-                                                  </TextRun>
-                                                </TextRuns>
-                                                <Style />
-                                              </Paragraph>
-                                            </Paragraphs>
-                                            <rd:DefaultName>Textbox98</rd:DefaultName>
-                                            <Style>
-                                              <Border>
-                                                <Color>LightGrey</Color>
-                                                <Style>Solid</Style>
-                                              </Border>
-                                              <PaddingLeft>2pt</PaddingLeft>
-                                              <PaddingRight>2pt</PaddingRight>
-                                              <PaddingTop>2pt</PaddingTop>
-                                              <PaddingBottom>2pt</PaddingBottom>
-                                            </Style>
-                                          </Textbox>
-                                        </CellContents>
-                                      </TablixHeader>
-                                      <TablixMembers>
-                                        <TablixMember />
-                                      </TablixMembers>
-                                    </TablixMember>
-                                  </TablixMembers>
-                                </TablixMember>
-                              </TablixMembers>
-                            </TablixMember>
-                          </TablixMembers>
-                        </TablixMember>
-                        <TablixMember>
-                          <Group Name="Resource_Group_No_4">
-                            <GroupExpressions>
-                              <GroupExpression>=Fields!Resource_Group_No_.Value</GroupExpression>
-                            </GroupExpressions>
-                            <Filters>
-                              <Filter>
-                                <FilterExpression>=Fields!Resource_Group_No_.Value</FilterExpression>
-                                <Operator>Equal</Operator>
-                                <FilterValues>
-                                  <FilterValue>GEN</FilterValue>
-                                </FilterValues>
-                              </Filter>
-                            </Filters>
-                          </Group>
-                          <SortExpressions>
-                            <SortExpression>
-                              <Value>=Fields!Resource_Group_No_.Value</Value>
-                            </SortExpression>
-                          </SortExpressions>
-                          <TablixHeader>
-                            <Size>12.68218mm</Size>
-                            <CellContents>
-                              <Textbox Name="Resource_Group_No_4">
-                                <CanGrow>true</CanGrow>
-                                <KeepTogether>true</KeepTogether>
-                                <Paragraphs>
-                                  <Paragraph>
-                                    <TextRuns>
-                                      <TextRun>
-                                        <Value>=Fields!Resource_Group_No_.Value</Value>
-                                        <Style>
-                                          <FontSize>8pt</FontSize>
-                                        </Style>
-                                      </TextRun>
-                                    </TextRuns>
-                                    <Style />
-                                  </Paragraph>
-                                </Paragraphs>
-                                <rd:DefaultName>Resource_Group_No_</rd:DefaultName>
-                                <Style>
-                                  <Border>
-                                    <Color>LightGrey</Color>
-                                    <Style>Solid</Style>
-                                  </Border>
-                                  <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                  <PaddingLeft>2pt</PaddingLeft>
-                                  <PaddingRight>2pt</PaddingRight>
-                                  <PaddingTop>2pt</PaddingTop>
-                                  <PaddingBottom>2pt</PaddingBottom>
-                                </Style>
-                              </Textbox>
-                            </CellContents>
-                          </TablixHeader>
-                          <TablixMembers>
-                            <TablixMember>
-                              <Group Name="Name4">
-                                <GroupExpressions>
-                                  <GroupExpression>=Fields!Name.Value</GroupExpression>
-                                </GroupExpressions>
-                                <Filters>
-                                  <Filter>
-                                    <FilterExpression>=Sum(Fields!TotalHours.Value)</FilterExpression>
-                                    <Operator>LessThan</Operator>
-                                    <FilterValues>
-                                      <FilterValue>=CDec(45)</FilterValue>
-                                    </FilterValues>
-                                  </Filter>
-                                </Filters>
-                              </Group>
-                              <SortExpressions>
-                                <SortExpression>
-                                  <Value>=Fields!Name.Value</Value>
-                                </SortExpression>
-                              </SortExpressions>
-                              <TablixHeader>
-                                <Size>46.43125mm</Size>
-                                <CellContents>
-                                  <Textbox Name="Name4">
-                                    <CanGrow>true</CanGrow>
-                                    <KeepTogether>true</KeepTogether>
-                                    <Paragraphs>
-                                      <Paragraph>
-                                        <TextRuns>
-                                          <TextRun>
-                                            <Value>=Fields!Name.Value</Value>
-                                            <Style>
-                                              <FontSize>8pt</FontSize>
-                                            </Style>
-                                          </TextRun>
-                                        </TextRuns>
-                                        <Style />
-                                      </Paragraph>
-                                    </Paragraphs>
-                                    <rd:DefaultName>Name</rd:DefaultName>
-                                    <Style>
-                                      <Border>
-                                        <Color>LightGrey</Color>
-                                        <Style>Solid</Style>
-                                      </Border>
-                                      <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                      <PaddingLeft>2pt</PaddingLeft>
-                                      <PaddingRight>2pt</PaddingRight>
-                                      <PaddingTop>2pt</PaddingTop>
-                                      <PaddingBottom>2pt</PaddingBottom>
-                                    </Style>
-                                  </Textbox>
-                                </CellContents>
-                              </TablixHeader>
-                              <TablixMembers>
-                                <TablixMember>
-                                  <Group Name="Company4">
-                                    <GroupExpressions>
-                                      <GroupExpression>=Fields!Company.Value</GroupExpression>
-                                    </GroupExpressions>
-                                  </Group>
-                                  <SortExpressions>
-                                    <SortExpression>
-                                      <Value>=Fields!Company.Value</Value>
-                                    </SortExpression>
-                                  </SortExpressions>
-                                  <TablixHeader>
-                                    <Size>18.26875mm</Size>
-                                    <CellContents>
-                                      <Textbox Name="Company4">
-                                        <CanGrow>true</CanGrow>
-                                        <KeepTogether>true</KeepTogether>
-                                        <Paragraphs>
-                                          <Paragraph>
-                                            <TextRuns>
-                                              <TextRun>
-                                                <Value>=Fields!Company.Value</Value>
-                                                <Style>
-                                                  <FontSize>8pt</FontSize>
-                                                </Style>
-                                              </TextRun>
-                                            </TextRuns>
-                                            <Style />
-                                          </Paragraph>
-                                        </Paragraphs>
-                                        <rd:DefaultName>Company</rd:DefaultName>
-                                        <Style>
-                                          <Border>
-                                            <Color>LightGrey</Color>
-                                            <Style>Solid</Style>
-                                          </Border>
-                                          <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                          <PaddingLeft>2pt</PaddingLeft>
-                                          <PaddingRight>2pt</PaddingRight>
-                                          <PaddingTop>2pt</PaddingTop>
-                                          <PaddingBottom>2pt</PaddingBottom>
-                                        </Style>
-                                      </Textbox>
-                                    </CellContents>
-                                  </TablixHeader>
-                                  <TablixMembers>
-                                    <TablixMember>
-                                      <Group Name="No_4">
-                                        <GroupExpressions>
-                                          <GroupExpression>=Fields!No_.Value</GroupExpression>
-                                        </GroupExpressions>
-                                      </Group>
-                                      <SortExpressions>
-                                        <SortExpression>
-                                          <Value>=Fields!No_.Value</Value>
-                                        </SortExpression>
-                                      </SortExpressions>
-                                      <TablixHeader>
-                                        <Size>25mm</Size>
-                                        <CellContents>
-                                          <Textbox Name="No_4">
-                                            <CanGrow>true</CanGrow>
-                                            <KeepTogether>true</KeepTogether>
-                                            <Paragraphs>
-                                              <Paragraph>
-                                                <TextRuns>
-                                                  <TextRun>
-                                                    <Value>=Fields!No_.Value</Value>
-                                                    <Style>
-                                                      <FontSize>8pt</FontSize>
-                                                    </Style>
-                                                  </TextRun>
-                                                </TextRuns>
-                                                <Style />
-                                              </Paragraph>
-                                            </Paragraphs>
-                                            <rd:DefaultName>No_</rd:DefaultName>
-                                            <ActionInfo>
-                                              <Actions>
-                                                <Action>
-                                                  <Hyperlink>=Microsoft.VisualBasic.Interaction.IIF(Fields!Company.Value = "PAL", "dynamicsnav://pmntlnav1:7046/Palaris/Palaris/runpage?page=953&amp;personalization=953&amp;$filter=%27Time%20Sheet%20Header%27.%27No.%27%20IS%20%27" &amp; Fields!No_.Value &amp; "%27&amp;mode=Edit", "dynamicsnav://pmntlnav1:7046/Palaris/Palaris%20Europe%20Limited/runpage?page=953&amp;personalization=953&amp;$filter=%27Time%20Sheet%20Header%27.%27No.%27%20IS%20%27" &amp; Fields!No_.Value &amp; "%27&amp;mode=Edit")</Hyperlink>
-                                                </Action>
-                                              </Actions>
-                                            </ActionInfo>
-                                            <Style>
-                                              <Border>
-                                                <Color>LightGrey</Color>
-                                                <Style>Solid</Style>
-                                              </Border>
-                                              <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
-                                              <PaddingLeft>2pt</PaddingLeft>
-                                              <PaddingRight>2pt</PaddingRight>
-                                              <PaddingTop>2pt</PaddingTop>
-                                              <PaddingBottom>2pt</PaddingBottom>
-                                            </Style>
-                                          </Textbox>
-                                        </CellContents>
-                                      </TablixHeader>
-                                      <TablixMembers>
-                                        <TablixMember />
-                                      </TablixMembers>
-                                    </TablixMember>
-                                  </TablixMembers>
-                                  <Visibility>
-                                    <ToggleItem>Name4</ToggleItem>
-                                  </Visibility>
-                                </TablixMember>
-                              </TablixMembers>
-                            </TablixMember>
-                          </TablixMembers>
-                        </TablixMember>
-                      </TablixMembers>
-                    </TablixRowHierarchy>
-                    <DataSetName>CurrentTimeSheets</DataSetName>
-                    <Filters>
-                      <Filter>
-                        <FilterExpression>=Fields!Starting_Date.Value</FilterExpression>
-                        <Operator>Equal</Operator>
-                        <FilterValues>
-                          <FilterValue>=Parameters!WeekEnding.Value</FilterValue>
-                        </FilterValues>
-                      </Filter>
-                    </Filters>
-                    <Top>43.36473mm</Top>
-                    <Left>0.92143mm</Left>
-                    <Height>12mm</Height>
-                    <Width>227.38218mm</Width>
-                    <ZIndex>3</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -7767,7 +5820,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>All Time - Review after posting</Value>
+                            <Value>Posted Time</Value>
                             <Style>
                               <FontSize>14pt</FontSize>
                               <FontWeight>Bold</FontWeight>
@@ -7783,7 +5836,7 @@
                     <Left>0mm</Left>
                     <Height>8.56843mm</Height>
                     <Width>367.40859mm</Width>
-                    <ZIndex>4</ZIndex>
+                    <ZIndex>3</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -7802,7 +5855,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>Total Hours Worked &gt;45 Hours</Value>
+                            <Value>Not Set Up &gt; 0 or Unposted &gt; 0</Value>
                             <Style>
                               <FontSize>12pt</FontSize>
                               <FontWeight>Bold</FontWeight>
@@ -7818,42 +5871,7 @@
                     <Left>0.92143mm</Left>
                     <Height>6.47961mm</Height>
                     <Width>227.38218mm</Width>
-                    <ZIndex>5</ZIndex>
-                    <Style>
-                      <Border>
-                        <Style>None</Style>
-                      </Border>
-                      <BackgroundColor>#4b4b4b</BackgroundColor>
-                      <PaddingLeft>2pt</PaddingLeft>
-                      <PaddingRight>2pt</PaddingRight>
-                      <PaddingTop>2pt</PaddingTop>
-                      <PaddingBottom>2pt</PaddingBottom>
-                    </Style>
-                  </Textbox>
-                  <Textbox Name="Textbox196">
-                    <CanGrow>true</CanGrow>
-                    <KeepTogether>true</KeepTogether>
-                    <Paragraphs>
-                      <Paragraph>
-                        <TextRuns>
-                          <TextRun>
-                            <Value>Total Hours Worked &lt;45 Hours</Value>
-                            <Style>
-                              <FontSize>12pt</FontSize>
-                              <FontWeight>Bold</FontWeight>
-                              <Color>White</Color>
-                            </Style>
-                          </TextRun>
-                        </TextRuns>
-                        <Style />
-                      </Paragraph>
-                    </Paragraphs>
-                    <rd:DefaultName>Textbox193</rd:DefaultName>
-                    <Top>36.17956mm</Top>
-                    <Left>0.92143mm</Left>
-                    <Height>6.47961mm</Height>
-                    <Width>227.38218mm</Width>
-                    <ZIndex>6</ZIndex>
+                    <ZIndex>4</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -7872,7 +5890,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>Total Hours Worked = 45 Hours</Value>
+                            <Value>Consultants</Value>
                             <Style>
                               <FontSize>12pt</FontSize>
                               <FontWeight>Bold</FontWeight>
@@ -7884,11 +5902,11 @@
                       </Paragraph>
                     </Paragraphs>
                     <rd:DefaultName>Textbox193</rd:DefaultName>
-                    <Top>58.34932mm</Top>
+                    <Top>34.54529mm</Top>
                     <Left>0.92143mm</Left>
                     <Height>6.47961mm</Height>
                     <Width>227.38218mm</Width>
-                    <ZIndex>7</ZIndex>
+                    <ZIndex>5</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -7907,7 +5925,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>Total Hours Worked - Internal, Subbie and Casual Time</Value>
+                            <Value>Internal, Subbie and Casual Time</Value>
                             <Style>
                               <FontSize>12pt</FontSize>
                               <FontWeight>Bold</FontWeight>
@@ -7919,11 +5937,11 @@
                       </Paragraph>
                     </Paragraphs>
                     <rd:DefaultName>Textbox193</rd:DefaultName>
-                    <Top>81.33796mm</Top>
+                    <Top>56.5442mm</Top>
                     <Left>0.92143mm</Left>
                     <Height>6.47961mm</Height>
                     <Width>227.38218mm</Width>
-                    <ZIndex>8</ZIndex>
+                    <ZIndex>6</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -7939,9 +5957,9 @@
                 <KeepTogether>true</KeepTogether>
                 <Top>199.69602mm</Top>
                 <Left>1.30901mm</Left>
-                <Height>104.0184mm</Height>
+                <Height>79.41215mm</Height>
                 <Width>367.40859mm</Width>
-                <ZIndex>15</ZIndex>
+                <ZIndex>12</ZIndex>
                 <Style>
                   <Border>
                     <Style>Solid</Style>
@@ -8887,7 +6905,7 @@
                 <Left>1.27mm</Left>
                 <Height>18mm</Height>
                 <Width>341.56457mm</Width>
-                <ZIndex>16</ZIndex>
+                <ZIndex>13</ZIndex>
                 <Visibility>
                   <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
                 </Visibility>
@@ -8936,7 +6954,7 @@
                 <Left>6.031mm</Left>
                 <Height>5.45293mm</Height>
                 <Width>108.99444mm</Width>
-                <ZIndex>17</ZIndex>
+                <ZIndex>14</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -9987,7 +8005,7 @@
                 <Left>1.30442mm</Left>
                 <Height>18mm</Height>
                 <Width>341.53016mm</Width>
-                <ZIndex>18</ZIndex>
+                <ZIndex>15</ZIndex>
                 <Visibility>
                   <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
                 </Visibility>
@@ -10036,7 +8054,7 @@
                 <Left>6.79036mm</Left>
                 <Height>5.45293mm</Height>
                 <Width>108.99444mm</Width>
-                <ZIndex>19</ZIndex>
+                <ZIndex>16</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -10169,7 +8187,7 @@
                 <Left>1.71979mm</Left>
                 <Height>5mm</Height>
                 <Width>4.64211mm</Width>
-                <ZIndex>20</ZIndex>
+                <ZIndex>17</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -10299,7 +8317,7 @@
                 <Left>1.4023mm</Left>
                 <Height>5mm</Height>
                 <Width>4.64211mm</Width>
-                <ZIndex>21</ZIndex>
+                <ZIndex>18</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -11009,15 +9027,15 @@
                     <FilterExpression>=Fields!Job_Task_No_.Value</FilterExpression>
                     <Operator>Equal</Operator>
                     <FilterValues>
-                      <FilterValue>AA_NOT_LISTED</FilterValue>
+                      <FilterValue>PROPOSAL</FilterValue>
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>91.58003mm</Top>
+                <Top>110.63003mm</Top>
                 <Left>1.27mm</Left>
                 <Height>12mm</Height>
                 <Width>342.54813mm</Width>
-                <ZIndex>22</ZIndex>
+                <ZIndex>19</ZIndex>
                 <Visibility>
                   <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
                 </Visibility>
@@ -11054,7 +9072,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>T-PROPOSAL has no time in "Proposal is not listed"</Value>
+                        <Value>All T-PROPOSAL time has Job No in Description</Value>
                         <Style />
                       </TextRun>
                     </TextRuns>
@@ -11062,11 +9080,11 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox58</rd:DefaultName>
-                <Top>84.63975mm</Top>
+                <Top>103.68975mm</Top>
                 <Left>6.74997mm</Left>
                 <Height>5.45293mm</Height>
                 <Width>108.99444mm</Width>
-                <ZIndex>23</ZIndex>
+                <ZIndex>20</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -11195,11 +9213,11 @@
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>84.63975mm</Top>
+                <Top>103.68975mm</Top>
                 <Left>1.04441mm</Left>
                 <Height>5mm</Height>
                 <Width>5mm</Width>
-                <ZIndex>24</ZIndex>
+                <ZIndex>21</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -11230,7 +9248,7 @@
                 <Left>0mm</Left>
                 <Height>7.5101mm</Height>
                 <Width>367.87357mm</Width>
-                <ZIndex>25</ZIndex>
+                <ZIndex>22</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -11501,7 +9519,7 @@
                 <Left>1.27mm</Left>
                 <Height>12mm</Height>
                 <Width>75mm</Width>
-                <ZIndex>26</ZIndex>
+                <ZIndex>23</ZIndex>
                 <Visibility>
                   <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
                 </Visibility>
@@ -11511,11 +9529,872 @@
                   </Border>
                 </Style>
               </Tablix>
+              <Textbox Name="Textbox73">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Posted Job Not Set Up Time to be "flipped" off T-INTERNAL</Value>
+                        <Style />
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox58</rd:DefaultName>
+                <Top>41.72478mm</Top>
+                <Left>6.71468mm</Left>
+                <Height>5.45293mm</Height>
+                <Width>108.99444mm</Width>
+                <ZIndex>24</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <GaugePanel Name="GaugePanel5">
+                <StateIndicators>
+                  <StateIndicator Name="Indicator1">
+                    <GaugeInputValue>
+                      <Value>=IIf(Sum(Fields!Total_Hours_Worked.Value) &lt;&gt; 0, 1, 0)</Value>
+                      <Multiplier>1</Multiplier>
+                      <DataElementOutput>NoOutput</DataElementOutput>
+                    </GaugeInputValue>
+                    <TransformationType>None</TransformationType>
+                    <TransformationScope />
+                    <MinimumValue>
+                      <Value>NaN</Value>
+                      <Multiplier>1</Multiplier>
+                    </MinimumValue>
+                    <MaximumValue>
+                      <Value>NaN</Value>
+                      <Multiplier>1</Multiplier>
+                    </MaximumValue>
+                    <IndicatorStyle>None</IndicatorStyle>
+                    <IndicatorImage>
+                      <Source>External</Source>
+                      <Value />
+                    </IndicatorImage>
+                    <ScaleFactor>1</ScaleFactor>
+                    <IndicatorStates>
+                      <IndicatorState Name="Red">
+                        <StartValue>
+                          <Value>1</Value>
+                          <Multiplier>1</Multiplier>
+                        </StartValue>
+                        <EndValue>
+                          <Value>1</Value>
+                          <Multiplier>1</Multiplier>
+                        </EndValue>
+                        <Color>Red</Color>
+                        <ScaleFactor>1</ScaleFactor>
+                        <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
+                        <IndicatorImage>
+                          <Source>External</Source>
+                          <Value />
+                        </IndicatorImage>
+                      </IndicatorState>
+                      <IndicatorState Name="Green">
+                        <StartValue>
+                          <Value>0</Value>
+                          <Multiplier>1</Multiplier>
+                        </StartValue>
+                        <EndValue>
+                          <Value>0</Value>
+                          <Multiplier>1</Multiplier>
+                        </EndValue>
+                        <Color>Green</Color>
+                        <ScaleFactor>1</ScaleFactor>
+                        <IndicatorStyle>TrafficLightUnrimmed</IndicatorStyle>
+                        <IndicatorImage>
+                          <Source>External</Source>
+                          <Value />
+                        </IndicatorImage>
+                      </IndicatorState>
+                    </IndicatorStates>
+                    <Angle>0</Angle>
+                    <StateDataElementName />
+                    <rd:IconsSet>ThreeUnrimmedTrafficLights</rd:IconsSet>
+                    <Style>
+                      <ShadowOffset>2pt</ShadowOffset>
+                    </Style>
+                    <Top>4</Top>
+                    <Left>4</Left>
+                    <Height>92</Height>
+                    <Width>92</Width>
+                  </StateIndicator>
+                </StateIndicators>
+                <AutoLayout>true</AutoLayout>
+                <BackFrame>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <BackgroundColor>Gainsboro</BackgroundColor>
+                    <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
+                    <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
+                    <BackgroundHatchType>None</BackgroundHatchType>
+                    <ShadowOffset>0pt</ShadowOffset>
+                  </Style>
+                  <FrameBackground>
+                    <Style>
+                      <BackgroundColor>Silver</BackgroundColor>
+                      <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
+                      <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
+                      <BackgroundHatchType>None</BackgroundHatchType>
+                    </Style>
+                  </FrameBackground>
+                  <FrameImage>
+                    <Source>External</Source>
+                    <Value />
+                  </FrameImage>
+                </BackFrame>
+                <TopImage>
+                  <Source>External</Source>
+                  <Value />
+                </TopImage>
+                <DataSetName>PostedTimesheetLines</DataSetName>
+                <Filters>
+                  <Filter>
+                    <FilterExpression>=Fields!Job_Task_No_.Value</FilterExpression>
+                    <Operator>In</Operator>
+                    <FilterValues>
+                      <FilterValue>I0620</FilterValue>
+                      <FilterValue>I0621</FilterValue>
+                    </FilterValues>
+                  </Filter>
+                  <Filter>
+                    <FilterExpression>=Fields!Time_Sheet_Starting_Date.Value</FilterExpression>
+                    <Operator>Equal</Operator>
+                    <FilterValues>
+                      <FilterValue>=Parameters!WeekEnding.Value</FilterValue>
+                    </FilterValues>
+                  </Filter>
+                </Filters>
+                <Top>42.44229mm</Top>
+                <Left>1.3619mm</Left>
+                <Height>5mm</Height>
+                <Width>5mm</Width>
+                <ZIndex>25</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <BackgroundColor>White</BackgroundColor>
+                </Style>
+              </GaugePanel>
+              <Tablix Name="Tablix7">
+                <TablixBody>
+                  <TablixColumns>
+                    <TablixColumn>
+                      <Width>25mm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>24.96101mm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>25mm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>25mm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>25mm</Width>
+                    </TablixColumn>
+                  </TablixColumns>
+                  <TablixRows>
+                    <TablixRow>
+                      <Height>6mm</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox11">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Job No </Value>
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox2</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>#7292cc</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox12">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Job Task No </Value>
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox3</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>#7292cc</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox23">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Work Type Code</Value>
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox5</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>#7292cc</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox24">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Status</Value>
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox7</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>#7292cc</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox25">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Total Hours Worked</Value>
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox9</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>#7292cc</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                    <TablixRow>
+                      <Height>6mm</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Job_No_4">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Job_No_.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Job_No_</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>#e5e5e5</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Job_Task_No_4">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Job_Task_No_.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Job_Task_No_</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>#e5e5e5</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Work_Type_Code4">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Work_Type_Code.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Work_Type_Code</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>#e5e5e5</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Status4">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Status.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <Format>n2</Format>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Status</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>#e5e5e5</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Total_Hours_Worked4">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Sum(Fields!Total_Hours_Worked.Value)</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <Format>n2</Format>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Total_Hours_Worked</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>#e5e5e5</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                  </TablixRows>
+                </TablixBody>
+                <TablixColumnHierarchy>
+                  <TablixMembers>
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                  </TablixMembers>
+                </TablixColumnHierarchy>
+                <TablixRowHierarchy>
+                  <TablixMembers>
+                    <TablixMember>
+                      <TablixHeader>
+                        <Size>43.25mm</Size>
+                        <CellContents>
+                          <Textbox Name="Textbox20">
+                            <CanGrow>true</CanGrow>
+                            <KeepTogether>true</KeepTogether>
+                            <Paragraphs>
+                              <Paragraph>
+                                <TextRuns>
+                                  <TextRun>
+                                    <Value>Name</Value>
+                                    <Style>
+                                      <FontWeight>Bold</FontWeight>
+                                    </Style>
+                                  </TextRun>
+                                </TextRuns>
+                                <Style />
+                              </Paragraph>
+                            </Paragraphs>
+                            <rd:DefaultName>Textbox15</rd:DefaultName>
+                            <Style>
+                              <Border>
+                                <Color>#7292cc</Color>
+                                <Style>Solid</Style>
+                              </Border>
+                              <PaddingLeft>2pt</PaddingLeft>
+                              <PaddingRight>2pt</PaddingRight>
+                              <PaddingTop>2pt</PaddingTop>
+                              <PaddingBottom>2pt</PaddingBottom>
+                            </Style>
+                          </Textbox>
+                        </CellContents>
+                      </TablixHeader>
+                      <TablixMembers>
+                        <TablixMember>
+                          <TablixHeader>
+                            <Size>25.26458mm</Size>
+                            <CellContents>
+                              <Textbox Name="Textbox21">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value>Time Sheet </Value>
+                                        <Style>
+                                          <FontWeight>Bold</FontWeight>
+                                        </Style>
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style />
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>Textbox13</rd:DefaultName>
+                                <Style>
+                                  <Border>
+                                    <Color>#7292cc</Color>
+                                    <Style>Solid</Style>
+                                  </Border>
+                                  <PaddingLeft>2pt</PaddingLeft>
+                                  <PaddingRight>2pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                          <TablixMembers>
+                            <TablixMember>
+                              <TablixHeader>
+                                <Size>148.04999mm</Size>
+                                <CellContents>
+                                  <Textbox Name="Textbox146">
+                                    <CanGrow>true</CanGrow>
+                                    <KeepTogether>true</KeepTogether>
+                                    <Paragraphs>
+                                      <Paragraph>
+                                        <TextRuns>
+                                          <TextRun>
+                                            <Value>Description</Value>
+                                            <Style>
+                                              <FontWeight>Bold</FontWeight>
+                                            </Style>
+                                          </TextRun>
+                                        </TextRuns>
+                                        <Style />
+                                      </Paragraph>
+                                    </Paragraphs>
+                                    <rd:DefaultName>Textbox146</rd:DefaultName>
+                                    <Style>
+                                      <Border>
+                                        <Color>#7292cc</Color>
+                                        <Style>Solid</Style>
+                                      </Border>
+                                      <PaddingLeft>2pt</PaddingLeft>
+                                      <PaddingRight>2pt</PaddingRight>
+                                      <PaddingTop>2pt</PaddingTop>
+                                      <PaddingBottom>2pt</PaddingBottom>
+                                    </Style>
+                                  </Textbox>
+                                </CellContents>
+                              </TablixHeader>
+                              <TablixMembers>
+                                <TablixMember />
+                              </TablixMembers>
+                            </TablixMember>
+                          </TablixMembers>
+                        </TablixMember>
+                      </TablixMembers>
+                      <KeepWithGroup>After</KeepWithGroup>
+                    </TablixMember>
+                    <TablixMember>
+                      <Group Name="Owner_User_ID3">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!Owner_User_ID.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
+                      <SortExpressions>
+                        <SortExpression>
+                          <Value>=Fields!Owner_User_ID.Value</Value>
+                        </SortExpression>
+                      </SortExpressions>
+                      <TablixHeader>
+                        <Size>43.25mm</Size>
+                        <CellContents>
+                          <Textbox Name="Name4">
+                            <CanGrow>true</CanGrow>
+                            <KeepTogether>true</KeepTogether>
+                            <Paragraphs>
+                              <Paragraph>
+                                <TextRuns>
+                                  <TextRun>
+                                    <Value>=Fields!Name.Value</Value>
+                                    <Style>
+                                      <FontSize>9pt</FontSize>
+                                    </Style>
+                                  </TextRun>
+                                </TextRuns>
+                                <Style />
+                              </Paragraph>
+                            </Paragraphs>
+                            <rd:DefaultName>Name1</rd:DefaultName>
+                            <Style>
+                              <Border>
+                                <Color>#c6daf8</Color>
+                                <Style>Solid</Style>
+                              </Border>
+                              <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                              <PaddingLeft>2pt</PaddingLeft>
+                              <PaddingRight>2pt</PaddingRight>
+                              <PaddingTop>2pt</PaddingTop>
+                              <PaddingBottom>2pt</PaddingBottom>
+                            </Style>
+                          </Textbox>
+                        </CellContents>
+                      </TablixHeader>
+                      <TablixMembers>
+                        <TablixMember>
+                          <Group Name="Time_Sheet_No_4">
+                            <GroupExpressions>
+                              <GroupExpression>=Fields!Time_Sheet_No_.Value</GroupExpression>
+                            </GroupExpressions>
+                          </Group>
+                          <SortExpressions>
+                            <SortExpression>
+                              <Value>=Fields!Time_Sheet_No_.Value</Value>
+                            </SortExpression>
+                          </SortExpressions>
+                          <TablixHeader>
+                            <Size>25.26458mm</Size>
+                            <CellContents>
+                              <Textbox Name="Time_Sheet_No_4">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value>=Fields!Time_Sheet_No_.Value</Value>
+                                        <Style>
+                                          <FontSize>9pt</FontSize>
+                                        </Style>
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style />
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>Time_Sheet_No_</rd:DefaultName>
+                                <ActionInfo>
+                                  <Actions>
+                                    <Action>
+                                      <Hyperlink>=Microsoft.VisualBasic.Interaction.IIf(Fields!Company.Value = "PAL", "dynamicsnav://pmntlnav1:7046/Palaris/Palaris/runpage?page=953&amp;personalization=953&amp;$filter=%27Time%20Sheet%20Header%27.%27No.%27%20IS%20%27" &amp; Fields!Time_Sheet_No_.Value &amp; "%27&amp;mode=Edit", "dynamicsnav://pmntlnav1:7046/Palaris/Palaris%20Europe%20Limited/runpage?page=953&amp;personalization=953&amp;$filter=%27Time%20Sheet%20Header%27.%27No.%27%20IS%20%27" &amp; Fields!Time_Sheet_No_.Value &amp; "%27&amp;mode=Edit")</Hyperlink>
+                                    </Action>
+                                  </Actions>
+                                </ActionInfo>
+                                <Style>
+                                  <Border>
+                                    <Color>#e6eefc</Color>
+                                    <Style>Solid</Style>
+                                  </Border>
+                                  <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                                  <PaddingLeft>2pt</PaddingLeft>
+                                  <PaddingRight>2pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                          <TablixMembers>
+                            <TablixMember>
+                              <Group Name="Description1">
+                                <GroupExpressions>
+                                  <GroupExpression>=Fields!Description.Value</GroupExpression>
+                                </GroupExpressions>
+                                <Filters>
+                                  <Filter>
+                                    <FilterExpression>=Sum(Fields!Total_Hours_Worked.Value)</FilterExpression>
+                                    <Operator>NotEqual</Operator>
+                                    <FilterValues>
+                                      <FilterValue>=CDec(0)</FilterValue>
+                                    </FilterValues>
+                                  </Filter>
+                                </Filters>
+                              </Group>
+                              <SortExpressions>
+                                <SortExpression>
+                                  <Value>=Fields!Description.Value</Value>
+                                </SortExpression>
+                              </SortExpressions>
+                              <TablixHeader>
+                                <Size>148.04999mm</Size>
+                                <CellContents>
+                                  <Textbox Name="Description11">
+                                    <CanGrow>true</CanGrow>
+                                    <KeepTogether>true</KeepTogether>
+                                    <Paragraphs>
+                                      <Paragraph>
+                                        <TextRuns>
+                                          <TextRun>
+                                            <Value>=Fields!Description.Value</Value>
+                                            <Style>
+                                              <FontSize>9pt</FontSize>
+                                            </Style>
+                                          </TextRun>
+                                        </TextRuns>
+                                        <Style />
+                                      </Paragraph>
+                                    </Paragraphs>
+                                    <rd:DefaultName>Description11</rd:DefaultName>
+                                    <Style>
+                                      <Border>
+                                        <Color>#e6eefc</Color>
+                                        <Style>Solid</Style>
+                                      </Border>
+                                      <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
+                                      <PaddingLeft>2pt</PaddingLeft>
+                                      <PaddingRight>2pt</PaddingRight>
+                                      <PaddingTop>2pt</PaddingTop>
+                                      <PaddingBottom>2pt</PaddingBottom>
+                                    </Style>
+                                  </Textbox>
+                                </CellContents>
+                              </TablixHeader>
+                              <TablixMembers>
+                                <TablixMember>
+                                  <Group Name="Details3" />
+                                </TablixMember>
+                              </TablixMembers>
+                            </TablixMember>
+                          </TablixMembers>
+                        </TablixMember>
+                      </TablixMembers>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixRowHierarchy>
+                <DataSetName>PostedTimesheetLines</DataSetName>
+                <Filters>
+                  <Filter>
+                    <FilterExpression>=Fields!Time_Sheet_Starting_Date.Value</FilterExpression>
+                    <Operator>Equal</Operator>
+                    <FilterValues>
+                      <FilterValue>=Parameters!WeekEnding.Value</FilterValue>
+                    </FilterValues>
+                  </Filter>
+                  <Filter>
+                    <FilterExpression>=Fields!Job_Task_No_.Value</FilterExpression>
+                    <Operator>In</Operator>
+                    <FilterValues>
+                      <FilterValue>I0620</FilterValue>
+                      <FilterValue>I0621</FilterValue>
+                    </FilterValues>
+                  </Filter>
+                </Filters>
+                <Top>48.94159mm</Top>
+                <Left>1.27mm</Left>
+                <Height>12mm</Height>
+                <Width>341.52558mm</Width>
+                <ZIndex>26</ZIndex>
+                <Visibility>
+                  <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
+                </Visibility>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <TopBorder>
+                    <Color>Black</Color>
+                    <Style>Solid</Style>
+                    <Width>1pt</Width>
+                  </TopBorder>
+                  <BottomBorder>
+                    <Color>Black</Color>
+                    <Style>Solid</Style>
+                    <Width>1pt</Width>
+                  </BottomBorder>
+                  <LeftBorder>
+                    <Color>Black</Color>
+                    <Style>Solid</Style>
+                    <Width>1pt</Width>
+                  </LeftBorder>
+                  <RightBorder>
+                    <Color>Black</Color>
+                    <Style>Solid</Style>
+                    <Width>1pt</Width>
+                  </RightBorder>
+                </Style>
+              </Tablix>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <Top>0mm</Top>
             <Left>0mm</Left>
-            <Height>306.57192mm</Height>
+            <Height>280.90734mm</Height>
             <Width>428.91919mm</Width>
             <Style>
               <Border>
@@ -11524,7 +10403,7 @@
             </Style>
           </Rectangle>
         </ReportItems>
-        <Height>308.50182mm</Height>
+        <Height>282.57265mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -11534,7 +10413,7 @@
       <Width>428.91919mm</Width>
       <Page>
         <PageFooter>
-          <Height>9.29776mm</Height>
+          <Height>7.40833mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -11592,7 +10471,7 @@
       <DataType>DateTime</DataType>
       <DefaultValue>
         <Values>
-          <Value>=Today.AddDays(1-WeekDay(Today,FirstDayOfWeek.Saturday))</Value>
+          <Value>=DateAdd("d",-7,Today.AddDays(1-WeekDay(Today,FirstDayOfWeek.Saturday)))</Value>
         </Values>
       </DefaultValue>
       <Prompt>Week Ending</Prompt>

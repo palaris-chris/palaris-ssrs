@@ -75,6 +75,8 @@ LEFT JOIN Resources japrv ON tsl.[Job Approver User ID] = japrv.[Time Sheet Owne
 LEFT JOIN Resources raprv ON tsh.[Approver User ID] = raprv.[Time Sheet Owner User ID] 
 LEFT JOIN [Palaris$Job Task] jt ON (tsl.[Job No_] = jt.[Job No_] AND tsl.[Job Task No_] = jt.[Job Task No_])
 WHERE Posted = 0
+AND tsl.[Job No_] != ''
+
 ),
 
 PEL AS
@@ -92,10 +94,11 @@ END AS [WorkTypeChanged]
 ,CASE WHEN (LEFT(tsl.[Job No_], 2) = 'T-' AND tsl.[Work Type Code] IN ('BILLHR','BILLDAY','NBTHR','NBTDAY')) THEN 1 ELSE 0
 END AS [JobWorkTypeOnly]
 ,CASE 
+WHEN tsl.Posted = 1 THEN 'Posted'
 WHEN tsl.Status = 0 THEN 'Open'
 WHEN tsl.Status = 1 THEN 'Submitted'
-WHEN tsl.Status = 2 THEN 'Approved'
-WHEN tsl.Status = 3 THEN 'Posted'
+WHEN tsl.Status = 2 THEN 'Rejected'
+WHEN tsl.Status = 3 THEN 'Approved'
 END AS [Status]
 ,tsl.[Work Location]
 ,tsl.Qty1 AS [Saturday]
@@ -130,6 +133,7 @@ LEFT JOIN Resources japrv ON tsl.[Job Approver User ID] = japrv.[Time Sheet Owne
 LEFT JOIN Resources raprv ON tsh.[Approver User ID] = raprv.[Time Sheet Owner User ID] 
 LEFT JOIN [Palaris Europe Limited$Job Task] jt ON (tsl.[Job No_] = jt.[Job No_] AND tsl.[Job Task No_] = jt.[Job Task No_])
 WHERE Posted = 0   
+AND tsl.[Job No_] != ''
 )
 
 SELECT * FROM PAL

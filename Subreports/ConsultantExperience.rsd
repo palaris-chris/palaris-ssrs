@@ -12,7 +12,10 @@
           <rd:IsMultiValued>false</rd:IsMultiValued>
         </DataSetParameter>
       </DataSetParameters>
-      <CommandText>/*SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+      <CommandText>/*Used in Consultant Experience Report in SSRS
+Author: CP*/
+
+/*SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 DECLARE @ResourceNo varchar(5)
 SET @ResourceNo = 'R5022';*/
 
@@ -35,6 +38,9 @@ SELECT d.[Opportunity ID] COLLATE Latin1_General_100_CI_AS AS [Opportunity ID]
 , d.[Service] COLLATE Latin1_General_100_CI_AS AS [Service]
 , d.[Account Name] COLLATE Latin1_General_100_CI_AS AS [Account]
 , d.[Description] COLLATE Latin1_General_100_CI_AS AS [Description]
+, d.[Sector] COLLATE Latin1_General_100_CI_AS AS [Sector]
+, d.[Mine Method] COLLATE Latin1_General_100_CI_AS AS [Mine Method]
+, d.[Element] COLLATE Latin1_General_100_CI_AS AS [Element]
 , CASE WHEN a.[Parent Account Name] IS NULL
   THEN d.[Account Name] COLLATE Latin1_General_100_CI_AS
   ELSE a.[Parent Account Name] COLLATE Latin1_General_100_CI_AS
@@ -182,6 +188,9 @@ job.No_
   END AS Service
 , job.[Job Position Title]
 , zo.Description 
+, ISNULL(zo.Element, 'Coal') AS [Element]
+, ISNULL(zo.[Mine Method], 'Unknown') AS [Mine Method]
+, ISNULL(zo.[Sector], 'Coal') AS [Sector]
 , job.Account
 , job.Parent
 
@@ -244,8 +253,20 @@ ORDER BY No_ asc</CommandText>
         <DataField>Account</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
+      <Field Name="Element">
+        <DataField>Element</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
       <Field Name="Parent">
         <DataField>Parent</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Mine_Method">
+        <DataField>Mine Method</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Sector">
+        <DataField>Sector</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
     </Fields>

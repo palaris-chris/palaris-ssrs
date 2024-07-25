@@ -51,7 +51,9 @@ SELECT DISTINCT * FROM Results
 
 SELECT DISTINCT [Consolidation Code] AS [Business Unit Group]
 FROM [DynamicsNAVPalaris].[dbo].[Palaris$Dimension Value] 
-WHERE [Dimension Code] = 'BUSUNIT'</CommandText>
+WHERE [Dimension Code] = 'BUSUNIT'
+AND Blocked = 0
+AND [Code] NOT IN ('INS')</CommandText>
       <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
     </Query>
     <Fields>

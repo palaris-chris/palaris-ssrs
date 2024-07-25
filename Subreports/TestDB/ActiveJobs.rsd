@@ -22,11 +22,13 @@ job.No_
   ,job.[Global Dimension 2 Code]
   ,bug.[Business Unit Group]
   ,job.[Ending Date]
-  ,CASE WHEN job.[Job Type] = 1 THEN 'SOR Hourly'
-	WHEN job.[Job Type] = 2 THEN 'FPLS Single'
-	WHEN job.[Job Type] = 3 THEN 'FPLS Multiple'
-	WHEN job.[Job Type] = 4 THEN 'SOR Daily'
-	ELSE 'Other'
+  ,CASE WHEN [Job Type] = 0 THEN 'Other'
+	 WHEN job.[Job Type] = 1 THEN 'Capped Estimate (SOR)'
+	 WHEN job.[Job Type] = 2 THEN 'Fixed Price'
+	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
+	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
+	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+	ELSE null 
 	END AS [JobType]
   ,job.[Person Responsible] AS PMNo
   ,res.[Name]
@@ -331,11 +333,13 @@ job.No_
   ,job.[Global Dimension 2 Code]
   ,bug.[Business Unit Group]
   ,job.[Ending Date]
-  ,CASE WHEN job.[Job Type] = 1 THEN 'SOR Hourly'
-	WHEN job.[Job Type] = 2 THEN 'FPLS Single'
-	WHEN job.[Job Type] = 3 THEN 'FPLS Multiple'
-	WHEN job.[Job Type] = 4 THEN 'SOR Daily'
-	ELSE 'Other'
+  ,CASE WHEN [Job Type] = 0 THEN 'Other'
+	 WHEN job.[Job Type] = 1 THEN 'Capped Estimate (SOR)'
+	 WHEN job.[Job Type] = 2 THEN 'Fixed Price'
+	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
+	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
+	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+	ELSE null 
 	END AS [JobType]
 
   ,job.[Person Responsible] AS PMNo

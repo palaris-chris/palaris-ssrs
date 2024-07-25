@@ -115,7 +115,7 @@ LEFT JOIN [Palaris Europe Limited$Resource] res ON job.[Person Responsible] = re
 LEFT JOIN BUGroup bug ON job.[Global Dimension 2 Code] = bug.[Business Unit]
 
 WHERE 
-job.[No_] NOT LIKE 'T-%' AND job.[No_] NOT LIKE 'TEST%'
+job.[Project Status] NOT LIKE '%-T' AND job.[No_] NOT LIKE 'TEST%'
 ),
 
 PELPIVOT AS
@@ -227,7 +227,7 @@ LEFT JOIN [Palaris$Resource] res ON job.[Person Responsible] = res.[No_]
 LEFT JOIN BUGroup bug ON job.[Global Dimension 2 Code] = bug.[Business Unit]
 
 WHERE
-job.[No_] NOT LIKE 'T-%' AND job.[No_] NOT LIKE 'TEST%'
+job.[Project Status] NOT LIKE '%-T' AND job.[No_] NOT LIKE 'TEST%'
 ),
 
 AUPIVOT AS

@@ -3430,6 +3430,7 @@
                                 <TextRun>
                                   <Value>=Fields!WIPNoPO.Value</Value>
                                   <Style>
+                                    <Format>=IIF(Fields!Business_Unit_Group.Value="PEL", "'£'#,0;('£'#,0)", "'$'#,0;('$'#,0)")</Format>
                                     <TextDecoration>Underline</TextDecoration>
                                     <Color>MediumBlue</Color>
                                   </Style>
@@ -7447,6 +7448,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                                 <TextRun>
                                   <Value>=Fields!WIPNoPO.Value</Value>
                                   <Style>
+                                    <Format>=IIF(Fields!Business_Unit_Group.Value="PEL", "'£'#,0;('£'#,0)", "'$'#,0;('$'#,0)")</Format>
                                     <TextDecoration>Underline</TextDecoration>
                                     <Color>MediumBlue</Color>
                                   </Style>

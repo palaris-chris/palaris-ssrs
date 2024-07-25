@@ -76,6 +76,15 @@ select * from cte_last_13_months</CommandText>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
+      <Filters>
+        <Filter>
+          <FilterExpression>=Fields!Business_Unit_Group.Value</FilterExpression>
+          <Operator>NotEqual</Operator>
+          <FilterValues>
+            <FilterValue>PEX</FilterValue>
+          </FilterValues>
+        </Filter>
+      </Filters>
     </DataSet>
     <DataSet Name="AllBUTimeCalendarMonthFeb20">
       <SharedDataSet>
@@ -251,6 +260,18 @@ select * from cte_last_13_months</CommandText>
         </Field>
         <Field Name="LabelClean">
           <DataField>LabelClean</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="ActiveAUBU">
+      <SharedDataSet>
+        <SharedDataSetReference>/Subreports/ActiveAUBUs</SharedDataSetReference>
+        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Business_Unit_Group">
+          <DataField>Business_Unit_Group</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -5224,18 +5245,10 @@ select * from cte_last_13_months</CommandText>
     <ReportParameter Name="BUGroup">
       <DataType>String</DataType>
       <DefaultValue>
-        <Values>
-          <Value>BDI</Value>
-          <Value>ENG</Value>
-          <Value>FEA</Value>
-          <Value>FIN</Value>
-          <Value>GAS</Value>
-          <Value>MNO</Value>
-          <Value>SHR</Value>
-          <Value>PEL</Value>
-          <Value>PAM</Value>
-          <Value>PEX</Value>
-        </Values>
+        <DataSetReference>
+          <DataSetName>ActiveBUs</DataSetName>
+          <ValueField>Business_Unit_Group</ValueField>
+        </DataSetReference>
       </DefaultValue>
       <Prompt>GM(s)</Prompt>
       <ValidValues>

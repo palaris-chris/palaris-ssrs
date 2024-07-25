@@ -3749,16 +3749,10 @@ IIf(Fields!CostCompletion.Value &gt; CDec(1.01), "4 &gt;101 %", "6 ?")))))</Valu
     <ReportParameter Name="Business_Unit">
       <DataType>String</DataType>
       <DefaultValue>
-        <Values>
-          <Value>BDI</Value>
-          <Value>ENG</Value>
-          <Value>FEA</Value>
-          <Value>FIN</Value>
-          <Value>GAS</Value>
-          <Value>MNO</Value>
-          <Value>SHR</Value>
-          <Value>PEX</Value>
-        </Values>
+        <DataSetReference>
+          <DataSetName>ActiveBUs</DataSetName>
+          <ValueField>Business_Unit_Group</ValueField>
+        </DataSetReference>
       </DefaultValue>
       <Prompt>EGM(s)</Prompt>
       <ValidValues>

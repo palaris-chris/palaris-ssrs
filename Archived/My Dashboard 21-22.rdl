@@ -1,0 +1,3605 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSets>
+    <DataSet Name="MyBUTime">
+      <SharedDataSet>
+        <SharedDataSetReference>/Subreports/AllBUTimeCalendarMonthNov20</SharedDataSetReference>
+        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Job_No_">
+          <DataField>Job_No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Job_Task_No_">
+          <DataField>Job_Task_No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CY">
+          <DataField>CY</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CM">
+          <DataField>CM</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Type">
+          <DataField>Type</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CMCY">
+          <DataField>CMCY</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BonusYear">
+          <DataField>BonusYear</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WeekStart">
+          <DataField>WeekStart</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CQCY">
+          <DataField>CQCY</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BonusMonthNumber">
+          <DataField>BonusMonthNumber</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WeekEnd">
+          <DataField>WeekEnd</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="WEEKNUM">
+          <DataField>WEEKNUM</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CQ">
+          <DataField>CQ</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Quantity__Base_">
+          <DataField>Quantity__Base_</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Unit">
+          <DataField>Unit</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Work_Type">
+          <DataField>Work_Type</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BU">
+          <DataField>BU</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BUGroup">
+          <DataField>BUGroup</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Line_Type">
+          <DataField>Line_Type</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Resource">
+          <DataField>Resource</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Search_Name">
+          <DataField>Search_Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Task">
+          <DataField>Task</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Resource_Group_No_">
+          <DataField>Resource_Group_No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Time_Sheet_Owner_User_ID">
+          <DataField>Time_Sheet_Owner_User_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WorkTypeDescription">
+          <DataField>WorkTypeDescription</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BILLHR">
+          <DataField>BILLHR</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TimeCat">
+          <DataField>TimeCat</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Capacity">
+          <DataField>Capacity</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="BILLCapacity">
+          <DataField>BILLCapacity</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="Adjustments">
+          <DataField>Adjustments</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="AdjustedBILLHR">
+          <DataField>AdjustedBILLHR</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Ordering">
+          <DataField>Ordering</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BD_PROP">
+          <DataField>BD_PROP</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Entry">
+          <DataField>Entry</DataField>
+        </Field>
+        <Field Name="BD_PROPCapacity">
+          <DataField>BD_PROPCapacity</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="Job_Task">
+          <DataField>Job_Task</DataField>
+        </Field>
+        <Field Name="FinalHrs">
+          <DataField>FinalHrs</DataField>
+        </Field>
+        <Field Name="WeekEnding">
+          <DataField>WeekEnding</DataField>
+        </Field>
+        <Field Name="ReportingMonth">
+          <DataField>ReportingMonth</DataField>
+        </Field>
+        <Field Name="Label">
+          <DataField>Label</DataField>
+        </Field>
+        <Field Name="LabelClean">
+          <DataField>LabelClean</DataField>
+        </Field>
+      </Fields>
+      <Filters>
+        <Filter>
+          <FilterExpression>=Fields!No_.Value</FilterExpression>
+          <Operator>Equal</Operator>
+          <FilterValues>
+            <FilterValue>=Parameters!Resource.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+        <Filter>
+          <FilterExpression>=Fields!BonusYear.Value</FilterExpression>
+          <Operator>Equal</Operator>
+          <FilterValues>
+            <FilterValue>=Parameters!BonusYear.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+      </Filters>
+    </DataSet>
+    <DataSet Name="ActiveResources">
+      <SharedDataSet>
+        <SharedDataSetReference>/Subreports/ActiveResources</SharedDataSetReference>
+        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Global_Dimension_2_Code">
+          <DataField>Global_Dimension_2_Code</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Time_Sheet_Owner_User_ID">
+          <DataField>Time_Sheet_Owner_User_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Filters>
+        <Filter>
+          <FilterExpression>=Fields!Time_Sheet_Owner_User_ID.Value</FilterExpression>
+          <Operator>Equal</Operator>
+          <FilterValues>
+            <FilterValue>=Parameters!UserID.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+      </Filters>
+    </DataSet>
+    <DataSet Name="AllBUTime">
+      <SharedDataSet>
+        <SharedDataSetReference>/Subreports/AllBUTimeCalendarMonthNov20</SharedDataSetReference>
+        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Job_No_">
+          <DataField>Job_No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Job_Task_No_">
+          <DataField>Job_Task_No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CY">
+          <DataField>CY</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CM">
+          <DataField>CM</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Type">
+          <DataField>Type</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CMCY">
+          <DataField>CMCY</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BonusYear">
+          <DataField>BonusYear</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WeekStart">
+          <DataField>WeekStart</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CQCY">
+          <DataField>CQCY</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BonusMonthNumber">
+          <DataField>BonusMonthNumber</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="WEEKNUM">
+          <DataField>WEEKNUM</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="WeekEnd">
+          <DataField>WeekEnd</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CQ">
+          <DataField>CQ</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Quantity__Base_">
+          <DataField>Quantity__Base_</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Unit">
+          <DataField>Unit</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Work_Type">
+          <DataField>Work_Type</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BU">
+          <DataField>BU</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BUGroup">
+          <DataField>BUGroup</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Line_Type">
+          <DataField>Line_Type</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Resource">
+          <DataField>Resource</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Search_Name">
+          <DataField>Search_Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Task">
+          <DataField>Task</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Resource_Group_No_">
+          <DataField>Resource_Group_No_</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Time_Sheet_Owner_User_ID">
+          <DataField>Time_Sheet_Owner_User_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WorkTypeDescription">
+          <DataField>WorkTypeDescription</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TimeCat">
+          <DataField>TimeCat</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Ordering">
+          <DataField>Ordering</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BILLHR">
+          <DataField>BILLHR</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Capacity">
+          <DataField>Capacity</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="AdjustedBILLHR">
+          <DataField>AdjustedBILLHR</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Adjustments">
+          <DataField>Adjustments</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="BD_PROP">
+          <DataField>BD_PROP</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="BILLCapacity">
+          <DataField>BILLCapacity</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="BD_PROPCapacity">
+          <DataField>BD_PROPCapacity</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="Entry">
+          <DataField>Entry</DataField>
+        </Field>
+        <Field Name="Job_Task">
+          <DataField>Job_Task</DataField>
+        </Field>
+        <Field Name="FinalHrs">
+          <DataField>FinalHrs</DataField>
+        </Field>
+        <Field Name="WeekEnding">
+          <DataField>WeekEnding</DataField>
+        </Field>
+        <Field Name="ReportingMonth">
+          <DataField>ReportingMonth</DataField>
+        </Field>
+        <Field Name="Label">
+          <DataField>Label</DataField>
+        </Field>
+        <Field Name="LabelClean">
+          <DataField>LabelClean</DataField>
+        </Field>
+      </Fields>
+      <Filters>
+        <Filter>
+          <FilterExpression>=Fields!BonusYear.Value</FilterExpression>
+          <Operator>Equal</Operator>
+          <FilterValues>
+            <FilterValue>=Parameters!BonusYear.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+        <Filter>
+          <FilterExpression>=Fields!BUGroup.Value</FilterExpression>
+          <Operator>NotEqual</Operator>
+          <FilterValues>
+            <FilterValue>INS</FilterValue>
+          </FilterValues>
+        </Filter>
+        <Filter>
+          <FilterExpression>=Fields!BUGroup.Value</FilterExpression>
+          <Operator>NotEqual</Operator>
+          <FilterValues>
+            <FilterValue>PEL</FilterValue>
+          </FilterValues>
+        </Filter>
+        <Filter>
+          <FilterExpression>=Fields!BUGroup.Value</FilterExpression>
+          <Operator>NotEqual</Operator>
+          <FilterValues>
+            <FilterValue>PEX</FilterValue>
+          </FilterValues>
+        </Filter>
+      </Filters>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Rectangle Name="Rectangle1">
+            <ReportItems>
+              <Rectangle Name="Rectangle2">
+                <ReportItems>
+                  <Rectangle Name="Rectangle15">
+                    <ReportItems>
+                      <Tablix Name="Tablix3">
+                        <TablixBody>
+                          <TablixColumns>
+                            <TablixColumn>
+                              <Width>14.59283mm</Width>
+                            </TablixColumn>
+                            <TablixColumn>
+                              <Width>42.65324mm</Width>
+                            </TablixColumn>
+                            <TablixColumn>
+                              <Width>15.18848mm</Width>
+                            </TablixColumn>
+                            <TablixColumn>
+                              <Width>7mm</Width>
+                            </TablixColumn>
+                            <TablixColumn>
+                              <Width>15.18848mm</Width>
+                            </TablixColumn>
+                            <TablixColumn>
+                              <Width>7mm</Width>
+                            </TablixColumn>
+                            <TablixColumn>
+                              <Width>15.18848mm</Width>
+                            </TablixColumn>
+                            <TablixColumn>
+                              <Width>7mm</Width>
+                            </TablixColumn>
+                            <TablixColumn>
+                              <Width>15.18848mm</Width>
+                            </TablixColumn>
+                            <TablixColumn>
+                              <Width>7mm</Width>
+                            </TablixColumn>
+                          </TablixColumns>
+                          <TablixRows>
+                            <TablixRow>
+                              <Height>7.74311mm</Height>
+                              <TablixCells>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox47">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>Colour Scale</Value>
+                                              <Style>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Center</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox47</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>Gray</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <TopBorder>
+                                          <Color>Gray</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </TopBorder>
+                                        <BottomBorder>
+                                          <Color>Gray</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </BottomBorder>
+                                        <LeftBorder>
+                                          <Color>Gray</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </LeftBorder>
+                                        <RightBorder>
+                                          <Color>Gray</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <VerticalAlign>Middle</VerticalAlign>
+                                        <PaddingLeft>2pt</PaddingLeft>
+                                        <PaddingRight>2pt</PaddingRight>
+                                        <PaddingTop>2pt</PaddingTop>
+                                        <PaddingBottom>2pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>10</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                              </TablixCells>
+                            </TablixRow>
+                            <TablixRow>
+                              <Height>9.89103mm</Height>
+                              <TablixCells>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox48">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>Metric</Value>
+                                              <Style>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Left</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox48</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <VerticalAlign>Middle</VerticalAlign>
+                                        <PaddingLeft>6pt</PaddingLeft>
+                                        <PaddingRight>2pt</PaddingRight>
+                                        <PaddingTop>2pt</PaddingTop>
+                                        <PaddingBottom>2pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>2</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox108">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>Full Bonus</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Left</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox108</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>2pt</PaddingLeft>
+                                        <PaddingRight>2pt</PaddingRight>
+                                        <PaddingTop>2pt</PaddingTop>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Rectangle Name="Rectangle46">
+                                      <ReportItems>
+                                        <Rectangle Name="Rectangle47">
+                                          <KeepTogether>true</KeepTogether>
+                                          <Top>3.5mm</Top>
+                                          <Left>1mm</Left>
+                                          <Height>2.5mm</Height>
+                                          <Width>2.5mm</Width>
+                                          <Style>
+                                            <Border>
+                                              <Style>Solid</Style>
+                                            </Border>
+                                            <BackgroundColor>#01b8aa</BackgroundColor>
+                                          </Style>
+                                        </Rectangle>
+                                      </ReportItems>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <TopBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </TopBorder>
+                                        <BottomBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </BottomBorder>
+                                        <LeftBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>None</Style>
+                                          <Width>1pt</Width>
+                                        </LeftBorder>
+                                        <RightBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                      </Style>
+                                    </Rectangle>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox109">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>Partial Bonus</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Left</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox109</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>2pt</PaddingLeft>
+                                        <PaddingRight>2pt</PaddingRight>
+                                        <PaddingTop>2pt</PaddingTop>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Rectangle Name="Rectangle48">
+                                      <ReportItems>
+                                        <Rectangle Name="Rectangle49">
+                                          <KeepTogether>true</KeepTogether>
+                                          <Top>3.5mm</Top>
+                                          <Left>1mm</Left>
+                                          <Height>2.5mm</Height>
+                                          <Width>2.5mm</Width>
+                                          <Style>
+                                            <Border>
+                                              <Style>Solid</Style>
+                                            </Border>
+                                            <BackgroundColor>#374649</BackgroundColor>
+                                          </Style>
+                                        </Rectangle>
+                                      </ReportItems>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <TopBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </TopBorder>
+                                        <BottomBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </BottomBorder>
+                                        <LeftBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>None</Style>
+                                          <Width>1pt</Width>
+                                        </LeftBorder>
+                                        <RightBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                      </Style>
+                                    </Rectangle>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox110">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>Partial Bonus</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Left</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox110</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>2pt</PaddingLeft>
+                                        <PaddingRight>2pt</PaddingRight>
+                                        <PaddingTop>2pt</PaddingTop>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Rectangle Name="Rectangle50">
+                                      <ReportItems>
+                                        <Rectangle Name="Rectangle51">
+                                          <KeepTogether>true</KeepTogether>
+                                          <Top>3.5mm</Top>
+                                          <Left>1mm</Left>
+                                          <Height>2.5mm</Height>
+                                          <Width>2.5mm</Width>
+                                          <Style>
+                                            <Border>
+                                              <Style>Solid</Style>
+                                            </Border>
+                                            <BackgroundColor>#5f6b6d</BackgroundColor>
+                                          </Style>
+                                        </Rectangle>
+                                      </ReportItems>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <TopBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </TopBorder>
+                                        <BottomBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </BottomBorder>
+                                        <LeftBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>None</Style>
+                                          <Width>1pt</Width>
+                                        </LeftBorder>
+                                        <RightBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                      </Style>
+                                    </Rectangle>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox27">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>No Bonus</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Left</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox26</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>2pt</PaddingLeft>
+                                        <PaddingRight>2pt</PaddingRight>
+                                        <PaddingTop>2pt</PaddingTop>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Rectangle Name="Rectangle52">
+                                      <ReportItems>
+                                        <Rectangle Name="Rectangle53">
+                                          <KeepTogether>true</KeepTogether>
+                                          <Top>3.5mm</Top>
+                                          <Left>1mm</Left>
+                                          <Height>2.5mm</Height>
+                                          <Width>2.5mm</Width>
+                                          <Style>
+                                            <Border>
+                                              <Style>Solid</Style>
+                                            </Border>
+                                            <BackgroundColor>#fd625e</BackgroundColor>
+                                          </Style>
+                                        </Rectangle>
+                                      </ReportItems>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <TopBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </TopBorder>
+                                        <BottomBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </BottomBorder>
+                                        <LeftBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>None</Style>
+                                          <Width>1pt</Width>
+                                        </LeftBorder>
+                                        <RightBorder>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                          <Width>1pt</Width>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                      </Style>
+                                    </Rectangle>
+                                  </CellContents>
+                                </TablixCell>
+                              </TablixCells>
+                            </TablixRow>
+                            <TablixRow>
+                              <Height>6.89103mm</Height>
+                              <TablixCells>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox49">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>1: 20%</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Left</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox49</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox92">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>GP % Component</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox92</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox78">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>Paid at 6 thresholds based on gross profit ($) achieved</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox42</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>8</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                              </TablixCells>
+                            </TablixRow>
+                            <TablixRow>
+                              <Height>6.89103mm</Height>
+                              <TablixCells>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="CQCY">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>2: 60%</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Left</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>CQCY</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox93">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>Billable Component</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox93</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox20">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>&gt;= </Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                            <TextRun>
+                                              <Value>=Sum(Fields!BILLCapacity.Value, "MyBUTime") / CountDistinct(Fields!WeekEnding.Value, "MyBUTime")</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Format>n2</Format>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                            <TextRun>
+                                              <Value> wk</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Format>n2</Format>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox18</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>2</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox29">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>&gt;= </Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                            <TextRun>
+                                              <Value>=0.925 * (Sum(Fields!BILLCapacity.Value, "MyBUTime") / CountDistinct(Fields!WeekEnding.Value, "MyBUTime"))</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Format>n2</Format>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                            <TextRun>
+                                              <Value> wk</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Format>n2</Format>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox25</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>2</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox67">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>&gt;= </Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                            <TextRun>
+                                              <Value>=0.875 * (Sum(Fields!BILLCapacity.Value, "MyBUTime") / CountDistinct(Fields!WeekEnding.Value, "MyBUTime"))</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Format>n2</Format>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                            <TextRun>
+                                              <Value> wk</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Format>n2</Format>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox54</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>2</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox31">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>&lt; </Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                            <TextRun>
+                                              <Value>=0.875 * (Sum(Fields!BILLCapacity.Value, "MyBUTime") / CountDistinct(Fields!WeekEnding.Value, "MyBUTime"))</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Format>n2</Format>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                            <TextRun>
+                                              <Value> wk</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Format>n2</Format>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox28</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>2</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                              </TablixCells>
+                            </TablixRow>
+                            <TablixRow>
+                              <Height>6.89103mm</Height>
+                              <TablixCells>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox51">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>3a: 10%</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Left</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox51</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox63">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>CRM Activities</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox50</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox61">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>2 mnth</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox38</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>2</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox64">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>N/A</Value>
+                                              <Style>
+                                                <FontStyle>Italic</FontStyle>
+                                                <FontSize>9pt</FontSize>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox53</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>2</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox105">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>N/A</Value>
+                                              <Style>
+                                                <FontStyle>Italic</FontStyle>
+                                                <FontSize>9pt</FontSize>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox105</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>2</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox80">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>&lt; 2 mnth</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox40</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>2</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                              </TablixCells>
+                            </TablixRow>
+                            <TablixRow>
+                              <Height>6.89103mm</Height>
+                              <TablixCells>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox52">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>3b: 10%</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Left</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox51</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox65">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>CRM Quality Engagement</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox50</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox66">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>Scored per final GM Assessment</Value>
+                                              <Style>
+                                                <FontSize>9pt</FontSize>
+                                                <Color>DimGray</Color>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Center</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox38</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <RightBorder>
+                                          <Style>None</Style>
+                                        </RightBorder>
+                                        <VerticalAlign>Top</VerticalAlign>
+                                        <PaddingLeft>4pt</PaddingLeft>
+                                        <PaddingRight>4pt</PaddingRight>
+                                        <PaddingTop>4pt</PaddingTop>
+                                        <PaddingBottom>4pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                    <ColSpan>8</ColSpan>
+                                  </CellContents>
+                                </TablixCell>
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                                <TablixCell />
+                              </TablixCells>
+                            </TablixRow>
+                          </TablixRows>
+                        </TablixBody>
+                        <TablixColumnHierarchy>
+                          <TablixMembers>
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                          </TablixMembers>
+                        </TablixColumnHierarchy>
+                        <TablixRowHierarchy>
+                          <TablixMembers>
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                            <TablixMember />
+                          </TablixMembers>
+                        </TablixRowHierarchy>
+                        <DataSetName>MyBUTime</DataSetName>
+                        <Top>0mm</Top>
+                        <Left>0mm</Left>
+                        <Height>45.19826mm</Height>
+                        <Width>145.99999mm</Width>
+                        <Style>
+                          <Border>
+                            <Style>None</Style>
+                          </Border>
+                        </Style>
+                      </Tablix>
+                    </ReportItems>
+                    <KeepTogether>true</KeepTogether>
+                    <Top>5.25088mm</Top>
+                    <Left>158.5776mm</Left>
+                    <Height>45.19826mm</Height>
+                    <Width>145.99999mm</Width>
+                    <Style>
+                      <Border>
+                        <Color>Gray</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <TopBorder>
+                        <Style>None</Style>
+                      </TopBorder>
+                      <BackgroundColor>#fafafa</BackgroundColor>
+                    </Style>
+                  </Rectangle>
+                  <Rectangle Name="Rectangle3">
+                    <ReportItems>
+                      <Chart Name="Chart1">
+                        <ChartCategoryHierarchy>
+                          <ChartMembers>
+                            <ChartMember>
+                              <Group Name="Chart1_CategoryGroup">
+                                <GroupExpressions>
+                                  <GroupExpression>=Fields!ReportingMonth.Value</GroupExpression>
+                                </GroupExpressions>
+                              </Group>
+                              <SortExpressions>
+                                <SortExpression>
+                                  <Value>=Fields!BonusMonthNumber.Value</Value>
+                                </SortExpression>
+                              </SortExpressions>
+                              <Label>=Fields!ReportingMonth.Value</Label>
+                            </ChartMember>
+                          </ChartMembers>
+                        </ChartCategoryHierarchy>
+                        <ChartSeriesHierarchy>
+                          <ChartMembers>
+                            <ChartMember>
+                              <Label>Capacity</Label>
+                            </ChartMember>
+                            <ChartMember>
+                              <Label>Capacity</Label>
+                            </ChartMember>
+                            <ChartMember>
+                              <Label>Capacity</Label>
+                            </ChartMember>
+                            <ChartMember>
+                              <Label>Capacity</Label>
+                            </ChartMember>
+                          </ChartMembers>
+                        </ChartSeriesHierarchy>
+                        <ChartData>
+                          <ChartSeriesCollection>
+                            <ChartSeries Name="BILLHR">
+                              <ChartDataPoints>
+                                <ChartDataPoint>
+                                  <ChartDataPointValues>
+                                    <Y>=Sum(Fields!BILLHR.Value)/Sum(Fields!Capacity.Value)</Y>
+                                  </ChartDataPointValues>
+                                  <ChartDataLabel>
+                                    <Style />
+                                  </ChartDataLabel>
+                                  <Style>
+                                    <Color>#01b8aa</Color>
+                                  </Style>
+                                  <ChartMarker>
+                                    <Style />
+                                  </ChartMarker>
+                                  <DataElementOutput>Output</DataElementOutput>
+                                </ChartDataPoint>
+                              </ChartDataPoints>
+                              <Type>Area</Type>
+                              <Subtype>Stacked</Subtype>
+                              <Style />
+                              <ChartEmptyPoints>
+                                <Style />
+                                <ChartMarker>
+                                  <Style />
+                                </ChartMarker>
+                                <ChartDataLabel>
+                                  <Style />
+                                </ChartDataLabel>
+                              </ChartEmptyPoints>
+                              <ChartItemInLegend>
+                                <LegendText>Billable</LegendText>
+                              </ChartItemInLegend>
+                              <ValueAxisName>Primary</ValueAxisName>
+                              <CategoryAxisName>Primary</CategoryAxisName>
+                              <ChartSmartLabel>
+                                <CalloutLineColor>Black</CalloutLineColor>
+                                <MinMovingDistance>0pt</MinMovingDistance>
+                              </ChartSmartLabel>
+                            </ChartSeries>
+                            <ChartSeries Name="AdjustedBILLHR">
+                              <ChartDataPoints>
+                                <ChartDataPoint>
+                                  <ChartDataPointValues>
+                                    <Y>=Sum(Fields!Adjustments.Value)/Sum(Fields!Capacity.Value)</Y>
+                                  </ChartDataPointValues>
+                                  <ChartDataLabel>
+                                    <Style />
+                                  </ChartDataLabel>
+                                  <Style>
+                                    <Border>
+                                      <Style>Dashed</Style>
+                                      <Width>2.25pt</Width>
+                                    </Border>
+                                    <Color>#4901b8aa</Color>
+                                  </Style>
+                                  <ChartMarker>
+                                    <Style />
+                                  </ChartMarker>
+                                  <DataElementOutput>Output</DataElementOutput>
+                                </ChartDataPoint>
+                              </ChartDataPoints>
+                              <Type>Area</Type>
+                              <Subtype>Stacked</Subtype>
+                              <Style />
+                              <ChartEmptyPoints>
+                                <Style />
+                                <ChartMarker>
+                                  <Style />
+                                </ChartMarker>
+                                <ChartDataLabel>
+                                  <Style />
+                                </ChartDataLabel>
+                              </ChartEmptyPoints>
+                              <ChartItemInLegend>
+                                <LegendText>Adjustments</LegendText>
+                              </ChartItemInLegend>
+                              <ValueAxisName>Primary</ValueAxisName>
+                              <CategoryAxisName>Primary</CategoryAxisName>
+                              <ChartSmartLabel>
+                                <CalloutLineColor>Black</CalloutLineColor>
+                                <MinMovingDistance>0pt</MinMovingDistance>
+                              </ChartSmartLabel>
+                            </ChartSeries>
+                            <ChartSeries Name="AdjustedTarget">
+                              <ChartDataPoints>
+                                <ChartDataPoint>
+                                  <ChartDataPointValues>
+                                    <Y>=Sum(Fields!BILLHR.Value)/Sum(Fields!Capacity.Value)</Y>
+                                  </ChartDataPointValues>
+                                  <ChartDataLabel>
+                                    <Style>
+                                      <BackgroundColor>#64ffffff</BackgroundColor>
+                                      <FontSize>8pt</FontSize>
+                                      <Format>0%</Format>
+                                    </Style>
+                                    <UseValueAsLabel>true</UseValueAsLabel>
+                                    <Visible>true</Visible>
+                                  </ChartDataLabel>
+                                  <ToolTip>=Fields!CMCY.Value</ToolTip>
+                                  <Style>
+                                    <Border>
+                                      <Style>None</Style>
+                                      <Width>2.25pt</Width>
+                                    </Border>
+                                    <Color>DimGray</Color>
+                                  </Style>
+                                  <ChartMarker>
+                                    <Type>Circle</Type>
+                                    <Size>6pt</Size>
+                                    <Style>
+                                      <Border>
+                                        <Color>Black</Color>
+                                      </Border>
+                                      <Color>=iif(Sum(Fields!BILLHR.Value)/Sum(Fields!Capacity.Value) &gt;= 0.695, "#01b8aa", 
+iif(Sum(Fields!BILLHR.Value)/Sum(Fields!Capacity.Value) &lt; 0.595, "#fd625e", "DimGray"))</Color>
+                                    </Style>
+                                  </ChartMarker>
+                                  <DataElementOutput>Output</DataElementOutput>
+                                </ChartDataPoint>
+                              </ChartDataPoints>
+                              <Type>Line</Type>
+                              <Style>
+                                <ShadowColor>Black</ShadowColor>
+                              </Style>
+                              <ChartEmptyPoints>
+                                <Style />
+                                <ChartMarker>
+                                  <Style />
+                                </ChartMarker>
+                                <ChartDataLabel>
+                                  <Style />
+                                </ChartDataLabel>
+                              </ChartEmptyPoints>
+                              <ChartItemInLegend>
+                                <LegendText>Billable</LegendText>
+                                <Hidden>true</Hidden>
+                              </ChartItemInLegend>
+                              <ValueAxisName>Primary</ValueAxisName>
+                              <CategoryAxisName>Primary</CategoryAxisName>
+                              <ChartSmartLabel>
+                                <CalloutLineColor>Black</CalloutLineColor>
+                                <MinMovingDistance>0pt</MinMovingDistance>
+                              </ChartSmartLabel>
+                            </ChartSeries>
+                            <ChartSeries Name="Target">
+                              <ChartDataPoints>
+                                <ChartDataPoint>
+                                  <ChartDataPointValues>
+                                    <Y>=Sum(Fields!BILLCapacity.Value)/Sum(Fields!Capacity.Value)</Y>
+                                  </ChartDataPointValues>
+                                  <ChartDataLabel>
+                                    <Style>
+                                      <Format>0%</Format>
+                                    </Style>
+                                    <UseValueAsLabel>true</UseValueAsLabel>
+                                  </ChartDataLabel>
+                                  <Style>
+                                    <Border>
+                                      <Style>Dashed</Style>
+                                      <Width>1.5pt</Width>
+                                    </Border>
+                                    <Color>#323232</Color>
+                                  </Style>
+                                  <ChartMarker>
+                                    <Style />
+                                  </ChartMarker>
+                                  <DataElementOutput>Output</DataElementOutput>
+                                </ChartDataPoint>
+                              </ChartDataPoints>
+                              <Type>Line</Type>
+                              <Style />
+                              <ChartEmptyPoints>
+                                <Style />
+                                <ChartMarker>
+                                  <Style />
+                                </ChartMarker>
+                                <ChartDataLabel>
+                                  <Style />
+                                </ChartDataLabel>
+                              </ChartEmptyPoints>
+                              <ChartItemInLegend>
+                                <LegendText>Target</LegendText>
+                              </ChartItemInLegend>
+                              <ValueAxisName>Primary</ValueAxisName>
+                              <CategoryAxisName>Primary</CategoryAxisName>
+                              <ChartSmartLabel>
+                                <CalloutLineColor>Black</CalloutLineColor>
+                                <MinMovingDistance>0pt</MinMovingDistance>
+                              </ChartSmartLabel>
+                            </ChartSeries>
+                          </ChartSeriesCollection>
+                        </ChartData>
+                        <ChartAreas>
+                          <ChartArea Name="Default">
+                            <ChartCategoryAxes>
+                              <ChartAxis Name="Primary">
+                                <Style>
+                                  <Border>
+                                    <Color>DimGray</Color>
+                                  </Border>
+                                  <FontSize>9pt</FontSize>
+                                  <Color>DimGray</Color>
+                                </Style>
+                                <ChartAxisTitle>
+                                  <Caption />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </ChartAxisTitle>
+                                <Interval>1</Interval>
+                                <ChartMajorGridLines>
+                                  <Enabled>False</Enabled>
+                                  <Style>
+                                    <Border>
+                                      <Color>Gainsboro</Color>
+                                    </Border>
+                                  </Style>
+                                </ChartMajorGridLines>
+                                <ChartMinorGridLines>
+                                  <Style>
+                                    <Border>
+                                      <Color>Gainsboro</Color>
+                                      <Style>Dotted</Style>
+                                    </Border>
+                                  </Style>
+                                </ChartMinorGridLines>
+                                <ChartMajorTickMarks>
+                                  <Style>
+                                    <Border>
+                                      <Color>DimGray</Color>
+                                    </Border>
+                                  </Style>
+                                </ChartMajorTickMarks>
+                                <ChartMinorTickMarks>
+                                  <Length>0.5</Length>
+                                </ChartMinorTickMarks>
+                                <CrossAt>NaN</CrossAt>
+                                <Minimum>NaN</Minimum>
+                                <Maximum>NaN</Maximum>
+                                <Angle>-45</Angle>
+                                <LabelsAutoFitDisabled>true</LabelsAutoFitDisabled>
+                                <MinFontSize>8pt</MinFontSize>
+                                <ChartAxisScaleBreak>
+                                  <Style />
+                                </ChartAxisScaleBreak>
+                              </ChartAxis>
+                              <ChartAxis Name="Secondary">
+                                <Style>
+                                  <FontSize>8pt</FontSize>
+                                </Style>
+                                <ChartAxisTitle>
+                                  <Caption>Axis Title</Caption>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </ChartAxisTitle>
+                                <ChartMajorGridLines>
+                                  <Enabled>False</Enabled>
+                                  <Style>
+                                    <Border>
+                                      <Color>Gainsboro</Color>
+                                    </Border>
+                                  </Style>
+                                </ChartMajorGridLines>
+                                <ChartMinorGridLines>
+                                  <Style>
+                                    <Border>
+                                      <Color>Gainsboro</Color>
+                                      <Style>Dotted</Style>
+                                    </Border>
+                                  </Style>
+                                </ChartMinorGridLines>
+                                <ChartMinorTickMarks>
+                                  <Length>0.5</Length>
+                                </ChartMinorTickMarks>
+                                <CrossAt>NaN</CrossAt>
+                                <Location>Opposite</Location>
+                                <Minimum>NaN</Minimum>
+                                <Maximum>NaN</Maximum>
+                                <ChartAxisScaleBreak>
+                                  <Style />
+                                </ChartAxisScaleBreak>
+                              </ChartAxis>
+                            </ChartCategoryAxes>
+                            <ChartValueAxes>
+                              <ChartAxis Name="Primary">
+                                <Style>
+                                  <Border>
+                                    <Color>DimGray</Color>
+                                  </Border>
+                                  <FontSize>8pt</FontSize>
+                                  <Format>0.00%</Format>
+                                  <Color>DimGray</Color>
+                                </Style>
+                                <ChartAxisTitle>
+                                  <Caption />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </ChartAxisTitle>
+                                <Interval>0.1</Interval>
+                                <ChartMajorGridLines>
+                                  <Enabled>False</Enabled>
+                                  <Style>
+                                    <Border>
+                                      <Color>Gainsboro</Color>
+                                    </Border>
+                                  </Style>
+                                </ChartMajorGridLines>
+                                <ChartMinorGridLines>
+                                  <Style>
+                                    <Border>
+                                      <Color>Gainsboro</Color>
+                                      <Style>Dotted</Style>
+                                    </Border>
+                                  </Style>
+                                </ChartMinorGridLines>
+                                <ChartMajorTickMarks>
+                                  <Style>
+                                    <Border>
+                                      <Color>DimGray</Color>
+                                    </Border>
+                                  </Style>
+                                </ChartMajorTickMarks>
+                                <ChartMinorTickMarks>
+                                  <Length>0.5</Length>
+                                </ChartMinorTickMarks>
+                                <CrossAt>NaN</CrossAt>
+                                <Minimum>0.3</Minimum>
+                                <Maximum>1</Maximum>
+                                <IncludeZero>false</IncludeZero>
+                                <MaxFontSize>6pt</MaxFontSize>
+                                <ChartAxisScaleBreak>
+                                  <Style />
+                                </ChartAxisScaleBreak>
+                              </ChartAxis>
+                              <ChartAxis Name="Secondary">
+                                <Style>
+                                  <Border>
+                                    <Color>Gray</Color>
+                                  </Border>
+                                  <FontSize>8pt</FontSize>
+                                  <Format>0.00;(0.00)</Format>
+                                  <Color>DimGray</Color>
+                                </Style>
+                                <ChartAxisTitle>
+                                  <Caption />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </ChartAxisTitle>
+                                <ChartMajorGridLines>
+                                  <Style>
+                                    <Border>
+                                      <Color>WhiteSmoke</Color>
+                                    </Border>
+                                  </Style>
+                                </ChartMajorGridLines>
+                                <ChartMinorGridLines>
+                                  <Style>
+                                    <Border>
+                                      <Color>Gainsboro</Color>
+                                      <Style>Dotted</Style>
+                                    </Border>
+                                  </Style>
+                                </ChartMinorGridLines>
+                                <ChartMajorTickMarks>
+                                  <Enabled>False</Enabled>
+                                  <Style>
+                                    <Border>
+                                      <Color>Gray</Color>
+                                    </Border>
+                                  </Style>
+                                </ChartMajorTickMarks>
+                                <ChartMinorTickMarks>
+                                  <Length>0.5</Length>
+                                </ChartMinorTickMarks>
+                                <CrossAt>NaN</CrossAt>
+                                <Location>Opposite</Location>
+                                <Minimum>NaN</Minimum>
+                                <Maximum>NaN</Maximum>
+                                <HideLabels>true</HideLabels>
+                                <IncludeZero>false</IncludeZero>
+                                <MaxFontSize>6pt</MaxFontSize>
+                                <ChartAxisScaleBreak>
+                                  <Style />
+                                </ChartAxisScaleBreak>
+                              </ChartAxis>
+                            </ChartValueAxes>
+                            <Style>
+                              <BackgroundColor>#fafafa</BackgroundColor>
+                              <BackgroundGradientType>None</BackgroundGradientType>
+                            </Style>
+                            <ChartElementPosition>
+                              <Top>3</Top>
+                              <Height>94</Height>
+                              <Width>85</Width>
+                            </ChartElementPosition>
+                          </ChartArea>
+                        </ChartAreas>
+                        <ChartLegends>
+                          <ChartLegend Name="Legend1">
+                            <Style>
+                              <BackgroundGradientType>None</BackgroundGradientType>
+                              <FontSize>8pt</FontSize>
+                            </Style>
+                            <ChartLegendTitle>
+                              <Caption />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </ChartLegendTitle>
+                            <HeaderSeparatorColor>Black</HeaderSeparatorColor>
+                            <ColumnSeparatorColor>Black</ColumnSeparatorColor>
+                          </ChartLegend>
+                        </ChartLegends>
+                        <Palette>BrightPastel</Palette>
+                        <ChartBorderSkin>
+                          <Style>
+                            <BackgroundColor>Gray</BackgroundColor>
+                            <BackgroundGradientType>None</BackgroundGradientType>
+                            <Color>White</Color>
+                          </Style>
+                        </ChartBorderSkin>
+                        <ChartNoDataMessage Name="NoDataMessage">
+                          <Caption>No Data Available</Caption>
+                          <Style>
+                            <BackgroundGradientType>None</BackgroundGradientType>
+                            <TextAlign>General</TextAlign>
+                            <VerticalAlign>Top</VerticalAlign>
+                          </Style>
+                        </ChartNoDataMessage>
+                        <DataSetName>AllBUTime</DataSetName>
+                        <Top>55.08862mm</Top>
+                        <Left>0mm</Left>
+                        <Height>81.9091mm</Height>
+                        <Width>146.41225mm</Width>
+                        <Style>
+                          <Border>
+                            <Style>Solid</Style>
+                          </Border>
+                          <TopBorder>
+                            <Color>DimGray</Color>
+                            <Style>Solid</Style>
+                            <Width>1pt</Width>
+                          </TopBorder>
+                          <BottomBorder>
+                            <Color>DimGray</Color>
+                            <Style>Solid</Style>
+                            <Width>1pt</Width>
+                          </BottomBorder>
+                          <RightBorder>
+                            <Color>DimGray</Color>
+                            <Style>Solid</Style>
+                            <Width>1pt</Width>
+                          </RightBorder>
+                          <BackgroundColor>#fafafa</BackgroundColor>
+                          <BackgroundGradientType>None</BackgroundGradientType>
+                        </Style>
+                      </Chart>
+                      <Textbox Name="Textbox6">
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>1. Palaris Adjusted Billable</Value>
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>DimGray</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox1</rd:DefaultName>
+                        <Top>49.22483mm</Top>
+                        <Left>0.00001mm</Left>
+                        <Height>6.53407mm</Height>
+                        <Width>146.41225mm</Width>
+                        <ZIndex>1</ZIndex>
+                        <Bookmark>GPMargin</Bookmark>
+                        <Style>
+                          <Border>
+                            <Color>Gray</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <TopBorder>
+                            <Width>1pt</Width>
+                          </TopBorder>
+                          <BackgroundColor>WhiteSmoke</BackgroundColor>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                      <GaugePanel Name="GaugePanel7">
+                        <LinearGauges>
+                          <LinearGauge Name="LinearGauge1">
+                            <GaugeScales>
+                              <LinearScale Name="LinearScale1">
+                                <Position>60</Position>
+                                <GaugePointers>
+                                  <LinearPointer Name="LinearPointer1">
+                                    <Type>Bar</Type>
+                                    <Thermometer>
+                                      <Style />
+                                    </Thermometer>
+                                    <Style>
+                                      <Border>
+                                        <Style>None</Style>
+                                      </Border>
+                                      <BackgroundColor>=iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= Sum(Fields!BILLCapacity.Value), "#01b8aa", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= (0.925*Sum(Fields!BILLCapacity.Value)), "#374649", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= (0.875*Sum(Fields!BILLCapacity.Value)), "#5F6B6D", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &lt; (0.875*Sum(Fields!BILLCapacity.Value)), "#fd625e", "Black"))))</BackgroundColor>
+                                      <BackgroundGradientType>None</BackgroundGradientType>
+                                      <BackgroundGradientEndColor>=iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= Sum(Fields!BILLCapacity.Value), "#01b8aa", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= (0.925*Sum(Fields!BILLCapacity.Value)), "#374649", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= (0.875*Sum(Fields!BILLCapacity.Value)), "#5F6B6D", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &lt; (0.875*Sum(Fields!BILLCapacity.Value)), "#fd625e", "Black"))))</BackgroundGradientEndColor>
+                                      <BackgroundHatchType>None</BackgroundHatchType>
+                                      <ShadowOffset>1pt</ShadowOffset>
+                                    </Style>
+                                    <GaugeInputValue>
+                                      <Value>=Sum(Fields!AdjustedBILLHR.Value) / COUNTDISTINCT(Fields!WeekEnding.Value)</Value>
+                                      <Multiplier>1</Multiplier>
+                                    </GaugeInputValue>
+                                    <PointerImage>
+                                      <OffsetX>0pt</OffsetX>
+                                      <OffsetY>0pt</OffsetY>
+                                      <Source>External</Source>
+                                      <Value />
+                                    </PointerImage>
+                                    <MarkerLength>25</MarkerLength>
+                                    <MarkerStyle>Wedge</MarkerStyle>
+                                    <Placement>Cross</Placement>
+                                    <Width>15</Width>
+                                  </LinearPointer>
+                                  <LinearPointer Name="LinearPointer2">
+                                    <Thermometer>
+                                      <Style />
+                                    </Thermometer>
+                                    <Style>
+                                      <Border>
+                                        <Style>None</Style>
+                                      </Border>
+                                      <BackgroundColor>DimGray</BackgroundColor>
+                                      <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
+                                      <BackgroundGradientEndColor>Black</BackgroundGradientEndColor>
+                                      <BackgroundHatchType>None</BackgroundHatchType>
+                                      <ShadowOffset>1pt</ShadowOffset>
+                                    </Style>
+                                    <GaugeInputValue>
+                                      <Value>=Sum(Fields!BILLCapacity.Value) / COUNTDISTINCT(Fields!WeekEnding.Value)</Value>
+                                      <Multiplier>1</Multiplier>
+                                    </GaugeInputValue>
+                                    <PointerImage>
+                                      <OffsetX>0pt</OffsetX>
+                                      <OffsetY>0pt</OffsetY>
+                                      <Source>External</Source>
+                                      <Value />
+                                    </PointerImage>
+                                    <MarkerLength>25</MarkerLength>
+                                    <MarkerStyle>Rectangle</MarkerStyle>
+                                    <Placement>Cross</Placement>
+                                    <Width>2</Width>
+                                  </LinearPointer>
+                                </GaugePointers>
+                                <ScaleRanges>
+                                  <ScaleRange Name="LinearRange1">
+                                    <Style>
+                                      <Border>
+                                        <Color>Silver</Color>
+                                        <Style>None</Style>
+                                      </Border>
+                                      <BackgroundColor>#00ffffff</BackgroundColor>
+                                      <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
+                                      <BackgroundGradientEndColor>Salmon</BackgroundGradientEndColor>
+                                      <BackgroundHatchType>None</BackgroundHatchType>
+                                      <ShadowOffset>0pt</ShadowOffset>
+                                    </Style>
+                                    <BackgroundGradientType>None</BackgroundGradientType>
+                                    <DistanceFromScale>0</DistanceFromScale>
+                                    <StartValue>
+                                      <Value>0</Value>
+                                      <Multiplier>1</Multiplier>
+                                    </StartValue>
+                                    <EndValue>
+                                      <Value>60</Value>
+                                      <Multiplier>1</Multiplier>
+                                    </EndValue>
+                                    <StartWidth>30</StartWidth>
+                                    <EndWidth>30</EndWidth>
+                                    <Placement>Cross</Placement>
+                                  </ScaleRange>
+                                  <ScaleRange Name="LinearRange3">
+                                    <Style>
+                                      <Border>
+                                        <Color>Silver</Color>
+                                        <Style>Solid</Style>
+                                      </Border>
+                                      <BackgroundColor>Gainsboro</BackgroundColor>
+                                      <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
+                                      <BackgroundGradientEndColor>Salmon</BackgroundGradientEndColor>
+                                      <BackgroundHatchType>None</BackgroundHatchType>
+                                      <ShadowOffset>0pt</ShadowOffset>
+                                    </Style>
+                                    <BackgroundGradientType>None</BackgroundGradientType>
+                                    <DistanceFromScale>0</DistanceFromScale>
+                                    <StartValue>
+                                      <Value>80</Value>
+                                      <Multiplier>1</Multiplier>
+                                    </StartValue>
+                                    <EndValue>
+                                      <Value>100</Value>
+                                      <Multiplier>1</Multiplier>
+                                    </EndValue>
+                                    <StartWidth>30</StartWidth>
+                                    <EndWidth>30</EndWidth>
+                                    <Placement>Cross</Placement>
+                                  </ScaleRange>
+                                </ScaleRanges>
+                                <Style>
+                                  <Border>
+                                    <Style>None</Style>
+                                  </Border>
+                                  <BackgroundColor>#00ffffff</BackgroundColor>
+                                  <BackgroundGradientType>None</BackgroundGradientType>
+                                  <BackgroundGradientEndColor>White</BackgroundGradientEndColor>
+                                  <BackgroundHatchType>None</BackgroundHatchType>
+                                  <ShadowOffset>0pt</ShadowOffset>
+                                </Style>
+                                <Interval>10</Interval>
+                                <IntervalOffset>NaN</IntervalOffset>
+                                <MaximumValue>
+                                  <Value>50</Value>
+                                  <Multiplier>1</Multiplier>
+                                </MaximumValue>
+                                <MinimumValue>
+                                  <Value>0</Value>
+                                  <Multiplier>1</Multiplier>
+                                </MinimumValue>
+                                <GaugeMajorTickMarks>
+                                  <Interval>NaN</Interval>
+                                  <IntervalOffset>NaN</IntervalOffset>
+                                  <Style>
+                                    <Border>
+                                      <Color>DimGray</Color>
+                                      <Style>None</Style>
+                                    </Border>
+                                    <BackgroundColor>DimGray</BackgroundColor>
+                                  </Style>
+                                  <DistanceFromScale>-20</DistanceFromScale>
+                                  <Placement>Cross</Placement>
+                                  <TickMarkImage>
+                                    <Source>External</Source>
+                                    <Value />
+                                  </TickMarkImage>
+                                  <Length>5</Length>
+                                  <Width>0.5</Width>
+                                </GaugeMajorTickMarks>
+                                <GaugeMinorTickMarks>
+                                  <Interval>NaN</Interval>
+                                  <IntervalOffset>NaN</IntervalOffset>
+                                  <Style>
+                                    <Border>
+                                      <Color>DimGray</Color>
+                                      <Style>None</Style>
+                                    </Border>
+                                    <BackgroundColor>DimGray</BackgroundColor>
+                                  </Style>
+                                  <Placement>Cross</Placement>
+                                  <TickMarkImage>
+                                    <Source>External</Source>
+                                    <Value />
+                                  </TickMarkImage>
+                                  <Length>9</Length>
+                                  <Width>1</Width>
+                                  <Hidden>true</Hidden>
+                                </GaugeMinorTickMarks>
+                                <MaximumPin>
+                                  <PinLabel>
+                                    <Style>
+                                      <FontSize>12pt</FontSize>
+                                    </Style>
+                                    <DistanceFromScale>0</DistanceFromScale>
+                                  </PinLabel>
+                                  <Style>
+                                    <Border>
+                                      <Color>DimGray</Color>
+                                      <Style>Solid</Style>
+                                    </Border>
+                                    <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                  </Style>
+                                  <Placement>Cross</Placement>
+                                  <TickMarkImage>
+                                    <Source>External</Source>
+                                    <Value />
+                                  </TickMarkImage>
+                                  <Length>6</Length>
+                                  <Width>6</Width>
+                                  <Shape>Circle</Shape>
+                                </MaximumPin>
+                                <MinimumPin>
+                                  <PinLabel>
+                                    <Style>
+                                      <FontSize>12pt</FontSize>
+                                    </Style>
+                                    <DistanceFromScale>0</DistanceFromScale>
+                                  </PinLabel>
+                                  <Style>
+                                    <Border>
+                                      <Color>DimGray</Color>
+                                      <Style>Solid</Style>
+                                    </Border>
+                                    <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                  </Style>
+                                  <Placement>Cross</Placement>
+                                  <TickMarkImage>
+                                    <Source>External</Source>
+                                    <Value />
+                                  </TickMarkImage>
+                                  <Length>6</Length>
+                                  <Width>6</Width>
+                                  <Shape>Circle</Shape>
+                                </MinimumPin>
+                                <ScaleLabels>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>n0</Format>
+                                    <Color>DimGray</Color>
+                                  </Style>
+                                  <Interval>NaN</Interval>
+                                  <IntervalOffset>NaN</IntervalOffset>
+                                  <DistanceFromScale>20</DistanceFromScale>
+                                  <Placement>Outside</Placement>
+                                  <RotateLabels>true</RotateLabels>
+                                  <ShowEndLabels>true</ShowEndLabels>
+                                  <UseFontPercent>true</UseFontPercent>
+                                </ScaleLabels>
+                                <Width>0</Width>
+                              </LinearScale>
+                            </GaugeScales>
+                            <BackFrame>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                <BackgroundGradientType>None</BackgroundGradientType>
+                                <BackgroundGradientEndColor>Black</BackgroundGradientEndColor>
+                                <BackgroundHatchType>None</BackgroundHatchType>
+                                <ShadowOffset>0pt</ShadowOffset>
+                              </Style>
+                              <FrameStyle>Edged</FrameStyle>
+                              <FrameShape>Rectangular</FrameShape>
+                              <FrameWidth>1</FrameWidth>
+                              <FrameBackground>
+                                <Style>
+                                  <BackgroundColor>#00ffffff</BackgroundColor>
+                                  <BackgroundGradientType>None</BackgroundGradientType>
+                                  <BackgroundGradientEndColor>WhiteSmoke</BackgroundGradientEndColor>
+                                  <BackgroundHatchType>None</BackgroundHatchType>
+                                </Style>
+                              </FrameBackground>
+                              <FrameImage>
+                                <Source>External</Source>
+                                <Value />
+                              </FrameImage>
+                            </BackFrame>
+                            <ClipContent>true</ClipContent>
+                            <TopImage>
+                              <Source>External</Source>
+                              <Value />
+                            </TopImage>
+                            <AspectRatio>NaN</AspectRatio>
+                            <Height>100</Height>
+                            <Width>100</Width>
+                          </LinearGauge>
+                        </LinearGauges>
+                        <GaugeLabels>
+                          <GaugeLabel Name="GaugeLabel1">
+                            <Text>=FORMAT(Sum(Fields!AdjustedBILLHR.Value) / COUNTDISTINCT(Fields!WeekEnding.Value), “F2”)</Text>
+                            <TextShadowOffset>0pt</TextShadowOffset>
+                            <UseFontPercent>true</UseFontPercent>
+                            <Style>
+                              <Border>
+                                <Style>None</Style>
+                              </Border>
+                              <BackgroundColor>#00ffffff</BackgroundColor>
+                              <BackgroundGradientType>None</BackgroundGradientType>
+                              <BackgroundGradientEndColor>#00ffffff</BackgroundGradientEndColor>
+                              <FontSize>20pt</FontSize>
+                              <FontWeight>Bold</FontWeight>
+                              <TextAlign>Center</TextAlign>
+                              <Color>#404040</Color>
+                              <ShadowOffset>0pt</ShadowOffset>
+                            </Style>
+                            <Top>10</Top>
+                            <Left>20</Left>
+                            <Height>50</Height>
+                            <Width>60</Width>
+                          </GaugeLabel>
+                        </GaugeLabels>
+                        <AutoLayout>true</AutoLayout>
+                        <BackFrame>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>Gainsboro</BackgroundColor>
+                            <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
+                            <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
+                            <BackgroundHatchType>None</BackgroundHatchType>
+                            <ShadowOffset>0pt</ShadowOffset>
+                          </Style>
+                          <FrameBackground>
+                            <Style>
+                              <BackgroundColor>Silver</BackgroundColor>
+                              <BackgroundGradientType>DiagonalLeft</BackgroundGradientType>
+                              <BackgroundGradientEndColor>Gray</BackgroundGradientEndColor>
+                              <BackgroundHatchType>None</BackgroundHatchType>
+                            </Style>
+                          </FrameBackground>
+                          <FrameImage>
+                            <Source>External</Source>
+                            <Value />
+                          </FrameImage>
+                        </BackFrame>
+                        <ShadowIntensity>0</ShadowIntensity>
+                        <TopImage>
+                          <Source>External</Source>
+                          <Value />
+                        </TopImage>
+                        <DataSetName>MyBUTime</DataSetName>
+                        <Top>6.92636mm</Top>
+                        <Left>50.5978mm</Left>
+                        <Height>29.2275mm</Height>
+                        <Width>45mm</Width>
+                        <ZIndex>2</ZIndex>
+                        <Style>
+                          <Border>
+                            <Color>Gray</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <TopBorder>
+                            <Style>None</Style>
+                          </TopBorder>
+                          <BottomBorder>
+                            <Style>None</Style>
+                          </BottomBorder>
+                          <BackgroundColor>#fafafa</BackgroundColor>
+                        </Style>
+                      </GaugePanel>
+                      <Textbox Name="Textbox3">
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>2. My Adjusted Billable</Value>
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>DimGray</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox1</rd:DefaultName>
+                        <ActionInfo>
+                          <Actions>
+                            <Action>
+                              <BookmarkLink>WeeklyBillable</BookmarkLink>
+                            </Action>
+                          </Actions>
+                        </ActionInfo>
+                        <Top>0mm</Top>
+                        <Left>50.5978mm</Left>
+                        <Height>8mm</Height>
+                        <Width>45mm</Width>
+                        <ZIndex>3</ZIndex>
+                        <Style>
+                          <Border>
+                            <Color>Gray</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <BackgroundColor>WhiteSmoke</BackgroundColor>
+                          <VerticalAlign>Middle</VerticalAlign>
+                          <PaddingLeft>4pt</PaddingLeft>
+                          <PaddingRight>4pt</PaddingRight>
+                          <PaddingTop>4pt</PaddingTop>
+                          <PaddingBottom>4pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                      <Textbox Name="Textbox7">
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Target = </Value>
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>DimGray</Color>
+                                </Style>
+                              </TextRun>
+                              <TextRun>
+                                <Value>=Sum(Fields!BILLCapacity.Value, "MyBUTime") / COUNTDISTINCT(Fields!WeekEnding.Value, "MyBUTime")</Value>
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Format>n2</Format>
+                                  <Color>DimGray</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox1</rd:DefaultName>
+                        <Top>36.18914mm</Top>
+                        <Left>50.5978mm</Left>
+                        <Height>8.00912mm</Height>
+                        <Width>45mm</Width>
+                        <ZIndex>4</ZIndex>
+                        <Style>
+                          <Border>
+                            <Color>Gray</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <TopBorder>
+                            <Width>1pt</Width>
+                          </TopBorder>
+                          <BackgroundColor>#fafafa</BackgroundColor>
+                          <VerticalAlign>Middle</VerticalAlign>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </ReportItems>
+                    <KeepTogether>true</KeepTogether>
+                    <Top>5.25088mm</Top>
+                    <Left>6.57128mm</Left>
+                    <Height>137.3505mm</Height>
+                    <Width>146.41226mm</Width>
+                    <ZIndex>1</ZIndex>
+                    <Style>
+                      <Border>
+                        <Style>None</Style>
+                      </Border>
+                    </Style>
+                  </Rectangle>
+                  <Chart Name="Chart2">
+                    <ChartCategoryHierarchy>
+                      <ChartMembers>
+                        <ChartMember>
+                          <Group Name="Chart2_CategoryGroup">
+                            <GroupExpressions>
+                              <GroupExpression>=Fields!WeekEnding.Value</GroupExpression>
+                            </GroupExpressions>
+                          </Group>
+                          <SortExpressions>
+                            <SortExpression>
+                              <Value>=Fields!WeekEnding.Value</Value>
+                            </SortExpression>
+                          </SortExpressions>
+                          <Label>=Fields!WeekEnding.Value</Label>
+                        </ChartMember>
+                      </ChartMembers>
+                    </ChartCategoryHierarchy>
+                    <ChartSeriesHierarchy>
+                      <ChartMembers>
+                        <ChartMember>
+                          <Label>BILLHR</Label>
+                        </ChartMember>
+                        <ChartMember>
+                          <Label>Adjustments</Label>
+                        </ChartMember>
+                        <ChartMember>
+                          <Label>BILLCapacity</Label>
+                        </ChartMember>
+                        <ChartMember>
+                          <Label>Adjusted BILLHR</Label>
+                        </ChartMember>
+                      </ChartMembers>
+                    </ChartSeriesHierarchy>
+                    <ChartData>
+                      <ChartSeriesCollection>
+                        <ChartSeries Name="BILLHR">
+                          <ChartDataPoints>
+                            <ChartDataPoint>
+                              <ChartDataPointValues>
+                                <Y>=Sum(Fields!BILLHR.Value)</Y>
+                              </ChartDataPointValues>
+                              <ChartDataLabel>
+                                <Style>
+                                  <FontSize>8pt</FontSize>
+                                  <Format>0.00;(0.00)</Format>
+                                </Style>
+                                <UseValueAsLabel>true</UseValueAsLabel>
+                                <Rotation>-90</Rotation>
+                              </ChartDataLabel>
+                              <ToolTip>=Format(Sum(Fields!BILLHR.Value),"F2")</ToolTip>
+                              <Style>
+                                <Color>#01b8aa</Color>
+                              </Style>
+                              <ChartMarker>
+                                <Size>5pt</Size>
+                                <Style>
+                                  <Color>=iif(Sum(Fields!BILLHR.Value) &gt;= 40, "#01b8aa", 
+iif(Sum(Fields!BILLHR.Value) &gt;= (0.925*40), "#374649", 
+iif(Sum(Fields!BILLHR.Value) &gt;= (0.875*40), "#5F6B6D", 
+iif(Sum(Fields!BILLHR.Value) &lt; (0.875*40), "#fd625e", "Black"))))</Color>
+                                </Style>
+                              </ChartMarker>
+                              <DataElementOutput>Output</DataElementOutput>
+                            </ChartDataPoint>
+                          </ChartDataPoints>
+                          <Subtype>Stacked</Subtype>
+                          <Style />
+                          <ChartEmptyPoints>
+                            <Style />
+                            <ChartMarker>
+                              <Style />
+                            </ChartMarker>
+                            <ChartDataLabel>
+                              <Style />
+                            </ChartDataLabel>
+                          </ChartEmptyPoints>
+                          <CustomProperties>
+                            <CustomProperty>
+                              <Name>PointWidth</Name>
+                              <Value>0.7</Value>
+                            </CustomProperty>
+                          </CustomProperties>
+                          <ChartItemInLegend>
+                            <LegendText>Billable Time</LegendText>
+                          </ChartItemInLegend>
+                          <ValueAxisName>Primary</ValueAxisName>
+                          <CategoryAxisName>Primary</CategoryAxisName>
+                          <ChartSmartLabel>
+                            <Disabled>true</Disabled>
+                            <CalloutLineColor>Black</CalloutLineColor>
+                            <MinMovingDistance>0pt</MinMovingDistance>
+                          </ChartSmartLabel>
+                        </ChartSeries>
+                        <ChartSeries Name="Adjustments">
+                          <ChartDataPoints>
+                            <ChartDataPoint>
+                              <ChartDataPointValues>
+                                <Y>=Sum(Fields!Adjustments.Value)</Y>
+                              </ChartDataPointValues>
+                              <ChartDataLabel>
+                                <Style>
+                                  <FontSize>8pt</FontSize>
+                                </Style>
+                                <UseValueAsLabel>true</UseValueAsLabel>
+                                <Rotation>-90</Rotation>
+                              </ChartDataLabel>
+                              <ToolTip>=Format(Sum(Fields!Adjustments.Value),"F2")</ToolTip>
+                              <Style>
+                                <Color>#4901b8aa</Color>
+                              </Style>
+                              <ChartMarker>
+                                <Size>5pt</Size>
+                                <Style>
+                                  <Color>=iif(Sum(Fields!BILLHR.Value) &gt;= 40, "#01b8aa", 
+iif(Sum(Fields!BILLHR.Value) &gt;= (0.925*40), "#374649", 
+iif(Sum(Fields!BILLHR.Value) &gt;= (0.875*40), "#5F6B6D", 
+iif(Sum(Fields!BILLHR.Value) &lt; (0.875*40), "#fd625e", "Black"))))</Color>
+                                </Style>
+                              </ChartMarker>
+                              <DataElementOutput>Output</DataElementOutput>
+                            </ChartDataPoint>
+                          </ChartDataPoints>
+                          <Subtype>Stacked</Subtype>
+                          <Style />
+                          <ChartEmptyPoints>
+                            <Style />
+                            <ChartMarker>
+                              <Style />
+                            </ChartMarker>
+                            <ChartDataLabel>
+                              <Style />
+                            </ChartDataLabel>
+                          </ChartEmptyPoints>
+                          <CustomProperties>
+                            <CustomProperty>
+                              <Name>PointWidth</Name>
+                              <Value>0.7</Value>
+                            </CustomProperty>
+                          </CustomProperties>
+                          <ChartItemInLegend>
+                            <LegendText>Adjustments</LegendText>
+                          </ChartItemInLegend>
+                          <ValueAxisName>Primary</ValueAxisName>
+                          <CategoryAxisName>Primary</CategoryAxisName>
+                          <ChartSmartLabel>
+                            <Disabled>true</Disabled>
+                            <CalloutLineColor>Black</CalloutLineColor>
+                            <MinMovingDistance>0pt</MinMovingDistance>
+                          </ChartSmartLabel>
+                        </ChartSeries>
+                        <ChartSeries Name="Capacity">
+                          <ChartDataPoints>
+                            <ChartDataPoint>
+                              <ChartDataPointValues>
+                                <Y>=Sum(Fields!BILLCapacity.Value)</Y>
+                              </ChartDataPointValues>
+                              <ChartDataLabel>
+                                <Style />
+                                <UseValueAsLabel>true</UseValueAsLabel>
+                              </ChartDataLabel>
+                              <ToolTip>=Format(Sum(Fields!BILLCapacity.Value),"F2")</ToolTip>
+                              <Style>
+                                <Border />
+                                <Color>Black</Color>
+                              </Style>
+                              <ChartMarker>
+                                <Style />
+                              </ChartMarker>
+                              <DataElementOutput>Output</DataElementOutput>
+                            </ChartDataPoint>
+                          </ChartDataPoints>
+                          <Type>Line</Type>
+                          <Style />
+                          <ChartEmptyPoints>
+                            <Style />
+                            <ChartMarker>
+                              <Style />
+                            </ChartMarker>
+                            <ChartDataLabel>
+                              <Style />
+                            </ChartDataLabel>
+                          </ChartEmptyPoints>
+                          <ChartItemInLegend>
+                            <LegendText>Billable Target</LegendText>
+                          </ChartItemInLegend>
+                          <ValueAxisName>Primary</ValueAxisName>
+                          <CategoryAxisName>Primary</CategoryAxisName>
+                          <ChartSmartLabel>
+                            <CalloutLineColor>Black</CalloutLineColor>
+                            <MinMovingDistance>0pt</MinMovingDistance>
+                          </ChartSmartLabel>
+                        </ChartSeries>
+                        <ChartSeries Name="Series">
+                          <ChartDataPoints>
+                            <ChartDataPoint>
+                              <ChartDataPointValues>
+                                <Y>=Sum(Fields!AdjustedBILLHR.Value)</Y>
+                              </ChartDataPointValues>
+                              <ChartDataLabel>
+                                <Style>
+                                  <FontSize>8pt</FontSize>
+                                  <Color>=iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= Sum(Fields!BILLCapacity.Value), "#01b8aa", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= (0.925*Sum(Fields!BILLCapacity.Value)), "#374649", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= (0.875*Sum(Fields!BILLCapacity.Value)), "#5F6B6D", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &lt; (0.875*Sum(Fields!BILLCapacity.Value)), "#fd625e", "Black"))))</Color>
+                                </Style>
+                                <UseValueAsLabel>true</UseValueAsLabel>
+                                <Visible>true</Visible>
+                                <Position>Top</Position>
+                                <Rotation>-90</Rotation>
+                              </ChartDataLabel>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                              </Style>
+                              <ChartMarker>
+                                <Type>Auto</Type>
+                                <Size>6pt</Size>
+                                <Style>
+                                  <Border>
+                                    <Color>Black</Color>
+                                    <Width>0.5pt</Width>
+                                  </Border>
+                                  <Color>=iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= Sum(Fields!BILLCapacity.Value), "#01b8aa", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= (0.925*Sum(Fields!BILLCapacity.Value)), "#374649", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &gt;= (0.875*Sum(Fields!BILLCapacity.Value)), "#5F6B6D", 
+iif(Sum(Fields!AdjustedBILLHR.Value) &lt; (0.875*Sum(Fields!BILLCapacity.Value)), "#fd625e", "Black"))))</Color>
+                                </Style>
+                              </ChartMarker>
+                              <DataElementOutput>Output</DataElementOutput>
+                            </ChartDataPoint>
+                          </ChartDataPoints>
+                          <Type>Line</Type>
+                          <Style />
+                          <ChartEmptyPoints>
+                            <Style />
+                            <ChartMarker>
+                              <Style />
+                            </ChartMarker>
+                            <ChartDataLabel>
+                              <Style />
+                            </ChartDataLabel>
+                          </ChartEmptyPoints>
+                          <ChartItemInLegend>
+                            <Hidden>true</Hidden>
+                          </ChartItemInLegend>
+                          <ValueAxisName>Primary</ValueAxisName>
+                          <CategoryAxisName>Primary</CategoryAxisName>
+                          <ChartSmartLabel>
+                            <Disabled>true</Disabled>
+                            <CalloutLineColor>Black</CalloutLineColor>
+                            <MinMovingDistance>0pt</MinMovingDistance>
+                          </ChartSmartLabel>
+                        </ChartSeries>
+                      </ChartSeriesCollection>
+                    </ChartData>
+                    <ChartAreas>
+                      <ChartArea Name="Default">
+                        <ChartCategoryAxes>
+                          <ChartAxis Name="Primary">
+                            <Style>
+                              <FontSize>9pt</FontSize>
+                              <Format>d/MM/yy</Format>
+                            </Style>
+                            <ChartAxisTitle>
+                              <Caption />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </ChartAxisTitle>
+                            <Interval>1</Interval>
+                            <VariableAutoInterval>true</VariableAutoInterval>
+                            <ChartMajorGridLines>
+                              <Enabled>False</Enabled>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                </Border>
+                              </Style>
+                            </ChartMajorGridLines>
+                            <ChartMinorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                  <Style>Dotted</Style>
+                                </Border>
+                              </Style>
+                            </ChartMinorGridLines>
+                            <ChartMinorTickMarks>
+                              <Length>0.5</Length>
+                            </ChartMinorTickMarks>
+                            <CrossAt>NaN</CrossAt>
+                            <Minimum>NaN</Minimum>
+                            <Maximum>NaN</Maximum>
+                            <Angle>-45</Angle>
+                            <AllowLabelRotation>Rotate45</AllowLabelRotation>
+                            <LabelsAutoFitDisabled>true</LabelsAutoFitDisabled>
+                            <MinFontSize>8pt</MinFontSize>
+                            <ChartAxisScaleBreak>
+                              <Style />
+                            </ChartAxisScaleBreak>
+                          </ChartAxis>
+                          <ChartAxis Name="Secondary">
+                            <Style>
+                              <FontSize>8pt</FontSize>
+                            </Style>
+                            <ChartAxisTitle>
+                              <Caption>Axis Title</Caption>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </ChartAxisTitle>
+                            <ChartMajorGridLines>
+                              <Enabled>False</Enabled>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                </Border>
+                              </Style>
+                            </ChartMajorGridLines>
+                            <ChartMinorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                  <Style>Dotted</Style>
+                                </Border>
+                              </Style>
+                            </ChartMinorGridLines>
+                            <ChartMinorTickMarks>
+                              <Length>0.5</Length>
+                            </ChartMinorTickMarks>
+                            <CrossAt>NaN</CrossAt>
+                            <Location>Opposite</Location>
+                            <Minimum>NaN</Minimum>
+                            <Maximum>NaN</Maximum>
+                            <ChartAxisScaleBreak>
+                              <Style />
+                            </ChartAxisScaleBreak>
+                          </ChartAxis>
+                        </ChartCategoryAxes>
+                        <ChartValueAxes>
+                          <ChartAxis Name="Primary">
+                            <Style>
+                              <FontSize>8pt</FontSize>
+                            </Style>
+                            <ChartAxisTitle>
+                              <Caption />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </ChartAxisTitle>
+                            <Interval>10</Interval>
+                            <ChartMajorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                </Border>
+                              </Style>
+                            </ChartMajorGridLines>
+                            <ChartMinorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                  <Style>Dotted</Style>
+                                </Border>
+                              </Style>
+                            </ChartMinorGridLines>
+                            <ChartMinorTickMarks>
+                              <Length>0.5</Length>
+                            </ChartMinorTickMarks>
+                            <CrossAt>NaN</CrossAt>
+                            <Minimum>0</Minimum>
+                            <Maximum>70</Maximum>
+                            <PreventLabelOffset>true</PreventLabelOffset>
+                            <PreventWordWrap>true</PreventWordWrap>
+                            <LabelsAutoFitDisabled>true</LabelsAutoFitDisabled>
+                            <ChartAxisScaleBreak>
+                              <Style />
+                            </ChartAxisScaleBreak>
+                          </ChartAxis>
+                          <ChartAxis Name="Secondary">
+                            <Style>
+                              <FontSize>8pt</FontSize>
+                            </Style>
+                            <ChartAxisTitle>
+                              <Caption>Axis Title</Caption>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </ChartAxisTitle>
+                            <ChartMajorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                </Border>
+                              </Style>
+                            </ChartMajorGridLines>
+                            <ChartMinorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                  <Style>Dotted</Style>
+                                </Border>
+                              </Style>
+                            </ChartMinorGridLines>
+                            <ChartMinorTickMarks>
+                              <Length>0.5</Length>
+                            </ChartMinorTickMarks>
+                            <CrossAt>NaN</CrossAt>
+                            <Location>Opposite</Location>
+                            <Minimum>NaN</Minimum>
+                            <Maximum>NaN</Maximum>
+                            <ChartAxisScaleBreak>
+                              <Style />
+                            </ChartAxisScaleBreak>
+                          </ChartAxis>
+                        </ChartValueAxes>
+                        <Style>
+                          <BackgroundGradientType>None</BackgroundGradientType>
+                        </Style>
+                        <ChartElementPosition>
+                          <Top>10</Top>
+                          <Left>5</Left>
+                          <Height>100</Height>
+                          <Width>97</Width>
+                        </ChartElementPosition>
+                        <ChartInnerPlotPosition>
+                          <Top>10</Top>
+                          <Left>10</Left>
+                          <Height>70</Height>
+                          <Width>95</Width>
+                        </ChartInnerPlotPosition>
+                      </ChartArea>
+                    </ChartAreas>
+                    <ChartLegends>
+                      <ChartLegend Name="Legend1">
+                        <Style>
+                          <BackgroundGradientType>None</BackgroundGradientType>
+                          <FontSize>8pt</FontSize>
+                        </Style>
+                        <ChartElementPosition>
+                          <Top>9</Top>
+                          <Left>63.106</Left>
+                          <Height>15.522</Height>
+                          <Width>33.894</Width>
+                        </ChartElementPosition>
+                        <ChartLegendTitle>
+                          <Caption />
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </ChartLegendTitle>
+                        <HeaderSeparatorColor>Black</HeaderSeparatorColor>
+                        <ColumnSeparatorColor>Black</ColumnSeparatorColor>
+                      </ChartLegend>
+                    </ChartLegends>
+                    <ChartTitles>
+                      <ChartTitle Name="Title1">
+                        <Caption>2. Avg. Adjusted Billable</Caption>
+                        <Style>
+                          <Border>
+                            <Color>Gray</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <BackgroundColor>WhiteSmoke</BackgroundColor>
+                          <BackgroundGradientType>None</BackgroundGradientType>
+                          <FontWeight>Bold</FontWeight>
+                          <TextAlign>General</TextAlign>
+                          <VerticalAlign>Top</VerticalAlign>
+                          <Color>DimGray</Color>
+                        </Style>
+                        <ChartElementPosition>
+                          <Height>7.5</Height>
+                          <Width>100</Width>
+                        </ChartElementPosition>
+                      </ChartTitle>
+                    </ChartTitles>
+                    <Palette>BrightPastel</Palette>
+                    <DynamicWidth>=iif(COUNTDISTINCT(Fields!WeekEnding.Value, "MyBUTime") &lt;10, "95.2mm", 
+iif(COUNTDISTINCT(Fields!WeekEnding.Value, "MyBUTime") &gt;=10 and COUNTDISTINCT(Fields!WeekEnding.Value, "MyBUTime") &lt;25, "146mm", 
+"297.68881mm"))</DynamicWidth>
+                    <ChartBorderSkin>
+                      <Style>
+                        <BackgroundColor>Gray</BackgroundColor>
+                        <BackgroundGradientType>None</BackgroundGradientType>
+                        <Color>White</Color>
+                      </Style>
+                    </ChartBorderSkin>
+                    <ChartNoDataMessage Name="NoDataMessage">
+                      <Caption>No Data Available</Caption>
+                      <Style>
+                        <BackgroundGradientType>None</BackgroundGradientType>
+                        <TextAlign>General</TextAlign>
+                        <VerticalAlign>Top</VerticalAlign>
+                      </Style>
+                    </ChartNoDataMessage>
+                    <DataSetName>MyBUTime</DataSetName>
+                    <Top>148.49277mm</Top>
+                    <Left>6.57128mm</Left>
+                    <Height>95.07267mm</Height>
+                    <Width>297.68881mm</Width>
+                    <ZIndex>2</ZIndex>
+                    <Style>
+                      <Border>
+                        <Color>Gray</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <TopBorder>
+                        <Color>Gray</Color>
+                        <Style>Solid</Style>
+                        <Width>1pt</Width>
+                      </TopBorder>
+                      <BottomBorder>
+                        <Color>Gray</Color>
+                        <Style>Solid</Style>
+                        <Width>1pt</Width>
+                      </BottomBorder>
+                      <LeftBorder>
+                        <Color>Gray</Color>
+                        <Style>Solid</Style>
+                        <Width>1pt</Width>
+                      </LeftBorder>
+                      <RightBorder>
+                        <Color>Gray</Color>
+                        <Style>Solid</Style>
+                        <Width>1pt</Width>
+                      </RightBorder>
+                      <BackgroundColor>#fafafa</BackgroundColor>
+                      <BackgroundGradientType>None</BackgroundGradientType>
+                    </Style>
+                  </Chart>
+                  <Rectangle Name="Rectangle4">
+                    <KeepTogether>true</KeepTogether>
+                    <Top>5.25088mm</Top>
+                    <Left>153.01316mm</Left>
+                    <Height>5mm</Height>
+                    <Width>5.24694mm</Width>
+                    <ZIndex>3</ZIndex>
+                    <Style>
+                      <Border>
+                        <Style>None</Style>
+                      </Border>
+                    </Style>
+                  </Rectangle>
+                  <Rectangle Name="Rectangle5">
+                    <KeepTogether>true</KeepTogether>
+                    <Top>54.47571mm</Top>
+                    <Left>152.98354mm</Left>
+                    <Height>5mm</Height>
+                    <Width>5.27656mm</Width>
+                    <ZIndex>4</ZIndex>
+                    <Style>
+                      <Border>
+                        <Style>None</Style>
+                      </Border>
+                    </Style>
+                  </Rectangle>
+                  <Rectangle Name="Rectangle7">
+                    <KeepTogether>true</KeepTogether>
+                    <Top>243.56544mm</Top>
+                    <Left>6.57128mm</Left>
+                    <Height>5mm</Height>
+                    <Width>5.27656mm</Width>
+                    <ZIndex>5</ZIndex>
+                    <Style>
+                      <Border>
+                        <Style>None</Style>
+                      </Border>
+                    </Style>
+                  </Rectangle>
+                  <Rectangle Name="Rectangle6">
+                    <KeepTogether>true</KeepTogether>
+                    <Top>142.60138mm</Top>
+                    <Left>6.57129mm</Left>
+                    <Height>5mm</Height>
+                    <Width>5.27656mm</Width>
+                    <ZIndex>6</ZIndex>
+                    <Style>
+                      <Border>
+                        <Style>None</Style>
+                      </Border>
+                    </Style>
+                  </Rectangle>
+                </ReportItems>
+                <KeepTogether>true</KeepTogether>
+                <Top>0mm</Top>
+                <Left>0mm</Left>
+                <Height>357.1458mm</Height>
+                <Width>309.17042mm</Width>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                </Style>
+              </Rectangle>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>8.45917mm</Top>
+            <Left>0mm</Left>
+            <Height>357.1458mm</Height>
+            <Width>309.17042mm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <LeftBorder>
+                <Style>None</Style>
+              </LeftBorder>
+              <BackgroundColor>Gainsboro</BackgroundColor>
+            </Style>
+          </Rectangle>
+          <Textbox Name="ReportTitle">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>My EYS Dashboard</Value>
+                    <Style>
+                      <FontSize>16pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>White</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
+            <rd:DefaultName>ReportTitle</rd:DefaultName>
+            <Top>0mm</Top>
+            <Height>8.10639mm</Height>
+            <Width>309.17042mm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <LeftBorder>
+                <Style>None</Style>
+              </LeftBorder>
+              <BackgroundColor>#323232</BackgroundColor>
+              <PaddingLeft>6pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Height>365.60497mm</Height>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Body>
+      <Width>309.17042mm</Width>
+      <Page>
+        <PageFooter>
+          <Height>14.45875mm</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="ExecutionTime">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Globals!ExecutionTime</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>ExecutionTime</rd:DefaultName>
+              <Top>4.01771mm</Top>
+              <Left>102.18353mm</Left>
+              <Height>6.35mm</Height>
+              <Width>50.8mm</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <LeftBorder>
+                  <Style>None</Style>
+                </LeftBorder>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageFooter>
+        <PageHeight>297mm</PageHeight>
+        <PageWidth>210mm</PageWidth>
+        <LeftMargin>20mm</LeftMargin>
+        <RightMargin>20mm</RightMargin>
+        <TopMargin>20mm</TopMargin>
+        <BottomMargin>20mm</BottomMargin>
+        <ColumnSpacing>0.13cm</ColumnSpacing>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="UserID">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=UCase(User!UserID)</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>UserID</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Resource">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>ActiveResources</DataSetName>
+          <ValueField>No_</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Resource</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>ActiveResources</DataSetName>
+          <ValueField>No_</ValueField>
+          <LabelField>Name</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="BonusYear">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>2022</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>BonusYear</Prompt>
+      <Hidden>true</Hidden>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>2021</Value>
+            <Label>2021</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
+  <EmbeddedImages>
+    <EmbeddedImage Name="Slide1">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>iVBORw0KGgoAAAANSUhEUgAABQAAAALQCAMAAAGPpB3yAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAMUExURVNnmC9Sj8AAAAAAAPBiyaoAAAAEdFJOU////wBAKqn0AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAN8klEQVR4Xu3dsY3DQBAEQfLzD/odZbBGE5gqi+Zh0RhP0PO83/a8f9/mgVceeOWBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceePX1Hya+z++hn+WBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceeOWBVx545YFXHnjlgVceeOWBVx549fmfTn6dAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMeOeCRAx454JEDHjngkQMePS8nn//vyq9zwCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAj
+BzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8csAjBzxywCMHPHLAIwc8et7fBxQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhKgKQESEqApARISoCkBEhK
+gKQESEqApARISoCkBEhKgKQESEqApARISoCkBEjqeSH0/EKEhABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJ
+kJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkJQASQmQlABJCZCUAEkJkNTz/j4A1hhAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBg
+lgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBglgEEZhlAYJYBBGYZQGCWAQRmGUBg1N/fP9yPGdXWxSq1AAAAAElFTkSuQmCC</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportUnitType>Mm</rd:ReportUnitType>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportID>e0ce5b20-45a5-4322-8722-75a955835ab7</rd:ReportID>
+</Report>

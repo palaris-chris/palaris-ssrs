@@ -254,6 +254,18 @@ select * from cte_last_13_months</CommandText>
         </Field>
       </Fields>
     </DataSet>
+    <DataSet Name="ActiveAUBU">
+      <SharedDataSet>
+        <SharedDataSetReference>/Subreports/ActiveAUBUs</SharedDataSetReference>
+        <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Business_Unit_Group">
+          <DataField>Business_Unit_Group</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
   </DataSets>
   <ReportSections>
     <ReportSection>
@@ -5224,18 +5236,10 @@ select * from cte_last_13_months</CommandText>
     <ReportParameter Name="BUGroup">
       <DataType>String</DataType>
       <DefaultValue>
-        <Values>
-          <Value>BDI</Value>
-          <Value>ENG</Value>
-          <Value>FEA</Value>
-          <Value>FIN</Value>
-          <Value>GAS</Value>
-          <Value>MNO</Value>
-          <Value>SHR</Value>
-          <Value>PEL</Value>
-          <Value>PAM</Value>
-          <Value>PEX</Value>
-        </Values>
+        <DataSetReference>
+          <DataSetName>ActiveAUBU</DataSetName>
+          <ValueField>Business_Unit_Group</ValueField>
+        </DataSetReference>
       </DefaultValue>
       <Prompt>GM(s)</Prompt>
       <ValidValues>

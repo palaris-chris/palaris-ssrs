@@ -5614,46 +5614,6 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                         <TablixCell>
                           <CellContents>
                             <Rectangle Name="Rectangle3">
-                              <ReportItems>
-                                <Textbox Name="Textbox24">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>TOTAL</Value>
-                                          <Style>
-                                            <FontWeight>Bold</FontWeight>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
-                                      <Style>
-                                        <TextAlign>Right</TextAlign>
-                                      </Style>
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <rd:DefaultName>Textbox11</rd:DefaultName>
-                                  <Left>4.03623cm</Left>
-                                  <Height>0.6cm</Height>
-                                  <Width>9.37764cm</Width>
-                                  <Style>
-                                    <Border>
-                                      <Style>None</Style>
-                                    </Border>
-                                    <TopBorder>
-                                      <Color>Black</Color>
-                                      <Style>Solid</Style>
-                                      <Width>1pt</Width>
-                                    </TopBorder>
-                                    <VerticalAlign>Middle</VerticalAlign>
-                                    <PaddingLeft>8pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
-                                  </Style>
-                                </Textbox>
-                              </ReportItems>
                               <KeepTogether>true</KeepTogether>
                               <ZIndex>3</ZIndex>
                               <Style>
@@ -6005,7 +5965,14 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                 <DataSetName>JPL_JLE</DataSetName>
                 <Filters>
                   <Filter>
-                    <FilterExpression>=Fields!Work_Type.Value Like "KM*" Or Fields!Work_Type.Value Like "OSA*" Or Fields!Work_Type.Value Like "PAY*" Or Fields!Work_Type.Value Like "MARGIN*" Or Fields!Work_Type.Value Like "FX*" Or Fields!ResExp.Value Like "Expense"</FilterExpression>
+                    <FilterExpression>=Fields!Work_Type.Value Like "KM*" Or Fields!Work_Type.Value Like "OSA*" Or Fields!ResExp.Value Like "Expense"</FilterExpression>
+                    <Operator>NotEqual</Operator>
+                    <FilterValues>
+                      <FilterValue DataType="Boolean">true</FilterValue>
+                    </FilterValues>
+                  </Filter>
+                  <Filter>
+                    <FilterExpression>=IIf(Left(Fields!Job_Task_No_.Value, 1)="Z", true, false)</FilterExpression>
                     <Operator>NotEqual</Operator>
                     <FilterValues>
                       <FilterValue DataType="Boolean">true</FilterValue>

@@ -21,18 +21,25 @@ job.No_
   ,job.Description
   ,job.[Global Dimension 2 Code]
   ,bug.[Business Unit Group]
+  ,bug.[Business Unit]
   ,job.[Creation Date]
   ,job.[Starting Date]
   ,job.[Expected End Date]
   ,job.[Ending Date]
   ,job.[Job On Hold]
-  ,CASE WHEN job.[Job Type] = 1 THEN 'SOR Hourly'
-	WHEN job.[Job Type] = 2 THEN 'FPLS Single'
-	WHEN job.[Job Type] = 3 THEN 'FPLS Multiple'
-	WHEN job.[Job Type] = 4 THEN 'SOR Daily'
-	WHEN job.[Job Type] = 5 THEN 'Do and Charge'
-	ELSE 'Other'
-	END AS [JobType]
+  ,CASE WHEN job.[Risk Level] = 0 THEN 'Level 1'
+  WHEN job.[Risk Level] = 1 THEN 'Level 2'
+  WHEN job.[Risk Level] = 2 THEN 'Level 3'
+  ELSE null
+  END AS [Risk Level] 
+  ,CASE WHEN [Job Type] = 0 THEN 'Other'
+	 WHEN job.[Job Type] = 1 THEN 'Capped Estimate (SOR)'
+	 WHEN job.[Job Type] = 2 THEN 'Fixed Price'
+	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
+	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
+	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+	ELSE null 
+   END AS [JobType]
   ,CASE WHEN LEFT(job.[Timesheet Work Type Group], 1) = 'D' THEN 'Daily'
   WHEN LEFT(job.[Timesheet Work Type Group], 1) = 'H' THEN 'Hourly'
   END AS [ChargeType]
@@ -129,7 +136,7 @@ FROM
   [Palaris Europe Limited$Job Planning Line] jpl
 WHERE
   jpl.[Job No_] = Job.No_
-  AND jpl.[Schedule Line] = 1 AND jpl.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY') AND jpl.[No_] NOT LIKE 'R9%') AS SchedulePalResourceCost
+  AND jpl.[Schedule Line] = 1 AND ((jpl.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY', 'BILLHR-XX', 'BILLDAY-XX') AND jpl.[No_] NOT LIKE 'R9%') OR jpl.[Job Task No_] = 'Y0000')) AS SchedulePalResourceCost
 
 ,(SELECT
 SUM(jpl.[Line Amount (LCY)])
@@ -177,7 +184,7 @@ FROM
   [Palaris Europe Limited$Job Ledger Entry] jle
 WHERE
   jle.[Job No_] = Job.No_
-  AND jle.[Entry Type] = 0 AND jle.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY') AND jle.[No_] NOT LIKE 'R9%') AS PalResourceCost
+  AND jle.[Entry Type] = 0 AND ((jle.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY', 'BILLHR-XX', 'BILLDAY-XX') AND jle.[No_] NOT LIKE 'R9%') OR jle.[Job Task No_] = 'Y0000')) AS PalResourceCost
 
 ,(SELECT
 SUM(jle.[Quantity (Base)])
@@ -185,7 +192,7 @@ FROM
   [Palaris Europe Limited$Job Ledger Entry] jle
 WHERE
   jle.[Job No_] = Job.No_
-  AND jle.[Entry Type] = 0AND jle.[Work Type Code]  IN ('BILLHR', 'BILLDAY')) AS UsageBILL
+  AND jle.[Entry Type] = 0 AND jle.[Work Type Code]  IN ('BILLHR', 'BILLDAY')) AS UsageBILL
 
   ,(SELECT
 SUM(jle.[Total Cost (LCY)])
@@ -331,12 +338,14 @@ jobs_PEL.[Creation Date],
 jobs_PEL.[Starting Date],
 jobs_PEL.[Expected End Date],
 jobs_PEL.[Job On Hold],
+jobs_PEL.[Risk Level],
 UPPER(Jobs_PEL.[Time Sheet Owner User ID]) AS [PM User Name],
 palres2.name AS [PM Supervisor],
 UPPER(palres2.[Time Sheet Owner User ID]) AS [PM Supervisor User Name],
 palres2.No_ AS [Supervisor No],
 dv.Name AS [Service Title],
 Jobs_PEL.[Business Unit Group],
+Jobs_PEL.[Business Unit],
 (Jobs_PEL.UsageCost/NULLIF(Jobs_PEL.ScheduleCost,0)) AS CostCompletion,
 (Jobs_PEL.PalResourceCost/NULLIF(Jobs_PEL.SchedulePalResourceCost, 0)) AS ResourceCostCompletion,
 CONVERT(DECIMAL(20,5),Jobs_PEL.PalResourceCost) AS [PalResourceCost],
@@ -397,18 +406,25 @@ job.No_
   ,job.Description
   ,job.[Global Dimension 2 Code]
   ,bug.[Business Unit Group]
+  ,bug.[Business Unit]
   ,job.[Creation Date]
   ,job.[Starting Date]
   ,job.[Expected End Date]
   ,job.[Ending Date]
   ,job.[Job On Hold]
-  ,CASE WHEN job.[Job Type] = 1 THEN 'SOR Hourly'
-	WHEN job.[Job Type] = 2 THEN 'FPLS Single'
-	WHEN job.[Job Type] = 3 THEN 'FPLS Multiple'
-	WHEN job.[Job Type] = 4 THEN 'SOR Daily'
-	WHEN job.[Job Type] = 5 THEN 'Do and Charge'
-	ELSE 'Other'
-	END AS [JobType]
+  ,CASE WHEN job.[Risk Level] = 0 THEN 'Level 1'
+  WHEN job.[Risk Level] = 1 THEN 'Level 2'
+  WHEN job.[Risk Level] = 2 THEN 'Level 3'
+  ELSE null
+  END AS [Risk Level] 
+  ,CASE WHEN [Job Type] = 0 THEN 'Other'
+	 WHEN job.[Job Type] = 1 THEN 'Capped Estimate (SOR)'
+	 WHEN job.[Job Type] = 2 THEN 'Fixed Price'
+	 WHEN job.[Job Type] = 3 THEN 'Fixed Price'
+	 WHEN job.[Job Type] = 4 THEN 'Site/Role Specific'
+	 WHEN job.[Job Type] = 5 THEN 'Ad-hoc'
+	ELSE null 
+   END AS [JobType]
   ,CASE WHEN LEFT(job.[Timesheet Work Type Group], 1) = 'D' THEN 'Daily'
   WHEN LEFT(job.[Timesheet Work Type Group], 1) = 'H' THEN 'Hourly'
   END AS [ChargeType]
@@ -505,7 +521,7 @@ FROM
   [Palaris$Job Planning Line] jpl
 WHERE
   jpl.[Job No_] = Job.No_
-  AND jpl.[Schedule Line] = 1 AND jpl.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY') AND jpl.[No_] NOT LIKE 'R9%') AS SchedulePalResourceCost
+  AND jpl.[Schedule Line] = 1 AND ((jpl.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY', 'BILLHR-XX', 'BILLDAY-XX') AND jpl.[No_] NOT LIKE 'R9%') OR jpl.[Job Task No_] = 'Y0000')) AS SchedulePalResourceCost
 
 ,(SELECT
 SUM(jpl.[Line Amount (LCY)])
@@ -552,7 +568,7 @@ FROM
   [Palaris$Job Ledger Entry] jle
 WHERE
   jle.[Job No_] = Job.No_
-  AND jle.[Entry Type] = 0 AND jle.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY') AND jle.[No_] NOT LIKE 'R9%') AS PalResourceCost
+  AND jle.[Entry Type] = 0 AND ((jle.[Work Type Code] IN ('BILLHR', 'BILLDAY', 'NBTHR', 'NBTDAY', 'BILLHR-XX', 'BILLDAY-XX') AND jle.[No_] NOT LIKE 'R9%') OR jle.[Job Task No_] = 'Y0000')) AS PalResourceCost
 
 ,(SELECT
 SUM(jle.[Quantity (Base)])
@@ -709,12 +725,14 @@ jobs.[Creation Date],
 jobs.[Starting Date],
 jobs.[Expected End Date],
 jobs.[Job On Hold],
+jobs.[Risk Level],
 UPPER(Jobs.[Time Sheet Owner User ID]) AS [PM User Name],
 palres2.name AS [PM Supervisor],
 UPPER(palres2.[Time Sheet Owner User ID]) AS [PM Supervisor User Name],
 palres2.No_ AS [Supervisor No],
 dv.Name AS [Service Title],
 jobs.[Business Unit Group],
+jobs.[Business Unit],
 (jobs.UsageCost/NULLIF(jobs.ScheduleCost, 0)) AS CostCompletion,
 (jobs.PalResourceCost/NULLIF(jobs.SchedulePalResourceCost, 0)) AS ResourceCostCompletion,
 CONVERT(DECIMAL(20,5),jobs.PalResourceCost) AS [PalResourceCost],
@@ -817,6 +835,10 @@ SELECT * FROM AUPIVOT</CommandText>
         <DataField>PM User Name</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
+      <Field Name="Risk_Level">
+        <DataField>Risk Level</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
       <Field Name="PM_Supervisor">
         <DataField>PM Supervisor</DataField>
         <rd:TypeName>System.String</rd:TypeName>
@@ -840,6 +862,10 @@ SELECT * FROM AUPIVOT</CommandText>
       <Field Name="CostCompletion">
         <DataField>CostCompletion</DataField>
         <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Business_Unit">
+        <DataField>Business Unit</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="ResourceCostCompletion">
         <DataField>ResourceCostCompletion</DataField>

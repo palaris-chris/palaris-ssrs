@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/PalarisNAV</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@ResourceNo">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+          <rd:IsMultiValued>false</rd:IsMultiValued>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>/*DECLARE @ResourceNo varchar(5)
+SET @ResourceNo = 'R5000';*/
+
+SELECT DISTINCT [Job No_]
+FROM [Palaris$Job Resource Price] jrp
+LEFT JOIN [Palaris$Job] job ON job.No_ = jrp.[Job No_]
+WHERE Code = @ResourceNo AND [Job No_] NOT LIKE 'T-%' AND job.[Project Status] = 'ACTIVE'
+
+UNION ALL
+
+SELECT DISTINCT [Job No_]
+FROM [Palaris Europe Limited$Job Resource Price] jrp
+LEFT JOIN [Palaris Europe Limited$Job] job ON job.No_ = jrp.[Job No_]
+WHERE Code = @ResourceNo AND [Job No_] NOT LIKE 'T-%' AND job.[Project Status] = 'ACTIVE'</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Job_No_">
+        <DataField>Job No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+</SharedDataSet>

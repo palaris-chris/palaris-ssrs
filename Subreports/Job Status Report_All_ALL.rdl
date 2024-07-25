@@ -26,15 +26,19 @@ SELECT
   ,jle.[Entry No_] as [Line_No_]
   ,jle.[Posting Date] as [Date]
   ,jle.Type
+  ,CASE WHEN jle.Type = '2' THEN 'G/L Account'
+	WHEN jle.No_ = 'R9998' THEN 'Contingency'
+    WHEN jle.Type = '0' THEN 'Resource'
+    END AS TypeName
   ,jle.No_
   ,jle.Description
   ,jle.Quantity AS [Qty]
   ,jle.[Quantity (Base)] 
-  ,jle.[Total Cost (LCY)] AS [Cost]
-  ,jle.[Total Price (LCY)]
+  ,jle.[Total Cost] AS [Cost]
+  ,jle.[Total Price]
   ,jle.[Line Discount _]
-  ,jle.[Line Discount Amount (LCY)]
-  ,jle.[Line Amount (LCY)] AS [Price]
+  ,jle.[Line Discount Amount]
+  ,jle.[Line Amount] AS [Price]
   ,jle.[Unit of Measure Code] AS [Unit]
   ,jle.[Work Type Code] AS [Work Type]
   ,jle.[Global Dimension 2 Code] as [BU]
@@ -43,8 +47,8 @@ SELECT
 , NULL AS ScheduleTotalCost
 , NULL AS ScheduleTotalPrice
 , jle.[Quantity] AS UsageQty
-, jle.[Total Cost (LCY)] AS UsageTotalCost
-, jle.[Line Amount (LCY)] AS UsageTotalPrice
+, jle.[Total Cost] AS UsageTotalCost
+, jle.[Line Amount] AS UsageTotalPrice
   ,res.[Name] as [Resource]
   ,res.[Search Name]
   ,jt.[Description] as [Task]
@@ -66,22 +70,26 @@ WHERE
   ,jpl.[Line No_]
   ,jpl.[Planning Date] as [Date]
   ,jpl.Type
+  ,CASE WHEN jpl.Type = '2' THEN 'G/L Account'
+	WHEN jpl.No_ = 'R9998' THEN 'Contingency'
+    WHEN jpl.Type = '0' THEN 'Resource'
+    END AS TypeName
   ,jpl.No_
   ,jpl.Description
   ,jpl.Quantity AS [Qty]
   ,jpl.[Quantity (Base)]
-  ,jpl.[Total Cost (LCY)] AS [Cost]
-  ,jpl.[Total Price (LCY)]
+  ,jpl.[Total Cost] AS [Cost]
+  ,jpl.[Total Price]
   ,jpl.[Line Discount _]
-  ,jpl.[Line Discount Amount (LCY)]
-  ,jpl.[Line Amount (LCY)] AS [Price]
+  ,jpl.[Line Discount Amount]
+  ,jpl.[Line Amount] AS [Price]
   ,jpl.[Unit of Measure Code] AS [Unit]
   ,jpl.[Work Type Code] AS [Work Type]
   ,res.[Global Dimension 2 Code] as [BU]
   ,jpl.[Schedule Line] AS [Line Type]
 , jpl.[Quantity] AS ScheduleQty
-, jpl.[Total Cost (LCY)] AS ScheduleTotalCost
-, jpl.[Line Amount (LCY)] AS ScheduleTotalPrice
+, jpl.[Total Cost] AS ScheduleTotalCost
+, jpl.[Line Amount] AS ScheduleTotalPrice
 , NULL AS UsageQty
 , NULL AS UsageTotalCost
 , NULL AS UsageTotalPrice
@@ -126,6 +134,10 @@ WHERE
           <DataField>Type</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="TypeName">
+          <DataField>TypeName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -146,20 +158,20 @@ WHERE
           <DataField>Cost</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="Total_Price__LCY_">
-          <DataField>Total Price (LCY)</DataField>
+        <Field Name="Total_Price">
+          <DataField>Total Price</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="Price">
           <DataField>Price</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="Line_Discount__">
-          <DataField>Line Discount _</DataField>
+        <Field Name="Line_Discount_Amount">
+          <DataField>Line Discount Amount</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="Line_Discount_Amount__LCY_">
-          <DataField>Line Discount Amount (LCY)</DataField>
+        <Field Name="Line_Discount__">
+          <DataField>Line Discount _</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="Unit">
@@ -224,7 +236,10 @@ WHERE
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="WorkTypeSummary">
-          <Value>=iif(Fields!Work_Type.Value="" OR Fields!Work_Type.Value like "OSA*" OR Fields!Work_Type.Value like "KM*", "EXPENSES*", iif(Fields!Work_Type.Value="PAY", "OTHER", Fields!Work_Type.Value))</Value>
+          <Value>=iif(Fields!No_.Value="51150" OR Fields!No_.Value="51160" OR (Fields!No_.Value like "R9*" AND Fields!No_.Value &lt;&gt; "R9998"), "SUBCONTRACTOR", 
+iif(Fields!Work_Type.Value="" OR Fields!Work_Type.Value like "OSA*" OR Fields!Work_Type.Value like "KM*", "EXPENSES", 
+iif(Fields!Work_Type.Value="PAY", "OTHER", 
+Fields!Work_Type.Value)))</Value>
         </Field>
         <Field Name="RemainingQty">
           <Value>=Fields!ScheduleQty.Value - Fields!UsageQty.Value</Value>
@@ -284,6 +299,7 @@ ORDER BY Date desc</CommandText>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
 WITH BUGroup AS
 (
 SELECT [Business Unit Group], [Business Unit]
@@ -305,14 +321,14 @@ SUBCONTRCT_JPL AS (
         jpl.[Quantity (Base)],
         'Schedule' AS [Type],
 	jpl.[Work Type Code],
-        jpl.[Unit Cost (LCY)]   AS [Unit Cost],
-        jpl.[Unit Price (LCY)]  AS [Unit Price],
-        jpl.[Total Cost (LCY)]  AS [Total Cost],
-        jpl.[Total Price (LCY)] AS [Total Price],
-        jpl.[Line Amount (LCY)] AS [Line Amount]
+        jpl.[Unit Cost]   AS [Unit Cost],
+        jpl.[Unit Price]  AS [Unit Price],
+        jpl.[Total Cost]  AS [Total Cost],
+        jpl.[Total Price] AS [Total Price],
+        jpl.[Line Amount] AS [Line Amount]
 		, jpl.[Quantity] AS ScheduleQty
-		, jpl.[Total Cost (LCY)] AS ScheduleTotalCost
-		, jpl.[Line Amount (LCY)] AS ScheduleTotalPrice
+		, jpl.[Total Cost] AS ScheduleTotalCost
+		, jpl.[Line Amount] AS ScheduleTotalPrice
 		, NULL AS UsageQty
 		, NULL AS UsageTotalCost
 		, NULL AS UsageTotalPrice
@@ -327,7 +343,6 @@ SUBCONTRCT_JPL AS (
         LEFT JOIN [Palaris$Vendor] ven on jpl.[Job Task No_] = ven.No_
       WHERE jpl.[Work Type Code] NOT LIKE 'OSA%'
             AND jpl.[Work Type Code] NOT LIKE 'KM%'
-            AND jpl.[Work Type Code] NOT LIKE 'PAY%'
             AND jpl.[No_] IN ('51150', '51160')
 			AND jpl.[Line Type] = 0
 	    AND jpl.[Job No_] = @JobNo_
@@ -348,11 +363,11 @@ SUBCONTRCT_JPL AS (
         jpl.[Quantity (Base)],
         'Schedule' AS [Type],
 	jpl.[Work Type Code],
-        jpl.[Unit Cost (LCY)]   AS [Unit Cost],
-        jpl.[Unit Price (LCY)]  AS [Unit Price],
-        jpl.[Total Cost (LCY)]  AS [Total Cost],
-        jpl.[Total Price (LCY)] AS [Total Price],
-        jpl.[Line Amount (LCY)] AS [Line Amount]
+        jpl.[Unit Cost]   AS [Unit Cost],
+        jpl.[Unit Price]  AS [Unit Price],
+        jpl.[Total Cost]  AS [Total Cost],
+        jpl.[Total Price] AS [Total Price],
+        jpl.[Line Amount] AS [Line Amount]
 		, jpl.[Quantity] AS ScheduleQty
 		, jpl.[Total Cost (LCY)] AS ScheduleTotalCost
 		, jpl.[Line Amount (LCY)] AS ScheduleTotalPrice
@@ -368,8 +383,7 @@ SUBCONTRCT_JPL AS (
         LEFT JOIN [Palaris$Vendor] ven on res.[Vendor No_] = ven.No_
       WHERE jpl.[Work Type Code] NOT LIKE 'OSA%'
             AND jpl.[Work Type Code] NOT LIKE 'KM%'
-            AND jpl.[Work Type Code] NOT LIKE 'PAY%'
-            AND (LEFT(jpl.No_, 2) = 'R9' AND jpl.No_ &lt;&gt; 'R9998')
+            AND (LEFT(jpl.No_, 2) IN ('R9','S0') AND jpl.No_ &lt;&gt; 'R9998')
 			AND jpl.[Line Type] = 0
             AND jpl.[Job No_] = @JobNo_
   ),
@@ -389,11 +403,11 @@ SUBCONTRCT_JPL AS (
         jle.[Quantity (Base)],
         'Usage' AS [Type],
 	jle.[Work Type Code],
-        jle.[Unit Cost (LCY)]   AS [Unit Cost],
-        jle.[Unit Price (LCY)]  AS [Unit Price],
-        jle.[Total Cost (LCY)]  AS [Total Cost],
-        jle.[Total Price (LCY)] AS [Total Price],
-        jle.[Line Amount (LCY)] AS [Line Amount]
+        jle.[Unit Cost]   AS [Unit Cost],
+        jle.[Unit Price]  AS [Unit Price],
+        jle.[Total Cost]  AS [Total Cost],
+        jle.[Total Price] AS [Total Price],
+        jle.[Line Amount] AS [Line Amount]
 		, NULL AS ScheduleQty
 		, NULL AS ScheduleTotalCost
 		, NULL AS ScheduleTotalPrice
@@ -409,7 +423,6 @@ SUBCONTRCT_JPL AS (
         LEFT JOIN [Palaris$Vendor] ven on jle.[Job Task No_] = ven.No_
       WHERE jle.[Work Type Code] NOT LIKE 'OSA%'
             AND jle.[Work Type Code] NOT LIKE 'KM%'
-            AND jle.[Work Type Code] NOT LIKE 'PAY%'
             AND jle.[No_] IN ('51150', '51160')
 				AND jle.[Job No_] = @JobNo_
  	AND jle.[Entry Type] = 0
@@ -430,11 +443,11 @@ SUBCONTRCT_JPL AS (
         jle.[Quantity (Base)],
         'Usage' AS [Type],
 	jle.[Work Type Code],
-        jle.[Unit Cost (LCY)]   AS [Unit Cost],
-        jle.[Unit Price (LCY)]  AS [Unit Price],
-        jle.[Total Cost (LCY)]  AS [Total Cost],
-        jle.[Total Price (LCY)] AS [Total Price],
-        jle.[Line Amount (LCY)] AS [Line Amount]
+        jle.[Unit Cost]   AS [Unit Cost],
+        jle.[Unit Price]  AS [Unit Price],
+        jle.[Total Cost]  AS [Total Cost],
+        jle.[Total Price] AS [Total Price],
+        jle.[Line Amount] AS [Line Amount]
 		, NULL AS ScheduleQty
 		, NULL AS ScheduleTotalCost
 		, NULL AS ScheduleTotalPrice
@@ -450,8 +463,7 @@ SUBCONTRCT_JPL AS (
         LEFT JOIN [Palaris$Vendor] ven on res.[Vendor No_] = ven.No_
       WHERE jle.[Work Type Code] NOT LIKE 'OSA%'
             AND jle.[Work Type Code] NOT LIKE 'KM%'
-            AND jle.[Work Type Code] NOT LIKE 'PAY%'
-            AND (LEFT(jle.No_, 2) = 'R9' AND jle.No_ &lt;&gt; 'R9998')
+            AND (LEFT(jle.No_, 2) IN ('R9','S0') AND jle.No_ &lt;&gt; 'R9998')
             AND jle.[Job No_] = @JobNo_
   AND jle.[Entry Type] = 0
   ),
@@ -3381,43 +3393,6 @@ IIF((First(Fields!CostCompletion.Value, "ActiveJobs")*100) &lt; 60, "ForestGreen
                       </Border>
                     </Style>
                   </Rectangle>
-                  <Textbox Name="HintToggle">
-                    <CanGrow>true</CanGrow>
-                    <KeepTogether>true</KeepTogether>
-                    <Paragraphs>
-                      <Paragraph>
-                        <TextRuns>
-                          <TextRun>
-                            <Value>Show / Hide Report Hints</Value>
-                            <Style>
-                              <FontWeight>Bold</FontWeight>
-                              <TextDecoration>Underline</TextDecoration>
-                              <Color>White</Color>
-                            </Style>
-                          </TextRun>
-                        </TextRuns>
-                        <Style>
-                          <TextAlign>Center</TextAlign>
-                        </Style>
-                      </Paragraph>
-                    </Paragraphs>
-                    <Top>0.35081mm</Top>
-                    <Left>0.7843mm</Left>
-                    <Height>6.7388mm</Height>
-                    <Width>51.87776mm</Width>
-                    <ZIndex>3</ZIndex>
-                    <Style>
-                      <Border>
-                        <Style>Solid</Style>
-                      </Border>
-                      <BackgroundColor>Green</BackgroundColor>
-                      <VerticalAlign>Middle</VerticalAlign>
-                      <PaddingLeft>2pt</PaddingLeft>
-                      <PaddingRight>2pt</PaddingRight>
-                      <PaddingTop>2pt</PaddingTop>
-                      <PaddingBottom>2pt</PaddingBottom>
-                    </Style>
-                  </Textbox>
                   <Textbox Name="PM">
                     <CanGrow>true</CanGrow>
                     <KeepTogether>true</KeepTogether>
@@ -3451,7 +3426,7 @@ IIF((First(Fields!CostCompletion.Value, "ActiveJobs")*100) &lt; 60, "ForestGreen
                     <Left>58.63864mm</Left>
                     <Height>4.73mm</Height>
                     <Width>75.84451mm</Width>
-                    <ZIndex>4</ZIndex>
+                    <ZIndex>3</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -3490,7 +3465,7 @@ IIF((First(Fields!CostCompletion.Value, "ActiveJobs")*100) &lt; 60, "ForestGreen
                     <Left>58.63864mm</Left>
                     <Height>6mm</Height>
                     <Width>19.0933mm</Width>
-                    <ZIndex>5</ZIndex>
+                    <ZIndex>4</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -3542,7 +3517,7 @@ IIF((First(Fields!CostCompletion.Value, "ActiveJobs")*100) &lt; 60, "ForestGreen
                     <Left>58.63869mm</Left>
                     <Height>6mm</Height>
                     <Width>75.84451mm</Width>
-                    <ZIndex>6</ZIndex>
+                    <ZIndex>5</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -3588,7 +3563,7 @@ IIF((First(Fields!CostCompletion.Value, "ActiveJobs")*100) &lt; 60, "ForestGreen
                     <Left>58.63869mm</Left>
                     <Height>6mm</Height>
                     <Width>75.84451mm</Width>
-                    <ZIndex>7</ZIndex>
+                    <ZIndex>6</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -3750,7 +3725,7 @@ IIF((First(Fields!CostCompletion.Value, "ActiveJobs")*100) &lt; 60, "ForestGreen
                     <Left>5.86387cm</Left>
                     <Height>1.2cm</Height>
                     <Width>11.12253cm</Width>
-                    <ZIndex>8</ZIndex>
+                    <ZIndex>7</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -3792,7 +3767,7 @@ IIF((First(Fields!CostCompletion.Value, "ActiveJobs")*100) &lt; 60, "ForestGreen
                     <Left>58.63864mm</Left>
                     <Height>6mm</Height>
                     <Width>75.84451mm</Width>
-                    <ZIndex>9</ZIndex>
+                    <ZIndex>8</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -3914,7 +3889,7 @@ The final project margin is calculated off </Value>
                     <Left>5.86387cm</Left>
                     <Height>1.03172cm</Height>
                     <Width>12.49966cm</Width>
-                    <ZIndex>10</ZIndex>
+                    <ZIndex>9</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -4019,7 +3994,7 @@ The final project margin is calculated off </Value>
                     <Left>5.86387cm</Left>
                     <Height>1.03172cm</Height>
                     <Width>12.49966cm</Width>
-                    <ZIndex>11</ZIndex>
+                    <ZIndex>10</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -4067,7 +4042,7 @@ IIF((First(Fields!ResourceCostCompletion.Value, "ActiveJobs")*100) &lt; 60, "For
                     <Left>58.63869mm</Left>
                     <Height>6mm</Height>
                     <Width>75.84451mm</Width>
-                    <ZIndex>12</ZIndex>
+                    <ZIndex>11</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -4100,7 +4075,7 @@ IIF((First(Fields!ResourceCostCompletion.Value, "ActiveJobs")*100) &lt; 60, "For
                             </Style>
                           </TextRun>
                           <TextRun>
-                            <Value>=Sum(Fields!Uninvoiced.Value, "WIPAgedDays")</Value>
+                            <Value>=Sum(Fields!WIP.Value, "ActiveJobs")</Value>
                             <Style>
                               <Format>=IIF(First(Fields!Business_Unit_Group.Value, "ActiveJobs") = "PEL", "'£'#,0.00;('£'#,0.00)", "'$'#,0.00;('$'#,0.00)")</Format>
                               <Color>=iif(Sum(Fields!Uninvoiced.Value, "WIPAgedDays")=0, "Silver", "Black")</Color>
@@ -4116,7 +4091,7 @@ IIF((First(Fields!ResourceCostCompletion.Value, "ActiveJobs")*100) &lt; 60, "For
                     <Left>58.6387mm</Left>
                     <Height>6mm</Height>
                     <Width>75.84451mm</Width>
-                    <ZIndex>13</ZIndex>
+                    <ZIndex>12</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -4175,7 +4150,7 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                     <Left>5.86387cm</Left>
                     <Height>1.03172cm</Height>
                     <Width>12.49966cm</Width>
-                    <ZIndex>14</ZIndex>
+                    <ZIndex>13</ZIndex>
                     <Visibility>
                       <Hidden>true</Hidden>
                       <ToggleItem>HintToggle</ToggleItem>
@@ -4230,7 +4205,7 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                     <Left>58.63864mm</Left>
                     <Height>6mm</Height>
                     <Width>75.84451mm</Width>
-                    <ZIndex>15</ZIndex>
+                    <ZIndex>14</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -4273,7 +4248,7 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                     <Left>58.63864mm</Left>
                     <Height>6mm</Height>
                     <Width>59.73549mm</Width>
-                    <ZIndex>16</ZIndex>
+                    <ZIndex>15</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -4302,7 +4277,7 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                     <Left>7.9504cm</Left>
                     <Height>0.6cm</Height>
                     <Width>5.49792cm</Width>
-                    <ZIndex>17</ZIndex>
+                    <ZIndex>16</ZIndex>
                     <Style>
                       <Border>
                         <Style>None</Style>
@@ -4343,7 +4318,7 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                     <Left>5.86386cm</Left>
                     <Height>0.57053cm</Height>
                     <Width>3.59199cm</Width>
-                    <ZIndex>18</ZIndex>
+                    <ZIndex>17</ZIndex>
                     <Visibility>
                       <Hidden>true</Hidden>
                     </Visibility>
@@ -4357,10 +4332,98 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                       <PaddingBottom>2pt</PaddingBottom>
                     </Style>
                   </Textbox>
+                  <Textbox Name="HintToggle">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>Show Hints</Value>
+                            <Style>
+                              <FontWeight>Bold</FontWeight>
+                              <TextDecoration>Underline</TextDecoration>
+                              <Color>Blue</Color>
+                            </Style>
+                          </TextRun>
+                        </TextRuns>
+                        <Style>
+                          <TextAlign>Center</TextAlign>
+                        </Style>
+                      </Paragraph>
+                    </Paragraphs>
+                    <Top>0.70555mm</Top>
+                    <Left>35.63526mm</Left>
+                    <Height>6.02984mm</Height>
+                    <Width>32.91887mm</Width>
+                    <ZIndex>18</ZIndex>
+                    <Style>
+                      <Border>
+                        <Style>Solid</Style>
+                      </Border>
+                      <BackgroundColor>White</BackgroundColor>
+                      <VerticalAlign>Middle</VerticalAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                  <Textbox Name="HintToggle2">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>Page 2 (Invoicing)</Value>
+                            <ActionInfo>
+                              <Actions>
+                                <Action>
+                                  <BookmarkLink>Page2</BookmarkLink>
+                                </Action>
+                              </Actions>
+                            </ActionInfo>
+                            <Style>
+                              <FontWeight>Bold</FontWeight>
+                              <TextDecoration>Underline</TextDecoration>
+                              <Color>Blue</Color>
+                            </Style>
+                          </TextRun>
+                        </TextRuns>
+                        <Style>
+                          <TextAlign>Center</TextAlign>
+                        </Style>
+                      </Paragraph>
+                    </Paragraphs>
+                    <ActionInfo>
+                      <Actions>
+                        <Action>
+                          <BookmarkLink>Page2</BookmarkLink>
+                        </Action>
+                      </Actions>
+                    </ActionInfo>
+                    <Top>0.70555mm</Top>
+                    <Left>0.9525mm</Left>
+                    <Height>6.02984mm</Height>
+                    <Width>32.91887mm</Width>
+                    <ZIndex>19</ZIndex>
+                    <Style>
+                      <Border>
+                        <Style>Solid</Style>
+                      </Border>
+                      <BackgroundColor>White</BackgroundColor>
+                      <VerticalAlign>Middle</VerticalAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
                 </ReportItems>
                 <KeepTogether>true</KeepTogether>
                 <Top>0.70556mm</Top>
-                <Left>0.91407mm</Left>
+                <Left>0.8528mm</Left>
                 <Height>221.79346mm</Height>
                 <Width>274.612mm</Width>
                 <Style>
@@ -6054,6 +6117,15 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                         <GroupExpressions>
                           <GroupExpression>=Fields!Job_Task.Value</GroupExpression>
                         </GroupExpressions>
+                        <Filters>
+                          <Filter>
+                            <FilterExpression>=SUM(Fields!ScheduleQty.Value)+SUM(Fields!UsageQty.Value)</FilterExpression>
+                            <Operator>NotEqual</Operator>
+                            <FilterValues>
+                              <FilterValue DataType="Integer">0</FilterValue>
+                            </FilterValues>
+                          </Filter>
+                        </Filters>
                       </Group>
                       <SortExpressions>
                         <SortExpression>
@@ -6929,6 +7001,15 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                         <GroupExpressions>
                           <GroupExpression>=Fields!Resource.Value</GroupExpression>
                         </GroupExpressions>
+                        <Filters>
+                          <Filter>
+                            <FilterExpression>=SUM(Fields!ScheduleQty.Value)+SUM(Fields!UsageQty.Value)</FilterExpression>
+                            <Operator>NotEqual</Operator>
+                            <FilterValues>
+                              <FilterValue DataType="Integer">0</FilterValue>
+                            </FilterValues>
+                          </Filter>
+                        </Filters>
                       </Group>
                       <SortExpressions>
                         <SortExpression>
@@ -6966,7 +7047,7 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                 <DataSetName>JPL_JLE</DataSetName>
                 <Filters>
                   <Filter>
-                    <FilterExpression>=Fields!Work_Type.Value Like "KM*" or Fields!Work_Type.Value Like "OSA*" or Fields!No_.Value Like "R9*" or Fields!ResExp.Value Like "Expense"</FilterExpression>
+                    <FilterExpression>=Fields!Work_Type.Value Like "KM*" or Fields!Work_Type.Value Like "OSA*" or Fields!No_.Value Like "R9*" or Fields!ResExp.Value Like "Expense" or Fields!No_.Value Like "S*"</FilterExpression>
                     <Operator>NotEqual</Operator>
                     <FilterValues>
                       <FilterValue DataType="Boolean">true</FilterValue>
@@ -7773,15 +7854,64 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                         </CellContents>
                       </TablixHeader>
                       <TablixMembers>
-                        <TablixMember />
+                        <TablixMember>
+                          <TablixHeader>
+                            <Size>25mm</Size>
+                            <CellContents>
+                              <Textbox Name="Textbox125">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value />
+                                        <Style>
+                                          <FontSize>12pt</FontSize>
+                                          <FontWeight>Bold</FontWeight>
+                                          <Color>White</Color>
+                                        </Style>
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style />
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>Textbox125</rd:DefaultName>
+                                <Style>
+                                  <Border>
+                                    <Style>None</Style>
+                                  </Border>
+                                  <BackgroundColor>#375f91</BackgroundColor>
+                                  <VerticalAlign>Middle</VerticalAlign>
+                                  <PaddingLeft>4pt</PaddingLeft>
+                                  <PaddingRight>2pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                          <TablixMembers>
+                            <TablixMember />
+                          </TablixMembers>
+                        </TablixMember>
                       </TablixMembers>
                       <KeepWithGroup>After</KeepWithGroup>
                     </TablixMember>
                     <TablixMember>
-                      <Group Name="WorkTypeSummary2">
+                      <Group Name="WorkTypeSummary">
                         <GroupExpressions>
                           <GroupExpression>=Fields!WorkTypeSummary.Value</GroupExpression>
                         </GroupExpressions>
+                        <Filters>
+                          <Filter>
+                            <FilterExpression>=SUM(Fields!ScheduleQty.Value)+SUM(Fields!UsageQty.Value)</FilterExpression>
+                            <Operator>NotEqual</Operator>
+                            <FilterValues>
+                              <FilterValue DataType="Integer">0</FilterValue>
+                            </FilterValues>
+                          </Filter>
+                        </Filters>
                       </Group>
                       <SortExpressions>
                         <SortExpression>
@@ -7791,7 +7921,7 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                       <TablixHeader>
                         <Size>46.82502mm</Size>
                         <CellContents>
-                          <Textbox Name="WorkTypeSummary2">
+                          <Textbox Name="WorkTypeSummary">
                             <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
@@ -7807,7 +7937,6 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                                 <Style />
                               </Paragraph>
                             </Paragraphs>
-                            <rd:DefaultName>WorkTypeSummary1</rd:DefaultName>
                             <Style>
                               <Border>
                                 <Style>None</Style>
@@ -7815,7 +7944,6 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                               <BottomBorder>
                                 <Color>Silver</Color>
                                 <Style>Solid</Style>
-                                <Width>1pt</Width>
                               </BottomBorder>
                               <VerticalAlign>Middle</VerticalAlign>
                               <PaddingLeft>6pt</PaddingLeft>
@@ -7828,9 +7956,9 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                       </TablixHeader>
                       <TablixMembers>
                         <TablixMember>
-                          <Group Name="Work_Type3">
+                          <Group Name="Work_Type1">
                             <GroupExpressions>
-                              <GroupExpression>=Fields!WorkTypeSummary.Value</GroupExpression>
+                              <GroupExpression>=Fields!Work_Type.Value</GroupExpression>
                             </GroupExpressions>
                           </Group>
                           <SortExpressions>
@@ -7838,9 +7966,65 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                               <Value>=Fields!Work_Type.Value</Value>
                             </SortExpression>
                           </SortExpressions>
+                          <TablixHeader>
+                            <Size>25mm</Size>
+                            <CellContents>
+                              <Textbox Name="TypeName">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value>=Fields!TypeName.Value</Value>
+                                        <Style>
+                                          <FontWeight>Bold</FontWeight>
+                                        </Style>
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style />
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>TypeName</rd:DefaultName>
+                                <Style>
+                                  <Border>
+                                    <Style>None</Style>
+                                  </Border>
+                                  <BottomBorder>
+                                    <Color>Silver</Color>
+                                    <Style>Solid</Style>
+                                    <Width>1pt</Width>
+                                  </BottomBorder>
+                                  <VerticalAlign>Middle</VerticalAlign>
+                                  <PaddingLeft>6pt</PaddingLeft>
+                                  <PaddingRight>2pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
                           <TablixMembers>
-                            <TablixMember />
+                            <TablixMember>
+                              <Group Name="Work_Type3">
+                                <GroupExpressions>
+                                  <GroupExpression>=Fields!WorkTypeSummary.Value</GroupExpression>
+                                </GroupExpressions>
+                              </Group>
+                              <SortExpressions>
+                                <SortExpression>
+                                  <Value>=Fields!Work_Type.Value</Value>
+                                </SortExpression>
+                              </SortExpressions>
+                              <TablixMembers>
+                                <TablixMember />
+                              </TablixMembers>
+                            </TablixMember>
                           </TablixMembers>
+                          <Visibility>
+                            <Hidden>true</Hidden>
+                            <ToggleItem>WorkTypeSummary</ToggleItem>
+                          </Visibility>
                         </TablixMember>
                       </TablixMembers>
                     </TablixMember>
@@ -7886,7 +8070,49 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                         </CellContents>
                       </TablixHeader>
                       <TablixMembers>
-                        <TablixMember />
+                        <TablixMember>
+                          <TablixHeader>
+                            <Size>25mm</Size>
+                            <CellContents>
+                              <Textbox Name="Textbox123">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value />
+                                        <Style>
+                                          <FontWeight>Bold</FontWeight>
+                                        </Style>
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style>
+                                      <TextAlign>Right</TextAlign>
+                                    </Style>
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>Textbox123</rd:DefaultName>
+                                <Style>
+                                  <Border>
+                                    <Style>None</Style>
+                                  </Border>
+                                  <TopBorder>
+                                    <Style>Solid</Style>
+                                  </TopBorder>
+                                  <VerticalAlign>Middle</VerticalAlign>
+                                  <PaddingLeft>8pt</PaddingLeft>
+                                  <PaddingRight>2pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                          <TablixMembers>
+                            <TablixMember />
+                          </TablixMembers>
+                        </TablixMember>
                       </TablixMembers>
                       <KeepWithGroup>Before</KeepWithGroup>
                     </TablixMember>
@@ -7905,7 +8131,7 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                 <Top>223.64447mm</Top>
                 <Left>1.53621mm</Left>
                 <Height>24.88472mm</Height>
-                <Width>185.62433mm</Width>
+                <Width>210.62433mm</Width>
                 <ZIndex>3</ZIndex>
                 <Style>
                   <Border>
@@ -7965,7 +8191,7 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Subconsultant Team</Value>
+                                      <Value>Subconsultant Time</Value>
                                       <Style>
                                         <FontSize>12pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
@@ -9814,7 +10040,6 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
-                            <rd:Selected>true</rd:Selected>
                           </CellContents>
                         </TablixCell>
                         <TablixCell>
@@ -10665,6 +10890,13 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                       <FilterValue DataType="Boolean">true</FilterValue>
                     </FilterValues>
                   </Filter>
+                  <Filter>
+                    <FilterExpression>=LEFT(Fields!Job_Task_No_.Value, 2)</FilterExpression>
+                    <Operator>NotEqual</Operator>
+                    <FilterValues>
+                      <FilterValue>X-</FilterValue>
+                    </FilterValues>
+                  </Filter>
                 </Filters>
                 <Top>338.08184mm</Top>
                 <Left>1.48782mm</Left>
@@ -10769,7 +11001,7 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                 <TablixBody>
                   <TablixColumns>
                     <TablixColumn>
-                      <Width>1.5889cm</Width>
+                      <Width>1.93639cm</Width>
                     </TablixColumn>
                     <TablixColumn>
                       <Width>2.76319cm</Width>
@@ -10799,7 +11031,13 @@ Invoicing milestones will appear here when their planned date has passed.</Value
                                         <FontSize>=IIf(Len(CStr(ReportItems!QtyExp4.Value))&gt;11, "7pt", "8pt")</FontSize>
                                         <FontWeight>Normal</FontWeight>
                                         <Format>=Iif(Fields!Type.Value = "G/L Account", 
-Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)"), "n2")</Format>
+Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)
+,"n2"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -10809,8 +11047,21 @@ Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Valu
                               <rd:DefaultName>QtyExp1</rd:DefaultName>
                               <Style>
                                 <Border>
+                                  <Color>Silver</Color>
                                   <Style>None</Style>
                                 </Border>
+                                <TopBorder>
+                                  <Style>Solid</Style>
+                                </TopBorder>
+                                <BottomBorder>
+                                  <Style>Solid</Style>
+                                </BottomBorder>
+                                <LeftBorder>
+                                  <Style>Solid</Style>
+                                </LeftBorder>
+                                <RightBorder>
+                                  <Style>Solid</Style>
+                                </RightBorder>
                                 <BackgroundColor>White</BackgroundColor>
                                 <VerticalAlign>Middle</VerticalAlign>
                                 <PaddingLeft>2pt</PaddingLeft>
@@ -10837,7 +11088,7 @@ Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Valu
                                         <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                       </Style>
                                     </TextRun>
@@ -10912,7 +11163,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                         <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                         <Color>DimGray</Color>
                                       </Style>
@@ -10960,7 +11211,13 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                         <FontSize>=IIf(Len(CStr(ReportItems!QtyExp5.Value))&gt;11, "7pt", "8pt")</FontSize>
                                         <FontWeight>Bold</FontWeight>
                                         <Format>=Iif(Fields!Type.Value = "G/L Account", 
-Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)"), "n2")</Format>
+Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)
+,"n2"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -11004,7 +11261,7 @@ Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Valu
                                         <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                       </Style>
                                     </TextRun>
@@ -11099,7 +11356,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                         <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                         <Color>DimGray</Color>
                                       </Style>
@@ -11165,23 +11422,21 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                           <Direction>Descending</Direction>
                         </SortExpression>
                         <SortExpression>
-                          <Value>=Fields!Name.Value</Value>
+                          <Value>=Fields!JPShortInitial.Value</Value>
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
-                        <Size>1.67624cm</Size>
+                        <Size>3.44895cm</Size>
                         <CellContents>
                           <Textbox Name="NameShort2">
-                            <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!JPShortInitial.Value</Value>
+                                    <Value>=Fields!JPNameShort.Value</Value>
                                     <Style>
-                                      <FontSize>=IIf(Len(Fields!JPShortInitial.Value)&gt;7, "8pt", "9pt")</FontSize>
-                                      <FontWeight>Bold</FontWeight>
+                                      <FontWeight>Normal</FontWeight>
                                       <Color>White</Color>
                                     </Style>
                                   </TextRun>
@@ -11192,6 +11447,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                               </Paragraph>
                             </Paragraphs>
                             <rd:DefaultName>NameShort</rd:DefaultName>
+                            <ToolTip>=Fields!JPName.Value</ToolTip>
                             <Style>
                               <Border>
                                 <Style>None</Style>
@@ -11207,6 +11463,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                               <PaddingRight>2pt</PaddingRight>
                               <PaddingTop>2pt</PaddingTop>
                               <PaddingBottom>2pt</PaddingBottom>
+                              <WritingMode>Rotate270</WritingMode>
                             </Style>
                           </Textbox>
                         </CellContents>
@@ -11230,7 +11487,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                           <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                           <Color>White</Color>
                                         </Style>
@@ -11268,7 +11525,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                     </TablixMember>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>1.67624cm</Size>
+                        <Size>3.44895cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox82">
                             <CanGrow>true</CanGrow>
@@ -11350,7 +11607,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                     </TablixMember>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>1.67624cm</Size>
+                        <Size>3.44895cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox1">
                             <CanGrow>true</CanGrow>
@@ -11432,7 +11689,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                     </TablixMember>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>1.67624cm</Size>
+                        <Size>3.44895cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox11">
                             <CanGrow>true</CanGrow>
@@ -11656,10 +11913,10 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>10.48137cm</Top>
+                <Top>7.94137cm</Top>
                 <Left>0.00591cm</Left>
-                <Height>3.43585cm</Height>
-                <Width>15.76693cm</Width>
+                <Height>5.20856cm</Height>
+                <Width>16.11442cm</Width>
                 <Visibility>
                   <Hidden>=IIf(Left(ReportItems!JobTypeValue.Value, 3)="FPL", True, False)</Hidden>
                 </Visibility>
@@ -11770,7 +12027,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                 <TablixBody>
                   <TablixColumns>
                     <TablixColumn>
-                      <Width>1.5889cm</Width>
+                      <Width>1.85348cm</Width>
                     </TablixColumn>
                     <TablixColumn>
                       <Width>2.76319cm</Width>
@@ -11793,7 +12050,13 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                       <Style>
                                         <FontSize>=IIf(Len(CStr(ReportItems!ContractQtyExp.Value))&gt;11, "7pt", "8pt")</FontSize>
                                         <Format>=Iif(Fields!Type.Value = "G/L Account", 
-Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)"), "n2")</Format>
+Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)
+,"n2"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -11835,7 +12098,7 @@ Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Valu
                                         <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                       </Style>
                                     </TextRun>
@@ -11887,7 +12150,13 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                         <FontSize>=IIf(Len(CStr(ReportItems!ContractQtyExp1.Value))&gt;11, "7pt", "8pt")</FontSize>
                                         <FontWeight>Bold</FontWeight>
                                         <Format>=Iif(Fields!Type.Value = "G/L Account", 
-Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)"), "n2")</Format>
+Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)
+,"n2"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -11925,7 +12194,7 @@ Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Valu
                                         <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                       </Style>
                                     </TextRun>
@@ -11972,7 +12241,13 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                         <FontSize>=IIf(Len(CStr(ReportItems!ContractQtyExp2.Value))&gt;11, "7pt", "8pt")</FontSize>
                                         <FontWeight>Bold</FontWeight>
                                         <Format>=Iif(Fields!Type.Value = "G/L Account", 
-Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)"), "n2")</Format>
+Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)
+,"n2"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -12020,7 +12295,7 @@ Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Valu
                                         <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                       </Style>
                                     </TextRun>
@@ -12080,19 +12355,18 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
-                        <Size>1.73771cm</Size>
+                        <Size>3.27229cm</Size>
                         <CellContents>
-                          <Textbox Name="JPShortInitial">
-                            <CanGrow>true</CanGrow>
+                          <Textbox Name="JPNameShort">
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!JPShortInitial.Value</Value>
+                                    <Value>=Fields!JPNameShort.Value</Value>
                                     <Style>
                                       <FontSize>=IIf(Len(Fields!JPShortInitial.Value)&gt;7, "8pt", "9pt")</FontSize>
-                                      <FontWeight>Bold</FontWeight>
+                                      <FontWeight>Normal</FontWeight>
                                       <Color>White</Color>
                                     </Style>
                                   </TextRun>
@@ -12102,7 +12376,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                 </Style>
                               </Paragraph>
                             </Paragraphs>
-                            <rd:DefaultName>JPShortInitial</rd:DefaultName>
+                            <rd:DefaultName>JPNameShort</rd:DefaultName>
                             <Style>
                               <Border>
                                 <Style>None</Style>
@@ -12118,6 +12392,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                               <PaddingRight>2pt</PaddingRight>
                               <PaddingTop>2pt</PaddingTop>
                               <PaddingBottom>2pt</PaddingBottom>
+                              <WritingMode>Rotate270</WritingMode>
                             </Style>
                           </Textbox>
                         </CellContents>
@@ -12141,7 +12416,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                           <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                           <Color>White</Color>
                                         </Style>
@@ -12179,7 +12454,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                     </TablixMember>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>1.73771cm</Size>
+                        <Size>3.27229cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox80">
                             <CanGrow>true</CanGrow>
@@ -12546,10 +12821,10 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>14.34845cm</Top>
+                <Top>13.39595cm</Top>
                 <Left>0.00591cm</Left>
-                <Height>4.14168cm</Height>
-                <Width>14.87046cm</Width>
+                <Height>5.67626cm</Height>
+                <Width>15.13504cm</Width>
                 <ZIndex>1</ZIndex>
                 <Visibility>
                   <Hidden>=IIf(Left(ReportItems!JobTypeValue.Value, 3)="FPL", True, False)</Hidden>
@@ -12722,7 +12997,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                 <TablixBody>
                   <TablixColumns>
                     <TablixColumn>
-                      <Width>1.5889cm</Width>
+                      <Width>1.85348cm</Width>
                     </TablixColumn>
                     <TablixColumn>
                       <Width>2.76319cm</Width>
@@ -12745,7 +13020,13 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                       <Style>
                                         <FontSize>=IIf(Len(CStr(ReportItems!ContractQtyExp3.Value))&gt;11, "7pt", "8pt")</FontSize>
                                         <Format>=Iif(Fields!Type.Value = "G/L Account", 
-Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)"), "n2")</Format>
+Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)
+,"n2"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -12787,7 +13068,7 @@ Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Valu
                                         <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                       </Style>
                                     </TextRun>
@@ -12839,7 +13120,13 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                         <FontSize>=IIf(Len(CStr(ReportItems!ContractQtyExp4.Value))&gt;11, "7pt", "8pt")</FontSize>
                                         <FontWeight>Bold</FontWeight>
                                         <Format>=Iif(Fields!Type.Value = "G/L Account", 
-Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)"), "n2")</Format>
+Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)
+,"n2"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -12877,7 +13164,7 @@ Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Valu
                                         <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                       </Style>
                                     </TextRun>
@@ -12924,7 +13211,13 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                         <FontSize>=IIf(Len(CStr(ReportItems!ContractQtyExp5.Value))&gt;11, "7pt", "8pt")</FontSize>
                                         <FontWeight>Bold</FontWeight>
                                         <Format>=Iif(Fields!Type.Value = "G/L Account", 
-Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)"), "n2")</Format>
+Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)
+,"n2"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -12972,7 +13265,7 @@ Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Valu
                                         <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                       </Style>
                                     </TextRun>
@@ -13032,19 +13325,18 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
-                        <Size>1.73771cm</Size>
+                        <Size>3.35167cm</Size>
                         <CellContents>
                           <Textbox Name="JPNameShort2">
-                            <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!JPShortInitial.Value</Value>
+                                    <Value>=Fields!JPNameShort.Value</Value>
                                     <Style>
                                       <FontSize>=IIf(Len(Fields!JPShortInitial.Value)&gt;7, "8pt", "9pt")</FontSize>
-                                      <FontWeight>Bold</FontWeight>
+                                      <FontWeight>Normal</FontWeight>
                                       <Color>White</Color>
                                     </Style>
                                   </TextRun>
@@ -13070,6 +13362,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                               <PaddingRight>2pt</PaddingRight>
                               <PaddingTop>2pt</PaddingTop>
                               <PaddingBottom>2pt</PaddingBottom>
+                              <WritingMode>Rotate270</WritingMode>
                             </Style>
                           </Textbox>
                         </CellContents>
@@ -13093,7 +13386,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                                           <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
 Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
-Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
 )</Format>
                                           <Color>White</Color>
                                         </Style>
@@ -13131,7 +13424,7 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                     </TablixMember>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>1.73771cm</Size>
+                        <Size>3.35167cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox83">
                             <CanGrow>true</CanGrow>
@@ -13498,10 +13791,10 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>19.03576cm</Top>
+                <Top>19.27389cm</Top>
                 <Left>0.00591cm</Left>
-                <Height>4.14168cm</Height>
-                <Width>14.87046cm</Width>
+                <Height>5.75564cm</Height>
+                <Width>15.13504cm</Width>
                 <ZIndex>3</ZIndex>
                 <Visibility>
                   <Hidden>=IIf(Left(ReportItems!JobTypeValue.Value, 3)="FPL", True, False)</Hidden>
@@ -13510,277 +13803,6 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                   <Border>
                     <Style>None</Style>
                   </Border>
-                </Style>
-              </Tablix>
-              <Tablix Name="Tablix18">
-                <TablixCorner>
-                  <TablixCornerRows>
-                    <TablixCornerRow>
-                      <TablixCornerCell>
-                        <CellContents>
-                          <Textbox Name="Textbox95">
-                            <CanGrow>true</CanGrow>
-                            <KeepTogether>true</KeepTogether>
-                            <Paragraphs>
-                              <Paragraph>
-                                <TextRuns>
-                                  <TextRun>
-                                    <Value>Initial</Value>
-                                    <Style>
-                                      <FontSize>11pt</FontSize>
-                                      <FontWeight>Bold</FontWeight>
-                                      <Color>White</Color>
-                                    </Style>
-                                  </TextRun>
-                                </TextRuns>
-                                <Style />
-                              </Paragraph>
-                            </Paragraphs>
-                            <rd:DefaultName>Textbox78</rd:DefaultName>
-                            <Style>
-                              <Border>
-                                <Style>None</Style>
-                              </Border>
-                              <TopBorder>
-                                <Color>Black</Color>
-                                <Style>Solid</Style>
-                                <Width>1pt</Width>
-                              </TopBorder>
-                              <BackgroundColor>#323232</BackgroundColor>
-                              <VerticalAlign>Middle</VerticalAlign>
-                              <PaddingLeft>4pt</PaddingLeft>
-                              <PaddingRight>2pt</PaddingRight>
-                              <PaddingTop>2pt</PaddingTop>
-                              <PaddingBottom>2pt</PaddingBottom>
-                            </Style>
-                          </Textbox>
-                        </CellContents>
-                      </TablixCornerCell>
-                    </TablixCornerRow>
-                  </TablixCornerRows>
-                </TablixCorner>
-                <TablixBody>
-                  <TablixColumns>
-                    <TablixColumn>
-                      <Width>6.69908cm</Width>
-                    </TablixColumn>
-                  </TablixColumns>
-                  <TablixRows>
-                    <TablixRow>
-                      <Height>0.61949cm</Height>
-                      <TablixCells>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="ContractQtyExp12">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=Fields!JPNameShort.Value</Value>
-                                      <Style>
-                                        <FontSize>9pt</FontSize>
-                                        <Format>=Microsoft.VisualBasic.Interaction.Iif(Fields!Type.Value = "G/L Account", Microsoft.VisualBasic.Interaction.Switch(Fields!Currency.Value = "", "'£'#,0.00;('£'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)"), "n2")</Format>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>ContractQtyExp</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <BottomBorder>
-                                  <Color>Silver</Color>
-                                  <Style>Solid</Style>
-                                </BottomBorder>
-                                <BackgroundColor>White</BackgroundColor>
-                                <VerticalAlign>Middle</VerticalAlign>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>4pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                      </TablixCells>
-                    </TablixRow>
-                  </TablixRows>
-                </TablixBody>
-                <TablixColumnHierarchy>
-                  <TablixMembers>
-                    <TablixMember>
-                      <TablixHeader>
-                        <Size>1.27361cm</Size>
-                        <CellContents>
-                          <Textbox Name="JPNameShort6">
-                            <CanGrow>true</CanGrow>
-                            <KeepTogether>true</KeepTogether>
-                            <Paragraphs>
-                              <Paragraph>
-                                <TextRuns>
-                                  <TextRun>
-                                    <Value>Role</Value>
-                                    <Style>
-                                      <FontWeight>Bold</FontWeight>
-                                      <Color>White</Color>
-                                    </Style>
-                                  </TextRun>
-                                </TextRuns>
-                                <Style>
-                                  <TextAlign>Left</TextAlign>
-                                </Style>
-                              </Paragraph>
-                            </Paragraphs>
-                            <rd:DefaultName>JPNameShort</rd:DefaultName>
-                            <Style>
-                              <Border>
-                                <Style>None</Style>
-                              </Border>
-                              <TopBorder>
-                                <Color>Black</Color>
-                                <Style>Solid</Style>
-                                <Width>1pt</Width>
-                              </TopBorder>
-                              <BackgroundColor>#323232</BackgroundColor>
-                              <VerticalAlign>Middle</VerticalAlign>
-                              <PaddingLeft>4pt</PaddingLeft>
-                              <PaddingRight>2pt</PaddingRight>
-                              <PaddingTop>2pt</PaddingTop>
-                              <PaddingBottom>2pt</PaddingBottom>
-                            </Style>
-                          </Textbox>
-                        </CellContents>
-                      </TablixHeader>
-                      <TablixMembers>
-                        <TablixMember />
-                      </TablixMembers>
-                    </TablixMember>
-                  </TablixMembers>
-                </TablixColumnHierarchy>
-                <TablixRowHierarchy>
-                  <TablixMembers>
-                    <TablixMember>
-                      <Group Name="InvoiceNo7">
-                        <GroupExpressions>
-                          <GroupExpression>=Fields!JPNameShort.Value</GroupExpression>
-                        </GroupExpressions>
-                      </Group>
-                      <SortExpressions>
-                        <SortExpression>
-                          <Value>=Fields!Type.Value</Value>
-                          <Direction>Descending</Direction>
-                        </SortExpression>
-                        <SortExpression>
-                          <Value>=Fields!JPShortInitial.Value</Value>
-                        </SortExpression>
-                      </SortExpressions>
-                      <TablixMembers>
-                        <TablixMember>
-                          <TablixHeader>
-                            <Size>2.30318cm</Size>
-                            <CellContents>
-                              <Textbox Name="Task7">
-                                <CanGrow>true</CanGrow>
-                                <KeepTogether>true</KeepTogether>
-                                <Paragraphs>
-                                  <Paragraph>
-                                    <TextRuns>
-                                      <TextRun>
-                                        <Value>=Fields!JPShortInitial.Value</Value>
-                                        <Style>
-                                          <FontSize>9pt</FontSize>
-                                          <FontWeight>Normal</FontWeight>
-                                        </Style>
-                                      </TextRun>
-                                    </TextRuns>
-                                    <Style>
-                                      <TextAlign>Left</TextAlign>
-                                    </Style>
-                                  </Paragraph>
-                                </Paragraphs>
-                                <rd:DefaultName>Task1</rd:DefaultName>
-                                <Style>
-                                  <Border>
-                                    <Style>None</Style>
-                                  </Border>
-                                  <BottomBorder>
-                                    <Color>Silver</Color>
-                                    <Style>Solid</Style>
-                                  </BottomBorder>
-                                  <BackgroundColor>White</BackgroundColor>
-                                  <VerticalAlign>Middle</VerticalAlign>
-                                  <PaddingLeft>6pt</PaddingLeft>
-                                  <PaddingRight>6pt</PaddingRight>
-                                  <PaddingTop>2pt</PaddingTop>
-                                  <PaddingBottom>2pt</PaddingBottom>
-                                </Style>
-                              </Textbox>
-                            </CellContents>
-                          </TablixHeader>
-                          <TablixMembers>
-                            <TablixMember />
-                          </TablixMembers>
-                        </TablixMember>
-                      </TablixMembers>
-                    </TablixMember>
-                  </TablixMembers>
-                </TablixRowHierarchy>
-                <FixedColumnHeaders>true</FixedColumnHeaders>
-                <FixedRowHeaders>true</FixedRowHeaders>
-                <DataSetName>JPLContract</DataSetName>
-                <Filters>
-                  <Filter>
-                    <FilterExpression>=Microsoft.VisualBasic.Interaction.IIf(Microsoft.VisualBasic.Strings.Left(Fields!Job_Task_No_.Value, 1) = "Z", True, False)</FilterExpression>
-                    <Operator>NotEqual</Operator>
-                    <FilterValues>
-                      <FilterValue DataType="Boolean">true</FilterValue>
-                    </FilterValues>
-                  </Filter>
-                  <Filter>
-                    <FilterExpression>=Fields!Line_Type.Value</FilterExpression>
-                    <Operator>Equal</Operator>
-                    <FilterValues>
-                      <FilterValue>Contract</FilterValue>
-                    </FilterValues>
-                  </Filter>
-                </Filters>
-                <Top>1.8618cm</Top>
-                <Left>0.00591cm</Left>
-                <Height>1.8931cm</Height>
-                <Width>9.00226cm</Width>
-                <ZIndex>4</ZIndex>
-                <Visibility>
-                  <Hidden>=IIf(Left(ReportItems!JobTypeValue.Value, 3)="FPL", True, False)</Hidden>
-                </Visibility>
-                <Style>
-                  <Border>
-                    <Style>Solid</Style>
-                  </Border>
-                  <TopBorder>
-                    <Color>Black</Color>
-                    <Style>Solid</Style>
-                    <Width>1pt</Width>
-                  </TopBorder>
-                  <BottomBorder>
-                    <Color>Black</Color>
-                    <Style>Solid</Style>
-                    <Width>1pt</Width>
-                  </BottomBorder>
-                  <LeftBorder>
-                    <Color>Black</Color>
-                    <Style>Solid</Style>
-                    <Width>1pt</Width>
-                  </LeftBorder>
-                  <RightBorder>
-                    <Color>Black</Color>
-                    <Style>Solid</Style>
-                    <Width>1pt</Width>
-                  </RightBorder>
                 </Style>
               </Tablix>
               <Tablix Name="Tablix11">
@@ -13835,7 +13857,6 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                       <TablixCornerCell>
                         <CellContents>
                           <Textbox Name="Textbox91">
-                            <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
@@ -13875,7 +13896,6 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                       <TablixCornerCell>
                         <CellContents>
                           <Textbox Name="Textbox103">
-                            <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
@@ -13915,7 +13935,6 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                       <TablixCornerCell>
                         <CellContents>
                           <Textbox Name="Textbox4">
-                            <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
@@ -13955,7 +13974,6 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                       <TablixCornerCell>
                         <CellContents>
                           <Textbox Name="Textbox99">
-                            <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
@@ -14011,7 +14029,6 @@ Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)"
                         <TablixCell>
                           <CellContents>
                             <Textbox Name="Quantity__Base_">
-                              <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
@@ -14059,7 +14076,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                         <TablixCell>
                           <CellContents>
                             <Textbox Name="Textbox74">
-                              <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
@@ -14069,7 +14085,11 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                       <Style>
                                         <FontSize>9pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
-                                        <Format>=Microsoft.VisualBasic.Interaction.Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)")</Format>
+                                        <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -14109,7 +14129,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                         <TablixCell>
                           <CellContents>
                             <Textbox Name="Textbox113">
-                              <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
@@ -14151,7 +14170,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                         <TablixCell>
                           <CellContents>
                             <Textbox Name="Textbox75">
-                              <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
@@ -14161,7 +14179,11 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                       <Style>
                                         <FontSize>9pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
-                                        <Format>=Microsoft.VisualBasic.Interaction.Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)")</Format>
+                                        <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -14199,7 +14221,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                         <TablixCell>
                           <CellContents>
                             <Textbox Name="Textbox114">
-                              <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
@@ -14248,7 +14269,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                         <TablixCell>
                           <CellContents>
                             <Textbox Name="Textbox76">
-                              <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
@@ -14258,7 +14278,11 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                       <Style>
                                         <FontSize>9pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
-                                        <Format>=Microsoft.VisualBasic.Interaction.Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)")</Format>
+                                        <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -14306,7 +14330,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                         <Size>0.90895cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox111">
-                            <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
@@ -14350,7 +14373,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                         <Size>0.90895cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox72">
-                            <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
@@ -14467,7 +14489,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                             <Size>6.55164cm</Size>
                             <CellContents>
                               <Textbox Name="Task3">
-                                <CanGrow>true</CanGrow>
                                 <KeepTogether>true</KeepTogether>
                                 <Paragraphs>
                                   <Paragraph>
@@ -14520,7 +14541,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                 <Size>3.18791cm</Size>
                                 <CellContents>
                                   <Textbox Name="JPName">
-                                    <CanGrow>true</CanGrow>
                                     <KeepTogether>true</KeepTogether>
                                     <Paragraphs>
                                       <Paragraph>
@@ -14573,7 +14593,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                     <Size>2.10313cm</Size>
                                     <CellContents>
                                       <Textbox Name="DATE">
-                                        <CanGrow>true</CanGrow>
                                         <KeepTogether>true</KeepTogether>
                                         <Paragraphs>
                                           <Paragraph>
@@ -14627,7 +14646,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                         <Size>11.86625cm</Size>
                                         <CellContents>
                                           <Textbox Name="Description">
-                                            <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
@@ -14687,7 +14705,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                             <Size>6.55164cm</Size>
                             <CellContents>
                               <Textbox Name="Textbox50">
-                                <CanGrow>true</CanGrow>
                                 <KeepTogether>true</KeepTogether>
                                 <Paragraphs>
                                   <Paragraph>
@@ -14728,7 +14745,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                 <Size>3.18791cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox105">
-                                    <CanGrow>true</CanGrow>
                                     <KeepTogether>true</KeepTogether>
                                     <Paragraphs>
                                       <Paragraph>
@@ -14769,7 +14785,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                     <Size>2.10313cm</Size>
                                     <CellContents>
                                       <Textbox Name="Textbox9">
-                                        <CanGrow>true</CanGrow>
                                         <KeepTogether>true</KeepTogether>
                                         <Paragraphs>
                                           <Paragraph>
@@ -14810,7 +14825,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                         <Size>11.86625cm</Size>
                                         <CellContents>
                                           <Textbox Name="Textbox101">
-                                            <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
@@ -14911,7 +14925,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                             <Size>6.55164cm</Size>
                             <CellContents>
                               <Textbox Name="Textbox73">
-                                <CanGrow>true</CanGrow>
                                 <KeepTogether>true</KeepTogether>
                                 <Paragraphs>
                                   <Paragraph>
@@ -14957,7 +14970,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                 <Size>3.18791cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox106">
-                                    <CanGrow>true</CanGrow>
                                     <KeepTogether>true</KeepTogether>
                                     <Paragraphs>
                                       <Paragraph>
@@ -15003,7 +15015,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                     <Size>2.10313cm</Size>
                                     <CellContents>
                                       <Textbox Name="Textbox19">
-                                        <CanGrow>true</CanGrow>
                                         <KeepTogether>true</KeepTogether>
                                         <Paragraphs>
                                           <Paragraph>
@@ -15049,7 +15060,6 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                         <Size>11.86625cm</Size>
                                         <CellContents>
                                           <Textbox Name="Textbox102">
-                                            <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
@@ -15120,11 +15130,11 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>7.30141cm</Top>
+                <Top>4.76141cm</Top>
                 <Left>0.00591cm</Left>
                 <Height>2.77439cm</Height>
                 <Width>33.14238cm</Width>
-                <ZIndex>5</ZIndex>
+                <ZIndex>4</ZIndex>
                 <Visibility>
                   <Hidden>=IIf(Left(ReportItems!JobTypeValue.Value, 3)="FPL", True, False)</Hidden>
                 </Visibility>
@@ -15330,7 +15340,7 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                     <TextRun>
                                       <Value>=Iif((Fields!Line_Type.Value = "Contract" And Fields!Type.Value = "G/L Account") OR (Fields!Work_Type_Code.Value Like "OSA*" OR Fields!Work_Type_Code.Value Like "KM*"), 
 Format(Sum(Fields!Line_Amount__INV_.Value),"F2"), 
-Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_Price.Value),"F2"))</Value>
+Format(Sum(Fields!Quantity.Value),"F2") &amp;" x "&amp; Format(Avg(Fields!Unit_Price.Value),"F2"))</Value>
                                       <Style>
                                         <FontSize>9pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
@@ -15380,7 +15390,11 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                       <Style>
                                         <FontSize>9pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
-                                        <Format>=Microsoft.VisualBasic.Interaction.Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)")</Format>
+                                        <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -15472,7 +15486,11 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                       <Style>
                                         <FontSize>9pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
-                                        <Format>=Microsoft.VisualBasic.Interaction.Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)")</Format>
+                                        <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -15569,7 +15587,11 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                                       <Style>
                                         <FontSize>9pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
-                                        <Format>=Microsoft.VisualBasic.Interaction.Switch(Fields!Currency.Value = "", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "USD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "AUD", "'$'#,0.00;('$'#,0.00)", Fields!Currency.Value = "EUR", "'€'#,0.00;('€'#,0.00)")</Format>
+                                        <Format>=Switch(Fields!Currency.Value="", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="USD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="AUD", "'$'#,0.00;('$'#,0.00)",
+Fields!Currency.Value="EUR", "'€'#,0.00;('€'#,0.00)", true, "'$'#,0.00;('$'#,0.00)"
+)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -16277,11 +16299,11 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
                     </FilterValues>
                   </Filter>
                 </Filters>
-                <Top>4.16173cm</Top>
+                <Top>1.62173cm</Top>
                 <Left>0.00591cm</Left>
                 <Height>2.77439cm</Height>
                 <Width>29.95447cm</Width>
-                <ZIndex>6</ZIndex>
+                <ZIndex>5</ZIndex>
                 <Visibility>
                   <Hidden>=IIf(Left(ReportItems!JobTypeValue.Value, 3)="FPL", False, True)</Hidden>
                 </Visibility>
@@ -16295,7 +16317,7 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
             <KeepTogether>true</KeepTogether>
             <Top>41.54974cm</Top>
             <Left>0.14287cm</Left>
-            <Height>23.37323cm</Height>
+            <Height>27.83411cm</Height>
             <Width>37.23689cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
@@ -16305,7 +16327,7 @@ Format(Sum(Fields!Quantity.Value),"F2") &amp;" @ "&amp; Format(Avg(Fields!Unit_P
             </Style>
           </Rectangle>
         </ReportItems>
-        <Height>649.22972mm</Height>
+        <Height>696.74888mm</Height>
         <Style>
           <Border>
             <Style>None</Style>

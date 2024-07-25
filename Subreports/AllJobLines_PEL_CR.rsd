@@ -13,6 +13,9 @@
         </DataSetParameter>
       </DataSetParameters>
       <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+/*DECLARE @JobNo NVARCHAR(8)
+SET @JobNo = 'EGA5471';*/
+
 WITH 
 
 InvoiceCurrency AS
@@ -198,8 +201,9 @@ jpl.[Job No_]
     END AS NameShort
 ,CASE WHEN jpl.Type = '2' THEN 'Expenses'
 WHEN jpl.[Work Type Code] LIKE 'KM%' OR jpl.[Work Type Code] LIKE 'OSA' THEN 'Expense'
-    WHEN jpl.Type = '0' THEN (SELECT TOP 1 jrp.[Job Position Title] 
+    WHEN jpl.[Job Position Title] = '' THEN (SELECT TOP 1 jrp.[Job Position Title] 
     FROM [Palaris Europe Limited$Job Resource Price] jrp WHERE jrp.[Job No_] = @JobNo AND jrp.[Code] = jpl.[No_]) 
+    WHEN jpl.Type = '0' THEN jpl.[Job Position Title] 
     END AS JPNameShort
 ,CASE WHEN jpl.Type = '2' THEN ac.[Name]
 WHEN jpl.[Work Type Code] LIKE 'KM%' OR jpl.[Work Type Code] LIKE 'OSA' THEN LTRIM(RIGHT(jt.Indent2Cat, LEN(jt.Indent2Cat) - 6))
@@ -301,8 +305,8 @@ jle.[Job No_]
     END AS NameShort
 ,CASE WHEN jle.Type = '2' THEN 'Expense'
 WHEN jle.[Work Type Code] LIKE 'KM%' OR jle.[Work Type Code] LIKE 'OSA' THEN 'Expense'
-    WHEN jle.[Type]='0' THEN (SELECT TOP 1 jrp.[Job Position Title] 
-    FROM [Palaris Europe Limited$Job Resource Price] jrp WHERE jrp.[Job No_] = @JobNo AND jrp.[Code] = jle.[No_]) 
+    WHEN jle.[Job Position Title] = '' THEN (SELECT TOP 1 jrp.[Job Position Title] FROM [Palaris Europe Limited$Job Resource Price] jrp WHERE jrp.[Job No_] = @JobNo AND jrp.[Code] = jle.[No_]) 
+    WHEN jle.Type = '0' THEN jle.[Job Position Title] 
     END AS JPNameShort    
 ,CASE WHEN jle.Type = '2' THEN ac.[Name]
 WHEN jle.[Work Type Code] LIKE 'KM%' OR jle.[Work Type Code] LIKE 'OSA' THEN LTRIM(RIGHT(jt.Indent2Cat, LEN(jt.Indent2Cat) - 6))

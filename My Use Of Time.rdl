@@ -680,7 +680,6 @@ select * from cte_last_13_months</CommandText>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
-                                    <Color>=iif(ReportItems!Textbox44.Value &lt; ReportItems!CapacityTextBox.Value, "Firebrick", "#141414")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2763,7 +2762,7 @@ select * from cte_last_13_months</CommandText>
             </SortExpressions>
             <Top>1.0819cm</Top>
             <Left>0.03295cm</Left>
-            <Height>3.11438cm</Height>
+            <Height>3.11439cm</Height>
             <Width>24.35724cm</Width>
             <Style>
               <Border>
@@ -3554,7 +3553,6 @@ select * from cte_last_13_months</CommandText>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
-                                    <Color>=iif(ReportItems!Textbox48.Value &lt; ReportItems!CapacityTextBox2.Value, "Firebrick", "#141414")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5369,7 +5367,7 @@ select * from cte_last_13_months</CommandText>
               </SortExpression>
             </SortExpressions>
             <Top>15.90562cm</Top>
-            <Height>3.9175cm</Height>
+            <Height>3.91751cm</Height>
             <Width>21.5601cm</Width>
             <ZIndex>3</ZIndex>
             <Style>

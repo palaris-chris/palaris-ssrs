@@ -15,8 +15,9 @@ WHERE [Dimension Code] = 'BUSUNIT'
 
 SalesInvoices AS
 (
-SELECT DISTINCT [Document No_], [Job No_]
+SELECT DISTINCT [Document No_], MIN([Job No_]) AS [Job No_]
 FROM [Palaris$Job Ledger Entry]
+GROUP BY [Document No_]					   
 ),
 
 ResourceName AS
@@ -27,7 +28,7 @@ FROM [Palaris$Resource]
 
 Job AS
 (
-SELECT [Person Responsible], Job.[No_] AS No, [Customer PO], ResourceName.[Name] as 'Name', ResourceName.[Windows Name]
+SELECT [Person Responsible], Job.[No_] AS No, Job.[Invoice Currency Code], [Customer PO], ResourceName.[Name] as 'Name', ResourceName.[Windows Name]
 FROM [Palaris$Job] Job
 LEFT JOIN ResourceName ON [Person Responsible] = ResourceName.[No_]
 ),
@@ -64,6 +65,7 @@ Debtors AS
          , cle.[Document No_]
          , cle.[Posting Date]
          , Sum(dcle.[Amount (LCY)]) as 'Amount (LCY)'
+         , Sum(dcle.[Amount]) as 'Amount'
          , dcle.[Initial Entry Due Date]
 	       , CASE
            WHEN EPD.[Comment] != '' THEN CONVERT(datetime, EPD.[Comment], 103) ELSE NULL END AS EPD
@@ -210,6 +212,7 @@ SELECT deb.*
 	 , Job.Name AS PM
 	 , Job.[Windows Name]
 	 , Job.[Customer PO]
+   , Job.[Invoice Currency Code]
 	 , DATEADD(day, -1*deb.RealDaysDueDIS, GETDATE()) AS RealDueDate
 	 , DATEADD(day, dtp.[AvgDaysToPay], deb.DIS) AS AvgDueDate
 	 , dtp.AvgDaysToPay
@@ -263,6 +266,10 @@ ORDER BY [RealDueDate] ASC, Name</CommandText>
       <Field Name="Initial_Entry_Due_Date">
         <DataField>Initial Entry Due Date</DataField>
         <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Amount">
+        <DataField>Amount</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
       </Field>
       <Field Name="EPD">
         <DataField>EPD</DataField>
@@ -331,6 +338,10 @@ ORDER BY [RealDueDate] ASC, Name</CommandText>
       <Field Name="RealDueDate">
         <DataField>RealDueDate</DataField>
         <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Invoice_Currency_Code">
+        <DataField>Invoice Currency Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="AvgDueDate">
         <DataField>AvgDueDate</DataField>

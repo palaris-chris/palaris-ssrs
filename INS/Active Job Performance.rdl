@@ -298,10 +298,10 @@
                   <Width>25mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>41.93333mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>17.85625mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>37.43542mm</Width>
@@ -349,7 +349,7 @@
                   <Width>23.14792mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>25.85834mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>23.94167mm</Width>
@@ -1032,12 +1032,15 @@
                       <CellContents>
                         <Textbox Name="Textbox53">
                           <CanGrow>true</CanGrow>
+                          <UserSort>
+                            <SortExpression>=Fields!Invoiced.Value-Fields!Usage_Price.Value+Fields!WIP.Value</SortExpression>
+                          </UserSort>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Margin Maximisation</Value>
+                                  <Value>Invoiced + WIP - Usage (Contingency)</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>White</Color>
@@ -1969,7 +1972,8 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox89">
+                        <Textbox Name="Textbox31">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1984,7 +1988,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox89</rd:DefaultName>
+                          <rd:DefaultName>Textbox31</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -3040,14 +3044,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="UninvoicedAlice">
+                        <Textbox Name="Invoiced1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!UninvoicedAlice.Value</Value>
+                                  <Value>=Fields!Invoiced.Value-Fields!Usage_Price.Value+Fields!WIP.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <Format>=IIF(Fields!Business_Unit_Group.Value="PEL", "'£'#,0;('£'#,0)", "'$'#,0;('$'#,0)")</Format>
@@ -3059,7 +3063,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>UninvoicedAlice</rd:DefaultName>
+                          <rd:DefaultName>Invoiced1</rd:DefaultName>
                           <ActionInfo>
                             <Actions>
                               <Action>
@@ -4215,7 +4219,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!UninvoicedAlice.Value)</Value>
+                                  <Value />
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>=IIF(Fields!Business_Unit_Group.Value="PEL", "'£'#,0;('£'#,0)", "'$'#,0;('$'#,0)")</Format>
@@ -4677,13 +4681,11 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                 <TablixMember>
                   <Visibility>
                     <Hidden>true</Hidden>
-                    <ToggleItem>ColumnToggle</ToggleItem>
                   </Visibility>
                 </TablixMember>
                 <TablixMember>
                   <Visibility>
                     <Hidden>true</Hidden>
-                    <ToggleItem>ColumnToggle</ToggleItem>
                   </Visibility>
                 </TablixMember>
                 <TablixMember>
@@ -4728,11 +4730,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>true</Hidden>
-                  </Visibility>
-                </TablixMember>
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -4955,7 +4953,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
             <Top>9.15735mm</Top>
             <Left>0.79375mm</Left>
             <Height>29.99166mm</Height>
-            <Width>807.95141mm</Width>
+            <Width>818.59933mm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -5003,13 +5001,13 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>25.85834mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>41.93333mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>17.85625mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>37.43542mm</Width>
@@ -6068,7 +6066,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Margin Maximisation</Value>
+                                  <Value>Invoiced - Usage</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -7404,7 +7402,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!UninvoicedAlice.Value</Value>
+                                  <Value>=Fields!Invoiced.Value-Fields!Usage_Price.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <Format>=IIF(Fields!Business_Unit_Group.Value = "PEL", "'£'#,0;('£'#,0)", "'$'#,0;('$'#,0)")</Format>
@@ -7873,11 +7871,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>true</Hidden>
-                  </Visibility>
-                </TablixMember>
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -7952,7 +7946,7 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
             <Top>43.02024mm</Top>
             <Left>0.72916mm</Left>
             <Height>22.75417mm</Height>
-            <Width>808.016mm</Width>
+            <Width>818.66392mm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -8078,18 +8072,10 @@ IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White"
     <ReportParameter Name="Business_Unit">
       <DataType>String</DataType>
       <DefaultValue>
-        <Values>
-          <Value>BDI</Value>
-          <Value>ENG</Value>
-          <Value>FEA</Value>
-          <Value>FIN</Value>
-          <Value>GAS</Value>
-          <Value>PMO</Value>
-          <Value>PAM</Value>
-          <Value>PEL</Value>
-          <Value>PEX</Value>
-          <Value>SHR</Value>
-        </Values>
+        <DataSetReference>
+          <DataSetName>ActiveBUs</DataSetName>
+          <ValueField>Business_Unit_Group</ValueField>
+        </DataSetReference>
       </DefaultValue>
       <Prompt>EGM(s)</Prompt>
       <ValidValues>
