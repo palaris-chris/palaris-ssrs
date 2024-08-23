@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/Production</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT *
+FROM
+[Production].[views].[vw_qry_BusUnitGroup_Active]</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Business_Unit_Group">
+        <DataField>Business Unit Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Business_Unit_Name">
+        <DataField>Business Unit Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pal-ntl-sql01/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>

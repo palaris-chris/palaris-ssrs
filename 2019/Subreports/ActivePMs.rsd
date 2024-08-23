@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/Production</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT DISTINCT 
+[Project Manager]
+,[PMNo]
+,[PM User Name]
+
+FROM
+[Production].[views].[vw_qry_JobDetail]
+WHERE
+[Project Status] = 'ACTIVE'</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Project_Manager">
+        <DataField>Project Manager</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PMNo">
+        <DataField>PMNo</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PM_User_Name">
+        <DataField>PM User Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pal-ntl-sql01/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>

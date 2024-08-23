@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/Production</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT *
+FROM
+[Production].[views].[vw_qry_JobDetail]
+WHERE
+[Project Status] = 'ACTIVE'</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Database">
+        <DataField>Database</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Job_No">
+        <DataField>Job No</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Description">
+        <DataField>Description</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Bill_to_Customer_No_">
+        <DataField>Bill-to Customer No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Business_Unit_Group">
+        <DataField>Business Unit Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Business_Unit">
+        <DataField>Business Unit</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Creation_Date">
+        <DataField>Creation Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Starting_Date">
+        <DataField>Starting Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Ending_Date">
+        <DataField>Ending Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Global_Dimension_2_Code">
+        <DataField>Global Dimension 2 Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Currency">
+        <DataField>Currency</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PriceStrategy">
+        <DataField>PriceStrategy</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PMNo">
+        <DataField>PMNo</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Invoice_Currency_Code">
+        <DataField>Invoice Currency Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Time_Sheet_Approver_User_ID">
+        <DataField>Time Sheet Approver User ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Project_Manager">
+        <DataField>Project Manager</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PM_User_Name">
+        <DataField>PM User Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Project_Status">
+        <DataField>Project Status</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Service">
+        <DataField>Service</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ServiceTitle">
+        <DataField>ServiceTitle</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Service_Code">
+        <DataField>Service Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Expected_End_Date">
+        <DataField>Expected End Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="ServiceOwner">
+        <DataField>ServiceOwner</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Job_On_Hold">
+        <DataField>Job On Hold</DataField>
+        <rd:TypeName>System.Byte</rd:TypeName>
+      </Field>
+      <Field Name="Schedule_Cost">
+        <DataField>Schedule Cost</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Schedule_Non_Billable_Cost">
+        <DataField>Schedule Non-Billable Cost</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Risk_Level">
+        <DataField>Risk Level</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="SchedulePalResourceCost">
+        <DataField>SchedulePalResourceCost</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Customer_PO_Value">
+        <DataField>Customer PO Value</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Schedule_Price">
+        <DataField>Schedule Price</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Schedule_Billable_Time">
+        <DataField>Schedule Billable Time</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="CETMargin">
+        <DataField>CETMargin</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Schedule_Non_Billable_Time">
+        <DataField>Schedule Non-Billable Time</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Usage_Non_Billable_Time">
+        <DataField>Usage Non-Billable Time</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Invoicing_Frequency">
+        <DataField>Invoicing Frequency</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Usage_Non_Billable_Time_Cost">
+        <DataField>Usage Non-Billable Time Cost</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="PalResourceCost">
+        <DataField>PalResourceCost</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Customer_PO_Status">
+        <DataField>Customer PO Status</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Usage_Billable_Time">
+        <DataField>Usage Billable Time</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="ProjectType">
+        <DataField>ProjectType</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Usage_Cost">
+        <DataField>Usage Cost</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Usage_Price">
+        <DataField>Usage Price</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Invoiced">
+        <DataField>Invoiced</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="WIP">
+        <DataField>WIP</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="WIPNoPO">
+        <DataField>WIPNoPO</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="UninvoicedAlice">
+        <DataField>UninvoicedAlice</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="AgedDays">
+        <DataField>AgedDays</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Last_Invoice_Date">
+        <DataField>Last Invoice Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Next_Invoice_Date">
+        <DataField>Next Invoice Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Payment_Term">
+        <DataField>Payment Term</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="OK_To_Invoice">
+        <DataField>OK To Invoice</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="PMAdditionalNo">
+        <DataField>PMAdditionalNo</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CostCompletion">
+        <DataField>CostCompletion</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="ResourceCostCompletion">
+        <DataField>ResourceCostCompletion</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="ScheduleMargin_perc">
+        <DataField>ScheduleMargin_perc</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="ScheduleMargin">
+        <DataField>ScheduleMargin</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="ActualMargin_perc">
+        <DataField>ActualMargin_perc</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="ActualMargin">
+        <DataField>ActualMargin</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="NotionalMargin">
+        <DataField>NotionalMargin</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="GroupCol">
+        <DataField>GroupCol</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pal-ntl-sql01/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>
