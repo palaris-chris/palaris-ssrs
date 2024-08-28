@@ -6,7 +6,7 @@
       <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT *
 FROM
-[Production].[views].[vw_qry_JobDetail]
+[views].[vw_qry_JobDetail]
 WHERE
 [Project Status] = 'ACTIVE'</CommandText>
       <rd:UseGenericDesigner>true</rd:UseGenericDesigner>

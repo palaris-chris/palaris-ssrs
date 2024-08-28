@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/Production</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT * FROM [views].[vw_qry_Debtors]
+
+ORDER BY [RealDueDate] ASC, Name</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Entry_No_">
+        <DataField>Entry No_</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Name">
+        <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Customer_Posting_Group">
+        <DataField>Customer Posting Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Customer_Price_Group">
+        <DataField>Customer Price Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Customer_No_">
+        <DataField>Customer No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="DB">
+        <DataField>DB</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="COMPANY">
+        <DataField>COMPANY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BusinessUnit">
+        <DataField>BusinessUnit</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Description">
+        <DataField>Description</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Document_No_">
+        <DataField>Document No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Posting_Date">
+        <DataField>Posting Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Amount__LCY_">
+        <DataField>Amount (LCY)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Amount">
+        <DataField>Amount</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Initial_Entry_Due_Date">
+        <DataField>Initial Entry Due Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="EPD">
+        <DataField>EPD</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="CPD">
+        <DataField>CPD</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="DIS">
+        <DataField>DIS</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Payment_Terms_Code">
+        <DataField>Payment Terms Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Payment_Term">
+        <DataField>Payment Term</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="DaysDue">
+        <DataField>DaysDue</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="RealDaysDue">
+        <DataField>RealDaysDue</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="RealDaysDueDIS">
+        <DataField>RealDaysDueDIS</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="DueCategory">
+        <DataField>DueCategory</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="AvgDueCategory">
+        <DataField>AvgDueCategory</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Amount__GBP_">
+        <DataField>Amount (GBP)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Amount__AUD_">
+        <DataField>Amount (AUD)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Comment">
+        <DataField>Comment</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Business_Unit_Group">
+        <DataField>Business Unit Group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="JobNo">
+        <DataField>JobNo</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PM">
+        <DataField>PM</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Windows_Name">
+        <DataField>Windows Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Customer_PO">
+        <DataField>Customer PO</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Invoice_Currency_Code">
+        <DataField>Invoice Currency Code</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Currency">
+        <DataField>Currency</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CurrencyIncBase">
+        <DataField>CurrencyIncBase</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="RealDueDate">
+        <DataField>RealDueDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="AvgDueDate">
+        <DataField>AvgDueDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="AvgDaysToPay">
+        <DataField>AvgDaysToPay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Category">
+        <Value>=SWITCH(Fields!DueCategory.Value = "1", "Overdue based on payment terms",
+Fields!DueCategory.Value = "2", "Due next 14 days",
+Fields!DueCategory.Value = "3", "Due next 15-30 days",
+Fields!DueCategory.Value = "4", "Due 30+ days",
+Fields!DueCategory.Value = "5", "Not yet sent"
+)</Value>
+      </Field>
+      <Field Name="AvgCategory">
+        <Value>=SWITCH(Fields!AvgDueCategory.Value = "1", "Overdue based on average payment",
+Fields!AvgDueCategory.Value = "2", "Due next 14 days",
+Fields!AvgDueCategory.Value = "3", "Due next 15-30 days",
+Fields!AvgDueCategory.Value = "4", "Due 30+ days",
+Fields!AvgDueCategory.Value = "5", "Average not yet known"
+)</Value>
+      </Field>
+      <Field Name="Company_Name">
+        <Value>=SWITCH(Fields!COMPANY.Value = "PALARIS", "PAL",
+Fields!COMPANY.Value = "PCI", "PCI",
+Fields!COMPANY.Value = "PEL", "PEL"
+)</Value>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pal-ntl-sql01/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>

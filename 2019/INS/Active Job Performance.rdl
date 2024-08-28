@@ -9,7 +9,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.0.20283.0</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2024-08-23T14:45:11.0894614Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2024-08-26T22:04:16.4966444Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -2651,7 +2651,7 @@
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>="http://reports.palaris.com.au/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJob+Status+Report_Dynamic&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value &amp; "&amp;DatabaseNameInput=" &amp; Fields!Database.Value</Hyperlink>
+                                <Hyperlink>="https://pal-ntl-sql01.palaris.local/ReportServer/Pages/ReportViewer.aspx?%2fSubreports%2fJobStatusReport&amp;rs:Command=Render&amp;JobNo_=" &amp; Fields!Job_No.Value</Hyperlink>
                               </Action>
                             </Actions>
                           </ActionInfo>
@@ -2663,7 +2663,6 @@
                             <BottomBorder>
                               <Color>Silver</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </BottomBorder>
                             <BackgroundColor>=IIF(ROWNUMBER(NOTHING) MOD 2, "#f5f5f5", "White")</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
@@ -2673,6 +2672,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/Production</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+    SELECT 
+        DATENAME(month, [Posting Date]) AS [Month Name],
+	DATENAME(month, [Posting Date]) + ' ' + RIGHT(CONVERT(VARCHAR(4), YEAR([Posting Date])), 2) AS [Month Year]
+,
+        MONTH([Posting Date]) AS [MonthNo],
+        YEAR([Posting Date]) AS [Year],
+        [Global Dimension 1 Code] AS Company,  
+        -SUM([Line Amount (LCY)]) AS Invoiced
+    FROM [views].[vw_tbl_JobLedgerEntry]
+    WHERE 
+        [Entry Type] = 1
+        AND [Posting Date] &gt;= DATEADD(month, DATEDIFF(month, 0, GETDATE()) - 5, 0)
+    GROUP BY 
+        YEAR([Posting Date]),
+        MONTH([Posting Date]),
+        DATENAME(month, [Posting Date]),
+        [Global Dimension 1 Code]
+ORDER BY YEAR, MonthNo desc</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Month_Name">
+        <DataField>Month Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Month_Year">
+        <DataField>Month Year</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="MonthNo">
+        <DataField>MonthNo</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Year">
+        <DataField>Year</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Invoiced">
+        <DataField>Invoiced</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="COMPANY">
+        <DataField>Company</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pal-ntl-sql01/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>
