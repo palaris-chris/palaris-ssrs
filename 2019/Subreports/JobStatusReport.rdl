@@ -9,7 +9,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.0.20283.0</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2024-08-23T22:06:59.8686252Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2024-09-23T17:42:10.6612030Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -66,7 +66,7 @@ WHERE [Job No_] = @JobNo_</CommandText>
 	Fields!Work_Type.Value = "CONTINGNCY", "CONTINGENCY",
 	Fields!No_.Value = "R9998", "CONTINGENCY",
 	Fields!No_.Value = "51150" OR Fields!No_.Value="51160", "SUBCONTRACTOR",
-	Fields!Resource_Group_No_.Value = "SUB", "SUBCONTRACTOR",
+	Fields!Resource_Group_No_.Value = "SUB", "SUBCONTRACTOR-"&amp;Fields!Work_Type.Value,
 	Fields!Work_Type.Value="", "EXPENSES",
 	Fields!Work_Type.Value="PAY", "OTHER",
 	Fields!Work_Type.Value&lt;&gt;"", Fields!Work_Type.Value
