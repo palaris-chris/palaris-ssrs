@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/Production</DataSourceReference>
+      <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SET DATEFIRST 6;
+
+DECLARE @StartDate Date = 
+    CASE 
+        -- If today is on or after 1st July of the current year, go back to 1st July of the prior year
+        WHEN MONTH(GETDATE()) &gt;= 7 
+        THEN DATEADD(year, -1, CAST('01 July ' + CAST(YEAR(GETDATE()) AS VARCHAR) AS DATE))
+        
+        -- If today is before 1st July of the current year, go back to 1st July of two years ago
+        ELSE DATEADD(year, -2, CAST('01 July ' + CAST(YEAR(GETDATE()) AS VARCHAR) AS DATE))
+    END;
+
+/*DECLARE @StartDate Date = DATEADD(month, -13, CAST(GETDATE() - DATEPART(DAY, GETDATE()) AS DATE));*/
+DECLARE @EndDate Date = DATEADD(DAY, -3, DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0));
+
+SELECT *
+,CASE WHEN [Line Type] = 0 THEN 'Usage' ELSE 'Proposed' END AS [Entry]
+,CONCAT([Job Task No_],' | ',[Task]) AS Job_Task
+,[TimeCat] AS [Label]
+,RIGHT([TimeCat], LEN([TimeCat])-2) AS [LabelClean]
+,[WeekEnd] AS [WeekEnding]
+,CASE   WHEN [Unit] != 'DAY' THEN [Qty]
+        WHEN [Line Type] = 1 THEN [Qty] * 8
+        ELSE [Qty] * 9
+        END AS [FinalHrs]
+
+ FROM [views].[vw_qry_ResourceLedgerCapacity]
+WHERE [Date] BETWEEN @StartDate AND @EndDate
+
+ORDER BY [Date] desc</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Job_No_">
+        <DataField>Job No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Job_Task_No_">
+        <DataField>Job Task No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Line_No_">
+        <DataField>Line_No_</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Date">
+        <DataField>Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="CY">
+        <DataField>CY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CM">
+        <DataField>CM</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CQ">
+        <DataField>CQ</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CMCY">
+        <DataField>CMCY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CQCY">
+        <DataField>CQCY</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="WeekStart">
+        <DataField>WeekStart</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="WeekEnd">
+        <DataField>WeekEnd</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="BonusYear">
+        <DataField>BonusYear</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BonusMonthNumber">
+        <DataField>BonusMonthNumber</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="WEEKNUM">
+        <DataField>WEEKNUM</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Description">
+        <DataField>Description</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Type">
+        <DataField>Type</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="No_">
+        <DataField>No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Qty">
+        <DataField>Qty</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Quantity__Base_">
+        <DataField>Quantity (Base)</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Unit">
+        <DataField>Unit</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Work_Type">
+        <DataField>Work Type</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BU">
+        <DataField>BU</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Line_Type">
+        <DataField>Line Type</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Resource">
+        <DataField>Resource</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Resource_Group_No_">
+        <DataField>Resource Group No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Time_Sheet_Owner_User_ID">
+        <DataField>Time Sheet Owner User ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Task">
+        <DataField>Task</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="WorkTypeDescription">
+        <DataField>WorkTypeDescription</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Ordering">
+        <DataField>Ordering</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="TimeCat">
+        <DataField>TimeCat</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BILLHR">
+        <DataField>BILLHR</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Adjustments">
+        <DataField>Adjustments</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="AdjustedBILLHR">
+        <DataField>AdjustedBILLHR</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Capacity">
+        <DataField>Capacity</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="BUGroup">
+        <DataField>BUGroup</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Entry">
+        <DataField>Entry</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Job_Task">
+        <DataField>Job_Task</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Label">
+        <DataField>Label</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="LabelClean">
+        <DataField>LabelClean</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="WeekEnding">
+        <DataField>WeekEnding</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="FinalHrs">
+        <DataField>FinalHrs</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pal-ntl-sql01/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>

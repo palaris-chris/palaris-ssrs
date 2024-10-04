@@ -8,11 +8,13 @@ SELECT DISTINCT
 [Project Manager]
 ,[PMNo]
 ,[PM User Name]
+,[Business Unit Group]
 
 FROM
 [Production].[views].[vw_qry_JobDetail]
 WHERE
-[Project Status] = 'ACTIVE'</CommandText>
+[Project Status] = 'ACTIVE'
+AND [Project Manager] IS NOT NULL</CommandText>
       <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
     </Query>
     <Fields>
@@ -26,6 +28,10 @@ WHERE
       </Field>
       <Field Name="PM_User_Name">
         <DataField>PM User Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Business_Unit_Group">
+        <DataField>Business Unit Group</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
     </Fields>

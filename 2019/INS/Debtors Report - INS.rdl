@@ -9,7 +9,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.0.20283.0</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2024-08-28T18:51:09.2590588Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2024-10-03T16:11:03.8409608Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -305,7 +305,10 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!Month_Year.Value</Value>
+                      <Value>=Fields!Year.Value</Value>
+                    </SortExpression>
+                    <SortExpression>
+                      <Value>=Fields!MonthNo.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <Label>=Fields!Month_Year.Value</Label>
@@ -565,6 +568,9 @@
             <Height>7.14312cm</Height>
             <Width>11.75632cm</Width>
             <ZIndex>2</ZIndex>
+            <Visibility>
+              <Hidden>=IIf(Sum(Fields!Invoiced.Value) = 0, True, False)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Color>LightGrey</Color>
@@ -585,7 +591,10 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!Month_Year.Value</Value>
+                      <Value>=Fields!Year.Value</Value>
+                    </SortExpression>
+                    <SortExpression>
+                      <Value>=Fields!MonthNo.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <Label>=Fields!Month_Year.Value</Label>
@@ -845,6 +854,9 @@
             <Height>7.14312cm</Height>
             <Width>11.75632cm</Width>
             <ZIndex>3</ZIndex>
+            <Visibility>
+              <Hidden>=IIf(Sum(Fields!Invoiced.Value) = 0, True, False)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Color>LightGrey</Color>
@@ -3859,7 +3871,7 @@
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>="dynamicsnav://pmntlnav1:7046/Palaris/Palaris/runpage?page=67&amp;$filter=%27Sales%20Comment%20Line%27.%27Document%20Type%27%20IS%20%277%27%20AND%20%27Sales%20Comment%20Line%27.%27No.%27%20IS%20%27" &amp; Fields!Document_No_.Value &amp; "%27&amp;mode=Edit"</Hyperlink>
+                                <Hyperlink>="https://central.palaris.com.au/Production/?company=Palaris&amp;page=67&amp;filter=%27Sales%20Comment%20Line%27.%27Document%20Type%27%20IS%20%277%27%20AND%20%27Sales%20Comment%20Line%27.%27No.%27%20IS%20%27" &amp; Fields!Document_No_.Value &amp; "%27&amp;mode=Edit"</Hyperlink>
                               </Action>
                             </Actions>
                           </ActionInfo>
@@ -6470,7 +6482,7 @@
                           <ActionInfo>
                             <Actions>
                               <Action>
-                                <Hyperlink>="dynamicsnav://pmntlnav1:7046/Palaris/Palaris/runpage?page=67&amp;$filter=%27Sales%20Comment%20Line%27.%27Document%20Type%27%20IS%20%277%27%20AND%20%27Sales%20Comment%20Line%27.%27No.%27%20IS%20%27" &amp; Fields!Document_No_.Value &amp; "%27&amp;mode=Edit"</Hyperlink>
+                                <Hyperlink>="https://central.palaris.com.au/Production/?company=Palaris&amp;page=67&amp;filter=%27Sales%20Comment%20Line%27.%27Document%20Type%27%20IS%20%277%27%20AND%20%27Sales%20Comment%20Line%27.%27No.%27%20IS%20%27" &amp; Fields!Document_No_.Value &amp; "%27&amp;mode=Edit"</Hyperlink>
                               </Action>
                             </Actions>
                           </ActionInfo>
@@ -6652,7 +6664,10 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!Month_Year.Value</Value>
+                      <Value>=Fields!Year.Value</Value>
+                    </SortExpression>
+                    <SortExpression>
+                      <Value>=Fields!MonthNo.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <Label>=Fields!Month_Year.Value</Label>
@@ -6908,10 +6923,13 @@
               </Filter>
             </Filters>
             <Top>1.0919cm</Top>
-            <Left>30.92282cm</Left>
+            <Left>30.6691cm</Left>
             <Height>7.14312cm</Height>
             <Width>11.75632cm</Width>
             <ZIndex>10</ZIndex>
+            <Visibility>
+              <Hidden>=IIf(Sum(Fields!Invoiced.Value) = 0, True, False)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Color>LightGrey</Color>
@@ -7010,6 +7028,6 @@ IoYHjsh33nnHJ6ZQTU1Neno6X4mKSygTqBl1Hj58+Pz586CHDvLjkfX9DRWiCilUWB+p6AmWwrxFHQ2s
   </EmbeddedImages>
   <Language>en-AU</Language>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://pal-ntl-sql01/ReportServer</rd:ReportServerUrl>
+  <rd:ReportServerUrl>https://pal-ntl-sql01.palaris.local/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>566ea8e2-5232-4f12-89a8-5c30c5b950f2</rd:ReportID>
 </Report>

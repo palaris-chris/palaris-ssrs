@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/Production</DataSourceReference>
+      <CommandText>WITH DistinctNames AS (
+    SELECT 
+        [Name], 
+        [No_],
+        [Time Sheet Owner User ID],
+        [Global Dimension 2 Code],
+        ROW_NUMBER() OVER (PARTITION BY [No_] ORDER BY [No_]) AS rn
+    FROM
+        [Production].[views].[vw_tbl_Resource] res
+    WHERE 
+        [Resource Group No_] IN ('GEN')
+        AND [Blocked] = 0
+)
+SELECT 
+    [Name], 
+    [No_],
+    [Time Sheet Owner User ID],
+    [Global Dimension 2 Code] AS [BU]
+FROM DistinctNames
+WHERE rn = 1
+ORDER BY [Name];</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Name">
+        <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="No_">
+        <DataField>No_</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Time_Sheet_Owner_User_ID">
+        <DataField>Time Sheet Owner User ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="BU">
+        <DataField>BU</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://pal-ntl-sql01/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>
