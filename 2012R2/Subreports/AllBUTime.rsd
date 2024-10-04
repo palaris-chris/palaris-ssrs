@@ -6,7 +6,16 @@
       <CommandText>/*Note that this query has been locked to Jan 2017 onwards - some complexity to support legacy task lines for proposal / BD time has been removed*/
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SET DATEFIRST 6;
-DECLARE @StartDate Date = dateadd(month, -14, dateadd(day,1-day(GETDATE()),GETDATE()));
+DECLARE @StartDate Date = 
+    CASE 
+        -- If today is on or after 1st July of the current year, go back to 1st July of the prior year
+        WHEN MONTH(GETDATE()) &gt;= 7 
+        THEN DATEADD(year, -1, CAST('01 July ' + CAST(YEAR(GETDATE()) AS VARCHAR) AS DATE))
+        
+        -- If today is before 1st July of the current year, go back to 1st July of two years ago
+        ELSE DATEADD(year, -2, CAST('01 July ' + CAST(YEAR(GETDATE()) AS VARCHAR) AS DATE))
+    END;
+
 /*DECLARE @StartDate Date = DATEADD(month, -13, CAST(GETDATE() - DATEPART(DAY, GETDATE()) AS DATE));*/
 DECLARE @EndDate Date = DATEADD(DAY, -3, DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0));
 
@@ -53,11 +62,16 @@ SELECT
   ,CONCAT('Q', DATENAME(quarter, jle.[Posting Date]), ' ', DATENAME(yyyy, jle.[Posting Date])) AS [CQCY]
 ,  DATEADD(dd, -(DATEPART(dw, jle.[Posting Date])-1), jle.[Posting Date]) [WeekStart]
 ,  DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]) [WeekEnd]
-  ,CASE WHEN MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]))&lt;=8 THEN DATENAME(yyyy, DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]))
-	ELSE DATENAME(yyyy, DATEADD(year, 1,DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])))
-	END AS [BonusYear]
-  ,CASE WHEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]))+4) % 12 &gt;0 THEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]))+4) % 12 ELSE 12
-	END AS [BonusMonthNumber]
+  ,CASE 
+    WHEN MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])) &lt;= 6 
+    THEN DATENAME(yyyy, DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]))
+    ELSE DATENAME(yyyy, DATEADD(year, 1, DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])))
+END AS [BonusYear]
+  ,CASE 
+    WHEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])) + 6) % 12 &gt; 0 
+    THEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])) + 6) % 12 
+    ELSE 12 
+END AS [BonusMonthNumber]
   ,DATEPART(iso_week, jle.[Posting Date]) AS WEEKNUM
   ,jle.[Description]
   ,jle.Type
@@ -78,7 +92,7 @@ SELECT
   ,wt.[Ordering]
   ,wt.[TimeCat]
   ,CASE
-    WHEN jle.[Work Type Code] LIKE 'BILL%' THEN [Quantity (Base)]
+    WHEN jle.[Work Type Code] IN ('BILLHR','BILLDAY','BILLHR-TR','BILLDAY-TR') THEN [Quantity (Base)]
     ELSE NULL
   END AS [BILLHR]
   ,CASE
@@ -86,16 +100,12 @@ SELECT
     ELSE NULL
   END AS [BD-PROP]
   ,CASE
-    WHEN jle.[Work Type Code] IN ('AL-DAY', 'PUBLIC-DAY') THEN [Quantity (Base)]
-    WHEN jle.[Work Type Code] = 'APPTD' AND jle.[Quantity (Base)] &lt;= 9 THEN jle.[Quantity (Base)]
-    WHEN jle.[Work Type Code] = 'APPTD' AND jle.[Quantity (Base)] &gt; 9 THEN 9
+    WHEN jle.[Work Type Code] IN ('AL-DAY', 'LSL-DAY') THEN [Quantity (Base)]
     ELSE NULL
   END AS [Adjustments]
   ,CASE
-    WHEN jle.[Work Type Code] LIKE 'BILL%' THEN [Quantity (Base)]
-    WHEN jle.[Work Type Code] IN ('AL-DAY', 'PUBLIC-DAY') THEN [Quantity (Base)]
-    WHEN jle.[Work Type Code] = 'APPTD' AND jle.[Quantity (Base)] &lt;= 9 THEN jle.[Quantity (Base)]
-    WHEN jle.[Work Type Code] = 'APPTD' AND jle.[Quantity (Base)] &gt; 9 THEN 9
+    WHEN jle.[Work Type Code] IN ('BILLHR','BILLDAY','BILLHR-TR','BILLDAY-TR') THEN [Quantity (Base)]
+    WHEN jle.[Work Type Code] IN ('AL-DAY', 'LSL-DAY') THEN [Quantity (Base)]
     ELSE NULL
   END AS [AdjustedBILLHR]
   ,null AS [Capacity]
@@ -132,11 +142,16 @@ SELECT
   ,CONCAT('Q', DATENAME(quarter, jle.[Posting Date]), ' ', DATENAME(yyyy, jle.[Posting Date])) AS [CQCY]
 ,  DATEADD(dd, -(DATEPART(dw, jle.[Posting Date])-1), jle.[Posting Date]) [WeekStart]
 ,  DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]) [WeekEnd]
-  ,CASE WHEN MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]))&lt;=8 THEN DATENAME(yyyy, DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]))
-	ELSE DATENAME(yyyy, DATEADD(year, 1,DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])))
-	END AS [BonusYear]
-  ,CASE WHEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]))+4) % 12 &gt;0 THEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]))+4) % 12 ELSE 12
-	END AS [BonusMonthNumber]
+  ,CASE 
+    WHEN MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])) &lt;= 6 
+    THEN DATENAME(yyyy, DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]))
+    ELSE DATENAME(yyyy, DATEADD(year, 1, DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])))
+END AS [BonusYear]
+  ,CASE 
+    WHEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])) + 6) % 12 &gt; 0 
+    THEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])) + 6) % 12 
+    ELSE 12 
+END AS [BonusMonthNumber]
   ,DATEPART(iso_week, jle.[Posting Date]) AS WEEKNUM
   ,jle.[Description]
   ,jle.Type
@@ -156,24 +171,21 @@ SELECT
   ,wt.[WorkTypeDescription]
   ,wt.[Ordering]
   ,wt.[TimeCat]
-,CASE
-    WHEN jle.[Work Type Code] LIKE 'BILL%' THEN [Quantity (Base)]
+  ,CASE
+    WHEN jle.[Work Type Code] IN ('BILLHR','BILLDAY','BILLHR-TR','BILLDAY-TR') THEN [Quantity (Base)]
     ELSE NULL
   END AS [BILLHR]
-    ,CASE
+  ,CASE
     WHEN jle.[Work Type Code] IN ('PROPOSAL', 'BUSDEV') THEN [Quantity (Base)]
     ELSE NULL
   END AS [BD-PROP]
-    ,CASE
-    WHEN jle.[Work Type Code] IN ('AL-DAY', 'PUBLIC-DAY') THEN [Quantity (Base)]
-    WHEN jle.[Work Type Code] = 'APPTD' AND jle.[Quantity (Base)] &lt;= 9 THEN jle.[Quantity (Base)]
-    WHEN jle.[Work Type Code] = 'APPTD' AND jle.[Quantity (Base)] &gt; 9 THEN 9
+  ,CASE
+    WHEN jle.[Work Type Code] IN ('AL-DAY', 'LSL-DAY') THEN [Quantity (Base)]
+    ELSE NULL
   END AS [Adjustments]
   ,CASE
-    WHEN jle.[Work Type Code] LIKE 'BILL%' THEN [Quantity (Base)]
-    WHEN jle.[Work Type Code] IN ('AL-DAY', 'PUBLIC-DAY') THEN [Quantity (Base)]
-    WHEN jle.[Work Type Code] = ('APPTD') AND jle.[Quantity (Base)] &lt;= 9 THEN jle.[Quantity (Base)]
-    WHEN jle.[Work Type Code] = ('APPTD') AND jle.[Quantity (Base)] &gt; 9 THEN 9
+    WHEN jle.[Work Type Code] IN ('BILLHR','BILLDAY','BILLHR-TR','BILLDAY-TR') THEN [Quantity (Base)]
+    WHEN jle.[Work Type Code] IN ('AL-DAY', 'LSL-DAY') THEN [Quantity (Base)]
     ELSE NULL
   END AS [AdjustedBILLHR]
     ,null AS [Capacity]
@@ -209,11 +221,16 @@ CONCAT(DATENAME(month, Date), ' ', DATENAME(yyyy, Date)) AS [CMCY],
 CONCAT('Q', DATENAME(quarter, Date), ' ', DATENAME(yyyy, Date)) AS [CQCY],
 DATEADD(dd, -(DATEPART(dw, [Date])-1), [Date]) [WeekStart],
 DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]) [WeekEnd],
-CASE WHEN MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]))&lt;=8 THEN DATENAME(yyyy, DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]))
-	ELSE DATENAME(yyyy, DATEADD(year, 1,DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date])))
-	END AS [BonusYear],
-CASE WHEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]))+4) % 12 &gt;0 THEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]))+4) % 12 ELSE 12
-	END AS [BonusMonthNumber],
+CASE 
+    WHEN MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date])) &lt;= 6 
+    THEN DATENAME(yyyy, DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]))
+    ELSE DATENAME(yyyy, DATEADD(year, 1, DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date])))
+END AS [BonusYear],
+CASE 
+    WHEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date])) + 6) % 12 &gt; 0 
+    THEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date])) + 6) % 12 
+    ELSE 12 
+END AS [BonusMonthNumber],
 
 DATEPART(iso_week, [Date]) AS WEEKNUM,
 null AS Description,
@@ -266,11 +283,16 @@ CONCAT(DATENAME(month, Date), ' ', DATENAME(yyyy, Date)) AS [CMCY],
 CONCAT('Q', DATENAME(quarter, Date), ' ', DATENAME(yyyy, Date)) AS [CQCY],
 DATEADD(dd, -(DATEPART(dw, [Date])-1), [Date]) [WeekStart],
 DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]) [WeekEnd],
-CASE WHEN MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]))&lt;=8 THEN DATENAME(yyyy, DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]))
-	ELSE DATENAME(yyyy, DATEADD(year, 1,DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date])))
-	END AS [BonusYear],
-CASE WHEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]))+4) % 12 &gt;0 THEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]))+4) % 12 ELSE 12
-	END AS [BonusMonthNumber],
+CASE 
+    WHEN MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date])) &lt;= 6 
+    THEN DATENAME(yyyy, DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date]))
+    ELSE DATENAME(yyyy, DATEADD(year, 1, DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date])))
+END AS [BonusYear],
+CASE 
+    WHEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date])) + 6) % 12 &gt; 0 
+    THEN (MONTH(DATEADD(dd, 7-(DATEPART(dw, [Date])), [Date])) + 6) % 12 
+    ELSE 12 
+END AS [BonusMonthNumber],
 DATEPART(iso_week, [Date]) AS WEEKNUM,
 null AS Description,
 null AS Type,

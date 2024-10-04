@@ -11,7 +11,7 @@ No_,
 [Global Dimension 2 Code],
 [Employment Date]
 FROM [Palaris$Resource] res
-WHERE [Resource Group No_] IN ('GEN', 'GENC')
+WHERE [Resource Group No_] IN ('GEN', 'GENC', 'INT')
 AND [Blocked] = 0
 ORDER BY Name</CommandText>
       <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
@@ -39,5 +39,5 @@ ORDER BY Name</CommandText>
       </Field>
     </Fields>
   </DataSet>
-  <rd:ReportServerUrl>http://pmntlsql1/reportserver</rd:ReportServerUrl>
+  <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
 </SharedDataSet>

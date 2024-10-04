@@ -42,7 +42,7 @@ select * from cte_last_24_months</CommandText>
     </DataSet>
     <DataSet Name="ActiveResources">
       <SharedDataSet>
-        <SharedDataSetReference>/Subreports/To Delete/ActiveResources</SharedDataSetReference>
+        <SharedDataSetReference>/Subreports/ActiveResources</SharedDataSetReference>
         <rd:ReportServerUrl>http://pmntlsql1/ReportServer</rd:ReportServerUrl>
       </SharedDataSet>
       <Fields>
@@ -57,6 +57,14 @@ select * from cte_last_24_months</CommandText>
         <Field Name="Time_Sheet_Owner_User_ID">
           <DataField>Time_Sheet_Owner_User_ID</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Global_Dimension_2_Code">
+          <DataField>Global_Dimension_2_Code</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Employment_Date">
+          <DataField>Employment_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -339,9 +347,9 @@ FROM cte_financial_years;
 
 --Declaration for testing, remove for SSRS
 --DECLARE @ResourceNo varchar(5)
---SET @ResourceNo = 'R7711';
+--SET @ResourceNo = 'R8023';
 
-WITH Employee AS (
+WITH Employees AS (
     SELECT 
         No_,
         CONCAT('R', emp.No_) AS ResourceNo,
@@ -352,7 +360,35 @@ WITH Employee AS (
         [Palaris$Employee] emp
     WHERE 
         @ResourceNo = CONCAT('R', emp.No_)
+        AND [Employment Date] != '1753-01-01'
+    
+    UNION ALL
+    
+    SELECT 
+        No_,
+        CONCAT('R', emp.No_) AS ResourceNo,
+        [Employment Date],
+        FORMAT([Employment Date], 'MMMM yyyy') AS [Employment Month],
+        DATEADD(month, 1, DATEFROMPARTS(YEAR([Employment Date]), MONTH([Employment Date]), 1)) AS [BonusStartDate]
+
+    FROM 
+        [Palaris Europe Limited$Employee] emp
+    WHERE 
+        @ResourceNo = CONCAT('R', emp.No_)
+        AND [Employment Date] != '1753-01-01'
 ),
+
+Employee AS (
+    SELECT DISTINCT
+        No_,
+        CONCAT('R', emp.No_) AS ResourceNo,
+        [Employment Date],
+        FORMAT([Employment Date], 'MMMM yyyy') AS [Employment Month],
+        DATEADD(month, 1, DATEFROMPARTS(YEAR([Employment Date]), MONTH([Employment Date]), 1)) AS [BonusStartDate]
+
+    FROM Employees emp
+),
+
 BonusYearData AS (
     SELECT
         jle.[Job No_],
@@ -371,7 +407,7 @@ BonusYearData AS (
         END AS [AdjustedBILLHR]
     FROM [Palaris$Job Ledger Entry] jle
     CROSS APPLY (
-        SELECT [BonusStartDate] FROM Employee WHERE Employee.ResourceNo = @ResourceNo
+        SELECT [BonusStartDate] FROM Employee
     ) empData
     WHERE
         jle.[Entry Type] = 0
@@ -386,6 +422,40 @@ BonusYearData AS (
         END)
         -- Cutoff to the last Friday
         AND DATEADD(DAY, -2, DATEADD(WEEK, DATEDIFF(WEEK, 6, GETDATE()), 6))
+UNION ALL
+    SELECT
+        jle.[Job No_],
+        jle.[Posting Date] AS [Date],
+        CASE 
+            WHEN MONTH(DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])) &lt;= 6 
+            THEN DATENAME(yyyy, DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date]))
+            ELSE DATENAME(yyyy, DATEADD(year, 1, DATEADD(dd, 7-(DATEPART(dw, jle.[Posting Date])), jle.[Posting Date])))
+        END AS [BonusYear],
+        CONCAT('Week ', DATEPART(iso_week, jle.[Posting Date]), ' ', DATENAME(yyyy, jle.[Posting Date])) AS [WeekYear],
+        DATEPART(iso_week, jle.[Posting Date]) AS [WeekNumber],
+        CASE
+            WHEN jle.[Work Type Code] IN ('BILLHR','BILLDAY','BILLHR-TR','BILLDAY-TR') THEN [Quantity (Base)]
+            WHEN jle.[Work Type Code] IN ('AL-DAY', 'LSL-DAY') THEN [Quantity (Base)]
+            ELSE NULL
+        END AS [AdjustedBILLHR]
+    FROM [Palaris Europe Limited$Job Ledger Entry] jle
+    CROSS APPLY (
+        SELECT [BonusStartDate] FROM Employee
+    ) empData
+    WHERE
+        jle.[Entry Type] = 0
+        AND jle.[No_] = @ResourceNo
+        AND jle.[Type] = 0
+        AND jle.[Posting Date] &gt;= empData.[BonusStartDate]  -- Filter entries from Bonus Start Date onwards
+        AND jle.[Posting Date] BETWEEN 
+        (CASE 
+            WHEN MONTH(GETDATE()) &gt;= 7 
+            THEN DATEADD(year, -1, CAST('01 July ' + CAST(YEAR(GETDATE()) AS VARCHAR) AS DATE))
+            ELSE DATEADD(year, -2, CAST('01 July ' + CAST(YEAR(GETDATE()) AS VARCHAR) AS DATE))
+        END)
+        -- Cutoff to the last Friday
+        AND DATEADD(DAY, -2, DATEADD(WEEK, DATEDIFF(WEEK, 6, GETDATE()), 6))
+
 )
 
 SELECT
@@ -2601,7 +2671,7 @@ WHERE [No_] = 'XXXXXX'</CommandText>
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>Weekly Guide / Annual Target: 
+                        <Value>Weekly Target / Annual Target: 
 </Value>
                         <Style>
                           <FontStyle>Italic</FontStyle>
@@ -2655,7 +2725,7 @@ GMs, Managers and part time team members will have an adjusted target.</Value>
                   <Border>
                     <Style>None</Style>
                   </Border>
-                  <VerticalAlign>Bottom</VerticalAlign>
+                  <VerticalAlign>Top</VerticalAlign>
                   <PaddingLeft>6pt</PaddingLeft>
                   <PaddingRight>6pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -4415,10 +4485,10 @@ GMs, Managers and part time team members will have an adjusted target.</Value>
                   <Border>
                     <Style>None</Style>
                   </Border>
-                  <VerticalAlign>Bottom</VerticalAlign>
+                  <VerticalAlign>Top</VerticalAlign>
                   <PaddingLeft>6pt</PaddingLeft>
                   <PaddingRight>6pt</PaddingRight>
-                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingTop>4pt</PaddingTop>
                   <PaddingBottom>2pt</PaddingBottom>
                 </Style>
               </Textbox>

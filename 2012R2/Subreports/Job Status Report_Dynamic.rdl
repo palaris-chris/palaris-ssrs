@@ -183,7 +183,7 @@ EXEC sp_executesql @SqlQuery, N'@JobNo_ NVARCHAR(20), @DatabaseName NVARCHAR(50)
 	Fields!Work_Type.Value = "CONTINGNCY", "CONTINGENCY",
 	Fields!No_.Value = "R9998", "CONTINGENCY",
 	Fields!No_.Value = "51150" OR Fields!No_.Value="51160", "SUBCONTRACTOR",
-	Fields!Resource_Group_No_.Value = "SUB", "SUBCONTRACTOR",
+	Fields!Resource_Group_No_.Value = "SUB", "SUBCONTRACTOR-"&amp;Fields!Work_Type.Value,
 	Fields!Work_Type.Value="", "EXPENSES",
 	Fields!Work_Type.Value="PAY", "OTHER",
 	Fields!Work_Type.Value&lt;&gt;"", Fields!Work_Type.Value
@@ -8961,7 +8961,6 @@ Parameters!Currency.Value &lt;&gt; "AUD",
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
-                            <rd:Selected>true</rd:Selected>
                           </CellContents>
                         </TablixCell>
                         <TablixCell>

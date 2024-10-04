@@ -33,8 +33,8 @@ SELECT
  ,jle.[Unit of Measure Code] AS [Unit]
  ,jle.[Work Type Code] AS [Work Type]
  ,CASE WHEN res.[Resource Group No_] IN ('GEN', 'GENC')
- THEN res.[Global Dimension 2 Code]
- ELSE job.[Global Dimension 2 Code]
+ THEN LEFT(res.[Global Dimension 2 Code],3)
+ ELSE LEFT(job.[Global Dimension 2 Code],3)
 END AS BUG
  ,jle.[Entry Type] as [Line Type]
  ,ven.name AS [Vendor]
@@ -84,8 +84,8 @@ WHERE
  ,jpl.[Unit of Measure Code] AS [Unit]
  ,jpl.[Work Type Code] AS [Work Type]
  ,CASE WHEN res.[Resource Group No_] IN ('GEN', 'GENC')
- THEN res.[Global Dimension 2 Code]
- ELSE job.[Global Dimension 2 Code]
+ THEN LEFT(res.[Global Dimension 2 Code],3)
+ ELSE LEFT(job.[Global Dimension 2 Code],3)
 END AS BUG
  ,jpl.[Schedule Line] AS [Line Type]
  ,ven.Name AS [Vendor]
@@ -139,7 +139,10 @@ SELECT
  ,jle.[Quantity (Base)] AS [Qty]
  ,jle.[Unit of Measure Code] AS [Unit]
  ,jle.[Work Type Code] AS [Work Type]
- ,'PEL' as [BUG]
+ ,CASE WHEN res.[Resource Group No_] IN ('GEN', 'GENC')
+ THEN LEFT(res.[Global Dimension 2 Code],3)
+ ELSE LEFT(job.[Global Dimension 2 Code],3)
+END AS BUG
  ,jle.[Entry Type] as [Line Type]
  ,ven.Name AS Vendor
  ,res.[Resource Group No_]
@@ -186,7 +189,10 @@ WHERE
  ,jpl.[Quantity (Base)] AS [Qty]
  ,jpl.[Unit of Measure Code] AS [Unit]
  ,jpl.[Work Type Code] AS [Work Type]
- ,'PEL' as [BUG]
+ ,CASE WHEN res.[Resource Group No_] IN ('GEN', 'GENC')
+ THEN LEFT(res.[Global Dimension 2 Code],3)
+ ELSE LEFT(job.[Global Dimension 2 Code],3)
+END AS BUG
  ,jpl.[Schedule Line] AS [Line Type]
  ,ven.[Name] AS Vendor
  ,res.[Resource Group No_]
@@ -316,7 +322,7 @@ END AS 'ActiveActual'
 ,CASE WHEN [Status] IN ('Proposal Sent', 'Followed Up') THEN [ZOHOTIME]
 ELSE null 
 END AS 'ProposalSent'
-,CASE WHEN [Status] IN ('Parked', 'Scoping', 'Proposal Dev') THEN [ZOHOTIME]
+,CASE /*WHEN [Status] IN ('Parked', 'Scoping', 'Proposal Dev') THEN [ZOHOTIME]*/
 WHEN [Status] = 'Job On Hold' THEN ([PROPTIME]-[USETIME])
 ELSE null 
 END AS 'ParkedOther'
@@ -438,7 +444,7 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
                 <TablixBody>
                   <TablixColumns>
                     <TablixColumn>
-                      <Width>2.5cm</Width>
+                      <Width>1.97083cm</Width>
                     </TablixColumn>
                     <TablixColumn>
                       <Width>1.865cm</Width>
@@ -475,7 +481,7 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Opp Parked / Job On Hold</Value>
+                                      <Value>Job On Hold</Value>
                                       <Style>
                                         <FontWeight>Bold</FontWeight>
                                         <Color>White</Color>
@@ -2604,6 +2610,15 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
                                 <GroupExpressions>
                                   <GroupExpression>=Fields!Job_No_.Value</GroupExpression>
                                 </GroupExpressions>
+                                <Filters>
+                                  <Filter>
+                                    <FilterExpression>=Sum(Fields!Remaining.Value)+Sum(Fields!ProposalSent.Value)</FilterExpression>
+                                    <Operator>NotEqual</Operator>
+                                    <FilterValues>
+                                      <FilterValue DataType="Integer">0</FilterValue>
+                                    </FilterValues>
+                                  </Filter>
+                                </Filters>
                               </Group>
                               <TablixHeader>
                                 <Size>3.02917cm</Size>
@@ -2930,11 +2945,18 @@ Fields!DB.Value="PEL", "Palaris Europe")</Value>
                       <FilterValue>=Parameters!BU.Value</FilterValue>
                     </FilterValues>
                   </Filter>
+                  <Filter>
+                    <FilterExpression>=Fields!BUG.Value</FilterExpression>
+                    <Operator>NotEqual</Operator>
+                    <FilterValues>
+                      <FilterValue>PEX</FilterValue>
+                    </FilterValues>
+                  </Filter>
                 </Filters>
                 <Top>0.17727cm</Top>
                 <Left>0.29104cm</Left>
                 <Height>4.07128cm</Height>
-                <Width>36.28173cm</Width>
+                <Width>35.75256cm</Width>
                 <Style>
                   <Border>
                     <Style>Solid</Style>
